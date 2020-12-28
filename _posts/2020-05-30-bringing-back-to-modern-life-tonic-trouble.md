@@ -1,8 +1,10 @@
 ---
 layout: post
 title: Bringing back to modern life – Tonic Trouble
+description: Develop a solution to give new life to an old title in modern times.
 ---
 
+# Introduction
 Some old games tend to be a bit tricky to make work on modern systems, and ~~Rayman 2~~ **Tonic Trouble** is no exception. May it be because the game itself, or some of its dependencies, always something holds it back from working, and it’s job of the community and fans (or just people interested in it) to bring it back to the modern technological life.
 
 <br>
