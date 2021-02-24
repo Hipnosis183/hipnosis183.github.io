@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     {% if page.external-url %}
@@ -20,6 +21,9 @@ layout: default
   pre,
   code {
     font-size: 16px;
+  }
+  .highlight pre {
+    white-space: pre-wrap;
   }
   .center-image {
     margin: 0 auto;

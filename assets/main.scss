@@ -3,8 +3,8 @@
 @charset "utf-8";
 
 // Our variables
-$base-font-family: "Noto Sans JP";
-$monospace-font-family: monospace;
+$base-font-family: "Google Sans";
+$monospace-font-family: "Monaco";
 $base-font-size:   18px;
 $base-font-weight: 400;
 $small-font-size:  $base-font-size * 0.875;
@@ -23,16 +23,8 @@ $grey-color-dark:  darken($grey-color, 20%);
 // Width of the content area
 $content-width:    1000px;
 $on-laptop:        1000px;
-$on-palm:          600px;
 
 // whiteglass also includes a mixin for defining media queries.
-// Use media queries like this:
-// @include media-query($on-palm) {
-//     .wrapper {
-//         padding-right: $spacing-unit / 2;
-//         padding-left: $spacing-unit / 2;
-//     }
-// }
 @mixin media-query($device) {
   @media screen and (max-width: $device) {
     @content;

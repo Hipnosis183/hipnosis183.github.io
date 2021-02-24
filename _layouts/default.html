@@ -2,19 +2,18 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
 {% include head.html %}
-
 <body>
-
   {% include header.html %}
-
   <main class="page-content" aria-label="Content">
     <div class="wrapper">
-      <p><br></p> {{ content }}
+      <br> {{ content }}
     </div>
   </main>
-
   {% include footer.html %}
-
 </body>
+
+<style>
+  body { margin: 10px; }
+</style>
 
 </html>
