@@ -1,7 +1,10 @@
+<button class="dark-btn" onclick="document.body.classList.toggle('dark')">
+  <span class="material-icons">mode_night</span>
+</button>
+
 <header class="site-header">
   <div class="wrapper">
-    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-
+    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>    
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
       {% if link.url contains "http" %}
@@ -22,6 +25,21 @@
   .site-title {
     font-size: 30px;
   }
+  .dark-btn{
+    color: #ffffff;
+    background: #111111;
+    margin: 20px 20px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: 10px 10px 4px;
+    position:fixed;
+    bottom:0px;
+    right:0px;
+  }
+  .material-icons {
+    transform: rotate(30deg);
+  }
 </style>
 
 <style type="text/css" media="screen and (max-width: 700px)">
@@ -29,18 +47,27 @@
     display: block;
     float: none;
     text-align: center;
+    line-height: 40px;
+    padding-top: 20px;
   }
   .site-title {
     display: block;
     float: none;
     text-align: center;
   }
-  .site-nav .page-link, .site-nav .page-link:not(:last-child) {
+  .site-nav .page-link,
+  .site-nav .page-link:not(:last-child) {
     padding: 20px 10px;
     margin-left: 0px;
     margin-right: 0px;
   }
-  .site-nav a, .site-nav a:visited, .site-nav a:hover, .site-nav a:active {
+  .site-nav a,
+  .site-nav a:visited,
+  .site-nav a:hover,
+  .site-nav a:active {
     color: inherit;
+  }
+  .page-content {
+    padding: 0px;
   }
 </style>
