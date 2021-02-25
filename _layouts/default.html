@@ -15,7 +15,7 @@
 <style type="text/css" media="screen">
   body {
     margin: 10px;
-    transition: all 1s ease-in;
+    transition: background 1s ease-in, color 1s ease-in;
   }
   .dark {
     color: #ffffff;
@@ -42,6 +42,55 @@
     color: #111111;
     background: #ffffff;
   }
+  .collapsible {
+    display: none;
+  }
+  .content {
+    display: block;
+  }
 </style>
+
+<style type="text/css" media="screen and (max-width: 700px)">
+  .collapsible {
+    display: block;
+    background-color: #111111;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    text-align: center;
+    font-family: inherit;
+  }
+  .active,
+  .collapsible:hover {
+    background-color: #424242;
+  }
+  .content {
+    display: none;
+  }
+  .dark .collapsible {
+    color: #111111;
+    background-color: #ffffff;
+  }
+  .dark .active,
+  .dark .collapsible:hover {
+    background-color: #757575;
+  }
+</style>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+
+  for (var i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = document.getElementById(this.id + "-data");
+      content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+  }
+</script>
 
 </html>

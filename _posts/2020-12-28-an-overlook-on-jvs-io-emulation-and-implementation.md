@@ -76,18 +76,18 @@ In the case of eX-BOARD games, those were delivered in **IDE cartridges**, being
 
 <br>
 
+<button id="code-0" class="collapsible">Press to see the code</button>
+
+<div id="code-0-data" class="content" markdown="1">
 {% highlight cpp %}
 BOOL APIENTRY HookFunctions()
-{
     // eX-BOARD software function hooks.
-    HGetKeyLicense = (LPGetKeyLicense)HookIt("IpgExKey.dll", "_GetKeyLicense@0", Hook_GetKeyLicense);
-}
+    HGetKeyLicense = HookIt("IpgExKey.dll", "_GetKeyLicense@0", Hook_GetKeyLicense);
 
 INT APIENTRY Hook_GetKeyLicense(VOID)
-{
     return 1;
-}
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Function hook in XB-Monitor+
@@ -149,9 +149,11 @@ Since the JVS I/O board is connected into the COM2 port, we need a **fake COM de
 
 <br>
 
+<button id="code-1" class="collapsible">Press to see the code</button>
+
+<div id="code-1-data" class="content" markdown="1">
 {% highlight cpp %}
-BOOL APIENTRY HookFunctions()
-{
+BOOL APIENTRY HookFunctions() {
     // Communications devices function hooks.
     HOOK("kernel32.dll", ClearCommError, H, LP, Hook);
     HOOK("kernel32.dll", CloseHandle, H, LP, Hook);
@@ -165,6 +167,7 @@ BOOL APIENTRY HookFunctions()
     HOOK("kernel32.dll", SetupComm, H, LP, Hook);
 }
 {% endhighlight %}
+</div>
 
 <br>
 
@@ -174,25 +177,25 @@ Besides the fake COM device, we also need a *true input layer*, which then we ca
 
 <br>
 
+<button id="code-2" class="collapsible">Press to see the code</button>
+
+<div id="code-2-data" class="content" markdown="1">
 {% highlight cpp %}
 // Prevents the games of having access to input devices.
-HRESULT APIENTRY Fake_DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter)
-{
-    if (DIMagicCall) // Flag to make a true DInput device after the fake one was already created.
-    {
+HRESULT APIENTRY Fake_DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter) {
+    // Flag to make a true DInput device after the fake one was already created.
+    if (DIMagicCall)
         // Passthrough to create a normal DInput device
         return FDirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
-    }
-
-    else
-    {
+    else {
         *ppvOut = (LPVOID)pFakeInterface;
         punkOuter = NULL;
-
-        return DI_OK; // Return a device which returns null when GetState() is called, thus no inputs are registered.
+        // This device returns null when GetState() is called, thus no inputs are registered.
+        return DI_OK;
     }
 }
 {% endhighlight %}
+</div>
 
 <br>
 
@@ -200,45 +203,44 @@ The DInput initialization behaves as normal, the devices are enumerated, acquire
 
 <br>
 
+<button id="code-3" class="collapsible">Press to see the code</button>
+
+<div id="code-3-data" class="content" markdown="1">
 {% highlight cpp %}
 // Check for a joystick command.
-if (IS_JOY_OBJECT(InValue))
-{
+if (IS_JOY_OBJECT(InValue)) {
     // Check joystick axes and buttons.
 }
-
 // Check for keyboard commands.
-else
-{
+else {
     int Button = GET_JOY_BUT(InValue);
     StateTable[i] = JoyState[JoyNumber].rgbButtons[Button] & 0x80 ? 1 : 0;
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Check if the polled key is pressed and set the corresponding flag in the array
 
 <br>
 
+<button id="code-4" class="collapsible">Press to see the code</button>
+
+<div id="code-4-data" class="content" markdown="1">
 {% highlight cpp %}
 // Controller status. Command SWINP.
-case 0x20:
-{
-    JVS.Report(JVS_REPORT_OK);
-
+case 0x20: {
     // Push to byte 0.
     JVS.bPush(InputMgr.GetState(TEST_MODE) ? 0x80 : 0);
-
     // Push to bytes 1 and 2.
     JVS.bPush(InInfo.Xp1HiByte());
     JVS.bPush(InInfo.Xp1LoByte());
     JVS.bPush(InInfo.Xp2HiByte());
     JVS.bPush(InInfo.Xp2LoByte());
-
-    Increment = 3;
     break;
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Then the JVS polling will get the state of the input table and process it
@@ -249,57 +251,45 @@ When the fake JVS detects the flag, it sets the *bit* in the corresponding *byte
 
 <br>
 
-{% highlight cpp %}
-BYTE Xp1HiByte()
-{
-    BYTE Byte = 0;
+<button id="code-5" class="collapsible">Press to see the code</button>
 
+<div id="code-5-data" class="content" markdown="1">
+{% highlight cpp %}
+BYTE Xp1HiByte() {
+    BYTE Byte = 0;
     if (InputMgr.GetState(P1_START))
         Byte |= 0x80;
-
     if (InputMgr.GetState(P1_SERVICE))
         Byte |= 0x40;
-
     if (InputMgr.GetState(P1_UP))
         Byte |= 0x20;
-
     if (InputMgr.GetState(P1_DOWN))
         Byte |= 0x10;
-
     if (InputMgr.GetState(P1_RIGHT))
         Byte |= 0x04;
-
     if (InputMgr.GetState(P1_LEFT))
         Byte |= 0x08;
-
     if (InputMgr.GetState(P1_BUTTON_1))
         Byte |= 0x02;
-
     if (InputMgr.GetState(P1_BUTTON_2))
         Byte |= 0x01;
-
     return Byte;
 }
 
-BYTE Xp1LoByte()
-{
+BYTE Xp1LoByte() {
     BYTE Byte = 0;
-
     if (InputMgr.GetState(P1_BUTTON_3))
         Byte |= 0x80;
-
     if (InputMgr.GetState(P1_BUTTON_4))
         Byte |= 0x40;
-
     if (InputMgr.GetState(P1_BUTTON_5))
         Byte |= 0x20;
-
     if (InputMgr.GetState(P1_BUTTON_6))
         Byte |= 0x10;
-
     return Byte;
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Setting up the first 2 bytes, which belong to P1's inputs.
@@ -324,9 +314,13 @@ First, *controls*. The *deadzone* values for the axis were *too* low, so in mode
 
 <br>
 
+<button id="code-6" class="collapsible">Press to see the code</button>
+
+<div id="code-6-data" class="content" markdown="1">
 {% highlight cpp %}
-#define DEADZONE              500 // (MAX_AXIS_VAL / DEADZONE_DIV)
+#define DEADZONE 500 /*(MAX_AXIS_VAL / DEADZONE_DIV)*/
 {% endhighlight %}
+</div>
 
 {: .center-text }
 The new deadzone value (500), with the old implementation commented out (10)
@@ -337,80 +331,65 @@ In the function for input pooling, only the left axis (`AxisL`) and buttons were
 
 <br>
 
+<button id="code-7" class="collapsible">Press to see the code</button>
+
+<div id="code-7-data" class="content" markdown="1">
 {% highlight cpp %}
 // Axis definitions.
-#define AXIS_X                1
-#define AXIS_Y                2
-#define AXIS_Z                3
-#define AXIS_RX               4
-#define AXIS_RY               5
-#define POVN                  10
-
+#define AXIS_X              1
+#define AXIS_Y              2
+#define AXIS_Z              3
+#define AXIS_RX             4
+#define AXIS_RY             5
+#define POVN                10
 // POVs definitions.
-#define POV_CENTER            -1
-#define POV_UP                0
-#define POV_UP_RIGHT          4500
-#define POV_RIGHT             9000
-#define POV_RIGHT_DOWN        13500
-#define POV_DOWN              18000
-#define POV_DOWN_LEFT         22500
-#define POV_LEFT              27000
-#define POV_LEFT_UP           31500
+#define POV_CENTER          -1
+#define POV_UP              0
+#define POV_UP_RIGHT        4500
+#define POV_RIGHT           9000
+#define POV_RIGHT_DOWN      13500
+#define POV_DOWN            18000
+#define POV_DOWN_LEFT       22500
+#define POV_LEFT            27000
+#define POV_LEFT_UP         31500
 
 // Polling of joystick axes and POVs.
-switch (GET_JOY_AXIS(InValue))
-{
-    case AXIS_X:
-    {
-        if (IS_NEGATIVE_AXIS(InValue))
-        {
-            if ((JoyState[JoyNumber].lX < -DEADZONE) || (mTable[CONFIG_POVASAXIS] && ((Direction == POV_LEFT) || (Direction == POV_DOWN_LEFT) || (Direction == POV_LEFT_UP))))
-            {
+switch (GET_JOY_AXIS(InValue)) {
+    case AXIS_X: {
+        if (IS_NEGATIVE_AXIS(InValue)) {
+            if ((JoyState[JoyNumber].lX < -DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
+            ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP))))
                 StateTable[i] = 1;
-            }
         }
-
-        else
-        {
-            if ((JoyState[JoyNumber].lX > DEADZONE) || (mTable[CONFIG_POVASAXIS] && ((Direction == POV_RIGHT) || (Direction == POV_UP_RIGHT) || (Direction == POV_RIGHT_DOWN))))
-            {
+        else {
+            if ((JoyState[JoyNumber].lX > DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
+            ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN))))
                 StateTable[i] = 1;
-            }
         }
-
         break;
     }
-
-    case POVN:
-    {
-        // To avoid problems, mapped POVs are disabled and forced to work as axis if PovAsAxis option is enabled.
-        if ((JoyState[JoyNumber].rgdwPOV[0] != -1) && !mTable[CONFIG_POVASAXIS])
-        {
-            if (GET_JOY_RANGE(InValue) == POV_UP && ((Direction == POV_UP) || (Direction == POV_UP_RIGHT) || (Direction == POV_LEFT_UP)))
-            {
+    case POVN: {
+        // To avoid problems, mapped POVs are disabled and
+        // forced to work as axis if PovAsAxis option is enabled.
+        if ((JoyState[JoyNumber].rgdwPOV[0] != -1) && !mTable[CONFIG_POVASAXIS]) {
+            if (GET_JOY_RANGE(InValue) == POV_UP &&
+            ((Dir == POV_UP) || (Dir == POV_UP_RIGHT) || (Dir == POV_LEFT_UP)))
                 StateTable[i] = 1;
-            }
-
-            if (GET_JOY_RANGE(InValue) == POV_RIGHT && ((Direction == POV_RIGHT) || (Direction == POV_UP_RIGHT) || (Direction == POV_RIGHT_DOWN)))
-            {
+            if (GET_JOY_RANGE(InValue) == POV_RIGHT &&
+            ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN)))
                 StateTable[i] = 1;
-            }
-
-            if (GET_JOY_RANGE(InValue) == POV_DOWN && ((Direction == POV_DOWN) || (Direction == POV_RIGHT_DOWN) || (Direction == POV_DOWN_LEFT)))
-            {
+            if (GET_JOY_RANGE(InValue) == POV_DOWN &&
+            ((Dir == POV_DOWN) || (Dir == POV_RIGHT_DOWN) || (Dir == POV_DOWN_LEFT)))
                 StateTable[i] = 1;
-            }
-
-            if (GET_JOY_RANGE(InValue) == POV_LEFT && ((Direction == POV_LEFT) || (Direction == POV_DOWN_LEFT) || (Direction == POV_LEFT_UP)))
-            {
+            if (GET_JOY_RANGE(InValue) == POV_LEFT &&
+            ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP)))
                 StateTable[i] = 1;
-            }
         }
-
         break;
     }
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Extract from the input polling function.
@@ -421,16 +400,18 @@ Now that we're done with controls, I’ll touch in some features that I thought 
 
 <br>
 
+<button id="code-8" class="collapsible">Press to see the code</button>
+
+<div id="code-8-data" class="content" markdown="1">
 {% highlight cpp %}
-HRESULT HookIDirect3D9::CreateDevice(LPVOID _this, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface)
-{
+HRESULT HookIDirect3D9::CreateDevice(LPVOID _this, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface) {
     pPresentationParameters->Windowed = FALSE;
     pPresentationParameters->BackBufferWidth = 640;
     pPresentationParameters->BackBufferHeight = 480;
-
     return pD3D->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 The important part of the wrapper
@@ -445,21 +426,20 @@ For eX-BOARD games is simple, since the data isn’t stored in the hard drive, b
 
 <br>
 
+<button id="code-9" class="collapsible">Press to see the code</button>
+
+<div id="code-9-data" class="content" markdown="1">
 {% highlight cpp %}
-VOID SaveSRAM()
-{
+VOID SaveSRAM() {
     FILE* Stream = NULL;
-    Stream = fopen(SRAM_NAME, "wb");
-
+    Stream = fopen(SRAM_NAME, "wb");    
     if (!Stream)
-    {
         return;
-    }
-
     fwrite(SRAM, 1, SRAM_SIZE, Stream);
     fclose(Stream);
 }
 {% endhighlight %}
+</div>
 
 <br>
 
@@ -467,121 +447,85 @@ But Type X is a different *beast*, that looks simple at first, but its implement
 
 <br>
 
+<button id="code-10" class="collapsible">Press to see the code</button>
+
+<div id="code-10-data" class="content" markdown="1">
 {% highlight cpp %}
 using namespace std::literals;
 
 // Beautiful recursion. Necessary for games which create subfolders for savedata.
-void CreateFolderA(CHAR* SaveFolder, CHAR* SaveSubFolderC)
-{
-    if (strcmp(SaveFolder, SaveSubFolderC) != 0)
-    {
+void CreateFolderA(CHAR* SaveFolder, CHAR* SaveSubFolderC) {
+    if (strcmp(SaveFolder, SaveSubFolderC) != 0) {
         CHAR SaveSubFolder[MAX_PATH];
         strcpy(SaveSubFolder, SaveSubFolderC);
         strrchr(SaveSubFolderC, '\\')[0] = '\0';
-
         CreateFolderA(SaveFolder, SaveSubFolderC);
-
         HCreateDirectoryA(SaveSubFolder, nullptr);
     }
-
     else
-    {
         HCreateDirectoryA(SaveFolder, nullptr);
-    }
 }
 
 BOOL APIENTRY Hook_CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes)
 {
-    if (mTable[CONFIG_SAVEPATCH])
-    {
+    if (mTable[CONFIG_SAVEPATCH]) {
         // Assuming that no Type X game store data in the C: drive. Excludes relative paths.
-        if ((lpPathName[0] != 'C' && lpPathName[0] != 'c') && lpPathName[1] == ':')
-        {
+        if ((lpPathName[0] != 'C' && lpPathName[0] != 'c') && lpPathName[1] == ':') {
             CHAR RootPath[MAX_PATH];
             GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
             strrchr(RootPath, '\\')[0] = '\0';
-
             std::string SavePath = RootPath + "\\sv\\"s;
-
             return HCreateDirectoryA(SavePath.c_str(), nullptr);
         }
     }
-
     return HCreateDirectoryA(lpPathName, lpSecurityAttributes);
 }
 
 HANDLE APIENTRY Hook_CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
 {
-    if (!strcmp(lpFileName, "COM2"))
-    {
-        if (!isInitialized)
-        {
-            InputMgr.Init();
-            isInitialized = 1;
-        }
-
-        return hConnection;
-    }
-
-    if (mTable[CONFIG_SAVEPATCH])
-    {
+    if (mTable[CONFIG_SAVEPATCH]) {
         // Assuming that no Type X game store data in the C: drive. Excludes relative paths.
-        if ((lpFileName[0] != 'C' && lpFileName[0] != 'c') && lpFileName[1] == ':')
-        {
+        if ((lpFileName[0] != 'C' && lpFileName[0] != 'c') && lpFileName[1] == ':') {
             // Get game working directory.
             CHAR RootPath[MAX_PATH];
             GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
-
             // Strip executable filename from path.
             strrchr(RootPath, '\\')[0] = '\0';
-
             std::string FilePath = lpFileName;
             // Forced to 3 to skip both slashes and backslashes.
             std::string FileName = FilePath.substr(3);
-
             // Get working directory lenght.
             int PathLenght = 0;
-
             for (int i = 0; i < MAX_PATH; i++)
-            {
-                if (RootPath[i] == '\0')
-                {
+                if (RootPath[i] == '\0') {
                   PathLenght = i;
                   break;
                 }
-            }
-
             // Exclude directory files. Avoids screwing up normal file operations.
-            if (strncmp(lpFileName, RootPath, PathLenght) != 0)
-            {
+            if (strncmp(lpFileName, RootPath, PathLenght) != 0) {
                 std::string SavePath = RootPath + "\\sv\\"s;
                 std::string SaveFile = SavePath + FileName;
-
                 std::string SaveSubFolderS = SaveFile.substr(0, SaveFile.length() - (FileName.length() - FileName.rfind('\\')));
-
                 CHAR SaveFolder[MAX_PATH];
                 strcpy(SaveFolder, (SavePath.substr(0, SavePath.length() - 1)).c_str());
-
                 CHAR SaveSubFolderC[MAX_PATH];
                 strcpy(SaveSubFolderC, SaveSubFolderS.c_str());
-
                 CreateFolderA(SaveFolder, SaveSubFolderC);
-
                 return HCreateFileA(SaveFile.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
             }
         }
     }
-
     return HCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 System function hooks for directory and file redirection
 
 <br>
 
-Something important to point out is that we only redirect file operations that aren’t relative to the current path. This way we don’t fuck up with the game trying to read its data files.
+Something important to point out is that we only redirect file operations that aren’t relative to the current path. This way we don’t fuck up with the games trying to read their own data files.
 
 <br>
 
@@ -600,72 +544,54 @@ While it sounded simple at first, it was quite challenging to implement correctl
 
 <br>
 
+<button id="code-11" class="collapsible">Press to see the code</button>
+
+<div id="code-11-data" class="content" markdown="1">
 {% highlight cpp %}
 // Only limitation is that if a key is mapped to a pointer of another key, both of those
 // can't be pressed at the same time. Example: 'A' is mapped to the 'A' key, and 'B' is
 // mapped to '1'. Both can't be pressed at the same time because 'A' points to '1'.
-void PollInputMulti(int ThreadNumber)
-{
-    for (;;)
-    {
+void PollInputMulti(int ThreadNumber) {
+    for (;;) {
         // +3 is the mahjong inputs offset.
-        if (InputMgr.GetState(ThreadNumber + 3))
-        {
+        if (InputMgr.GetState(ThreadNumber + 3)) {
             // Avoid the thread to process a key already being processed by another.
-            if (isPressed[ThreadNumber] == 0)
-            {
+            if (isPressed[ThreadNumber] == 0) {
                 isPressed[ThreadNumber] = 1;
-
                 INPUT Input = { 0 };
                 Input.type = INPUT_KEYBOARD;
                 Input.ki.wScan = MapVirtualKey(LOBYTE(VI_CODES[ThreadNumber]), 0);
-
                 // Value needed for the releasing of pointed keys.
                 int isPointer = 0xFF;
-
                 // Check if the key pressed has a pointer key.
                 for (int k = M_START; k < M_END; k++)
-                {
-                    if ((DIK_CODES[ThreadNumber] == iTable[k]))
-                    {
+                    if ((DIK_CODES[ThreadNumber] == iTable[k])) {
                         isPointer = k;
                         break;
                     }
-                }
-
                 if (isPointer != 0xFF)
-                {
                     isPressed[isPointer] = 2;
-                }
-
                 // SendInput loop.
-                while (InputMgr.GetState(ThreadNumber + 3))
-                {
+                while (InputMgr.GetState(ThreadNumber + 3)) {
                     Input.ki.dwFlags = KEYEVENTF_SCANCODE;
                     SendInput(1, &Input, sizeof(Input));
                     Sleep(10); // Pause necessary for the next key to be recognized.
                     Input.ki.dwFlags = KEYEVENTF_KEYUP;
                     SendInput(1, &Input, sizeof(Input));
                 }
-
                 // Wait for another thread to process and reject the last SendInput,
                 // in case the sent key pointed to an also mapped key.
                 Sleep(50);
-
                 if (isPointer != 0xFF)
-                {
                     isPressed[isPointer] = 0;
-                }
-
                 isPressed[ThreadNumber] = 0;
             }
         }
-
-        // Reduce the thread processing.
-        Sleep(20);
+        Sleep(20); // Reduce the thread processing.
     }
 }
 {% endhighlight %}
+</div>
 
 {: .center-text }
 Multi-threaded version of the polling algorithm
