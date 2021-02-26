@@ -2,6 +2,7 @@
 layout: post
 title: Bringing back to modern life – Tonic Trouble
 description: Develop a solution to give new life to an old title in modern times.
+thumb: /assets/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
 ---
 
 # Introduction
@@ -550,6 +551,7 @@ public static List<string> VersionLanguage = new List<string> {
     "English"
 };
 {% endhighlight %}
+</div>
 
 <br>
 
