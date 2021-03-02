@@ -2,7 +2,7 @@
 layout: post
 title: Bringing back to modern life – Tonic Trouble
 description: Develop a solution to give new life to an old title in modern times.
-thumb: /assets/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
+thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
 ---
 
 # Introduction
@@ -29,7 +29,7 @@ So, the Review English version is very particular. Unlike the others, this one, 
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/00.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/00.png){: .center-image }
 
 {: .center-text }
 How it looks (left), and how a normal section should look (right)
@@ -40,7 +40,7 @@ Ok, so now that we know this, let’s try to unpack it:
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/01.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/01.png){: .center-image }
 
 {: .center-text }
 Fuck.
@@ -79,7 +79,7 @@ With that, we start right away with Ghidra, and analyze the executable. We’re 
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/02.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/02.png){: .center-image }
 
 <br>
 
@@ -93,7 +93,7 @@ With this information, we do the exact same process with 2 new executables, the 
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/03.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/03.png){: .center-image }
 
 {: .center-text }
 Can you spot the difference?
@@ -104,7 +104,7 @@ Jokes aside, is literally the same code. Now, when we search it in the patched e
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/04.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/04.png){: .center-image }
 
 {: .center-text }
 Nice NOPs
@@ -117,7 +117,7 @@ Okay, let’s try *something stupid*. Let’s copy (adjust) the address block wi
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/05.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/05.png){: .center-image }
 
 {: .center-text }
 Surprise!
@@ -147,7 +147,7 @@ This process is very easy, we just find the offsets for those formatted values a
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/06.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/06.png){: .center-image }
 
 <br>
 
@@ -360,7 +360,7 @@ At the end, the application looks like this:
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/07.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/07.png){: .center-image }
 
 <br>
 
@@ -559,7 +559,7 @@ And now, this time for real, we're pretty much done. Every feature has been test
 
 <br>
 
-![](/assets/posts/bringing-back-to-modern-life-tonic-trouble/08.png){: .center-image }
+![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/08.png){: .center-image }
 
 <br>
 

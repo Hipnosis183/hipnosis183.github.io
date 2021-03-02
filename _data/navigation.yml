@@ -3,6 +3,8 @@
 main:
   - title: "Home"
     url: /
+  - title: "Portfolio"
+    url: /portfolio/
   - title: "GitHub"
     url: https://github.com/Hipnosis183
   - title: "DeviantArt"

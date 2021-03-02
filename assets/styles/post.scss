@@ -1,0 +1,70 @@
+---
+---
+
+$cl-white: #ffffff;
+$cl-dark: #111111;
+$cl-grey: #656565;
+
+@media screen {
+    /* Highlights and code boxes */
+    pre,
+    code {
+        font-size: 16px;
+    }
+    .highlight pre {
+        white-space: pre-wrap;
+    }
+    /* Images and their descriptions */
+    .center-image {
+        display: block;
+        margin: 0 auto;
+    }
+    .center-text {
+        color: $cl-grey;
+        font-style: italic;
+        text-align: center;
+    }
+    /* Header at the top of the post */
+    .post-block {
+        min-height: 210px;
+    }
+    .post-style {
+        background-image: var(--url);
+        -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+    }
+    /* Collapsible buttons and their content */
+    .collapsible {
+        display: none;
+    }
+    .content {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    /* Highlights and code boxes */
+    pre,
+    code {
+        font-size: 14px;
+    }
+    /* Collapsible buttons and their content */
+    .collapsible {
+        background-color: $cl-dark;
+        border: none;
+        color: $cl-white;
+        cursor: pointer;
+        display: block;
+        font-family: inherit;
+        font-size: 18px;
+        outline: none;
+        padding: 18px;
+        text-align: center;
+        width: 100%;
+    }
+    .active {
+        background-color: $cl-grey;
+    }
+    .content {
+        display: none;
+    }
+}

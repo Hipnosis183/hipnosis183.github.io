@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="wrapper">
-    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>    
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
       {% if link.url contains "http" %}
@@ -13,42 +13,3 @@
     </nav>
   </div>
 </header>
-
-<style type="text/css" media="screen">
-  .site-nav {
-    font-size: 20px;
-  }
-  .site-title {
-    font-size: 40px;
-  }
-</style>
-
-<style type="text/css" media="screen and (max-width: 700px)">
-  .site-nav {
-    display: block;
-    float: none;
-    text-align: center;
-    line-height: 40px;
-    padding-top: 20px;
-  }
-  .site-title {
-    display: block;
-    float: none;
-    text-align: center;
-  }
-  .site-nav .page-link,
-  .site-nav .page-link:not(:last-child) {
-    padding: 20px 10px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .site-nav a,
-  .site-nav a:visited,
-  .site-nav a:hover,
-  .site-nav a:active {
-    color: inherit;
-  }
-  .page-content {
-    padding: 0px;
-  }
-</style>

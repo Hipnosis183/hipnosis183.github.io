@@ -2,7 +2,7 @@
 layout: post
 title: An overlook on JVS I/O emulation and implementation
 description: How we get to run PC-based arcade software at home, and expanding on what already exists.
-thumb: /assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
+thumb: /assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
 ---
 
 # Introduction
@@ -33,7 +33,7 @@ Older machines implemented some *nasty* and *wild* protection, even at a hardwar
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/00.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/00.png){: .center-image }
 
 {: .center-text }
 **Chaos Breaker** cloned hard disk drive image
@@ -44,7 +44,7 @@ The first has a `Windows XP Embedded` install, a Type X *loader/launcher* and a 
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/01.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/01.png){: .center-image }
 
 {: .center-text }
 The root of the C: partition, the **TypeXsys** folder contents and last the encrypted disk image inside the data folder with the game data. Also, **yes.txt**
@@ -55,7 +55,7 @@ The loader does hardware checks (dongle, disk drive, partitions) and if everythi
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/02.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/02.png){: .center-image }
 
 {: .center-text }
 I/O error screens from **Trouble Witches** and **GigaWing Generations**, respectively
@@ -66,7 +66,7 @@ There’s also a second partition, which stores all the game configuration and d
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/03.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/03.png){: .center-image }
 
 {: .center-text }
 A sole partition just for this
@@ -99,7 +99,7 @@ Loading the DLL in **Ghidra**, we can see all exported functions, `GetKeyLicense
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/04.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/04.png){: .center-image }
 
 <br>
 
@@ -112,7 +112,7 @@ The JVS board has the I/O functionality in a *separated board*, which has a JAMM
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/05.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/05.png){: .center-image }
 
 {: .center-text }
 Schematics of the Type X, JVS main board and JVS I/O board connected to the child I/O board
@@ -123,7 +123,7 @@ The software then reads the input data from the COM2 port device. The data is tr
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/06.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/06.png){: .center-image }
 
 {: .center-text }
 JVS protocol package structure
@@ -134,7 +134,7 @@ To put it simply, the `Sync Code` determines the start of a valid JVS packet, wh
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/07.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/07.png){: .center-image }
 
 {: .center-text }
 Command SWIMP byte data for normal inputs (there’s also for mahjong panels and dual sticks)
@@ -610,7 +610,7 @@ Instead of updating the old UI, I went with a new `.NET Windows Forms` solution 
 
 <br>
 
-![](/assets/posts/an-overlook-on-jvs-io-emulation-and-implementation/08.png){: .center-image }
+![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/08.png){: .center-image }
 
 {: .center-text }
 Also put my graphic designer skills to show with two brand new logos and icons, **neat.**

@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="post-block">
+  <span class="post-background" style="background-image: url(/assets/images/portfolio/graphics.jpg)"></span>
+  <div class="post-contents">
+    <h1 class="post-title">Graphics Design</h1>
+    <p class="post-desc">Showcase of my works as a hobbyist graphics designer. While I do mostly <i>almost</i>-perfect
+      videogame logos recreations in vectors for now, I'd like to explore other artistic fields in the future.</p>
+  </div>
+</div>
+<div>
+  <ul id="graph-list"></ul>
+</div>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio/graphics.css' }}''>");
+    $("head script").last()
+      .after("<script src='{{ '/assets/scripts/portfolio/graphics.js' }}''>");
+  });
+</script>

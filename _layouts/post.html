@@ -4,69 +4,25 @@ layout: default
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="post-block">
-    <span class="post-style" style="background-image: url({{ page.thumb }})"></span>
+    <span class="post-style" style="--url: url('{{ page.thumb }}')"></span>
     <header class="post-header">
-      {% if page.external-url %}
-      <h1 class="post-title" itemprop="name headline"><a href="{{ page.external-url }}">{{ page.title | escape }}
-          &rarr;</a></h1>
-      {% else %}
       <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
-      {% endif %}
-      <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date |
-          date: "%b %-d, %Y" }}</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
-            itemprop="name">{{ site.author }}</span></span></p>
+      <p class="post-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: '%b %-d, %Y' }}</time> •
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <span itemprop="name">{{ site.author }}</span>
+        </span>
+      </p>
     </header>
   </div>
-  <div class="post-content" itemprop="articleBody">
-    {{ content }}
-  </div>
+  <div class="post-content" itemprop="articleBody">{{ content }}</div>
 </article>
 
-<style type="text/css" media="screen">
-  pre,
-  code {
-    font-size: 16px;
-  }
-  .highlight pre {
-    white-space: pre-wrap;
-  }
-  .center-image {
-    margin: 0 auto;
-    display: block;
-  }
-  .center-text {
-    text-align: center;
-    font-style: italic;
-    color: #606060;
-  }
-  .post-style {
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    -webkit-mask-image: -webkit-linear-gradient(top, rgba(255,255,255,0.8) -100%, rgba(255,255,255,0) 100%);
-  }
-  .post-block {
-    display: flex;
-    position: relative;
-    align-items: center;
-    place-content: center;
-    height: 210px;
-  }
-  .post-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 0px;
-    padding: 20px;
-  }
-</style>
-
-<style type="text/css" media="screen and (max-width: 700px)">
-  pre,
-  code {
-    font-size: 14px;
-  }
-</style>
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/post.css' }}''>");
+    $("head script").last()
+      .after("<script src='{{ '/assets/scripts/post.js' }}''>");
+  });
+</script>

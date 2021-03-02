@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<!-- May be a cool idea to add a game or something here. -->
+<div class="error-page">
+  <h1 class="error-title">404</h1>
+  <p><strong>Page not found.</strong></p>
+  <p>Stop playing with URLs.</p>
+</div>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/404.css' }}''>");
+  });
+</script>

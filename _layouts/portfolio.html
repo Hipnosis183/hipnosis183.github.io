@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="post-block">
+  <span class="port-background">
+    <span class="port-background software" style="background-image: url(/assets/images/portfolio/software.png)"></span>
+    <span class="port-background graphics" style="background-image: url(/assets/images/portfolio/graphics.jpg)"></span>
+  </span>
+  <div class="port-contents">
+    <h1 class="post-title">Portfolio</h1>
+    <p class="port-desc">Showcase of my personal works as a professional software developer and hobbyist graphics designer.</p>
+    <button class="port-button" id="soft-button">Software</button>
+    <button class="port-button" id="graph-button">Graphics Design</button>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio.css' }}''>");
+    $("head script").last()
+      .after("<script src='{{ '/assets/scripts/portfolio.js' }}''>");
+  });
+</script>

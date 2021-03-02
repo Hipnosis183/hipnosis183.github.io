@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 <div class="home">
   {{ content }}
   {% capture site_lang %}{{ site.lang | default: "en" }}{% endcapture %}
@@ -8,84 +9,27 @@ layout: default
     {% for post in site.posts %}
     {% capture post_lang %}{{ post.lang | default: site_lang }}{% endcapture %}
     {% capture lang %}{% if post_lang != site_lang %}{{ post_lang }}{% endif %}{% endcapture %}
-    <li{% if lang !=empty %} lang="{{ lang }}" {% endif %}>
+    <li>
       <div class="post-block">
-        <span class="post-style" style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8)), url({{ post.thumb }})"></span>
+        <span class="post-style" style="--url: url('{{ post.thumb }}')"></span>
         <header class="post-header">
           <h1 class="post-title">
-            {% if post.external-url %}
-            <a class="post-link" href="{{ post.external-url }}">{{ post.title | escape }} &rarr;</a>
-            {% else %}
             <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-            {% endif %}
           </h1>
           <div class="post-content">
-            <p>
-              {{ post.description }}
-            <p>
+            <p class="post-description">{{ post.description }}</p>
           </div>
         </header>
         <a class="post-style" href="{{ post.url | relative_url }}"></a>
       </div>
-      </li>
-      {% endfor %}
+    </li>
+    {% endfor %}
   </ul>
 </div>
 
-<style type="text/css" media="screen">
-  p {
-    margin-bottom: 0px;
-  }
-  .post-style {
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-  }
-  .post-block {
-    display: flex;
-    position: relative;
-    align-items: center;
-    place-content: center;
-    height: 210px;
-  }
-  .post-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 0px;
-    padding: 20px;
-  }
-  .post-list>li,
-  .post-list>li:not(:first-child) {
-    margin-bottom: 0px;
-    border-top: none;
-  }
-  .post-content {
-    color: #ffffff;
-    margin-bottom: 0px;
-  }
-  .post-link,
-  .post-link:visited {
-    color: #181818;
-    font-size: 46px;
-    font-weight: bold;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #ffffff;
-  }
-</style>
-
-<style type="text/css" media="screen and (max-width: 700px)">
-  .post-link,
-  .post-link:visited {
-    font-size: 36px;
-  }
-</style>
-
-<style type="text/css" media="screen and (max-width: 500px)">
-  .post-block {
-    height: auto;
-  }
-</style>
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/home.css' | relative_url }}''>");
+  });
+</script>
