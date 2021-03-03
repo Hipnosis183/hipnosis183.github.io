@@ -1,9 +1,6 @@
 ---
 ---
 
-$cl-white: #ffffff;
-$cl-dark: #111111;
-
 @media screen {
     /* Page elements */
     .port-contents {
@@ -19,9 +16,9 @@ $cl-dark: #111111;
         margin-bottom: 30px;
     }
     .port-button {
-        background-color: $cl-dark;
+        background-color: var(--color-black);
         border: none;
-        color: $cl-white;
+        color: var(--color-white);
         cursor: pointer;
         font-family: inherit;
         font-size: 20px;

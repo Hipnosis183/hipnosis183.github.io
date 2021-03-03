@@ -65,6 +65,11 @@ $(function () {
 
             // Append the item to the list.
             $("#graph-list").append($(graphItem).append(graphImage).append(graphDate).append(graphTitle));
-        })
+        });
+
+        // Wait for the whole list to be loaded and ready.
+        $("#grapgh-list").ready(function () {
+            $("li").addClass("smooth-li");
+        });
     }
 });

@@ -1,10 +1,6 @@
 ---
 ---
 
-$cl-white: #ffffff;
-$cl-dark: #111111;
-$cl-grey: #656565;
-
 /* Header */
 @media screen {
     /* Navigation bar */
@@ -46,7 +42,11 @@ $cl-grey: #656565;
 @media screen {
     body {
         margin: 10px;
-        transition: background 1s ease-in, color 1s ease-in;
+        opacity: 0;
+        transition: all 0.5s ease-in;
+    }
+    .smooth {
+        opacity: 1;
     }
     /* Posts list */
     .post-list > li,
@@ -82,11 +82,28 @@ $cl-grey: #656565;
     }
     .post-link,
     .post-link:visited {
-        color: $cl-dark;
+        color: var(--color-black);
         font-size: 46px;
         font-weight: bold;
         -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: $cl-white;
+        -webkit-text-stroke-color: var(--color-white);
+    }
+    /* Theme switch */
+    .theme-switch {
+        background: var(--color-black);
+        border: none;
+        bottom: 0px;
+        color: var(--color-white);
+        cursor: pointer;
+        font-size: 20px;
+        margin: 20px 20px;
+        outline: solid 4px;
+        padding: 10px 10px 4px;
+        position: fixed;
+        right: 0px;
+    }
+    .material-icons {
+        transform: rotate(30deg);
     }
 }
 

@@ -1,10 +1,6 @@
 ---
 ---
 
-$cl-white: #ffffff;
-$cl-dark: #111111;
-$cl-grey: #656565;
-
 @media screen {
     /* Highlights and code boxes */
     pre,
@@ -20,7 +16,7 @@ $cl-grey: #656565;
         margin: 0 auto;
     }
     .center-text {
-        color: $cl-grey;
+        color: var(--color-grey);
         font-style: italic;
         text-align: center;
     }
@@ -31,6 +27,11 @@ $cl-grey: #656565;
     .post-style {
         background-image: var(--url);
         -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+    }
+    /* Highlights and code boxes */
+    pre,
+    code {
+        background-color: var(--color-light);
     }
     /* Collapsible buttons and their content */
     .collapsible {
@@ -49,9 +50,9 @@ $cl-grey: #656565;
     }
     /* Collapsible buttons and their content */
     .collapsible {
-        background-color: $cl-dark;
+        background-color: var(--color-black);
         border: none;
-        color: $cl-white;
+        color: var(--color-white);
         cursor: pointer;
         display: block;
         font-family: inherit;
@@ -62,7 +63,7 @@ $cl-grey: #656565;
         width: 100%;
     }
     .active {
-        background-color: $cl-grey;
+        background-color: var(--color-grey);
     }
     .content {
         display: none;
