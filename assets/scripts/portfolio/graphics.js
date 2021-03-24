@@ -43,16 +43,33 @@ $(function () {
         $.each(deviationsList, function (index, value) {
             // Create the item and elements for the list.
             var graphItem = document.createElement("li");
+            var graphMask = document.createElement("div");
+            var graphCont = document.createElement("div");
+            var graphBack = document.createElement("div");
+            var graphInfo = document.createElement("div");
             var graphImage = document.createElement("img");
+            var graphLink = document.createElement("a");
             var graphTitle = document.createElement("p");
             var graphDate = document.createElement("p");
+            // Elements for mobile screens.
+            var graphM = document.createElement("div");
+            var graphTitleM = document.createElement("p");
+            var graphDateM = document.createElement("p");
+
             // Assign the classes.
             graphItem.className = "graph-item";
+            graphMask.className = "graph-mask";
+            graphCont.className = "graph-mask graph-cont";
+            graphBack.className = "graph-back";
+            graphInfo.className = "graph-info";
             graphImage.className = "graph-image";
+            graphLink.className = "graph-link";
             graphTitle.className = "graph-title";
             graphDate.className = "graph-title graph-date";
-            // Set the source for the thumbnail.
-            graphImage.src = value.thumbnail_url;
+            // Classes for mobile screens.
+            graphM.className = 'graph-m';
+            graphTitleM.className = "graph-title-m";
+            graphDateM.className = "graph-title-m graph-date-m";
 
             // Format the Unix date.
             var pubDate = new Date(value.pubdate);
@@ -60,16 +77,40 @@ $(function () {
             var formatDate = new Intl.DateTimeFormat('en-US', options);
             // Set the formatted date.
             graphDate.innerHTML = "Published • " + formatDate.format(pubDate);
+            graphDateM.innerHTML = "Published • " + formatDate.format(pubDate);
             // Set the deviation title.
             graphTitle.innerHTML = value.title;
+            graphTitleM.innerHTML = value.title;
+            // Set the source for the thumbnail.
+            graphImage.src = value.thumbnail_url;
+            // Set the external link for the deviation.
+            graphLink.href = deviationsLinks[index];
 
             // Append the item to the list.
-            $("#graph-list").append($(graphItem).append(graphImage).append(graphDate).append(graphTitle));
+            $(graphCont).append(graphBack).append($(graphInfo).append(graphDate).append(graphTitle));
+            $(graphM).append(graphDateM).append(graphTitleM);
+            $("#graph-list").append($(graphItem).append(graphCont).append($(graphMask).append(graphLink)).append(graphImage).append(graphM));
         });
 
         // Wait for the whole list to be loaded and ready.
-        $("#grapgh-list").ready(function () {
+        $("#graph-list").ready(function () {
             $("li").addClass("smooth-li");
         });
     }
+
+    // Manage hovering and clicking over deviations.
+    $(document).on('mouseenter', 'div[class=graph-mask]', function (event) {
+        $(event.target).prev().addClass('show-info');
+    });
+    $(document).on('mouseleave', 'div[class=graph-mask]', function (event) {
+        $(event.target).prev().removeClass('show-info');
+    });
+    $(document).on('click', 'div[class=graph-mask]', function (event) {
+        window.open($(event.target).find('a')[0].href);
+        return false;
+    });
+    $(document).on('click', 'img[class=graph-image]', function (event) {
+        window.open($(event.target).prev().find('a')[0].href);
+        return false;
+    });
 });

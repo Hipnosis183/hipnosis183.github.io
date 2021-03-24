@@ -11,10 +11,15 @@ layout: default
       experiment, while at the same time the stuff learnt here influences my overall capabilities, interests and knowledge.</p>
   </div>
 </div>
+<div>
+  <ul id="soft-list"></ul>
+</div>
 
 <script>
   $(function () {
     $("head link[type='text/css']").last()
-      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio/graphics.css' }}''>");
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio/software.css' }}''>");
+    $("head script").last()
+      .after("<script src='{{ '/assets/scripts/portfolio/software.js' }}''>");
   });
 </script>
