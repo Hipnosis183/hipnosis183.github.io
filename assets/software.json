@@ -11,6 +11,12 @@
             "link": "https://github.com/Hipnosis183/TTX-Monitor",
             "img": "https://github.com/Hipnosis183/TTX-Monitor/raw/main/TTX-Config/Resources/Logo.png",
             "about": "TTX-Monitor+ is a loader for Taito's Type X arcade machines software."
+        },
+        {
+            "name": "QuikZIV",
+            "link": "https://github.com/Hipnosis183/QuikZIV",
+            "img": "https://raw.githubusercontent.com/Hipnosis183/QuikZIV/master/QuikZIV/Resources/Logo.png",
+            "about": "QuikZIV is an uncompressing tool for ZIV and SQZ files, using either LZW or Huffman+RLE compression."
         }
     ]
 }
