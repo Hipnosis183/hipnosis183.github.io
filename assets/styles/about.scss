@@ -13,7 +13,7 @@
     .about-image {
         align-self: center;
         float: right;
-        margin-left: auto;
+        margin: 0px 20px;
         text-align: center;
     }
     .about-title {
@@ -35,5 +35,25 @@
     .flag {
         height: 20px;
         width: 50px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    /* Page content */
+    .about-block {
+        display: block;
+    }
+    .about-image {
+        margin: 40px 20px;
+    }
+    .about-title {
+        text-align: center;
+    }
+    /* Images and their descriptions */
+    .center-text {
+        width: auto;
+    }
+    .flag {
+        width: 40px;
     }
 }
