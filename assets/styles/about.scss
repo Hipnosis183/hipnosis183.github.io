@@ -1,0 +1,39 @@
+---
+---
+
+@media screen {
+    /* Page content */
+    .about-block {
+        display: flex;
+    }
+    .about-content {
+        align-self: center;
+        float: left;
+    }
+    .about-image {
+        align-self: center;
+        float: right;
+        margin-left: auto;
+        text-align: center;
+    }
+    .about-title {
+        font-size: 50px;
+        margin-bottom: 40px;
+    }
+    /* Images and their descriptions */
+    .center-image {
+        border-radius: 20px;
+        height: 200px;
+        width: 200px;
+    }
+    .center-text {
+        color: var(--color-grey);
+        font-style: italic;
+        margin-top: 20px;
+        width: 300px;
+    }
+    .flag {
+        height: 20px;
+        width: 50px;
+    }
+}

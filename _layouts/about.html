@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<div class='about-block'>
+  <div class='about-content'>
+    <h1 class='about-title'>About Me</h1>
+    <p>
+      Low-level lover in an high-level society.
+      <br><br>
+      Software developer professionally (the degree says so), graphic designer by hobby.
+      Currently doing web stuff.
+      <br><br>
+      I like to analize and write about stuff i've done or am doing at the moment.<br>
+      Kinda pointless and stupid sometimes, but interesting (i guess).
+      <br><br>
+      Resume: <a href='/assets/resume.pdf'>Currículum (2021/04/22)</a>
+      <img class='flag' src='/assets/images/flags/esp.svg'>
+    </p>
+  </div>
+  <div class='about-image'>
+    <img class='center-image' src='https://avatars.githubusercontent.com/Hipnosis183'>
+    <p class='center-text'>
+      While the photo is a bit outdated (and it can't be appreciated anyways),
+      now I have grown a beard and left my hair long.
+      Maybe one day I'll go back to that nice surfer look.
+    </p>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/about.css' }}''>");
+  });
+</script>
