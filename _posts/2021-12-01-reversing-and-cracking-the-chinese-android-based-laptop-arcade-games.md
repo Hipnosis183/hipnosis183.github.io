@@ -245,7 +245,7 @@ Before leaving this section, I want to give a spotlight to perhaps the most inte
 # The Chinese Android-based consoles quest may continue
 While we stood *victorious* against the **Laptop Arcade Player**, there's an entire army (*I swear* I haven't played **3 Kingdoms** yet) of Android-powered console rip-offs like this out there. Not of this level of software quality for the most part, but you never know when another machine with such unique catalog of games may appear. If that happens in the future, I'm down to help to the cause.
 
-Big shoutouts to the people in the **FGC** that discovered this interesting device, and a special thanks to **[GuileWinQuote](https://twitter.com/GuileWinQuote)** who wasted **$150 USD** on this piece of garbage and managed to dump the games, making this possible to begin with. Also, he made a cool video about it on [YouTube](), so go and check it out if you want to get deeper into the Laptop Arcade lore.
+Big shoutouts to the people in the **FGC** that discovered this interesting device, and a special thanks to **[GuileWinQuote](https://twitter.com/GuileWinQuote)** who wasted **$150 USD** on this piece of garbage and managed to dump the games, making this possible to begin with. Also, he made a cool video about it on [YouTube](https://www.youtube.com/watch?v=pFzAJj8eGPs), so go and check it out if you want to get deeper into the Laptop Arcade lore.
 
 <br>
 
