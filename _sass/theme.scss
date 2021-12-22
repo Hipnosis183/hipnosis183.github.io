@@ -1,0 +1,42 @@
+// Define defaults for each variable.
+$base-font-family: 'Ubuntu', sans-serif !default;
+$monospace-font-family: 'Roboto Mono', monospace !default;
+$base-font-size:   18px !default;
+$base-font-weight: 400 !default;
+$small-font-size:  $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
+
+$spacing-unit:     20px !default;
+
+$text-color:       var(--color-black) !default;
+$background-color: var(--color-white) !default;
+$brand-color:      #2568ba !default;
+
+$grey-color:       #757575 !default;
+$grey-color-light: lighten($grey-color, 45%) !default;
+$grey-color-dark:  darken($grey-color, 20%) !default;
+
+// Width of the content area
+$content-width:    1000px !default;
+$on-palm:          600px !default;
+$on-laptop:        1000px !default;
+
+// Use media queries like this:
+// @include media-query($on-palm) {
+//   .wrapper {
+//     padding-right: $spacing-unit / 2;
+//     padding-left: $spacing-unit / 2;
+//   }
+// }
+@mixin media-query($device) {
+  @media screen and (max-width: $device) {
+    @content;
+  }
+}
+
+// Import partials.
+@import
+  "theme/base",
+  "theme/layout",
+  "theme/syntax-highlighting"
+;

@@ -13,8 +13,8 @@ url: "https://hipnosis183.github.io"
 github_username:  Hipnosis183
 
 # Build settings
-theme: jekyll-whiteglass
-remote_theme: yous/whiteglass
+# theme:
+# remote_theme:
 
 # Outputting
 permalink: /blog/:title/ # set just for blogging.

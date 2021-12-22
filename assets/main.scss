@@ -1,31 +1,7 @@
 ---
 ---
+
 @charset "utf-8";
 
-// Our variables
-$base-font-family: 'Ubuntu', sans-serif;
-$monospace-font-family: 'Roboto Mono', monospace;
-$base-font-size:   18px;
-$base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
-$base-line-height: 1.5;
-
-$spacing-unit:     20px;
-
-$text-color:       var(--color-black);
-$background-color: var(--color-white);
-$brand-color:      #2568ba;
-
-// Width of the content area
-$content-width:    1000px;
-$on-laptop:        1000px;
-
-// whiteglass also includes a mixin for defining media queries.
-@mixin media-query($device) {
-  @media screen and (max-width: $device) {
-    @content;
-  }
-}
-
-// Import partials from the `whiteglass` theme.
-@import "whiteglass";
+// Import theme partials.
+@import "theme";
