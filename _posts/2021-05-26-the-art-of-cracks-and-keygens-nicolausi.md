@@ -151,7 +151,7 @@ I couldn’t read it in german anyways.
 
 <br>
 
-After building a working character array, the parsing of the name string is halted and the hashing begins. The local salt is reset (to `0x3066`), just in case it’s a *consequent iteration*, and then it starts the processing of each character. A **new salting function** is called, which multiplies the global salt value by a new salt, `0x15a4e35`, plus `0x01`. This function stores the `32-bit` result back to the global salt, but only returns the higher bits of it. This signed `16-bit` value will then be `XOR`ed with the actual character being processed, summing the result into the final key variable. This process is repeated for the remaining characters, and once finished it continues with the parsing of the remaining name string. When everything is done, the lower bits of the key variable are `OR`ed with `0x2000`, and then the value returns.
+After building a working character array, the parsing of the name string is halted and the hashing begins. The local salt is reset (to `0x3066`), just in case it’s a *consequent iteration*, and then it starts the processing of each character. A **new salting function** is called, which multiplies the global salt value by a new salt, `0x15A4E35`, plus `0x01`. This function stores the `32-bit` result back to the global salt, but only returns the higher bits of it. This signed `16-bit` value will then be `XOR`ed with the actual character being processed, summing the result into the final key variable. This process is repeated for the remaining characters, and once finished it continues with the parsing of the remaining name string. When everything is done, the lower bits of the key variable are `OR`ed with `0x2000`, and then the value returns.
 
 So that’s it, I hope it wasn’t very confusing to follow. If you want, you can help yourself with the *revised decompilation* on [GitHub](https://github.com/Hipnosis183/NicolausiKey), which contains a stripped version of the functions.
 
@@ -324,3 +324,25 @@ Now on a *serious note*, despite me shitting on the game during the entire writi
 And lastly, as promised there will be no final keygen or crack publicly available, though you could *easily* develop one with the explanation and code showcased above. Also, there’s the *revised decompilation* on GitHub, which is uploaded to give the interested a guide to follow the explanation, and to have fun with it, *I guess*. But if you choose to do it, *please* keep it for yourself and don’t share it over the internet, have some respect for the developers, which surprisingly are still supporting a game for a dead platform.
 
 That said, whenever the developers stop supporting and/or selling the game and I notice it, the full keygen for both Nicolausi and PC-Bakterien will be available on [GitHub](https://github.com/Hipnosis183/NicolausiKey) for everyone. Until then, I hope you had a good time reading.
+
+<br>
+
+**Update 24/12/21:** ***Spoiler alert***, they stopped selling the game. What a christmas gift!
+
+<br>
+
+# Hipnosis 4:20 - Those who are willing to wait shall be rewarded by time
+So as expected, TOM Productions finally pull the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create a keygens page on the site in the future, so it can be used without having to download anything.
+
+<br>
+
+![](/assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/09.png){: .center-image }
+
+{: .center-text }
+The keygen itself. Notice the lack of flashy, over the top visuals. I know I promised it, but sadly don't have the time and will to add those. On the bright side, it looks like one of a kind keygen for sure.
+
+<br>
+
+So what's left for the future? I still like the idea of visiting their other games, namely the **Robot** series, which, in an amusing way, has a surprisingly strong cult following, including a dedicated [website](http://www.game-of-robot.de/) and forum, in which one person even [crafted a custom collector's box](https://forum.tom-productions.de/gameofrobot/robot-spiele/robot-allgemein/the-game-of-robot-collection-box/). Holy shit.
+
+Until that day comes, you can enjoy (or suffer) with Nicolausi and PC-Bakterien. ***Merry Christmas!***

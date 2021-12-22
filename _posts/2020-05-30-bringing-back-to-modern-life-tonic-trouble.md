@@ -373,7 +373,7 @@ A fun task, indeed.
 
 <br>
 
-***Update:*** Actually, it was pretty... *meh*. But hey, it was a nice opportunity to do some cleaning and polishing.
+**Update 06/07/20:** Actually, it was pretty... *meh*. But hey, it was a nice opportunity to do some cleaning and polishing.
 
 <br>
 
