@@ -3,13 +3,13 @@
         {
             "name": "XB-Monitor+",
             "link": "https://github.com/Hipnosis183/XB-Monitor",
-            "img": "https://github.com/Hipnosis183/XB-Monitor/raw/master/XB-Config/Resources/Logo.png",
+            "img": "https://raw.githubusercontent.com/Hipnosis183/XB-Monitor/master/XB-Config/Resources/Logo.png",
             "about": "XB-Monitor+ is a loader for Examu's eX-BOARD arcade machines software."
         },
         {
             "name": "TTX-Monitor+",
             "link": "https://github.com/Hipnosis183/TTX-Monitor",
-            "img": "https://github.com/Hipnosis183/TTX-Monitor/raw/main/TTX-Config/Resources/Logo.png",
+            "img": "https://raw.githubusercontent.com/Hipnosis183/TTX-Monitor/main/TTX-Config/Resources/Logo.png",
             "about": "TTX-Monitor+ is a loader for Taito's Type X arcade machines software."
         },
         {
@@ -17,6 +17,12 @@
             "link": "https://github.com/Hipnosis183/QuikZIV",
             "img": "https://raw.githubusercontent.com/Hipnosis183/QuikZIV/master/QuikZIV/Resources/Logo.png",
             "about": "QuikZIV is an uncompressing tool for ZIV and SQZ files, using either LZW or Huffman+RLE compression."
+        },
+        {
+            "name": "NicolausiKey",
+            "link": "https://github.com/Hipnosis183/NicolausiKey",
+            "img": "https://raw.githubusercontent.com/Hipnosis183/NicolausiKey/main/NicolausiKey/Resources/Logo.png",
+            "about": "Key generator for Nicolausi and PC-Bakterien."
         }
     ]
 }
