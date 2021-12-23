@@ -1,15 +1,10 @@
 ---
 ---
 
-$cl-white: #ffffff;
-$cl-dark: #111111;
-$cl-dark-grey: #242424;
-$cl-grey: #757575;
-
 @media screen {
     .dark-btn {
-        color: $cl-white;
-        background: $cl-dark;
+        color: var(--color-white);
+        background: var(--color-dark);
         margin: 20px 20px;
         border: none;
         font-size: 20px;
@@ -23,45 +18,41 @@ $cl-grey: #757575;
     .material-icons {
         transform: rotate(30deg);
     }
-    .dark {
-        color: $cl-white;
-        background: $cl-dark;
-    }
     .dark pre,
     .dark code {
-        color: $cl-white;
-        background-color: $cl-dark-grey;
+        color: var(--color-white);
+        background-color: var(--color-dark-grey);
     }
     .dark .center-text {
-        color: $cl-grey;
+        color: var(--color-grey);
     }
     .dark .site-nav .page-link {
-        color: $cl-white;
+        color: var(--color-white);
     }
     .dark .site-title,
     .dark .site-title:visited {
-        color: $cl-grey;
+        color: var(--color-grey);
     }
     .dark .dark-btn {
-        color: $cl-dark;
-        background: $cl-white;
+        color: var(--color-dark);
+        background: var(--color-white);
     }
     .dark .port-title {
-        -webkit-text-stroke-color: $cl-dark;
+        -webkit-text-stroke-color: var(--color-dark);
     }
     .dark .port-button {
-        color: $cl-dark;
-        background-color: $cl-white;
+        color: var(--color-dark);
+        background-color: var(--color-white);
     }
 }
 
 @media screen and (max-width: 700px) {
     .dark .collapsible {
-        color: $cl-dark;
-        background-color: $cl-white;
+        color: var(--color-dark);
+        background-color: var(--color-white);
     }
     .dark .active,
     .dark .collapsible:hover {
-        background-color: $cl-grey;
+        background-color: var(--color-grey);
     }
 }

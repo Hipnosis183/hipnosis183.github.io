@@ -1,11 +1,6 @@
 // Syntax highlighting styles
 .highlight {
-  background-color: #f8f8f8;
   @extend %vertical-rhythm;
-
-  .highlighter-rouge & {
-    background-color: #f8f8f8;
-  }
 
   // Custom
   .c1    { color: #717f8e; font-style: italic } // Comment.Single
