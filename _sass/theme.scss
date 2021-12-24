@@ -3,11 +3,13 @@ $cl-black: #181820;
 $cl-grey: #717f8e;
 $cl-white: #f6f8fa;
 $cl-dark-0: #202735;
-$cl-dark-1: #0f0f18;
-$cl-dark-2: #07070c;
+$cl-dark-1: #13151f;
+$cl-dark-2: #0f0f18;
+$cl-dark-3: #07070c;
 $cl-light-0: #f1f5f9;
 $cl-light-1: #e3eaf1;
-$cl-light-2: #bdc7cf;
+$cl-light-2: #d0d8e0;
+$cl-light-3: #bdc7cf;
 
 :root {
     --color-black: #{$cl-black};
@@ -16,6 +18,7 @@ $cl-light-2: #bdc7cf;
     --color-light: #{$cl-light-0};
     --color-white: #{$cl-white};
     --color-text: #{$cl-dark-0};
+    --color-header: #{$cl-light-3};
     --color-navbar: #{$cl-light-1};
     --color-button: #{$cl-light-2};
 }
@@ -25,9 +28,10 @@ $cl-light-2: #bdc7cf;
     --color-dark: #{$cl-light-0};
     --color-light: #{$cl-dark-0};
     --color-white: #{$cl-black};
-    --color-text: #{$cl-light-2};
-    --color-navbar: #{$cl-dark-1};
-    --color-button: #{$cl-dark-2};
+    --color-text: #{$cl-light-3};
+    --color-header: #{$cl-dark-3};
+    --color-navbar: #{$cl-dark-2};
+    --color-button: #{$cl-dark-1};
 }
 
 /* Define defaults for each variable. */
@@ -42,7 +46,9 @@ $text-color: var(--color-text) !default;
 $background-color: var(--color-white) !default;
 $brand-color: #2568ba !default;
 $content-width: 1000px !default;
-$navbar-width: 260px !default;
+$mobile-width: 1280px !default;
+$phone-width: 440px !default;
+$navbar-width: 280px !default;
 
 // Import partials.
 @import

@@ -103,6 +103,11 @@ code {
   padding: 24px;
   @extend %clearfix;
 }
+@media (max-width: 1279px) {
+  .wrapper {
+    margin-left: auto;
+  }
+}
 
 /* Clearfix */
 %clearfix:after {

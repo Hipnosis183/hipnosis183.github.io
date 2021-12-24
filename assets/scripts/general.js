@@ -4,6 +4,16 @@ $(function () {
         $("body").addClass("smooth");
     });
 
+    // Open/close sidenav.
+    $("div#menu-open").click(function () {
+        $("#navbar-open").toggleClass('navbar-open')
+        $("#navbar-overlay").toggleClass('navbar-open')
+    });
+    $("div#navbar-overlay").click(function () {
+        $("#navbar-open").toggleClass('navbar-open')
+        $("#navbar-overlay").toggleClass('navbar-open')
+    });
+
     // Switch between light and dark theme.
     $("div#dark-mode").click(function () {
         switchTheme();
