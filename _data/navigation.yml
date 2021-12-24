@@ -1,13 +1,11 @@
 # If you want to link only specific pages in your header, add the path to the
 # pages in order as they should show up.
 main:
-  - title: "Home"
+  - title: "Articles"
     url: /
   - title: "Portfolio"
     url: /portfolio/
-  - title: "GitHub"
-    url: https://github.com/Hipnosis183
-  - title: "DeviantArt"
-    url: https://deviantart.com/Hipnosis183
+  - title: "Extras"
+    url: /patches/
   - title: "About"
     url: /about/

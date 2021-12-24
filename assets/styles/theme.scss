@@ -15,9 +15,6 @@
         cursor: pointer;
         outline: solid 4px;
     }
-    .material-icons {
-        transform: rotate(30deg);
-    }
     .dark pre,
     .dark code {
         color: var(--color-white);
@@ -26,11 +23,11 @@
     .dark .center-text {
         color: var(--color-grey);
     }
-    .dark .site-nav .page-link {
+    .dark .navbar-buttons .navbar-button {
         color: var(--color-white);
     }
-    .dark .site-title,
-    .dark .site-title:visited {
+    .dark .navbar-title,
+    .dark .navbar-title:visited {
         color: var(--color-grey);
     }
     .dark .dark-btn {

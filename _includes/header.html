@@ -1,15 +1,66 @@
-<header class="site-header">
-  <div class="wrapper">
-    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
-    <nav class="site-nav">
+<header class="navbar-container">
+  <div>
+    <a class="navbar-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    <nav class="navbar-buttons">
       {% for link in site.data.navigation.main %}
-      {% if link.url contains "http" %}
-      {% assign url = link.url %}
-      {% else %}
       {% assign url = link.url | relative_url %}
-      {% endif %}
-      <a class="page-link" href="{{ url }}">{{ link.title }}</a>
+      <a class="navbar-button" href="{{ url }}">{{ link.title }}</a>
       {% endfor %}
     </nav>
   </div>
+  <div>
+    <nav class="navbar-buttons">
+      <div id="dark-mode" class="navbar-button">
+        <div style="display: flex;">
+          <img id="dark-icon" class="navbar-icon" style="margin-left: -20px; margin-right: 10px;" />
+          <span id="dark-text">Dark Mode</span>
+        </div>
+      </div>
+    </nav>
+    <div class="navbar-icons">
+      <a id="md" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        href="https://medium.com/@renzopigliacampo"></a>
+      <a id="tw" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        href="https://twitter.com/RenzoLaParca"></a>
+      <a id="gh" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        href="https://github.com/Hipnosis183"></a>
+      <a id="da" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        href="https://deviantart.com/Hipnosis183"></a>
+      <a id="in" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        href="https://www.linkedin.com/in/renzo-pigliacampo/"></a>
+    </div>
+    <p class="navbar-footer">© Renzo Pigliacampo</p>
+  </div>
 </header>
+
+<style>
+  #md {
+    mask-image: url(/assets/images/icons/logo-medium.svg);
+    -webkit-mask-image: url(/assets/images/icons/logo-medium.svg);
+  }
+
+  #tw {
+    mask-image: url(/assets/images/icons/logo-twitter.svg);
+    -webkit-mask-image: url(/assets/images/icons/logo-twitter.svg);
+  }
+
+  #gh {
+    mask-image: url(/assets/images/icons/logo-github-octocat.svg);
+    -webkit-mask-image: url(/assets/images/icons/logo-github-octocat.svg);
+  }
+
+  #da {
+    mask-image: url(/assets/images/icons/logo-deviantart.svg);
+    -webkit-mask-image: url(/assets/images/icons/logo-deviantart.svg);
+  }
+
+  #in {
+    mask-image: url(/assets/images/icons/logo-linkedin.svg);
+    -webkit-mask-image: url(/assets/images/icons/logo-linkedin.svg);
+  }
+
+  #dark-icon {
+    mask-image: url(/assets/images/icons/icon-moon.svg);
+    -webkit-mask-image: url(/assets/images/icons/icon-moon.svg);
+  }
+</style>

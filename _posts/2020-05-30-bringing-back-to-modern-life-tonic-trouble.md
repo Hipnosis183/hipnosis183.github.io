@@ -364,16 +364,11 @@ At the end, the application looks like this:
 
 <br>
 
-Mind that this is *temporal* and *incomplete*. The version combo is just a placeholder; the plan is to support the other versions as well, but that will require to do everything again, most likely.
+Mind that this is *temporal* and *incomplete*. The version combo is just a placeholder; the plan is to support the other versions as well, but that will require to do everything again, most likely. A fun task, indeed.
 
 <br>
 
-{: style="font-size: 20px; font-style: italic; color: #606060;"}
-A fun task, indeed.
-
-<br>
-
-**Update 06/07/20:** Actually, it was pretty... *meh*. But hey, it was a nice opportunity to do some cleaning and polishing.
+**Update 06/07/20:** Well, it wasn't as bad as I tought, and it was a nice opportunity to do some cleaning and polishing.
 
 <br>
 

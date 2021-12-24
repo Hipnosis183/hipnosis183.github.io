@@ -1,26 +1,33 @@
 /* Define color variables. */
 $cl-black: #181820;
-$cl-dark: #202735;
 $cl-grey: #717f8e;
-$cl-light: #f1f5f9;
 $cl-white: #f6f8fa;
-$cl-text: #bdc7cf;
+$cl-dark-0: #202735;
+$cl-dark-1: #0f0f18;
+$cl-dark-2: #07070c;
+$cl-light-0: #f1f5f9;
+$cl-light-1: #e3eaf1;
+$cl-light-2: #bdc7cf;
 
 :root {
     --color-black: #{$cl-black};
-    --color-dark: #{$cl-dark};
+    --color-dark: #{$cl-dark-0};
     --color-grey: #{$cl-grey};
-    --color-light: #{$cl-light};
+    --color-light: #{$cl-light-0};
     --color-white: #{$cl-white};
-    --color-text: #{$cl-dark};
+    --color-text: #{$cl-dark-0};
+    --color-navbar: #{$cl-light-1};
+    --color-button: #{$cl-light-2};
 }
 
 .dark-mode {
     --color-black: #{$cl-white};
-    --color-dark: #{$cl-light};
-    --color-light: #{$cl-dark};
+    --color-dark: #{$cl-light-0};
+    --color-light: #{$cl-dark-0};
     --color-white: #{$cl-black};
-    --color-text: #{$cl-text};
+    --color-text: #{$cl-light-2};
+    --color-navbar: #{$cl-dark-1};
+    --color-button: #{$cl-dark-2};
 }
 
 /* Define defaults for each variable. */
@@ -30,11 +37,12 @@ $base-font-size: 18px !default;
 $base-font-weight: 400 !default;
 $small-font-size: $base-font-size * 0.875 !default;
 $base-line-height: 1.5 !default;
-$spacing-unit: 20px !default;
+$spacing-unit: 10px !default;
 $text-color: var(--color-text) !default;
 $background-color: var(--color-white) !default;
 $brand-color: #2568ba !default;
 $content-width: 1000px !default;
+$navbar-width: 260px !default;
 
 // Import partials.
 @import

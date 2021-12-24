@@ -5,7 +5,7 @@ $(function () {
     });
 
     // Switch between light and dark theme.
-    $("button.theme-switch").click(function () {
+    $("div#dark-mode").click(function () {
         switchTheme();
     });
     // Check the local storage for theming.
@@ -17,6 +17,10 @@ $(function () {
         var themeSwitch = document.body.classList.toggle('dark-mode');
         // Store on the client's local storage for persistency.
         localStorage.setItem("theme", themeSwitch ? "dark" : "light");
-        $(".material-icons").text(themeSwitch ? "wb_sunny" : "mode_night");
+        // Update dark mode button.
+        $("#dark-icon").css("-webkit-mask-image", themeSwitch
+            ? "url(/assets/images/icons/icon-sunny.svg)"
+            : "url(/assets/images/icons/icon-moon.svg)")
+        $("#dark-text").text(themeSwitch ? "Light Mode" : "Dark Mode")
     }
 });

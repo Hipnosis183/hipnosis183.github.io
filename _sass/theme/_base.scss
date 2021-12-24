@@ -21,7 +21,7 @@ body {
 
 /* Maintain vertical rhythm */
 h1, h2, h3, h4, h5, h6,
-p, pre, ul, ol, dl, figure,
+p, pre, figure,
 %vertical-rhythm {
   margin-bottom: $spacing-unit / 2;
 }
@@ -42,10 +42,6 @@ figcaption {
 }
 
 /* Lists */
-ul, ol {
-  margin-left: $spacing-unit;
-}
-
 li {
   > ul,
   > ol {
@@ -102,12 +98,9 @@ code {
 
 /* Wrapper */
 .wrapper {
-  max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
-  max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
+  max-width: $content-width;
   margin-right: auto;
-  margin-left: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
+  padding: 24px;
   @extend %clearfix;
 }
 

@@ -4,7 +4,6 @@
 /* Body */
 @media screen {
     body {
-        margin: 10px;
         opacity: 0;
         transition: all 0.5s ease-in;
     }
@@ -44,23 +43,6 @@
         position: absolute;
         right: 0px;
         top: 0px;
-    }
-    /* Theme switch */
-    .material-icons {
-        transform: rotate(30deg);
-    }
-    .theme-switch {
-        background: var(--color-black);
-        border: none;
-        bottom: 0px;
-        color: var(--color-white);
-        cursor: pointer;
-        font-size: 20px;
-        margin: 20px 20px;
-        outline: solid 4px;
-        padding: 10px 10px 4px;
-        position: fixed;
-        right: 0px;
     }
 }
 
