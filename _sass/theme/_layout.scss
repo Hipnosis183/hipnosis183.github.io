@@ -169,22 +169,6 @@
   margin-right: 8px;
 }
 
-/* Site footer */
-.site-footer {
-  color: $cl-grey;
-  font-size: 15px;
-  text-align: center;
-  max-width: $content-width;
-  margin-left: $navbar-width;
-  margin-right: auto;
-  margin-bottom: 20px;
-}
-@media (max-width: 1279px) {
-  .site-footer {
-    margin-left: auto;
-  }
-}
-
 /* Page content */
 @media (min-width: $mobile-width) {
   .page-content {
