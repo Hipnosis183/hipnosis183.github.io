@@ -105,7 +105,7 @@ But let's begin by searching the string we encounter at the beginning, **the err
 
 <br>
 
-<button id="code-0" class="collapsible">Press to see the code</button>
+<div id="code-0" class="collapsible">Press to show the code</div>
 
 <div id="code-0-data" class="content" markdown="1">
 {% highlight cl %}
@@ -126,7 +126,7 @@ This piece of code is within the function `errorHandle()`, for, well, error hand
 
 <br>
 
-<button id="code-1" class="collapsible">Press to see the code</button>
+<div id="code-1" class="collapsible">Press to show the code</div>
 
 <div id="code-1-data" class="content" markdown="1">
 {% highlight cl %}
@@ -165,7 +165,7 @@ Looking back at the code again, there were the `launchOnlineAppRegisterFlow()` a
 
 <br>
 
-<button id="code-2" class="collapsible">Press to see the code</button>
+<div id="code-2" class="collapsible">Press to show the code</div>
 
 <div id="code-2-data" class="content" markdown="1">
 {% highlight cl %}
@@ -184,7 +184,7 @@ Which can be translated into Java as:
 
 <br>
 
-<button id="code-3" class="collapsible">Press to see the code</button>
+<div id="code-3" class="collapsible">Press to show the code</div>
 
 <div id="code-3-data" class="content" markdown="1">
 {% highlight java %}

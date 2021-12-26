@@ -166,7 +166,7 @@ First, we initialize and configure all the *salting*:
 
 <br>
 
-<button id="code-0" class="collapsible">Press to see the code</button>
+<div id="code-0" class="collapsible">Press to show the code</div>
 
 <div id="code-0-data" class="content" markdown="1">
 {% highlight cs %}
@@ -190,7 +190,7 @@ Then the *parsing*:
 
 <br>
 
-<button id="code-1" class="collapsible">Press to see the code</button>
+<div id="code-1" class="collapsible">Press to show the code</div>
 
 <div id="code-1-data" class="content" markdown="1">
 {% highlight cs %}
@@ -221,7 +221,7 @@ Once we have a *working string*, it’s time to process it:
 
 <br>
 
-<button id="code-2" class="collapsible">Press to see the code</button>
+<div id="code-2" class="collapsible">Press to show the code</div>
 
 <div id="code-2-data" class="content" markdown="1">
 {% highlight cs %}
@@ -262,7 +262,7 @@ Finally, when everything is done, we return the key:
 
 <br>
 
-<button id="code-3" class="collapsible">Press to see the code</button>
+<div id="code-3" class="collapsible">Press to show the code</div>
 
 <div id="code-3-data" class="content" markdown="1">
 {% highlight cs %}
@@ -277,7 +277,7 @@ Then just call the function from *main*:
 
 <br>
 
-<button id="code-4" class="collapsible">Press to see the code</button>
+<div id="code-4" class="collapsible">Press to show the code</div>
 
 <div id="code-4-data" class="content" markdown="1">
 {% highlight cs %}
@@ -345,4 +345,6 @@ The keygen itself. Notice the lack of flashy, over the top visuals. I know I pro
 
 So what's left for the future? I still like the idea of visiting their other games, namely the **Robot** series, which, in an amusing way, has a surprisingly strong cult following, including a dedicated [website](http://www.game-of-robot.de/) and forum, in which one person even [crafted a custom collector's box](https://forum.tom-productions.de/gameofrobot/robot-spiele/robot-allgemein/the-game-of-robot-collection-box/). Holy shit.
 
-Until that day comes, you can enjoy (or suffer) with Nicolausi and PC-Bakterien. ***Merry Christmas!***
+Until that day comes, you can enjoy (or suffer) with Nicolausi and PC-Bakterien.
+
+***Merry Christmas!***

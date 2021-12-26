@@ -155,7 +155,7 @@ Changing the resolution values is straightforward, but the FOV is quite more cha
 
 <br>
 
-<button id="code-0" class="collapsible">Press to see the code</button>
+<div id="code-0" class="collapsible">Press to show the code</div>
 
 <div id="code-0-data" class="content" markdown="1">
 {% highlight cs %}
@@ -187,7 +187,7 @@ The first is designed very simple, with 3 bundled binaries: one for the *app set
 
 <br>
 
-<button id="code-1" class="collapsible">Press to see the code</button>
+<div id="code-1" class="collapsible">Press to show the code</div>
 
 <div id="code-1-data" class="content" markdown="1">
 {% highlight cs %}
@@ -214,7 +214,7 @@ Then we have the patches, in the form of *byte arrays* (`byte[]`):
 
 <br>
 
-<button id="code-2" class="collapsible">Press to see the code</button>
+<div id="code-2" class="collapsible">Press to show the code</div>
 
 <div id="code-2-data" class="content" markdown="1">
 {% highlight cs %}
@@ -244,7 +244,7 @@ And some functions to apply those:
 
 <br>
 
-<button id="code-3" class="collapsible">Press to see the code</button>
+<div id="code-3" class="collapsible">Press to show the code</div>
 
 <div id="code-3-data" class="content" markdown="1">
 {% highlight cs %}
@@ -282,7 +282,7 @@ Also, a *blanker*, since we need to fill some parts with empty bytes:
 
 <br>
 
-<button id="code-4" class="collapsible">Press to see the code</button>
+<div id="code-4" class="collapsible">Press to show the code</div>
 
 <div id="code-4-data" class="content" markdown="1">
 {% highlight cs %}
@@ -302,7 +302,7 @@ Then again, depending on the settings, those’ll be called like this:
 
 <br>
 
-<button id="code-5" class="collapsible">Press to see the code</button>
+<div id="code-5" class="collapsible">Press to show the code</div>
 
 <div id="code-5-data" class="content" markdown="1">
 {% highlight cs %}
@@ -330,7 +330,7 @@ Finally, we run the game. Note the use of the `-cd-rom:` parameter. This will be
 
 <br>
 
-<button id="code-6" class="collapsible">Press to see the code</button>
+<div id="code-6" class="collapsible">Press to show the code</div>
 
 <div id="code-6-data" class="content" markdown="1">
 {% highlight cs %}
@@ -379,7 +379,7 @@ To determine this, first we need a way to identify the executable version, for w
 
 <br>
 
-<button id="code-7" class="collapsible">Press to see the code</button>
+<div id="code-7" class="collapsible">Press to show the code</div>
 
 <div id="code-7-data" class="content" markdown="1">
 {% highlight cs %}
@@ -414,7 +414,7 @@ Now patches look like this:
 
 <br>
 
-<button id="code-8" class="collapsible">Press to see the code</button>
+<div id="code-8" class="collapsible">Press to show the code</div>
 
 <div id="code-8-data" class="content" markdown="1">
 {% highlight cs %}
@@ -455,7 +455,7 @@ And functions now admit addresses as parameters:
 
 <br>
 
-<button id="code-9" class="collapsible">Press to see the code</button>
+<div id="code-9" class="collapsible">Press to show the code</div>
 
 <div id="code-9-data" class="content" markdown="1">
 {% highlight cs %}
@@ -497,7 +497,7 @@ Those are called like this:
 
 <br>
 
-<button id="code-10" class="collapsible">Press to see the code</button>
+<div id="code-10" class="collapsible">Press to show the code</div>
 
 <div id="code-10-data" class="content" markdown="1">
 {% highlight cs %}
@@ -525,7 +525,7 @@ The *intro video* is something special. If it's not detected, it just doesn't pl
 
 <br>
 
-<button id="code-11" class="collapsible">Press to see the code</button>
+<div id="code-11" class="collapsible">Press to show the code</div>
 
 <div id="code-11-data" class="content" markdown="1">
 {% highlight cs %}

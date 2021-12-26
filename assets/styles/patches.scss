@@ -7,9 +7,6 @@
     code {
         font-size: 16px;
     }
-    .highlight pre {
-        white-space: pre-wrap;
-    }
     /* Images and their descriptions */
     .center-image {
         display: block;
@@ -35,23 +32,41 @@
     }
     /* Collapsible buttons and their content */
     .collapsible {
-        background-color: var(--color-black);
+        background-color: var(--color-navbar);
         border: none;
-        color: var(--color-white);
+        color: var(--color-text);
         cursor: pointer;
         display: block;
         font-family: inherit;
         font-size: 18px;
         outline: none;
-        padding: 18px;
+        padding: 18px 0px;
+        border-radius: 14px;
         text-align: center;
         width: 100%;
+        transition: background-color 0.5s;
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--color-button);
+            }
+        }
     }
-    .active {
-        background-color: var(--color-grey);
+    .collapsible.active {
+        background-color: var(--color-button);
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--color-navbar);
+            }
+        }
     }
     .content {
         display: none;
+    }
+    .content.active figure:first-child pre {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
 }
 

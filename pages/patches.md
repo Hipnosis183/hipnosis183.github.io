@@ -17,7 +17,9 @@ These are here because I don't think they are interesting enough cases to dedica
 ## Litil Divil
 ### CD-ROM Release - DOS (1993)
 
-<button id="patch-litildivil" class="collapsible">No-CD Patch</button>
+<br>
+
+<div id="patch-litildivil" class="collapsible">No-CD Patch</div>
 <div id="patch-litildivil-data" class="content" markdown="1">
 
 {: .center-text }
@@ -46,7 +48,9 @@ In fact, after hitting the breakpoint at `INT 2F 1500` there are multiple checks
 ## Raiden
 ### CD-ROM Release - DOS (1994)
 
-<button id="patch-raiden" class="collapsible">Remove Copy Protection</button>
+<br>
+
+<div id="patch-raiden" class="collapsible">Remove Copy Protection</div>
 <div id="patch-raiden-data" class="content" markdown="1">
 
 {: .center-text }
@@ -62,7 +66,7 @@ A very straight forward word-in-manual check that happens at the beginning of ex
 
 <br>
 
-{% highlight m68k %}
+{% highlight none %}
 01ED:00A3       E8F7A8	CALL    FFFFA99D
 01ED:00A6	E84EA9	CALL	FFFFA9F7
 01ED:00A9	E81FAE	CALL	FFFFAECB
@@ -86,7 +90,9 @@ The game already works without CD, but you'll be missing the great soundtrack.
 ## Spider-Man The Sinister Six
 ### Spanish Release - DOS (1996)
 
-<button id="patch-spiderman" class="collapsible">No-CD Patch</button>
+<br>
+
+<div id="patch-spiderman" class="collapsible">No-CD Patch</div>
 <div id="patch-spiderman-data" class="content" markdown="1">
 
 {: .center-text }
@@ -110,7 +116,9 @@ However, there's another problem. For some reason, the game deletes some of its 
 ## Time Gate Knight's Chase
 ### SVGA Re-Release - DOS (1995)
 
-<button id="patch-timegate" class="collapsible">No-CD Patch</button>
+<br>
+
+<div id="patch-timegate" class="collapsible">No-CD Patch</div>
 <div id="patch-timegate-data" class="content" markdown="1">
 
 {: .center-text }
@@ -136,7 +144,7 @@ The writting of the path in memory is done in 3 secuential parts of code, which 
 
 <br>
 
-{% highlight m68k %}
+{% highlight none %}
 0180:1C6020	31D2		XOR	    EDX, EDX
 0180:1C6022	8D442428	LEA	    EAX, [ESP+0028]
 0180:1C6026	268A13		MOV	    DL, ES:[EBX]
