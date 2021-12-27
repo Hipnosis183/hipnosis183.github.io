@@ -17,7 +17,11 @@ github_username:  Hipnosis183
 # remote_theme:
 
 # Outputting
-permalink: /blog/:title/ # set just for blogging.
+permalink: /blog/:title/
+collections:
+   extras:
+     output: true
+     permalink: /:collection/:name/
 
 # Includes
 # include:

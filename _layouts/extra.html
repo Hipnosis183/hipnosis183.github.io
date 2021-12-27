@@ -1,0 +1,27 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="post-block">
+    <span class="post-style" style="--url: url('{{ page.thumb }}')"></span>
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
+      <p class="post-meta">
+        <span>{{ page.description }}</span>
+      </p>
+    </header>
+  </div>
+  <div class="post-content" itemprop="articleBody">{{ content }}</div>
+</article>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/post.css' }}''>");
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/extras.css' }}''>");
+    $("head script").last()
+      .after("<script src='{{ '/assets/scripts/extra.js' }}''>");
+  });
+</script>

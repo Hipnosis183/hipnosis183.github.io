@@ -21,6 +21,9 @@
     .post-description {
         margin-bottom: 0px;
     }
+    .post-description {
+        color: #ffffff;
+    }
     .post-header {
         margin-bottom: 0px;
         padding: 20px;
@@ -32,6 +35,7 @@
         color: var(--color-black);
         font-size: 46px;
         font-weight: bold;
+        pointer-events: none;
         -webkit-text-stroke-width: 1px;
         -webkit-text-stroke-color: var(--color-white);
     }
