@@ -166,9 +166,9 @@ First, we initialize and configure all the *salting*:
 
 <br>
 
-<div id="code-0" class="collapsible">Press to show the code</div>
+<div id="code-0" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-0-data" class="content" markdown="1">
+<div id="code-0-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Despite being calculated, their values are consistent.
 const uint mainSalt = 0x03533335;
@@ -190,9 +190,9 @@ Then the *parsing*:
 
 <br>
 
-<div id="code-1" class="collapsible">Press to show the code</div>
+<div id="code-1" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-1-data" class="content" markdown="1">
+<div id="code-1-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Parse the input string.
 while (nameInput.Length != 0) {
@@ -221,9 +221,9 @@ Once we have a *working string*, it’s time to process it:
 
 <br>
 
-<div id="code-2" class="collapsible">Press to show the code</div>
+<div id="code-2" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-2-data" class="content" markdown="1">
+<div id="code-2-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Set the first 4 bytes of the working string, needed for the hashing.
 byte[] nameGlobal = Encoding.ASCII.GetBytes(nameParsed.PadRight(4, 0x00));
@@ -262,9 +262,9 @@ Finally, when everything is done, we return the key:
 
 <br>
 
-<div id="code-3" class="collapsible">Press to show the code</div>
+<div id="code-3" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-3-data" class="content" markdown="1">
+<div id="code-3-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Return lower bytes of the final key code result.
 return (uint)keyCode & 0xFFFF | 0x2000;
@@ -277,9 +277,9 @@ Then just call the function from *main*:
 
 <br>
 
-<div id="code-4" class="collapsible">Press to show the code</div>
+<div id="code-4" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-4-data" class="content" markdown="1">
+<div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cs %}
 static void Main() {
     // Name input.

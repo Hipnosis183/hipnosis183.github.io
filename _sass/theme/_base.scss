@@ -8,8 +8,10 @@ p, pre, dl, dd, ol, ul, figure {
 /* Basic styling */
 body {
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
+  opacity: 0;
   color: $text-color;
   background-color: $background-color;
+  transition: all 0.5s ease-in;
   -webkit-text-size-adjust: 100%;
   -webkit-font-feature-settings: "kern" 1;
      -moz-font-feature-settings: "kern" 1;
@@ -75,8 +77,9 @@ a {
 /* Code formatting */
 pre,
 code {
+  background-color: var(--color-light);
   font-family: $monospace-font-family;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 pre {
@@ -94,24 +97,4 @@ pre {
 code {
   padding: 3px 5px;
   border-radius: 6px;
-}
-
-/* Wrapper */
-.wrapper {
-  max-width: $content-width;
-  margin-right: auto;
-  padding: 24px;
-  @extend %clearfix;
-}
-@media (max-width: 1279px) {
-  .wrapper {
-    margin-left: auto;
-  }
-}
-
-/* Clearfix */
-%clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
 }

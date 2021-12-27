@@ -77,9 +77,9 @@ In the case of eX-BOARD games, those were delivered in **IDE cartridges**, being
 
 <br>
 
-<div id="code-0" class="collapsible">Press to show the code</div>
+<div id="code-0" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-0-data" class="content" markdown="1">
+<div id="code-0-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 BOOL APIENTRY HookFunctions()
     // eX-BOARD software function hooks.
@@ -150,9 +150,9 @@ Since the JVS I/O board is connected into the COM2 port, we need a **fake COM de
 
 <br>
 
-<div id="code-1" class="collapsible">Press to show the code</div>
+<div id="code-1" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-1-data" class="content" markdown="1">
+<div id="code-1-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 BOOL APIENTRY HookFunctions() {
     // Communications devices function hooks.
@@ -178,9 +178,9 @@ Besides the fake COM device, we also need a *true input layer*, which then we ca
 
 <br>
 
-<div id="code-2" class="collapsible">Press to show the code</div>
+<div id="code-2" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-2-data" class="content" markdown="1">
+<div id="code-2-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 // Prevents the games of having access to input devices.
 HRESULT APIENTRY Fake_DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter) {
@@ -204,9 +204,9 @@ The DInput initialization behaves as normal, the devices are enumerated, acquire
 
 <br>
 
-<div id="code-3" class="collapsible">Press to show the code</div>
+<div id="code-3" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-3-data" class="content" markdown="1">
+<div id="code-3-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 // Check for a joystick command.
 if (IS_JOY_OBJECT(InValue)) {
@@ -225,9 +225,9 @@ Check if the polled key is pressed and set the corresponding flag in the array
 
 <br>
 
-<div id="code-4" class="collapsible">Press to show the code</div>
+<div id="code-4" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-4-data" class="content" markdown="1">
+<div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 // Controller status. Command SWINP.
 case 0x20: {
@@ -252,9 +252,9 @@ When the fake JVS detects the flag, it sets the *bit* in the corresponding *byte
 
 <br>
 
-<div id="code-5" class="collapsible">Press to show the code</div>
+<div id="code-5" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-5-data" class="content" markdown="1">
+<div id="code-5-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 BYTE Xp1HiByte() {
     BYTE Byte = 0;
@@ -315,9 +315,9 @@ First, *controls*. The *deadzone* values for the axis were *too* low, so in mode
 
 <br>
 
-<div id="code-6" class="collapsible">Press to show the code</div>
+<div id="code-6" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-6-data" class="content" markdown="1">
+<div id="code-6-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 #define DEADZONE 500 /*(MAX_AXIS_VAL / DEADZONE_DIV)*/
 {% endhighlight %}
@@ -332,9 +332,9 @@ In the function for input pooling, only the left axis (`AxisL`) and buttons were
 
 <br>
 
-<div id="code-7" class="collapsible">Press to show the code</div>
+<div id="code-7" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-7-data" class="content" markdown="1">
+<div id="code-7-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 // Axis definitions.
 #define AXIS_X              1
@@ -401,9 +401,9 @@ Now that we're done with controls, I’ll touch in some features that I thought 
 
 <br>
 
-<div id="code-8" class="collapsible">Press to show the code</div>
+<div id="code-8" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-8-data" class="content" markdown="1">
+<div id="code-8-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 HRESULT HookIDirect3D9::CreateDevice(LPVOID _this, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface) {
     pPresentationParameters->Windowed = FALSE;
@@ -427,9 +427,9 @@ For eX-BOARD games is simple, since the data isn’t stored in the hard drive, b
 
 <br>
 
-<div id="code-9" class="collapsible">Press to show the code</div>
+<div id="code-9" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-9-data" class="content" markdown="1">
+<div id="code-9-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 VOID SaveSRAM() {
     FILE* Stream = NULL;
@@ -448,9 +448,9 @@ But Type X is a different *beast*, that looks simple at first, but its implement
 
 <br>
 
-<div id="code-10" class="collapsible">Press to show the code</div>
+<div id="code-10" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-10-data" class="content" markdown="1">
+<div id="code-10-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 using namespace std::literals;
 
@@ -545,9 +545,9 @@ While it sounded simple at first, it was quite challenging to implement correctl
 
 <br>
 
-<div id="code-11" class="collapsible">Press to show the code</div>
+<div id="code-11" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-11-data" class="content" markdown="1">
+<div id="code-11-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 // Only limitation is that if a key is mapped to a pointer of another key, both of those
 // can't be pressed at the same time. Example: 'A' is mapped to the 'A' key, and 'B' is

@@ -6,9 +6,8 @@ name: "No-CD Patch"
 thumb: /assets/images/extras/time-gate.jpg
 ---
 
-<div id="time-gate" class="collapsible">No-CD Patch</div>
-<div id="time-gate-data" class="content" markdown="1">
-{: .center-text }
+<div id="time-gate" class="collapsible-show">No-CD Patch</div>
+<div id="time-gate-data" class="content-show" markdown="1">
 {% highlight php %}
 'KNIGHTS.EXE' (SVGA)   |  'KNIGHTS.EXE' (VGA)
                        |
@@ -27,11 +26,11 @@ The writting of the path in memory is done in 3 secuential parts of code, which 
 <br>
 
 {% highlight none %}
-0180:1C6020	31D2		XOR	    EDX, EDX
-0180:1C6022	8D442428	LEA	    EAX, [ESP+0028]
-0180:1C6026	268A13		MOV	    DL, ES:[EBX]
-0180:1C6029	FF542444	CALL	    NEAR DWORD [ESP+0044]
-0180:1C602D	43              INC	    EBX
+0180:1C6020     31D2            XOR         EDX, EDX
+0180:1C6022     8D442428        LEA         EAX, [ESP+0028]
+0180:1C6026     268A13          MOV         DL, ES:[EBX]
+0180:1C6029     FF542444        CALL        NEAR DWORD [ESP+0044]
+0180:1C602D     43              INC         EBX
 {% endhighlight %}
 
 {: .center-text }

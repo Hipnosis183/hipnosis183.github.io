@@ -2,86 +2,29 @@
 ---
 
 @media screen {
-    /* Highlights and code boxes */
-    pre,
-    code {
-        font-size: 16px;
+    .collapsible-hide {
+        display: none;
     }
-    /* Images and their descriptions */
-    .center-image {
+    .content-hide {
         display: block;
-        margin: 0 auto;
     }
-    .center-text {
-        color: var(--color-grey);
-        font-style: italic;
-        text-align: center;
+    .content-show {
+        display: none;
     }
-    /* Header at the top of the post */
     .post-block {
-        min-height: 210px;
         margin-bottom: 20px;
     }
     .post-style {
         background-image: var(--url);
         -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
     }
-    /* Highlights and code boxes */
-    pre,
-    code {
-        background-color: var(--color-light);
-    }
-    /* Collapsible buttons and their content */
-    .collapsible {
-        display: none;
-    }
-    .content {
-        display: block;
-    }
 }
 
-@media screen and (max-width: 700px) {
-    /* Highlights and code boxes */
-    pre,
-    code {
-        font-size: 14px;
-    }
-    /* Collapsible buttons and their content */
-    .collapsible {
-        background-color: var(--color-navbar);
-        border: none;
-        color: var(--color-text);
-        cursor: pointer;
+@media screen and (max-width: 720px) {
+    .collapsible-hide {
         display: block;
-        font-family: inherit;
-        font-size: 18px;
-        outline: none;
-        padding: 18px 0px;
-        border-radius: 14px;
-        text-align: center;
-        width: 100%;
-        transition: background-color 0.5s;
-        @media (hover: hover) {
-            &:hover {
-                background-color: var(--color-button);
-            }
-        }
     }
-    .collapsible.active {
-        background-color: var(--color-button);
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        @media (hover: hover) {
-            &:hover {
-                background-color: var(--color-navbar);
-            }
-        }
-    }
-    .content {
+    .content-hide {
         display: none;
-    }
-    .content.active figure:first-child pre {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
     }
 }

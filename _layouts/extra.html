@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="post-container" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="post-block">
     <span class="post-style" style="--url: url('{{ page.thumb }}')"></span>
     <header class="post-header">
@@ -19,9 +19,7 @@ layout: default
   $(function () {
     $("head link[type='text/css']").last()
       .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/post.css' }}''>");
-    $("head link[type='text/css']").last()
-      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/extras.css' }}''>");
     $("head script").last()
-      .after("<script src='{{ '/assets/scripts/extra.js' }}''>");
+      .after("<script src='{{ '/assets/scripts/post.js' }}''>");
   });
 </script>

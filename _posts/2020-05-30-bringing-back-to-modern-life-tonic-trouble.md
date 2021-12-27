@@ -155,9 +155,9 @@ Changing the resolution values is straightforward, but the FOV is quite more cha
 
 <br>
 
-<div id="code-0" class="collapsible">Press to show the code</div>
+<div id="code-0" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-0-data" class="content" markdown="1">
+<div id="code-0-data" class="content-hide" markdown="1">
 {% highlight cs %}
 double FovHorizontal = Math.Round((2 * Math.Atan(((double)ScreenWidth / ScreenHeight) / ((double)4 / 3) * Math.Tan((double)1 / 2 * (Math.PI / 180)))) * (180 / Math.PI) * Math.Pow(10, 2)) / Math.Pow(10, 2);
 
@@ -187,9 +187,9 @@ The first is designed very simple, with 3 bundled binaries: one for the *app set
 
 <br>
 
-<div id="code-1" class="collapsible">Press to show the code</div>
+<div id="code-1" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-1-data" class="content" markdown="1">
+<div id="code-1-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Prepare the program configuration.
 public static void InitialSetup() {
@@ -214,9 +214,9 @@ Then we have the patches, in the form of *byte arrays* (`byte[]`):
 
 <br>
 
-<div id="code-2" class="collapsible">Press to show the code</div>
+<div id="code-2" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-2-data" class="content" markdown="1">
+<div id="code-2-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static byte[] VideosPath = new byte[] {
     0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
@@ -244,9 +244,9 @@ And some functions to apply those:
 
 <br>
 
-<div id="code-3" class="collapsible">Press to show the code</div>
+<div id="code-3" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-3-data" class="content" markdown="1">
+<div id="code-3-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherPortable(string FileNameInput) {
     BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
@@ -282,9 +282,9 @@ Also, a *blanker*, since we need to fill some parts with empty bytes:
 
 <br>
 
-<div id="code-4" class="collapsible">Press to show the code</div>
+<div id="code-4" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-4-data" class="content" markdown="1">
+<div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherBlanker(string FileNameInput, int Offset, int Lenght) {
     BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
@@ -302,9 +302,9 @@ Then again, depending on the settings, those’ll be called like this:
 
 <br>
 
-<div id="code-5" class="collapsible">Press to show the code</div>
+<div id="code-5" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-5-data" class="content" markdown="1">
+<div id="code-5-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Patch the executable.
 Patches.PatcherPortable("TonicTrouble.exe");
@@ -330,9 +330,9 @@ Finally, we run the game. Note the use of the `-cd-rom:` parameter. This will be
 
 <br>
 
-<div id="code-6" class="collapsible">Press to show the code</div>
+<div id="code-6" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-6-data" class="content" markdown="1">
+<div id="code-6-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static void RunGame() {
     Process TonicTrouble = new Process();
@@ -379,9 +379,9 @@ To determine this, first we need a way to identify the executable version, for w
 
 <br>
 
-<div id="code-7" class="collapsible">Press to show the code</div>
+<div id="code-7" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-7-data" class="content" markdown="1">
+<div id="code-7-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static string CalculateCheckSum(string FileName) {
     using (Stream Executable = File.OpenRead(FileName)) {
@@ -414,9 +414,9 @@ Now patches look like this:
 
 <br>
 
-<div id="code-8" class="collapsible">Press to show the code</div>
+<div id="code-8" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-8-data" class="content" markdown="1">
+<div id="code-8-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static byte[] VideosPath = new byte[] {
     0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
@@ -455,9 +455,9 @@ And functions now admit addresses as parameters:
 
 <br>
 
-<div id="code-9" class="collapsible">Press to show the code</div>
+<div id="code-9" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-9-data" class="content" markdown="1">
+<div id="code-9-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherPortable(string FileNameInput, int Address1, int Address2, int Address3, int Address4, int Address5) {
     byte[] ConfigurationPath = SetConfiguration(2);
@@ -497,9 +497,9 @@ Those are called like this:
 
 <br>
 
-<div id="code-10" class="collapsible">Press to show the code</div>
+<div id="code-10" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-10-data" class="content" markdown="1">
+<div id="code-10-data" class="content-hide" markdown="1">
 {% highlight cs %}
 // Patch the game and setup executables.
 private static void PatchExecutables() {
@@ -525,9 +525,9 @@ The *intro video* is something special. If it's not detected, it just doesn't pl
 
 <br>
 
-<div id="code-11" class="collapsible">Press to show the code</div>
+<div id="code-11" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-11-data" class="content" markdown="1">
+<div id="code-11-data" class="content-hide" markdown="1">
 {% highlight cs %}
 if (!File.Exists("Ubi.ini"))
     using (StreamWriter Stream = File.CreateText("Ubi.ini")) {

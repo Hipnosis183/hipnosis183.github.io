@@ -6,9 +6,8 @@ name: "No-CD Patch"
 thumb: /assets/images/extras/litil-divil.jpg
 ---
 
-<div id="litil-divil" class="collapsible">No-CD Patch</div>
-<div id="litil-divil-data" class="content" markdown="1">
-{: .center-text }
+<div id="litil-divil" class="collapsible-show">No-CD Patch</div>
+<div id="litil-divil-data" class="content-show" markdown="1">
 {% highlight php %}
 'DIVIL.EXE'  |  'DIVIL.EXE'     |  'DIVIL.EXE'        |  'DIVIL.EXE'
              |                  |                     |

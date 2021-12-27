@@ -6,9 +6,8 @@ name: "Remove Copy Protection"
 thumb: /assets/images/extras/raiden.jpg
 ---
 
-<div id="raiden" class="collapsible">Remove Copy Protection</div>
-<div id="raiden-data" class="content" markdown="1">
-{: .center-text }
+<div id="raiden" class="collapsible-show">Remove Copy Protection</div>
+<div id="raiden-data" class="content-show" markdown="1">
 {% highlight php %}
 'RAIDEN.EXE'
 
@@ -22,11 +21,11 @@ A very straight forward word-in-manual check that happens at the beginning of ex
 <br>
 
 {% highlight none %}
-01ED:00A3       E8F7A8	CALL    FFFFA99D
-01ED:00A6	E84EA9	CALL	FFFFA9F7
-01ED:00A9	E81FAE	CALL	FFFFAECB
-01ED:00AC	E8A793	CALL	FFFF9456
-01ED:00AF	E861B2	CALL	FFFFB313
+01ED:00A3       E8F7A8  CALL    FFFFA99D
+01ED:00A6       E84EA9  CALL    FFFFA9F7
+01ED:00A9       E81FAE  CALL    FFFFAECB
+01ED:00AC       E8A793  CALL    FFFF9456
+01ED:00AF       E861B2  CALL    FFFFB313
 {% endhighlight %}
 
 {: .center-text }

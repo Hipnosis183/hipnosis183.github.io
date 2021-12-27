@@ -6,9 +6,8 @@ name: "No-CD Patch"
 thumb: /assets/images/extras/spider-man.jpg
 ---
 
-<div id="spider-man" class="collapsible">No-CD Patch</div>
-<div id="spider-man-data" class="content" markdown="1">
-{: .center-text }
+<div id="spider-man" class="collapsible-show">No-CD Patch</div>
+<div id="spider-man-data" class="content-show" markdown="1">
 {% highlight php %}
 'SPIDER.EXE'
 

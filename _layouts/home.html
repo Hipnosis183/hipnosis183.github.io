@@ -26,10 +26,3 @@ layout: default
     {% endfor %}
   </ul>
 </div>
-
-<script>
-  $(function () {
-    $("head link[type='text/css']").last()
-      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/home.css' | relative_url }}''>");
-  });
-</script>

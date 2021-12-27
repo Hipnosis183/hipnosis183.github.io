@@ -105,9 +105,9 @@ But let's begin by searching the string we encounter at the beginning, **the err
 
 <br>
 
-<div id="code-0" class="collapsible">Press to show the code</div>
+<div id="code-0" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-0-data" class="content" markdown="1">
+<div id="code-0-data" class="content-hide" markdown="1">
 {% highlight cl %}
 .line 324
 :cond_2
@@ -126,9 +126,9 @@ This piece of code is within the function `errorHandle()`, for, well, error hand
 
 <br>
 
-<div id="code-1" class="collapsible">Press to show the code</div>
+<div id="code-1" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-1-data" class="content" markdown="1">
+<div id="code-1-data" class="content-hide" markdown="1">
 {% highlight cl %}
 .line 145
 :cond_0
@@ -165,9 +165,9 @@ Looking back at the code again, there were the `launchOnlineAppRegisterFlow()` a
 
 <br>
 
-<div id="code-2" class="collapsible">Press to show the code</div>
+<div id="code-2" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-2-data" class="content" markdown="1">
+<div id="code-2-data" class="content-hide" markdown="1">
 {% highlight cl %}
 .line 14
 new-instance v0, Lcom/sencatech/registerlib/RegisterHelper;
@@ -184,9 +184,9 @@ Which can be translated into Java as:
 
 <br>
 
-<div id="code-3" class="collapsible">Press to show the code</div>
+<div id="code-3" class="collapsible-hide">Press to show the code</div>
 
-<div id="code-3-data" class="content" markdown="1">
+<div id="code-3-data" class="content-hide" markdown="1">
 {% highlight java %}
 new RegisterHelper(context).launchRegisterFlow();
 {% endhighlight %}

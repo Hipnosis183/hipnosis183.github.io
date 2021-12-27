@@ -1,59 +1,54 @@
 ---
 ---
 
-/* Body */
 @media screen {
-    body {
-        opacity: 0;
-        transition: all 0.5s ease-in;
+    .center-image {
+        display: block;
+        margin: 0 auto;
+    }
+    .center-text {
+        color: var(--color-grey);
+        font-style: italic;
+        text-align: center;
+    }
+    .collapsible-hide,
+    .collapsible-show {
+        background-color: var(--color-navbar);
+        border: none;
+        color: var(--color-text);
+        cursor: pointer;
+        display: block;
+        font-family: inherit;
+        font-size: 18px;
+        outline: none;
+        padding: 18px 0px;
+        border-radius: 14px;
+        text-align: center;
+        width: 100%;
+        transition: background-color 0.5s;
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--color-button);
+            }
+        }
+    }
+    .collapsible-hide.active,
+    .collapsible-show.active {
+        background-color: var(--color-button);
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--color-navbar);
+            }
+        }
+    }
+    .content-hide.active figure:first-child pre,
+    .content-show.active figure:first-child pre {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
     .smooth {
         opacity: 1;
-    }
-    /* Posts blocks */
-    .post-block {
-        align-items: center;
-        display: flex;
-        place-content: center;
-        position: relative;
-    }
-    .post-content,
-    .post-description {
-        margin-bottom: 0px;
-    }
-    .post-description {
-        color: #ffffff;
-    }
-    .post-header {
-        margin-bottom: 0px;
-        padding: 20px;
-        position: relative;
-        text-align: center;
-    }
-    .post-link,
-    .post-link:visited {
-        color: var(--color-black);
-        font-size: 46px;
-        font-weight: bold;
-        pointer-events: none;
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: var(--color-white);
-    }
-    .post-style {
-        background-position: center;
-        background-size: cover;
-        bottom: 0px;
-        left: 0px;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    /* Post blocks */
-    .post-link,
-    .post-link:visited {
-        font-size: 36px;
     }
 }

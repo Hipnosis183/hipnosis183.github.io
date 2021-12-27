@@ -12,26 +12,26 @@ $cl-light-2: #d0d8e0;
 $cl-light-3: #bdc7cf;
 
 :root {
-    --color-black: #{$cl-black};
-    --color-dark: #{$cl-dark-0};
-    --color-grey: #{$cl-grey};
-    --color-light: #{$cl-light-0};
-    --color-white: #{$cl-white};
-    --color-text: #{$cl-dark-0};
-    --color-header: #{$cl-light-3};
-    --color-navbar: #{$cl-light-1};
-    --color-button: #{$cl-light-2};
+  --color-black: #{$cl-black};
+  --color-dark: #{$cl-dark-0};
+  --color-grey: #{$cl-grey};
+  --color-light: #{$cl-light-0};
+  --color-white: #{$cl-white};
+  --color-text: #{$cl-dark-0};
+  --color-header: #{$cl-light-3};
+  --color-navbar: #{$cl-light-1};
+  --color-button: #{$cl-light-2};
 }
 
 .dark-mode {
-    --color-black: #{$cl-white};
-    --color-dark: #{$cl-light-0};
-    --color-light: #{$cl-dark-0};
-    --color-white: #{$cl-black};
-    --color-text: #{$cl-light-3};
-    --color-header: #{$cl-dark-3};
-    --color-navbar: #{$cl-dark-2};
-    --color-button: #{$cl-dark-1};
+  --color-black: #{$cl-white};
+  --color-dark: #{$cl-light-0};
+  --color-light: #{$cl-dark-0};
+  --color-white: #{$cl-black};
+  --color-text: #{$cl-light-3};
+  --color-header: #{$cl-dark-3};
+  --color-navbar: #{$cl-dark-2};
+  --color-button: #{$cl-dark-1};
 }
 
 /* Define defaults for each variable. */
@@ -46,9 +46,10 @@ $text-color: var(--color-text) !default;
 $background-color: var(--color-white) !default;
 $brand-color: #2568ba !default;
 $content-width: 1000px !default;
-$mobile-width: 1280px !default;
-$phone-width: 440px !default;
 $navbar-width: 280px !default;
+$screen-width: 1280px !default;
+$mobile-width: 720px !default;
+$phone-width: 440px !default;
 
 // Import partials.
 @import
