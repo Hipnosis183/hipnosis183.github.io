@@ -628,8 +628,6 @@ It was a long journey that I don’t consider over yet, but I take the experienc
 
 # References
 
-<br>
-
 [JVS - Arcade Otaku](https://wiki.arcadeotaku.com/w/JVS)
 
 [JVS I/O - PCB Otaku Wiki](https://wiki.pcbotaku.com/wiki/JVS_I/O)

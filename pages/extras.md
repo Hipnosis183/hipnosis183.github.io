@@ -15,8 +15,12 @@ Most of the projects listed here don't have a dedicated article, since these are
 <div class="post-grid">
   {% for extra in site.extras %}
   <div class="post-block">
-    <span class="post-style" style="--url: url('{{ extra.thumb }}')"></span>
-    <header class="post-header">
+    <a class="post-style" href="{{ extra.url | relative_url }}">
+      <div class="post-image"
+        style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('{{ extra.thumb }}')">
+      </div>
+    </a>
+    <header class="post-header" style="pointer-events: none;">
       <h1 class="post-title">
         <a class="post-link" href="">{{ extra.title }}</a>
       </h1>
@@ -27,7 +31,6 @@ Most of the projects listed here don't have a dedicated article, since these are
         <p class="post-description">{{ extra.description }}</p>
       </div>
     </header>
-    <a class="post-style" href="{{ extra.url }}"></a>
   </div>
   {% endfor %}
 </div>
