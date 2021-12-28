@@ -331,7 +331,7 @@ That said, whenever the developers stop supporting and/or selling the game and I
 
 <br>
 
-# Hipnosis 4:20 - Those who are willing to wait shall be rewarded by time
+# Hipnosis 4:20 - Those who wait shall be rewarded by time
 So as expected, TOM Productions finally pull the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create a keygens page on the site in the future, so it can be used without having to download anything.
 
 <br>
@@ -346,5 +346,7 @@ The keygen itself. Notice the lack of flashy, over the top visuals. I know I pro
 So what's left for the future? I still like the idea of visiting their other games, namely the **Robot** series, which, in an amusing way, has a surprisingly strong cult following, including a dedicated [website](http://www.game-of-robot.de/) and forum, in which one person even [crafted a custom collector's box](https://forum.tom-productions.de/gameofrobot/robot-spiele/robot-allgemein/the-game-of-robot-collection-box/). Holy shit.
 
 Until that day comes, you can enjoy (or suffer) with Nicolausi and PC-Bakterien.
+
+<br>
 
 ***Merry Christmas!***

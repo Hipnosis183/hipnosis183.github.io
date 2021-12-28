@@ -247,4 +247,6 @@ While we stood *victorious* against the **Laptop Arcade Player**, there's an ent
 
 Big shoutouts to the people in the **FGC** that discovered this interesting device, and a special thanks to **[GuileWinQuote](https://twitter.com/GuileWinQuote)** who wasted **$150 USD** on this piece of garbage and managed to dump the games, making this possible to begin with. Also, he made a cool video about it on [YouTube](https://www.youtube.com/watch?v=pFzAJj8eGPs), so go and check it out if you want to get deeper into the Laptop Arcade lore.
 
+<br>
+
 **中國萬歲！**
