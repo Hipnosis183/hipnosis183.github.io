@@ -1,25 +1,42 @@
 <div id="navbar-overlay" class="navbar-overlay"></div>
 <header class="header-container">
-  <div id="menu-open" class="header-button">
+  <div id="menu-open" class="header-menu">
     <img id="menu-icon" class="navbar-icon" style="margin-right: 0px;" />
   </div>
   <a class="header-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+  <nav class="header-buttons">
+    <a class="header-button" href="/">
+      <img id="articles" class="header-icon" />Articles
+    </a>
+    <a class="header-button" href="/portfolio/">
+      <img id="portfolio" class="header-icon" />Portfolio
+    </a>
+    <a class="header-button" href="/extras/">
+      <img id="extras" class="header-icon" />Extras
+    </a>
+    <a class="header-button" href="/about/">
+      <img id="about" class="header-icon" />About
+    </a>
+    <div id="dark-mode" class="header-button">
+      <img id="dark-icon" class="header-icon" style="margin-right: 0px; height: 24px; width: 24px;" />
+    </div>
+  </nav>
 </header>
 <header id="navbar-open" class="navbar-container">
   <div>
     <a class="navbar-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
     <nav class="navbar-buttons">
       <a class="navbar-button" href="/">
-        <img id="articles" class="header-icon navbar-icon" />Articles
+        <img id="articles" class="navbar-icon" />Articles
       </a>
       <a class="navbar-button" href="/portfolio/">
-        <img id="portfolio" class="header-icon navbar-icon" />Portfolio
+        <img id="portfolio" class="navbar-icon" />Portfolio
       </a>
       <a class="navbar-button" href="/extras/">
-        <img id="extras" class="header-icon navbar-icon" />Extras
+        <img id="extras" class="navbar-icon" />Extras
       </a>
       <a class="navbar-button" href="/about/">
-        <img id="about" class="header-icon navbar-icon" />About
+        <img id="about" class="navbar-icon" />About
       </a>
     </nav>
   </div>
