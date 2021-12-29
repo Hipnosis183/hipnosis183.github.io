@@ -2,6 +2,36 @@
 layout: default
 ---
 
-<div class="home">
+<div class="home-container">
   {{ content }}
+  <div class="home-block">
+    <img class="home-image" src="/assets/images/home.png" />
+    <div class="home-footer">
+      <p class="home-name">Renzo Pigliacampo</p>
+      <p class="home-description" style="margin-bottom: 28px;">
+        Graphic Designer, Software Developer
+      </p>
+    </div>
+    <div class="home-section">
+      <p class="home-title">Design</p>
+      <p class="home-description">
+        Graphic design, illustrations, UI/UX, you name it. Always ensuring quality even on the little details, while
+        embracing simplicity and modern design.
+      </p>
+    </div>
+    <div class="home-section">
+      <p class="home-title">Coding</p>
+      <p class="home-description">
+        Full Stack web developer, computer and software enthusiast in general. Reaching the objectives of my projects
+        with clean, documented and efficient code, performance, security, and a lot of love.
+      </p>
+    </div>
+  </div>
 </div>
+
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/home.css' }}''>");
+  });
+</script>
