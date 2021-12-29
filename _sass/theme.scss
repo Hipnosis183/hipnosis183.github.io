@@ -8,8 +8,10 @@ $cl-dark-2: #0f0f18;
 $cl-dark-3: #07070c;
 $cl-light-0: #f1f5f9;
 $cl-light-1: #e3eaf1;
-$cl-light-2: #d0d8e0;
-$cl-light-3: #bdc7cf;
+$cl-light-2: #d3dce6;
+$cl-light-3: #c6d2dc;
+$cl-blue-0: #6ba9f5;
+$cl-blue-1: #2568ba;
 
 :root {
   --color-black: #{$cl-black};
@@ -21,6 +23,7 @@ $cl-light-3: #bdc7cf;
   --color-header: #{$cl-light-3};
   --color-navbar: #{$cl-light-1};
   --color-button: #{$cl-light-2};
+  --color-blue: #{$cl-blue-0};
 }
 
 .dark-mode {
@@ -32,6 +35,7 @@ $cl-light-3: #bdc7cf;
   --color-header: #{$cl-dark-3};
   --color-navbar: #{$cl-dark-2};
   --color-button: #{$cl-dark-1};
+  --color-blue: #{$cl-blue-1};
 }
 
 /* Define defaults for each variable. */
@@ -44,9 +48,9 @@ $base-line-height: 1.5 !default;
 $spacing-unit: 10px !default;
 $text-color: var(--color-text) !default;
 $background-color: var(--color-white) !default;
-$brand-color: #2568ba !default;
+$brand-color: $cl-blue-0 !default;
 $content-width: 1000px !default;
-$navbar-width: 280px !default;
+$navbar-width: 320px !default;
 $mobile-width: 720px !default;
 $phone-width: 440px !default;
 

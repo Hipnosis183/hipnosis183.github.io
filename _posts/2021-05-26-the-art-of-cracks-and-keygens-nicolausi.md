@@ -332,7 +332,7 @@ That said, whenever the developers stop supporting and/or selling the game and I
 <br>
 
 # Hipnosis 4:20 - Those who wait shall be rewarded by time
-So as expected, TOM Productions finally pull the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create a keygens page on the site in the future, so it can be used without having to download anything.
+So as expected, TOM Productions finally pulled the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create a keygens page on the site in the future, so it can be used without having to download anything.
 
 <br>
 

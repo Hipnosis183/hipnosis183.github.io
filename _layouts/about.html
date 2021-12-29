@@ -4,27 +4,70 @@ layout: default
 
 <div class='about-block'>
   <div class='about-content'>
-    <h1 class='about-title'>About Me</h1>
+    <p class='about-title'>Renzo Pigliacampo</p>
+    <div class="about-links">
+      <a id="medium" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://medium.com/@renzopigliacampo"></a>
+      <a id="twitter" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://twitter.com/RenzoLaParca"></a>
+      <a id="github" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://github.com/Hipnosis183"></a>
+      <a id="deviantart" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://deviantart.com/Hipnosis183"></a>
+      <a id="linkedin" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://www.linkedin.com/in/renzo-pigliacampo/"></a>
+      <a id="instagram" target="_blank" rel="noopener noreferrer" class="about-icon"
+        href="https://www.instagram.com/renzolaparca/"></a>
+    </div>
+  </div>
+  <div class="about-content">
+    <p class="about-subtitle">Software Developer, Graphic Designer</p>
+    <a class="about-button" href="/assets/resume.pdf">Resume (2021/05/20)
+      <img class='about-flag' src='/assets/images/flags/es.svg'>
+    </a>
+  </div>
+  <div class="about-image-mobile"></div>
+  <div class="about-block">
+    <div class="about-content">
+      <p class="about-description">
+        I'm a professional software developer with 4 years of experience on the field. Started with .NET Framework,
+        I'm now a Full Stack web developer, although I find myself enjoying frontend development a lot more these
+        days. My current development stack is Vue + Tailwind, in which I'm in love with.
+        <br><br>
+        Also, I'm a hobbyist, unofficially professional graphic designer, a path that has been following alone as
+        long as my software development carrer. While I started doing illustrations, these abilities have clearly been
+        very influential in all of my software's UI/UX designs, plus my personal touch of, I believe, good taste.
+      </p>
+      <div class="about-image"></div>
+    </div>
+    <br>
     <p>
-      Low-level lover in an high-level society.
+      Whenever I'm not programming, I'm programming, but not my usual, everyday web development. I've always been
+      fascinated with the extensive diversity of fields in computer science, so every now and then I find myself doing
+      other things, like reverse engineering and low-level programming, which not only gives me a good rest from
+      centering divs and changing colors, but also improves my overall skills in a way that otherwise wouldn't be
+      possible. Also, hacking is what the cool kids do.
       <br><br>
-      Software developer professionally (the degree says so), graphic designer by hobby.
-      Currently doing web stuff.
-      <br><br>
-      I like to analize and write about stuff i've done or am doing at the moment.<br>
-      Kinda pointless and stupid sometimes, but interesting (i guess).
-      <br><br>
-      Resume: <a href='/assets/resume.pdf'>Currículum (2021/05/20)</a>
-      <img class='flag' src='/assets/images/flags/esp.svg'>
+      Be sure to visit my <a href="/portfolio/">portfolio</a> to see all my works, and the <a href="/blog/">articles</a>
+      page to read interesting things that I usually write from time to time.
     </p>
   </div>
-  <div class='about-image'>
-    <img class='center-image' src='https://avatars.githubusercontent.com/Hipnosis183'>
-    <p class='center-text'>
-      While the photo is a bit outdated (and it can't be appreciated anyways),
-      now I have grown a beard and left my hair long.
-      Maybe one day I'll go back to that nice surfer look.
-    </p>
+  <a class="about-button about-button-mobile" href="/assets/resume.pdf">Resume (2021/05/20)
+    <img class='about-flag' src='/assets/images/flags/es.svg'>
+  </a>
+  <div class="about-links about-links-mobile">
+    <a id="medium" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://medium.com/@renzopigliacampo"></a>
+    <a id="twitter" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://twitter.com/RenzoLaParca"></a>
+    <a id="github" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://github.com/Hipnosis183"></a>
+    <a id="deviantart" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://deviantart.com/Hipnosis183"></a>
+    <a id="linkedin" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://www.linkedin.com/in/renzo-pigliacampo/"></a>
+    <a id="instagram" target="_blank" rel="noopener noreferrer" class="about-icon"
+      href="https://www.instagram.com/renzolaparca/"></a>
   </div>
 </div>
 
@@ -32,5 +75,7 @@ layout: default
   $(function () {
     $("head link[type='text/css']").last()
       .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/about.css' }}''>");
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/icons.css' }}''>");
   });
 </script>

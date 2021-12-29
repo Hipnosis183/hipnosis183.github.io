@@ -44,6 +44,11 @@
   > * {
     pointer-events: none;
   }
+  & .navbar-icon {
+    margin-right: 0px;
+    width: 30px;
+    height: 30px;
+  }
   @media (min-width: $content-width) {
     display: none;
   }
@@ -150,7 +155,8 @@
     display: flex;
     color: $text-color;
     cursor: pointer;
-    line-height: $base-line-height;
+    font-size: 22px;
+    align-items: center;
     padding-bottom: 24px;
     padding-top: 24px;
     padding-left: 20px;
@@ -172,13 +178,15 @@
   margin: 12px 0px;
   & .navbar-icon {
     margin-right: 0px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 .navbar-icon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   margin-right: 20px;
   background-color: $text-color;
 }
@@ -189,7 +197,7 @@
   font-style: italic;
   font-weight: 200;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   margin-right: 8px;
 }
 

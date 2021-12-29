@@ -28,6 +28,9 @@ $(function () {
         // Store on the client's local storage for persistency.
         localStorage.setItem("theme", themeSwitch ? "dark" : "light");
         // Update dark mode button.
+        $("#dark-icon-header").css("-webkit-mask-image", themeSwitch
+            ? "url(/assets/images/icons/icon-sunny.svg)"
+            : "url(/assets/images/icons/icon-moon.svg)")
         $("#dark-icon").css("-webkit-mask-image", themeSwitch
             ? "url(/assets/images/icons/icon-sunny.svg)"
             : "url(/assets/images/icons/icon-moon.svg)")

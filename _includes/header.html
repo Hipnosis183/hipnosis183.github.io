@@ -1,7 +1,7 @@
 <div id="navbar-overlay" class="navbar-overlay"></div>
 <header class="header-container">
   <div id="menu-open" class="header-menu">
-    <img id="menu-icon" class="navbar-icon" style="margin-right: 0px;" />
+    <img id="menu-icon" class="navbar-icon" />
   </div>
   <a class="header-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
   <nav class="header-buttons">
@@ -18,7 +18,7 @@
       <img id="about" class="header-icon" />About
     </a>
     <div id="dark-mode" class="header-button">
-      <img id="dark-icon" class="header-icon" style="margin-right: 0px; height: 24px; width: 24px;" />
+      <img id="dark-icon-header" class="header-icon" style="margin-right: 0px; height: 24px; width: 24px;" />
     </div>
   </nav>
 </header>
@@ -43,7 +43,7 @@
   <div>
     <nav class="navbar-buttons">
       <div id="dark-mode" class="navbar-button" style="padding-left: 0px; justify-content: space-evenly;">
-        <div style="display: flex;">
+        <div style="display: flex; align-items: center;">
           <img id="dark-icon" class="navbar-icon" style="margin-left: -20px; margin-right: 10px;" />
           <span id="dark-text">Dark Mode</span>
         </div>
@@ -51,75 +51,27 @@
     </nav>
     <div style="background-color: var(--color-header); display: grid; padding: 10px 0px;">
       <div class="navbar-icons">
-        <a id="md" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        <a id="medium" target="_blank" rel="noopener noreferrer" class="navbar-icon"
           href="https://medium.com/@renzopigliacampo"></a>
-        <a id="tw" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        <a id="twitter" target="_blank" rel="noopener noreferrer" class="navbar-icon"
           href="https://twitter.com/RenzoLaParca"></a>
-        <a id="gh" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        <a id="github" target="_blank" rel="noopener noreferrer" class="navbar-icon"
           href="https://github.com/Hipnosis183"></a>
-        <a id="da" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        <a id="deviantart" target="_blank" rel="noopener noreferrer" class="navbar-icon"
           href="https://deviantart.com/Hipnosis183"></a>
-        <a id="in" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+        <a id="linkedin" target="_blank" rel="noopener noreferrer" class="navbar-icon"
           href="https://www.linkedin.com/in/renzo-pigliacampo/"></a>
+        <a id="instagram" target="_blank" rel="noopener noreferrer" class="navbar-icon"
+          href="https://www.instagram.com/renzolaparca/"></a>
       </div>
       <p class="navbar-footer">© Renzo Pigliacampo</p>
     </div>
   </div>
 </header>
 
-<style>
-  #menu-icon {
-    mask-image: url(/assets/images/icons/icon-menu.svg);
-    -webkit-mask-image: url(/assets/images/icons/icon-menu.svg);
-  }
-
-  #articles {
-    mask-image: url(/assets/images/icons/nav-articles.svg);
-    -webkit-mask-image: url(/assets/images/icons/nav-articles.svg);
-  }
-
-  #portfolio {
-    mask-image: url(/assets/images/icons/nav-portfolio.svg);
-    -webkit-mask-image: url(/assets/images/icons/nav-portfolio.svg);
-  }
-
-  #extras {
-    mask-image: url(/assets/images/icons/nav-extras.svg);
-    -webkit-mask-image: url(/assets/images/icons/nav-extras.svg);
-  }
-
-  #about {
-    mask-image: url(/assets/images/icons/nav-about.svg);
-    -webkit-mask-image: url(/assets/images/icons/nav-about.svg);
-  }
-
-  #md {
-    mask-image: url(/assets/images/icons/logo-medium.svg);
-    -webkit-mask-image: url(/assets/images/icons/logo-medium.svg);
-  }
-
-  #tw {
-    mask-image: url(/assets/images/icons/logo-twitter.svg);
-    -webkit-mask-image: url(/assets/images/icons/logo-twitter.svg);
-  }
-
-  #gh {
-    mask-image: url(/assets/images/icons/logo-github-octocat.svg);
-    -webkit-mask-image: url(/assets/images/icons/logo-github-octocat.svg);
-  }
-
-  #da {
-    mask-image: url(/assets/images/icons/logo-deviantart.svg);
-    -webkit-mask-image: url(/assets/images/icons/logo-deviantart.svg);
-  }
-
-  #in {
-    mask-image: url(/assets/images/icons/logo-linkedin.svg);
-    -webkit-mask-image: url(/assets/images/icons/logo-linkedin.svg);
-  }
-
-  #dark-icon {
-    mask-image: url(/assets/images/icons/icon-moon.svg);
-    -webkit-mask-image: url(/assets/images/icons/icon-moon.svg);
-  }
-</style>
+<script>
+  $(function () {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/icons.css' }}''>");
+  });
+</script>
