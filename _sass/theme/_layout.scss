@@ -40,6 +40,7 @@
   display: flex;
   position: sticky;
   top: 0px;
+  transition: background-color 0.5s ease-in-out;
   width: 100%;
   z-index: 20;
 
@@ -60,7 +61,7 @@
   height: 70px;
   justify-content: center;
   position: absolute;
-  transition: background-color 0.5s;
+  transition: background-color 0.5s ease-in-out;
   width: 70px;
 
   > * {
@@ -143,7 +144,7 @@
   justify-content: space-between;
   left: calc(0px - var(--width-navbar));
   position: fixed;
-  transition: left 0.5s ease;
+  transition: background-color 0.5s ease-in-out, left 0.5s ease;
   width: var(--width-navbar);
   z-index: 20;
 
@@ -163,6 +164,13 @@
       width: 100%;
     }
   }
+}
+
+.navbar-foot {
+  background-color: var(--color-header);
+  display: grid;
+  padding: 10px 0px;
+  transition: background-color 0.5s ease-in-out;
 }
 
 .navbar-footer {
@@ -330,6 +338,7 @@
     pointer-events: none;
     -webkit-text-stroke-color: var(--color-light);
     -webkit-text-stroke-width: 1px;
+    transition: all 0.5s ease-in-out;
 
     @media (max-width: $width-mobile) {
       font-size: 36px;

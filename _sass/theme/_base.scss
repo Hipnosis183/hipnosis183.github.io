@@ -20,7 +20,7 @@ body {
   font-kerning: normal;
   opacity: 0;
   text-size-adjust: 100%;
-  transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in-out;
   word-wrap: break-word;
 }
 
@@ -65,6 +65,7 @@ pre, code {
   background-color: var(--color-light);
   font-family: $monospace-font-family;
   font-size: 16px;
+  transition: background-color 0.5s ease-in-out;
 }
 
 pre {
