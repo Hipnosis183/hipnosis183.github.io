@@ -1,40 +1,48 @@
-/* Reset some basic elements */
+/* Reset some basic elements. */
 body, h1, h2, h3, h4, h5, h6,
 p, pre, dl, dd, ol, ul, figure {
   margin: 0;
   padding: 0;
 }
 
-/* Basic styling */
-body {
-  font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
-  opacity: 0;
-  color: $text-color;
-  background-color: $background-color;
-  transition: all 0.5s ease-in;
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-feature-settings: "kern" 1;
-     -moz-font-feature-settings: "kern" 1;
-       -o-font-feature-settings: "kern" 1;
-          font-feature-settings: "kern" 1;
-  font-kerning: normal;
-  word-wrap: break-word;
-}
-
-/* Maintain vertical rhythm */
+/* Maintain vertical rhythm. */
 h1, h2, h3, h4, h5, h6,
 p, pre, figure,
 %vertical-rhythm {
   margin-bottom: $spacing-unit / 2;
 }
 
-/* Images */
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font: $base-font-weight #{$base-font-size} / #{$base-line-height} $base-font-family;
+  font-feature-settings: 'kern' 1;
+  font-kerning: normal;
+  opacity: 0;
+  text-size-adjust: 100%;
+  transition: all 0.5s ease-in;
+  word-wrap: break-word;
+}
+
+a {
+  color: $color-blue-0;
+  text-decoration: none;
+
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: darken($color-blue-0, 10%);
+  }
+}
+
 img {
   max-width: 100%;
   vertical-align: middle;
 }
 
-/* Figures */
 figure > img {
   display: block;
 }
@@ -43,56 +51,36 @@ figcaption {
   font-size: $small-font-size;
 }
 
-/* Lists */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $base-font-weight;
+}
+
 li {
-  > ul,
-  > ol {
+  > ol, > ul {
     margin-bottom: 0;
   }
 }
 
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: $base-font-weight;
-  code {
-    font-size: inherit;
-  }
-}
-
-/* Links */
-a {
-  color: $brand-color;
-  text-decoration: none;
-  &:visited {
-    color: darken($brand-color, 10%);
-  }
-  &:hover {
-    color: $text-color;
-    text-decoration: underline;
-  }
-}
-
-/* Code formatting */
-pre,
-code {
+pre, code {
   background-color: var(--color-light);
   font-family: $monospace-font-family;
   font-size: 16px;
 }
 
 pre {
-  padding: 12px 14px;
   border-radius: 14px;
   overflow-x: auto;
+  padding: 12px 14px;
   word-wrap: normal;
+  
   > code {
     border: 0;
-    padding-right: 0;
     padding-left: 0;
+    padding-right: 0;
   }
 }
 
 code {
-  padding: 3px 5px;
   border-radius: 6px;
+  padding: 3px 5px;
 }

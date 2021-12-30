@@ -1,0 +1,63 @@
+/* Color variables. */
+$color-black: rgb(24, 24, 32);
+$color-blue-0: rgb(107, 169, 245);
+$color-blue-1: rgb(37, 104, 186);
+$color-dark-0: rgb(32, 39, 53);
+$color-dark-1: rgb(19, 21, 31);
+$color-dark-2: rgb(15, 15, 24);
+$color-dark-3: rgb(7, 7, 12);
+$color-grey: rgb(113, 127, 142);
+$color-light-0: rgb(241, 245, 249);
+$color-light-1: rgb(227, 234, 241);
+$color-light-2: rgb(211, 220, 230);
+$color-light-3: rgb(198, 210, 220);
+$color-white: rgb(246, 248, 250);
+
+:root {
+  --color-black: #{$color-black};
+  --color-blue: #{$color-blue-0};
+  --color-button: #{$color-light-2};
+  --color-dark: #{$color-dark-0};
+  --color-grey: #{$color-grey};
+  --color-header: #{$color-light-3};
+  --color-light: #{$color-light-0};
+  --color-navbar: #{$color-light-1};
+  --color-text: #{$color-dark-0};
+  --color-white: #{$color-white};
+}
+
+.dark-mode {
+  --color-black: #{$color-white};
+  --color-blue: #{$color-blue-1};
+  --color-button: #{$color-dark-1};
+  --color-dark: #{$color-light-0};
+  --color-header: #{$color-dark-3};
+  --color-light: #{$color-dark-0};
+  --color-navbar: #{$color-dark-2};
+  --color-text: #{$color-light-3};
+  --color-white: #{$color-black};
+}
+
+/* Width variables. */
+$width-content: 1000px;
+$width-mobile: 720px;
+$width-navbar: 320px;
+$width-phone: 440px;
+
+:root {
+  --width-content: 1000px;
+  --width-mobile: 720px;
+  --width-navbar: 320px;
+  --width-phone: 440px;
+}
+
+/* Define defaults for each variable. */
+$background-color: var(--color-white) !default;
+$base-font-family: 'Ubuntu', sans-serif !default;
+$base-font-size: 18px !default;
+$base-font-weight: 400 !default;
+$base-line-height: 1.5 !default;
+$monospace-font-family: 'Roboto Mono', monospace !default;
+$small-font-size: $base-font-size * 0.875 !default;
+$spacing-unit: 10px !default;
+$text-color: var(--color-text) !default;

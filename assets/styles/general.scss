@@ -1,54 +1,72 @@
 ---
 ---
 
-@media screen {
-    .center-image {
-        display: block;
-        margin: 0 auto;
+.center-image {
+  display: block;
+  margin: 0px auto;
+}
+
+.center-text {
+  color: var(--color-grey);
+  font-style: italic;
+  text-align: center;
+}
+
+.collapsible-hide,
+.collapsible-show {
+  background-color: var(--color-navbar);
+  border: none;
+  border-radius: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-size: 18px;
+  outline: none;
+  padding: 18px 0px;
+  text-align: center;
+  transition: background-color 0.5s;
+  width: 100%;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-button);
     }
-    .center-text {
-        color: var(--color-grey);
-        font-style: italic;
-        text-align: center;
+  }
+}
+
+.collapsible-hide.active,
+.collapsible-show.active {
+  background-color: var(--color-button);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-navbar);
     }
-    .collapsible-hide,
-    .collapsible-show {
-        background-color: var(--color-navbar);
-        border: none;
-        color: var(--color-text);
-        cursor: pointer;
-        display: block;
-        font-family: inherit;
-        font-size: 18px;
-        outline: none;
-        padding: 18px 0px;
-        border-radius: 14px;
-        text-align: center;
-        width: 100%;
-        transition: background-color 0.5s;
-        @media (hover: hover) {
-            &:hover {
-                background-color: var(--color-button);
-            }
-        }
-    }
-    .collapsible-hide.active,
-    .collapsible-show.active {
-        background-color: var(--color-button);
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        @media (hover: hover) {
-            &:hover {
-                background-color: var(--color-navbar);
-            }
-        }
-    }
-    .content-hide.active figure:first-child pre,
-    .content-show.active figure:first-child pre {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-    }
-    .smooth {
-        opacity: 1;
-    }
+  }
+}
+
+.content-hide.active figure:first-child pre,
+.content-show.active figure:first-child pre {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.error-page {
+  margin: 10px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.error-title {
+  font-size: 4em;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 30px 0;
+}
+
+.smooth {
+  opacity: 1;
 }

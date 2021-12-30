@@ -1,59 +1,64 @@
 ---
 ---
 
-@media screen {
-    /* Page elements */
-    .port-contents {
-        margin-bottom: 40px;
-        padding: 20px;
-        position: relative;
-        text-align: center;
-    }
-    .post-title {
-        margin: 30px 0px;
-    }
-    .port-desc {
-        margin-bottom: 30px;
-    }
-    .port-button {
-        background-color: var(--color-black);
-        border: none;
-        color: var(--color-white);
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 20px;
-        margin: 20px;
-        outline: none;
-        padding: 20px;
-        text-align: center;
-        width: 200px;
-    }
-    /* Position and size */
-    .post-block {
-        height: auto;
-    }
-    /* Background images and transparency */
-    .port-background {
-        background-size: cover;
-        bottom: 0px;
-        left: 0px;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1) -80%, rgba(0, 0, 0, 0) 100%);
-    }
-    .software {
-        -webkit-mask-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
-    }
-    .graphics {
-        -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1) -20%, rgba(0, 0, 0, 0) 80%);
-    }
+/* Import theme partials. */
+@import 'theme/variables';
+
+.post-block {
+  height: auto;
 }
 
-@media screen and (max-width: 650px) {
-    /* Page elements */
-    .port-title {
-        font-size: 50px;
-        margin: 40px 20px;
-    }
+.post-title {
+  margin: 30px 0px;
+
+  @media (max-width: $width-mobile) {
+    font-size: 50px;
+    margin: 40px 20px;
+  }
+}
+
+.port-button {
+  background-color: var(--color-black);
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 20px;
+  margin: 20px;
+  outline: none;
+  padding: 20px;
+  text-align: center;
+  width: 200px;
+}
+
+.port-contents {
+  margin-bottom: 40px;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.port-desc {
+  margin-bottom: 30px;
+}
+
+.port-background {
+  background-size: cover;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  mask-image: linear-gradient(top, rgba(0, 0, 0, 1) -80%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1) -80%, rgba(0, 0, 0, 0) 100%);
+}
+
+.graphics {
+  mask-image: linear-gradient(right, rgba(0, 0, 0, 1) -20%, rgba(0, 0, 0, 0) 80%);
+  -webkit-mask-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1) -20%, rgba(0, 0, 0, 0) 80%);
+}
+
+.software {
+  mask-image: linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
+  -webkit-mask-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 80%);
 }

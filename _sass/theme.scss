@@ -1,68 +1,12 @@
-/* Define color variables. */
-$cl-black: #181820;
-$cl-grey: #717f8e;
-$cl-white: #f6f8fa;
-$cl-dark-0: #202735;
-$cl-dark-1: #13151f;
-$cl-dark-2: #0f0f18;
-$cl-dark-3: #07070c;
-$cl-light-0: #f1f5f9;
-$cl-light-1: #e3eaf1;
-$cl-light-2: #d3dce6;
-$cl-light-3: #c6d2dc;
-$cl-blue-0: #6ba9f5;
-$cl-blue-1: #2568ba;
-
-:root {
-  --color-black: #{$cl-black};
-  --color-dark: #{$cl-dark-0};
-  --color-grey: #{$cl-grey};
-  --color-light: #{$cl-light-0};
-  --color-white: #{$cl-white};
-  --color-text: #{$cl-dark-0};
-  --color-header: #{$cl-light-3};
-  --color-navbar: #{$cl-light-1};
-  --color-button: #{$cl-light-2};
-  --color-blue: #{$cl-blue-0};
-}
-
-.dark-mode {
-  --color-black: #{$cl-white};
-  --color-dark: #{$cl-light-0};
-  --color-light: #{$cl-dark-0};
-  --color-white: #{$cl-black};
-  --color-text: #{$cl-light-3};
-  --color-header: #{$cl-dark-3};
-  --color-navbar: #{$cl-dark-2};
-  --color-button: #{$cl-dark-1};
-  --color-blue: #{$cl-blue-1};
-}
-
-/* Define defaults for each variable. */
-$base-font-family: 'Ubuntu', sans-serif !default;
-$monospace-font-family: 'Roboto Mono', monospace !default;
-$base-font-size: 18px !default;
-$base-font-weight: 400 !default;
-$small-font-size: $base-font-size * 0.875 !default;
-$base-line-height: 1.5 !default;
-$spacing-unit: 10px !default;
-$text-color: var(--color-text) !default;
-$background-color: var(--color-white) !default;
-$brand-color: $cl-blue-0 !default;
-$content-width: 1000px !default;
-$navbar-width: 320px !default;
-$mobile-width: 720px !default;
-$phone-width: 440px !default;
-
-// Import partials.
+/* Import partials. */
 @import
-  "theme/base",
-  "theme/layout",
-  "theme/syntax-highlighting"
+  'theme/variables',
+  'theme/base',
+  'theme/layout',
+  'theme/syntax-highlighting'
 ;
 
-// Media queries.
-// @include media-query($x){}
+/* Media queries. */
 @mixin media-query($device) {
   @media screen and (max-width: $device) {
     @content;
