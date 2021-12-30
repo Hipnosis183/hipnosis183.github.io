@@ -20,7 +20,9 @@ $(function () {
     });
     // Check the local storage for theming.
     if (localStorage.getItem("theme") === "dark") {
-        switchTheme();
+        if (!document.body.classList.contains('dark-mode')) {
+            switchTheme();
+        }
     }
 
     function switchTheme() {

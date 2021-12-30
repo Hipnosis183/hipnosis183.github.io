@@ -4,6 +4,12 @@
 {% include head.html %}
 
 <body>
+  <script>
+    // Set theme before rendering to avoid flickering.
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.toggle('dark-mode')
+    }
+  </script>
   {% include header.html %}
   <main class="page-content" aria-label="Content">
     <div class="page-wrapper">
