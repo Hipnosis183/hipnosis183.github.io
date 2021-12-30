@@ -5,8 +5,12 @@
 
 <body>
   <script>
+    // Set dark mode as the default theme.
+    if (localStorage.getItem('theme') == null) {
+      localStorage.setItem('theme', 'dark')
+    }
     // Set theme before rendering to avoid flickering.
-    if (localStorage.getItem("theme") === "dark") {
+    if (localStorage.getItem('theme') == 'dark') {
       document.body.classList.toggle('dark-mode')
     }
   </script>
