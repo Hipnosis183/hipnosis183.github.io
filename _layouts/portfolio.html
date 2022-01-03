@@ -2,16 +2,34 @@
 layout: default
 ---
 
-<div class="post-block">
-  <span class="port-background">
-    <span class="port-background software" style="background-image: url(/assets/images/portfolio/software.png)"></span>
-    <span class="port-background graphics" style="background-image: url(/assets/images/portfolio/graphics.jpg)"></span>
-  </span>
+<div class="port-container">
+  <div id="port-image-full" class="port-overlay">
+    <img class="port-image-full" />
+  </div>
+  <div class="port-title">Portfolio</div>
+  <div class="port-buttons">
+    <div id="port-button-web" class="port-button">Web Applications</div>
+    <div id="port-button-other" class="port-button">Other Software</div>
+    <div id="port-button-design" class="port-button">Graphic Design</div>
+  </div>
   <div class="port-contents">
-    <h1 class="post-title">Portfolio</h1>
-    <p class="port-desc">Showcase of my personal works as a professional software developer and hobbyist graphics designer.</p>
-    <button class="port-button" id="soft-button">Software</button>
-    <button class="port-button" id="graph-button">Graphics Design</button>
+    <div class="port-list"></div>
+    <div class="port-content">
+      <div class="port-block">
+        <div class="port-header">
+          <div class="port-name"></div>
+          <div class="port-tags"></div>
+          <a class="port-link" target="_blank" rel="noopener noreferrer">
+            <p>Visit on GitHub</p>
+            <div class="port-icon"></div>
+          </a>
+        </div>
+        <div class="port-body">
+          <div class="port-description"></div>
+          <div class="port-images"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -19,7 +37,6 @@ layout: default
   $(function () {
     $("head link[type='text/css']").last()
       .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio.css' }}''>");
-    $("head script").last()
-      .after("<script src='{{ '/assets/scripts/portfolio.js' }}''>");
+    $("head script").last().after("<script src='{{ '/assets/scripts/portfolio.js' }}''>");
   });
 </script>

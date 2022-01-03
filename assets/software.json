@@ -1,28 +1,78 @@
 {
-    "software": [
-        {
-            "name": "XB-Monitor+",
-            "link": "https://github.com/Hipnosis183/XB-Monitor",
-            "img": "https://raw.githubusercontent.com/Hipnosis183/XB-Monitor/master/XB-Config/Resources/Logo.png",
-            "about": "XB-Monitor+ is a loader for Examu's eX-BOARD arcade machines software."
-        },
-        {
-            "name": "TTX-Monitor+",
-            "link": "https://github.com/Hipnosis183/TTX-Monitor",
-            "img": "https://raw.githubusercontent.com/Hipnosis183/TTX-Monitor/main/TTX-Config/Resources/Logo.png",
-            "about": "TTX-Monitor+ is a loader for Taito's Type X arcade machines software."
-        },
-        {
-            "name": "QuikZIV",
-            "link": "https://github.com/Hipnosis183/QuikZIV",
-            "img": "https://raw.githubusercontent.com/Hipnosis183/QuikZIV/master/QuikZIV/Resources/Logo.png",
-            "about": "QuikZIV is an uncompressing tool for ZIV and SQZ files, using either LZW or Huffman+RLE compression."
-        },
-        {
-            "name": "NicolausiKey",
-            "link": "https://github.com/Hipnosis183/NicolausiKey",
-            "img": "https://raw.githubusercontent.com/Hipnosis183/NicolausiKey/main/NicolausiKey/Resources/Logo.png",
-            "about": "Key generator for Nicolausi and PC-Bakterien."
-        }
-    ]
+  "0": [
+    {
+      "name": "viridian",
+      "title": "Viridian",
+      "tags": [
+        "Vue",
+        "Tailwind",
+        "Electron",
+        "NeDB"
+      ],
+      "link": "https://github.com/Hipnosis183/Viridian",
+      "description": "Videogames database builder, library manager and emulator frontend with <b>Vue</b>, <b>Electron</b> and <b>Tailwind</b>.\n\n<b>Viridian</b> allows you to create your own personalized videogames database, plus the ability to use it as a <i>launcher/frontend</i>. The application design and structure makes it possible to build dynamic databases, and its configuration is very customizable, being adaptable to your needs and current setup, without forcing you to make things in a specific way.\n\nWhile the application is <b>fully-featured</b>, <b>completely functional</b> and <b>stable</b> (<i>a.k.a.</i> '<b>Production Ready</b>'), it shows its true potential when used with a populated database. There's been a lot of care and effort put into data entry operations and features to make it pleasant and easy to use, but it's still a very time consuming task.\n\nSince I plan to make a <b><i>Viridian-compatible</b></i>, high quality online database in the future, where users would be able to scrape the information right away from the app and browser, documentation and more details will be eventually added at a later time.\n\nStill, I encourage you to try the app on its current state for yourself and discover its true potential!",
+      "images": 10
+    },
+    {
+      "name": "salne",
+      "title": "SALNE",
+      "tags": [
+        "AngularJS",
+        "NodeJS + Express",
+        "MongoDB"
+      ],
+      "link": "https://github.com/Hipnosis183/SALNE",
+      "description": "Aplicación web <b>MEAN Full Stack</b>, integrada por un servidor <b>Backend API</b> en <b>Node.js</b> y <b>Express</b>, base de datos en <b>MongoDB</b>, y un <b>Frontend</b> en <b>AngularJS + Material</b>.\n\nProyecto escolar final de carrera (<i>Prácticas Profesionalizantes</i>). No había requerimientos, así que me tomé la libertad para aplicar el trabajo final de <i>Gestión de Proyectos</i> a un producto de software real, a la vez que aprendí a desarrollar una aplicación web <b><i>Full Stack</i></b>.\n\nLa aplicación se desarrolló en dos formas diferentes:\n\n<li><code>salne-server</code> consiste en un servidor de <b><i>Node.js</b></i> con <b><i>Express</b></i>, renderizando las vistas del lado del servidor junto al uso de <b><i>Nunjucks</b></i> como template engine.</li><li><code>salne-backend</code> es un servidor <b><i>API</b></i> en <b><i>Node.js</b></i> con <b><i>Express</b></i>, y <code>salne-frontend</code> es un cliente en <b><i>AngularJS</b></i> y <b><i>Material</b></i> que se comunica con la <i>API</i>, separando así la lógica de negocios de la interfaz de usuario.</li>\nAmbas aplicaciones utilizan <b><i>MongoDB</b></i> con <b><i>Mongoose</b></i> para la base de datos. También incluyo la presentación del producto final, donde explico el desarrollo.",
+      "images": 6
+    }
+  ],
+  "1": [
+    {
+      "name": "xb-monitor",
+      "title": "XB-Monitor",
+      "tags": [
+        "C/C++",
+        "C#",
+        "DirectX"
+      ],
+      "link": "https://github.com/Hipnosis183/XB-Monitor",
+      "description": "<b>XB-Monitor+</b> is a loader for <i>Examu's eX-BOARD</i> arcade machines software.\nOriginally developed by <i>Romhack</i>: <a href='https://github.com/zxmarcos/xb_monitor'>xb_monitor</a>\n\nSome features were added/changed/removed:\n\n<li>Added support for <i>AxisR</i>, <i>AxisZ</i> and <i>POVs</i></li><li>Added option <i>PovAsAxis</i></li><li>Corrected the sensitivity of the deadzone</li><li>Added the standard <i>SavePatch</i> function</li><li>Developed a new configuration user interface</li><li>Removed the <i>DirectDraw</i> wrapper</li><li>Fixed some bugs in the Direct3D wrapper</li><li>Deactivated the logging engine</li>\nThe game <b><i>Arcana Heart 3</b></i> might need compatibility mode enabled in newer systems in order to work.\n\nThe code has been cleaned up a lot and reorganized completely, with some parts rewritten, so should be easier to see what's going on.",
+      "images": 0
+    },
+    {
+      "name": "ttx-monitor",
+      "title": "TTX-Monitor",
+      "tags": [
+        "C/C++",
+        "C#",
+        "DirectX"
+      ],
+      "link": "https://github.com/Hipnosis183/TTX-Monitor",
+      "description": "<b>TTX-Monitor+</b> is a loader for <i>Taito's Type X</i> arcade machines software.\nOriginally developed by <i>Romhack</i>: <a href='https://github.com/zxmarcos/ttx_monitor'>ttx_monitor</a>\n\nSome features were added/changed/removed:\n\n<li>Added support for <i>AxisR</i> and <i>AxisZ</i></li><li>Added option <i>PovAsAxis</i></li><li>Corrected the sensitivity of the deadzone</li><li>Added the standard <i>SavePatch</i> function</li><li>Developed a new configuration user interface</li><li>Removed the <i>Direct3D</i> wrapper</li><li>Deactivated the logging engine</li>\nThe biggest feature should be the implementation of a new <i>DirectInput</i> wrapper with support for mahjong games, namely <i>Psikyo's</i> <b><i>Taisen Hot Gimmick 5</b></i>, and in the future, <b><i>Taisen Hot Gimmick Mix Party</b></i>.\n\nThe <i>SavePatch</i> doesn't work properly with all games, as some like <b><i>The King Of Fighters '98</b></i>, <b><i>Gouketsuji Ichizoku Senzo Kuyou</b></i> and <b><i>Trouble Witches</b></i> will store data but won't read it. A temporal solution would be patching the games accordingly.\n\nSome games like <b><i>Chaos Breaker</b></i> and <b><i>Homura</b></i> might have speed or other graphical issues in moder systems. A use of an external wrapper like <a href='http://dege.freeweb.hu/dgVoodoo2/dgVoodoo2.html'>dgVoodoo</a> will likely solve this issues, while some other enhancements may be used as well.\n\nThe code has been cleaned up a lot and reorganized completely, with some parts rewritten, so should be easier to see what's going on.",
+      "images": 0
+    },
+    {
+      "name": "quikziv",
+      "title": "QuikZIV",
+      "tags": [
+        "C#",
+        "Perl"
+      ],
+      "link": "https://github.com/Hipnosis183/QuikZIV",
+      "description": "<b>QuikZIV</b> is an uncompressing tool for <i>ZIV</i> and <i>SQZ</i> files, using either <i>LZW</i> or <i>Huffman+RLE</i> compression. Developed to remove the protection of the CD-ROM version of <b><i>Quik The Thunder Rabbit</i></b>, it supports most (if not all) of <i>Titus Interactive older</i> games:\n\n<li>Prehistorik</li><li>Quik The Thunder Rabbit</li><li>Super Cauldron</li><li>Titus The Fox (and Moktar)</li><li>The Blues Brothers (series)</li>\nSome games, like <b><i>Prehistorik 2</b></i>, have some files that are not supported, either because of a different compression method or an additional level of protection.\n\nFor more in-depth information and details visit the <a href='http://www.shikadi.net/moddingwiki/Titus_Interactive_SQZ_Compression'>DOS Game Modding</a> Wiki.\n\nCredits:\n<li><a href='http://ttf.mine.nu/techdocs.htm'>Jesses</a> for all the research on the compression and the original uncompression implementation in pseudocode and Perl (in which I <i>strongly</i> based on).</li><li><a href='http://www.shikadi.net/moddingwiki/User:Eirik'>Eirik</a> for the UnSQZ unpacker and the great OpenTitus project.</li><li><a href='http://www.shikadi.net/moddingwiki/User:Frenkel'>Frenkel</a> for the QuickBASIC implementation of the Huffman algorithm and its awesome page S&F Prod.</li>",
+      "images": 0
+    },
+    {
+      "name": "nicolausikey",
+      "title": "NicolausiKey",
+      "tags": [
+        "C#",
+        "JavaScript",
+        "C/Assembly"
+      ],
+      "link": "https://github.com/Hipnosis183/NicolausiKey",
+      "description": "<b>NicolausiKey</b> is a key generator for the games <b><i>Nicolausi</b></i> and <b><i>PC-Bakterien</b></i> by <i>TOM Productions</i>, for both <i>DOS</i> and <i>Windows</i> versions.\n\nThe project contains three parts:\n\n<li>A <b>C#</b> implementation of the keygen (both <b>Windows Forms</b> and <b>Console</b>)</li><li>A <b>JavaScript</b> implementation of the keygen</li><li>The original revised decompilation</li>\nFor an in-depth analysis of the key generation algorithm, visit the <a href='https://hipnosis183.github.io/blog/the-art-of-cracks-and-keygens-nicolausi/'>article</a> I wrote over <a href='https://hipnosis183.github.io/'>my site</a>.",
+      "images": 0
+    }
+  ]
 }
