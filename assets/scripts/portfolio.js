@@ -1,4 +1,113 @@
 $(() => {
+    // Global definitions.
+    const api = 'https://backend.deviantart.com/rss.xml?q=gallery%3Ahipnosis183%2F67799208'
+    const offset = 60
+    let response = []
+    let deviations = []
+
+    // Get and manage the design category.
+    const getDesignCategory = (url, reset) => {
+        // Reset deviations variables.
+        if (reset) {
+            response = []
+            deviations = []
+        }
+        // Manage request to DeviantArt RSS API.
+        let request = new XMLHttpRequest()
+        request.open('GET', url, true)
+        request.onload = () => {
+            // Load the response if the request was successful.
+            if (request.readyState == 4 && request.status == 200) {
+                // Store local request response.
+                let res = $(request.responseXML.documentElement).find('item')
+                // Store global request response.
+                $.each(res, (i, val) => { response.push(val) })
+                // Fetch more results (recurse) if the limit is reached.
+                if (res.length == offset) {
+                    getDesignCategory(api + '&offset=' + offset)
+                } else {
+                    // Create the deviation objects.
+                    $.each(response, (i, val) => {
+                        // Format deviation date.
+                        let date = new Date($(val).find('pubDate').text());
+                        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+                        let formatted = new Intl.DateTimeFormat('en-US', options);
+                        // Build deviantion object.
+                        let deviation = {
+                            title: $(val).find('title').text(),
+                            link: $(val).find('link').text(),
+                            date: "Published • " + formatted.format(date),
+                            image: $(val).find('media\\:content').attr('url'),
+                            thumb: $($(val).find('media\\:thumbnail')[1]).attr('url')
+                        }
+                        // Add deviation to list.
+                        deviations.push(deviation)
+                    })
+                    // Create the HTML elements for the deviations.
+                    // Manage deviations grid element.
+                    let portGrid = document.createElement('div')
+                    portGrid.className = 'port-grid'
+                    $.each(deviations, (i, val) => {
+                        // Manage deviation container element.
+                        let portContainer = document.createElement('div')
+                        portContainer.className = 'port-design-container'
+                        // Manage deviation information element.
+                        let portInfo = document.createElement('div')
+                        portInfo.className = 'port-design-info'
+                        // Manage deviation overlay element.
+                        let portOverlay = document.createElement('div')
+                        portOverlay.className = 'port-design-overlay'
+                        // Manage deviation content element.
+                        let portContent = document.createElement('div')
+                        portContent.className = 'port-design-content'
+                        // Manage deviation date element.
+                        let portDate = document.createElement('p')
+                        portDate.className = 'port-design-date'
+                        portDate.innerHTML = val.date
+                        // Manage deviation title element.
+                        let portTitle = document.createElement('p')
+                        portTitle.className = 'port-design-title'
+                        portTitle.innerHTML = val.title
+                        // Manage deviation buttons elements.
+                        let portButtons = document.createElement('div')
+                        portButtons.className = 'port-design-buttons'
+                        // Manage deviation link button element.
+                        let portButtonLink = document.createElement('a')
+                        portButtonLink.className = 'port-design-button'
+                        portButtonLink.href = val.link
+                        portButtonLink.rel = 'noopener noreferrer'
+                        portButtonLink.target = '_blank'
+                        let portIcon = document.createElement('div')
+                        portIcon.className = 'port-design-icon'
+                        $(portButtonLink).append(portIcon)
+                        // Manage deviation full size button element.
+                        let portButtonFull = document.createElement('div')
+                        portButtonFull.className = 'port-design-button'
+                        portButtonFull.innerHTML = 'View Full Size'
+                        portButtonFull.onclick = () => {
+                            $('.port-image-full').attr('src', val.image)
+                            document.getElementById('port-image-full').classList.toggle('port-image-open')
+                        }
+                        $(portButtons).append(portButtonLink).append(portButtonFull)
+                        $(portContent).append(portDate).append(portTitle).append(portButtons)
+                        $(portInfo).append(portOverlay).append(portContent)
+                        // Manage deviation image element.
+                        let portImage = document.createElement('img')
+                        portImage.src = val.thumb
+                        $(portContainer).append(portInfo).append(portImage)
+                        $(portGrid).append(portContainer)
+                    })
+                    // Manage design content element.
+                    let portDesign = document.createElement('div')
+                    portDesign.className = 'port-design'
+                    $(portDesign).append(portGrid)
+                    $('.port-design').replaceWith(portDesign)
+                }
+            }
+        }
+        request.send()
+    }
+
     // Get and manage software categories.
     const getSoftCategory = (cat) => {
         // Manage request to open the software projects file.
@@ -80,27 +189,57 @@ $(() => {
         request.send()
     }
 
-    // Manage software categories selection.
-    const getSoftSelect = (event, mode) => {
-        let value = mode ? event : event.data.cat
-        getSoftCategory(value)
-        getSoftProject(value, 0)
-        // Manage category buttons selection.
+    // Manage category buttons selection.
+    const setPortButtons = (value) => {
         switch (value) {
             case '0':
                 $('#port-button-web').addClass('port-button-selected')
                 $('#port-button-other').removeClass('port-button-selected')
+                $('#port-button-design').removeClass('port-button-selected')
                 break
             case '1':
                 $('#port-button-web').removeClass('port-button-selected')
                 $('#port-button-other').addClass('port-button-selected')
+                $('#port-button-design').removeClass('port-button-selected')
+                break
+            case '2':
+                $('#port-button-web').removeClass('port-button-selected')
+                $('#port-button-other').removeClass('port-button-selected')
+                $('#port-button-design').addClass('port-button-selected')
                 break
         }
+        switch (value) {
+            case '0':
+            case '1':
+                $('.port-content').css('display', 'flex')
+                $('.port-design').css('display', 'none')
+                $('.port-list').css('display', 'block')
+                break
+            case '2':
+                $('.port-content').css('display', 'none')
+                $('.port-design').css('display', 'block')
+                $('.port-list').css('display', 'none')
+                break
+        }
+    }
+
+    // Manage categories selection.
+    const getSoftSelect = (event, mode) => {
+        let value = mode ? event : event.data.cat
+        getSoftCategory(value)
+        getSoftProject(value, 0)
+        setPortButtons(value)
+    }
+    const getDesignSelect = (event, mode) => {
+        let value = mode ? event : event.data.cat
+        getDesignCategory(api, true)
+        setPortButtons(value)
     }
 
     // Manage category buttons.
     $('#port-button-web').click({ cat: '0' }, getSoftSelect)
     $('#port-button-other').click({ cat: '1' }, getSoftSelect)
+    $('#port-button-design').click({ cat: '2' }, getDesignSelect)
 
     // Manage full image display state.
     $('.port-overlay').click(() => {
