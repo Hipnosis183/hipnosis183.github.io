@@ -6,7 +6,15 @@
 
 .port-block {
   cursor: default;
+  opacity: 1;
   overflow: hidden;
+  transition: visibility 0.2s, opacity 0.2s linear;
+  visibility: visible;
+
+  &.port-block-open {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .port-body {
@@ -72,9 +80,16 @@
   display: flex;
   height: calc(100vh - 240px);
   max-height: 800px;
+  opacity: 1;
   overflow-y: hidden;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out, visibility 0.2s, opacity 0.2s linear;
+  visibility: visible;
   width: 100%;
+
+  &.port-contents-open {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 .port-description {

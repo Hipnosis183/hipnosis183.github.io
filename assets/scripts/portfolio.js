@@ -126,7 +126,14 @@ $(() => {
                     // Manage projects list image element.
                     let portImage = document.createElement('img')
                     portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/logo.png'
-                    portImage.onclick = () => { getSoftProject(cat, i) }
+                    portImage.onclick = () => {
+                        let portBlock = document.getElementsByClassName('port-block')[0]
+                        portBlock.classList.toggle('port-block-open')
+                        setTimeout(() => {
+                            getSoftProject(cat, i)
+                            setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100)
+                        }, 200)
+                    }
                     $(portList).append(portImage)
                 })
                 $('.port-list').replaceWith(portList)
@@ -224,22 +231,27 @@ $(() => {
     }
 
     // Manage categories selection.
-    const getSoftSelect = (event, mode) => {
+    const getCategorySelect = (event, mode) => {
         let value = mode ? event : event.data.cat
-        getSoftCategory(value)
-        getSoftProject(value, 0)
-        setPortButtons(value)
-    }
-    const getDesignSelect = (event, mode) => {
-        let value = mode ? event : event.data.cat
-        getDesignCategory(api, true)
-        setPortButtons(value)
+        let portContents = document.getElementsByClassName('port-contents')[0]
+        portContents.classList.toggle('port-contents-open')
+        setTimeout(() => {
+            if (value != '2') {
+                getSoftCategory(value)
+                getSoftProject(value, 0)
+                setPortButtons(value)
+            } else {
+                getDesignCategory(api, true)
+                setPortButtons(value)
+            }
+            setTimeout(() => { portContents.classList.toggle('port-contents-open') }, 100)
+        }, 200)
     }
 
     // Manage category buttons.
-    $('#port-button-web').click({ cat: '0' }, getSoftSelect)
-    $('#port-button-other').click({ cat: '1' }, getSoftSelect)
-    $('#port-button-design').click({ cat: '2' }, getDesignSelect)
+    $('#port-button-web').click({ cat: '0' }, getCategorySelect)
+    $('#port-button-other').click({ cat: '1' }, getCategorySelect)
+    $('#port-button-design').click({ cat: '2' }, getCategorySelect)
 
     // Manage full image display state.
     $('.port-overlay').click(() => {
@@ -247,5 +259,5 @@ $(() => {
     })
 
     // Set default category and project.
-    getSoftSelect('0', true)
+    getCategorySelect('0', true)
 })
