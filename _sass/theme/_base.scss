@@ -22,6 +22,27 @@ body {
   text-size-adjust: 100%;
   transition: all 0.5s ease-in-out;
   word-wrap: break-word;
+
+  & * {
+    ::-webkit-scrollbar {
+      background-color: transparent;
+      border-radius: 20px;
+      height: 6px;
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-clip: content-box;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+    }
+  }
+
+  &.dark-mode * {
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
 }
 
 a {
@@ -73,7 +94,15 @@ pre {
   overflow-x: auto;
   padding: 12px 14px;
   word-wrap: normal;
-  
+
+  &::-webkit-scrollbar-track-piece:start {
+    margin-left: 20px;
+  }
+
+  &::-webkit-scrollbar-track-piece:end {
+    margin-right: 20px;
+  }
+
   > code {
     border: 0;
     padding-left: 0;

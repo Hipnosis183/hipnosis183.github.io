@@ -11,7 +11,7 @@
 
 .port-body {
   display: flex;
-  height: calc(100% - 78px);
+  height: calc(100% - 85px);
 }
 
 .port-button {
@@ -72,20 +72,15 @@
   display: flex;
   height: calc(100vh - 240px);
   max-height: 800px;
-  overflow: hidden;
+  overflow-y: hidden;
   transition: background-color 0.5s ease-in-out;
   width: 100%;
 }
 
 .port-description {
-  margin-right: 24px;
-  overflow: scroll;
-  padding-bottom: 4px;
+  overflow-y: auto;
+  padding-right: 24px;
   white-space: pre-wrap;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .port-design {
@@ -93,8 +88,12 @@
   padding: 32px 20px;
   width: 100%;
 
-  &::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar-track-piece:start {
+    margin-top: 20px;
+  }
+
+  &::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 20px;
   }
 }
 
@@ -220,13 +219,10 @@
 }
 
 .port-images {
+  margin-left: 14px;
   min-width: 200px;
-  overflow: scroll;
-  padding-bottom: 8px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow-y: auto;
+  padding-right: 10px;
 
   div {
     border-radius: 4px;
