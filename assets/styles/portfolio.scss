@@ -37,11 +37,6 @@
   transition: background-color 0.5s ease-in-out;
   width: 15%;
 
-  &:hover {
-    background-color: var(--color-blue);
-    text-decoration: none;
-  }
-
   &:visited {
     color: var(--color-text);
   }
@@ -53,25 +48,56 @@
   &.port-button-selected {
     background-color: var(--color-blue);
   }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-blue);
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: $width-content) {
+    width: auto;
+
+    &:not(:first-child) {
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+  }
 }
 
 .port-buttons {
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
+
+  @media (max-width: $width-content) {
+    flex-direction: column;
+  }
 }
 
 .port-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 108px);
   justify-content: center;
+
+  @media (min-width: $width-content) {
+    height: calc(100vh - 108px);
+  }
 }
 
 .port-content {
   display: flex;
   padding: 24px;
   width: 80%;
+}
+
+.port-content-mobile {
+  background-color: var(--color-navbar);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
 }
 
 .port-contents {
@@ -90,12 +116,35 @@
     opacity: 0;
     visibility: hidden;
   }
+
+  @media (max-width: $width-content) {
+    display: none;
+  }
 }
 
-.port-description {
+.port-contents-mobile {
+  opacity: 1;
+  transition: background-color 0.5s ease-in-out, visibility 0.2s, opacity 0.2s linear;
+  visibility: visible;
+
+  &.port-contents-open {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  @media (min-width: $width-content) {
+    display: none;
+  }
+}
+
+.port-description,
+.port-description-mobile {
   overflow-y: auto;
-  padding-right: 24px;
   white-space: pre-wrap;
+
+  @media (min-width: $width-content) {
+    padding-right: 24px;
+  }
 }
 
 .port-design {
@@ -124,9 +173,11 @@
   transition: background-color 0.5s ease-in-out;
   width: fit-content;
 
-  &:hover {
-    background-color: var(--color-blue);
-    text-decoration: none;
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-blue);
+      text-decoration: none;
+    }
   }
 
   &:not(:first-child) {
@@ -218,6 +269,24 @@
   transition: border-color 0.5s ease-in-out;
 }
 
+.port-header-mobile {
+  background-color: var(--color-header);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  padding: 24px;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+
+  img {
+    object-fit: contain;
+  }
+}
+
 .port-icon {
   background-color: var(--color-text);
   height: 30px;
@@ -262,19 +331,29 @@
 }
 
 .port-link {
+  margin-left: auto;
+  width: 200px;
+}
+
+.port-link-mobile {
+  margin: 16px 0px;
+}
+
+.port-link,
+.port-link-mobile {
   align-items: center;
   background-color: var(--color-header);
   border-radius: 10px;
   display: flex;
   justify-content: center;
-  margin-left: auto;
   padding: 10px 0px;
   transition: background-color 0.5s ease-in-out;
-  width: 200px;
 
-  &:hover {
-    background-color: var(--color-blue);
-    text-decoration: none;
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-blue);
+      text-decoration: none;
+    }
   }
 
   p {
@@ -298,13 +377,16 @@
     transition: background-color 0.5s ease-in-out;
     width: 100%;
 
-    &:hover {
-      background-color: var(--color-button);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-button);
+      }
     }
   }
 }
 
-.port-name {
+.port-name,
+.port-name-mobile {
   font-size: 36px;
   margin-bottom: 4px;
   margin-right: 20px;
@@ -333,8 +415,10 @@
   }
 }
 
-.port-tags {
+.port-tags,
+.port-tags-mobile {
   display: flex;
+  white-space: nowrap;
 
   code {
     font-family: 'Ubuntu';

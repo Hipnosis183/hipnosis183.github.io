@@ -122,7 +122,14 @@ $(() => {
                 // Manage projects list element.
                 let portList = document.createElement('div')
                 portList.className = 'port-list'
-                $.each(response[cat], (i, val) => {
+
+                // Manage projects container element for mobile.
+                let portContents = document.createElement('div')
+                portContents.className = 'port-contents-mobile'
+                $.each(response[cat], async (i, val) => {
+                    // Timeout because JavaScript is bullshit.
+                    await new Promise(r => setTimeout(r, 100));
+
                     // Manage projects list image element.
                     let portImage = document.createElement('img')
                     portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/logo.png'
@@ -134,9 +141,50 @@ $(() => {
                             setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100)
                         }, 200)
                     }
+
+                    // Manage project header element for mobile.
+                    let portHeader = document.createElement('div')
+                    portHeader.className = 'port-header-mobile'
+                    $(portHeader).append(portImage.cloneNode())
                     $(portList).append(portImage)
+
+                    // Manage project content element for mobile.
+                    let portContent = document.createElement('div')
+                    portContent.className = 'port-content-mobile'
+
+                    // Manage project title element for mobile.
+                    let portTitle = document.createElement('div')
+                    portTitle.className = 'port-name-mobile'
+                    portTitle.innerHTML = response[cat][i].title
+                    $(portContent).append(portTitle)
+
+                    // Manage project tags element for mobile.
+                    let portTags = document.createElement('div')
+                    portTags.className = 'port-tags-mobile'
+                    $.each(response[cat][i].tags, (index, val) => {
+                        // Manage project tag element for mobile.
+                        let portTag = document.createElement('code')
+                        portTag.innerHTML = val
+                        $(portTags).append(portTag)
+                    })
+                    $(portContent).append(portTags)
+
+                    // Manage project link element for mobile.
+                    let portLink = document.createElement('a')
+                    portLink.className = 'port-link-mobile'
+                    portLink.href = response[cat][i].link
+                    portLink.innerHTML = '<p>Visit on GitHub</p><div class="port-icon"></div>'
+                    $(portContent).append(portLink)
+
+                    // Manage project description element for mobile.
+                    let portDescription = document.createElement('div')
+                    portDescription.className = 'port-description-mobile'
+                    portDescription.innerHTML = response[cat][i].description
+                    $(portContent).append(portDescription)
+                    $(portContents).append(portHeader).append(portContent)
                 })
                 $('.port-list').replaceWith(portList)
+                $('.port-contents-mobile').replaceWith(portContents)
             }
         }
         request.send()
@@ -234,7 +282,9 @@ $(() => {
     const getCategorySelect = (event, mode) => {
         let value = mode ? event : event.data.cat
         let portContents = document.getElementsByClassName('port-contents')[0]
+        let portContentsMobile = document.getElementsByClassName('port-contents-mobile')[0]
         portContents.classList.toggle('port-contents-open')
+        portContentsMobile.classList.toggle('port-contents-open')
         setTimeout(() => {
             if (value != '2') {
                 getSoftCategory(value)
@@ -244,7 +294,10 @@ $(() => {
                 getDesignCategory(api, true)
                 setPortButtons(value)
             }
-            setTimeout(() => { portContents.classList.toggle('port-contents-open') }, 100)
+            setTimeout(() => {
+                portContents.classList.toggle('port-contents-open')
+                portContentsMobile.classList.toggle('port-contents-open')
+            }, 100)
         }, 200)
     }
 
