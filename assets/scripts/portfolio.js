@@ -43,34 +43,51 @@ $(() => {
                         // Add deviation to list.
                         deviations.push(deviation)
                     })
+
                     // Create the HTML elements for the deviations.
                     // Manage deviations grid element.
                     let portGrid = document.createElement('div')
                     portGrid.className = 'port-grid'
+
+                    // Manage deviations grid element for mobile.
+                    let portGridMobile = document.createElement('div')
+                    portGridMobile.className = 'port-grid-mobile'
+
                     $.each(deviations, (i, val) => {
                         // Manage deviation container element.
                         let portContainer = document.createElement('div')
                         portContainer.className = 'port-design-container'
+
+                        // Manage deviation container element for mobile.
+                        let portContainerMobile = document.createElement('div')
+                        portContainerMobile.className = 'port-design-container'
+
                         // Manage deviation information element.
                         let portInfo = document.createElement('div')
                         portInfo.className = 'port-design-info'
+
                         // Manage deviation overlay element.
                         let portOverlay = document.createElement('div')
                         portOverlay.className = 'port-design-overlay'
+
                         // Manage deviation content element.
                         let portContent = document.createElement('div')
                         portContent.className = 'port-design-content'
+
                         // Manage deviation date element.
                         let portDate = document.createElement('p')
                         portDate.className = 'port-design-date'
                         portDate.innerHTML = val.date
+
                         // Manage deviation title element.
                         let portTitle = document.createElement('p')
                         portTitle.className = 'port-design-title'
                         portTitle.innerHTML = val.title
+
                         // Manage deviation buttons elements.
                         let portButtons = document.createElement('div')
                         portButtons.className = 'port-design-buttons'
+
                         // Manage deviation link button element.
                         let portButtonLink = document.createElement('a')
                         portButtonLink.className = 'port-design-button'
@@ -80,6 +97,7 @@ $(() => {
                         let portIcon = document.createElement('div')
                         portIcon.className = 'port-design-icon'
                         $(portButtonLink).append(portIcon)
+
                         // Manage deviation full size button element.
                         let portButtonFull = document.createElement('div')
                         portButtonFull.className = 'port-design-button'
@@ -89,19 +107,29 @@ $(() => {
                             document.getElementById('port-image-full').classList.toggle('port-image-open')
                         }
                         $(portButtons).append(portButtonLink).append(portButtonFull)
-                        $(portContent).append(portDate).append(portTitle).append(portButtons)
+                        $(portContent).append($(portDate).clone()).append($(portTitle).clone()).append(portButtons)
                         $(portInfo).append(portOverlay).append(portContent)
+
                         // Manage deviation image element.
                         let portImage = document.createElement('img')
+                        portImage.onclick = () => { window.open(val.link) }
                         portImage.src = val.thumb
-                        $(portContainer).append(portInfo).append(portImage)
+                        $(portContainer).append(portInfo).append(portImage.cloneNode())
+                        $(portContainerMobile).append(portImage).append(portDate).append(portTitle)
                         $(portGrid).append(portContainer)
+                        $(portGridMobile).append(portContainerMobile)
                     })
                     // Manage design content element.
                     let portDesign = document.createElement('div')
                     portDesign.className = 'port-design'
                     $(portDesign).append(portGrid)
                     $('.port-design').replaceWith(portDesign)
+
+                    // Manage design content element for mobile.
+                    let portDesignMobile = document.createElement('div')
+                    portDesignMobile.className = 'port-design-mobile'
+                    $(portDesignMobile).append(portGridMobile)
+                    $('.port-design-mobile').replaceWith(portDesignMobile)
                 }
             }
         }
@@ -124,8 +152,8 @@ $(() => {
                 portList.className = 'port-list'
 
                 // Manage projects container element for mobile.
-                let portContents = document.createElement('div')
-                portContents.className = 'port-contents-mobile'
+                let portContent = document.createElement('div')
+                portContent.className = 'port-content-mobile'
                 $.each(response[cat], async (i, val) => {
                     // Timeout because JavaScript is bullshit.
                     await new Promise(r => setTimeout(r, 100));
@@ -148,15 +176,15 @@ $(() => {
                     $(portHeader).append(portImage.cloneNode())
                     $(portList).append(portImage)
 
-                    // Manage project content element for mobile.
-                    let portContent = document.createElement('div')
-                    portContent.className = 'port-content-mobile'
+                    // Manage project body element for mobile.
+                    let portBody = document.createElement('div')
+                    portBody.className = 'port-body-mobile'
 
                     // Manage project title element for mobile.
                     let portTitle = document.createElement('div')
                     portTitle.className = 'port-name-mobile'
                     portTitle.innerHTML = response[cat][i].title
-                    $(portContent).append(portTitle)
+                    $(portBody).append(portTitle)
 
                     // Manage project tags element for mobile.
                     let portTags = document.createElement('div')
@@ -167,24 +195,24 @@ $(() => {
                         portTag.innerHTML = val
                         $(portTags).append(portTag)
                     })
-                    $(portContent).append(portTags)
+                    $(portBody).append(portTags)
 
                     // Manage project link element for mobile.
                     let portLink = document.createElement('a')
                     portLink.className = 'port-link-mobile'
                     portLink.href = response[cat][i].link
                     portLink.innerHTML = '<p>Visit on GitHub</p><div class="port-icon"></div>'
-                    $(portContent).append(portLink)
+                    $(portBody).append(portLink)
 
                     // Manage project description element for mobile.
                     let portDescription = document.createElement('div')
                     portDescription.className = 'port-description-mobile'
                     portDescription.innerHTML = response[cat][i].description
-                    $(portContent).append(portDescription)
-                    $(portContents).append(portHeader).append(portContent)
+                    $(portBody).append(portDescription)
+                    $(portContent).append(portHeader).append(portBody)
                 })
                 $('.port-list').replaceWith(portList)
-                $('.port-contents-mobile').replaceWith(portContents)
+                $('.port-content-mobile').replaceWith(portContent)
             }
         }
         request.send()
@@ -267,12 +295,16 @@ $(() => {
             case '0':
             case '1':
                 $('.port-content').css('display', 'flex')
+                $('.port-content-mobile').css('display', 'flex')
                 $('.port-design').css('display', 'none')
+                $('.port-design-mobile').css('display', 'none')
                 $('.port-list').css('display', 'block')
                 break
             case '2':
                 $('.port-content').css('display', 'none')
+                $('.port-content-mobile').css('display', 'none')
                 $('.port-design').css('display', 'block')
+                $('.port-design-mobile').css('display', 'block')
                 $('.port-list').css('display', 'none')
                 break
         }

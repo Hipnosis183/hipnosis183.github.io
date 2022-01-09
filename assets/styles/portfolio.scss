@@ -22,6 +22,14 @@
   height: calc(100% - 85px);
 }
 
+.port-body-mobile {
+  background-color: var(--color-navbar);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+  padding: 20px;
+}
+
 .port-button {
   background-color: var(--color-navbar);
   border-radius: 14px;
@@ -92,14 +100,6 @@
   width: 80%;
 }
 
-.port-content-mobile {
-  background-color: var(--color-navbar);
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  overflow: hidden;
-  padding: 20px;
-}
-
 .port-contents {
   background-color: var(--color-navbar);
   border-radius: 20px;
@@ -124,7 +124,7 @@
 
 .port-contents-mobile {
   opacity: 1;
-  transition: background-color 0.5s ease-in-out, visibility 0.2s, opacity 0.2s linear;
+  transition: visibility 0.2s, opacity 0.2s linear;
   visibility: visible;
 
   &.port-contents-open {
@@ -194,24 +194,20 @@
 .port-design-container {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   position: relative;
+  text-align: center;
 }
 
 .port-design-content {
   position: absolute;
   text-align: center;
+}
 
-  & .port-design-date {
-    color: var(--color-grey);
-    font-size: 17px;
-  }
-
-  & .port-design-title {
-    color: var(--color-dark);
-    font-size: 21px;
-    line-height: 1;
-  }
+.port-design-date {
+  color: var(--color-grey);
+  font-size: 17px;
 }
 
 .port-design-icon {
@@ -238,12 +234,22 @@
   }
 }
 
+.port-design-mobile {
+  margin: 32px 0px;
+}
+
 .port-design-overlay {
   background-color: var(--color-navbar);
   height: 100%;
   opacity: 0.95;
   position: absolute;
   width: 100%;
+}
+
+.port-design-title {
+  color: var(--color-dark);
+  font-size: 21px;
+  line-height: 1;
 }
 
 .port-grid {
@@ -255,6 +261,22 @@
 
   img {
     height: 200px;
+    object-fit: contain;
+    width: 300px;
+  }
+}
+
+.port-grid-mobile {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  grid-gap: 48px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+
+  img {
+    margin-bottom: 20px;
+    max-height: 200px;
     object-fit: contain;
     width: 300px;
   }
