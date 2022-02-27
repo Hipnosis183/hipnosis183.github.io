@@ -4,6 +4,19 @@
 /* Import theme partials. */
 @import 'theme/variables';
 
+.logo-lite {
+  display: none;
+  .dark-mode & {
+    display: block;
+  }
+}
+.logo-dark {
+  display: none;
+  &:not(.dark-mode &) {
+    display: block;
+  }
+}
+
 .port-block {
   cursor: default;
   opacity: 1;

@@ -157,11 +157,22 @@ $(() => {
                 $.each(response[cat], async (i, val) => {
                     // Timeout because JavaScript is bullshit.
                     await new Promise(r => setTimeout(r, 100));
-
                     // Manage projects list image element.
-                    let portImage = document.createElement('img')
-                    portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/logo.png'
-                    portImage.onclick = () => {
+                    let portImageLite = document.createElement('img')
+                    portImageLite.className = 'logo-lite'
+                    portImageLite.src = '/assets/images/portfolio/' + response[cat][i].name + (response[cat][i].dark ? '/logo-lite.svg' : '/logo.svg')
+                    portImageLite.onclick = () => {
+                        let portBlock = document.getElementsByClassName('port-block')[0]
+                        portBlock.classList.toggle('port-block-open')
+                        setTimeout(() => {
+                            getSoftProject(cat, i)
+                            setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100)
+                        }, 200)
+                    }
+                    let portImageDark = document.createElement('img')
+                    portImageDark.className = 'logo-dark'
+                    portImageDark.src = '/assets/images/portfolio/' + response[cat][i].name + (response[cat][i].dark ? '/logo-dark.svg' : '/logo.svg')
+                    portImageDark.onclick = () => {
                         let portBlock = document.getElementsByClassName('port-block')[0]
                         portBlock.classList.toggle('port-block-open')
                         setTimeout(() => {
@@ -173,8 +184,10 @@ $(() => {
                     // Manage project header element for mobile.
                     let portHeader = document.createElement('div')
                     portHeader.className = 'port-header-mobile'
-                    $(portHeader).append(portImage.cloneNode())
-                    $(portList).append(portImage)
+                    $(portHeader).append(portImageLite.cloneNode())
+                    $(portHeader).append(portImageDark.cloneNode())
+                    $(portList).append(portImageLite)
+                    $(portList).append(portImageDark)
 
                     // Manage project body element for mobile.
                     let portBody = document.createElement('div')
@@ -259,9 +272,9 @@ $(() => {
                     // Manage project image element.
                     let portImage = document.createElement('img')
                     let portCont = document.createElement('div')
-                    portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '-thumb.jpg'
+                    portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '-thumb.png'
                     portImage.onclick = () => {
-                        $('.port-image-full').attr('src', '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '.jpg')
+                        $('.port-image-full').attr('src', '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '.png')
                         document.getElementById('port-image-full').classList.toggle('port-image-open')
                     }
                     $(portImages).append($(portCont).append(portImage))
