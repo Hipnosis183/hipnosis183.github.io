@@ -1,0 +1,37 @@
+---
+---
+
+/* Import theme partials. */
+@import 'theme/variables';
+
+#keygenContainer {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+}
+
+#keygenData {
+  border-right: solid 2px var(--color-navbar);
+  margin-right: 24px;
+  padding-right: 24px;
+  transition: border 0.5s ease-in-out;
+}
+
+#keygenOutput {
+  cursor: default;
+  margin-top: 14px;
+  text-align: center;
+  width: calc(100% - 36px);
+
+  &:hover {
+    background-color: var(--color-navbar);
+  }
+}
+
+#keygenResults {
+  width: 150px;
+}
+
+#keygenResults > button {
+  width: 100%;
+}

@@ -59,6 +59,48 @@ a {
   }
 }
 
+button {
+  background-color: var(--color-header);
+  border: none;
+  border-radius: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  padding: 18px;
+  text-align: center;
+  transition: background-color 0.5s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-button);
+    }
+  }
+}
+
+input {
+  background-color: var(--color-navbar);
+  border: none;
+  border-radius: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  outline: none;
+  padding: 18px;
+  transition: background-color 0.5s ease-in-out;
+
+  &::placeholder {
+    color: var(--color-grey);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-button);
+    }
+  }
+}
+
 img {
   max-width: 100%;
   vertical-align: middle;
@@ -113,4 +155,59 @@ pre {
 code {
   border-radius: 6px;
   padding: 3px 5px;
+}
+
+.select {
+  background-color: var(--color-navbar);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  margin-top: 14px;
+  padding: 18px;
+  transition: background-color 0.5s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-button);
+    }
+  }
+}
+
+.select > input {
+  background-color: transparent;
+  padding: 0px;
+  pointer-events: auto;
+}
+
+.select-dialog {
+  display: none;
+  position: relative;
+}
+
+.select-modal {
+  background-color: var(--color-navbar);
+  border: none;
+  border-radius: 14px;
+  color: var(--color-text);
+  display: block;
+  font-family: inherit;
+  font-size: 18px;
+  margin-top: 8px;
+  padding: 14px 0px;
+  position: absolute;
+  transition: background-color 0.5s ease-in-out;
+  width: 311px;
+}
+
+.select-option {
+  cursor: pointer;
+  padding: 14px 20px;
+  transition: background-color 0.5s ease-in-out;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-button);
+    }
+  }
 }

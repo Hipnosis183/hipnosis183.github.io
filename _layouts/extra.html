@@ -21,5 +21,13 @@ layout: default
       .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/post.css' }}''>");
     $("head script").last()
       .after("<script src='{{ '/assets/scripts/post.js' }}''>");
+    if ('{{ page.css }}') {
+      $("head link[type='text/css']").last()
+        .after("<link rel='stylesheet' type='text/css' href='{{ page.css }}''>");
+    }
+    if ('{{ page.javascript }}') {
+      $("head script").last()
+        .after("<script src='{{ page.javascript }}'>");
+    }
   });
 </script>
