@@ -6,12 +6,12 @@ $(function () {
 
     // Open/close sidenav.
     $("div#menu-open").click(function () {
-        $("#navbar-open").toggleClass('navbar-open')
-        $("#navbar-overlay").toggleClass('navbar-open')
+        $("#navbar-open").toggleClass('navbar-open');
+        $("#navbar-overlay").toggleClass('navbar-open');
     });
     $("div#navbar-overlay").click(function () {
-        $("#navbar-open").toggleClass('navbar-open')
-        $("#navbar-overlay").toggleClass('navbar-open')
+        $("#navbar-open").toggleClass('navbar-open');
+        $("#navbar-overlay").toggleClass('navbar-open');
     });
 
     // Switch between light and dark theme.
@@ -30,12 +30,20 @@ $(function () {
         // Store on the client's local storage for persistency.
         localStorage.setItem("theme", themeSwitch ? "dark" : "light");
         // Update dark mode button.
+        updateTheme();
+    }
+
+    function updateTheme() {
+        var themeSwitch = document.body.classList.contains('dark-mode');
+        // Update dark mode button.
         $("#dark-icon-header").css("-webkit-mask-image", themeSwitch
             ? "url(/assets/images/icons/icon-sunny.svg)"
-            : "url(/assets/images/icons/icon-moon.svg)")
+            : "url(/assets/images/icons/icon-moon.svg)");
         $("#dark-icon").css("-webkit-mask-image", themeSwitch
             ? "url(/assets/images/icons/icon-sunny.svg)"
-            : "url(/assets/images/icons/icon-moon.svg)")
-        $("#dark-text").text(themeSwitch ? "Light Mode" : "Dark Mode")
+            : "url(/assets/images/icons/icon-moon.svg)");
+        $("#dark-text").text(themeSwitch ? "Light Mode" : "Dark Mode");
     }
+    // Update dark mode button.
+    updateTheme();
 });
