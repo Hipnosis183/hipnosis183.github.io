@@ -103,6 +103,7 @@ $(() => {
                         portButtonFull.className = 'port-design-button'
                         portButtonFull.innerHTML = 'View Full Size'
                         portButtonFull.onclick = () => {
+                            $('.port-image-full').attr('src', '')
                             $('.port-image-full').attr('src', val.image)
                             document.getElementById('port-image-full').classList.toggle('port-image-open')
                         }
@@ -274,6 +275,7 @@ $(() => {
                     let portCont = document.createElement('div')
                     portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '-thumb.png'
                     portImage.onclick = () => {
+                        $('.port-image-full').attr('src', '')
                         $('.port-image-full').attr('src', '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '.png')
                         document.getElementById('port-image-full').classList.toggle('port-image-open')
                     }
