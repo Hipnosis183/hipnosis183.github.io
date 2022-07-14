@@ -17,6 +17,10 @@
   }
 }
 
+.page-wrapper {
+  max-width: var(--width-large) !important;
+}
+
 .port-block {
   cursor: default;
   opacity: 1;
@@ -354,7 +358,6 @@
 
   img {
     cursor: pointer;
-    max-width: 200px;
     transition: all 0.5s ease-in-out;
 
     @media (hover: hover) {

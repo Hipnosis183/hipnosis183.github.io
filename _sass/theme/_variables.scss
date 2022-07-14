@@ -39,12 +39,14 @@ $color-white: rgb(246, 248, 250);
 }
 
 /* Width variables. */
+$width-large: 1200px;
 $width-content: 1000px;
 $width-mobile: 720px;
 $width-navbar: 320px;
 $width-phone: 440px;
 
 :root {
+  --width-large: 1200px;
   --width-content: 1000px;
   --width-mobile: 720px;
   --width-navbar: 320px;
