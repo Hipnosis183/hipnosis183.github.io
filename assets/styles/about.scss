@@ -22,7 +22,7 @@
   padding: 10px 16px;
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 
   &:hover {
     background-color: var(--color-blue);

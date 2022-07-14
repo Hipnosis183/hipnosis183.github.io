@@ -2,6 +2,7 @@ $(function () {
     // Wait for everything to load before displaying.
     $(window).ready(function () {
         $("body").addClass("smooth");
+        setTransitionTime(1);
     });
 
     // Open/close sidenav.
@@ -25,12 +26,26 @@ $(function () {
         }
     }
 
+    // Set timer for short hovers and smooth transitions.
+    const root = document.documentElement;
+    function setTransitionTime(timeout) {
+        if (!timeout) {
+            root.style.setProperty('--time', '0.5s ease-in-out');
+        } else {
+            setTimeout(function () {
+                root.style.setProperty('--time', '0.2s');
+            }, 600);
+        }
+    }
+
     function switchTheme() {
+        setTransitionTime(0);
         var themeSwitch = document.body.classList.toggle('dark-mode');
         // Store on the client's local storage for persistency.
         localStorage.setItem("theme", themeSwitch ? "dark" : "light");
         // Update dark mode button.
         updateTheme();
+        setTransitionTime(1);
     }
 
     function updateTheme() {

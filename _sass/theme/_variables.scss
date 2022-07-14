@@ -53,6 +53,9 @@ $width-phone: 440px;
   --width-phone: 440px;
 }
 
+/* Time variable. */
+:root { --time: 0.5s ease-in-out; }
+
 /* Define defaults for each variable. */
 $background-color: var(--color-white) !default;
 $base-font-family: 'Ubuntu', sans-serif !default;

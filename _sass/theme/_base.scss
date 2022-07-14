@@ -20,7 +20,7 @@ body {
   font-kerning: normal;
   opacity: 0;
   text-size-adjust: 100%;
-  transition: all 0.5s ease-in-out;
+  transition: all var(--time);
   word-wrap: break-word;
 
   & * {
@@ -69,7 +69,7 @@ button {
   font-size: 18px;
   padding: 18px;
   text-align: center;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 
   @media (hover: hover) {
     &:hover {
@@ -88,7 +88,7 @@ input {
   font-size: 18px;
   outline: none;
   padding: 18px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 
   &::placeholder {
     color: var(--color-grey);
@@ -128,7 +128,7 @@ pre, code {
   background-color: var(--color-light);
   font-family: $monospace-font-family;
   font-size: 16px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 }
 
 pre {
@@ -165,7 +165,7 @@ code {
   display: flex;
   margin-top: 14px;
   padding: 18px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 
   @media (hover: hover) {
     &:hover {
@@ -196,14 +196,14 @@ code {
   margin-top: 8px;
   padding: 14px 0px;
   position: absolute;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
   width: 311px;
 }
 
 .select-option {
   cursor: pointer;
   padding: 14px 20px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 
   @media (hover: hover) {
     &:hover {

@@ -10,7 +10,7 @@
     font-weight: 300;
     height: 100%;
     padding: 0px 20px;
-    transition: background-color 0.5s ease-in-out;
+    transition: background-color var(--time);
 
     > * {
       pointer-events: none;
@@ -40,7 +40,7 @@
   display: flex;
   position: sticky;
   top: 0px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
   width: 100%;
   z-index: 20;
 
@@ -61,7 +61,7 @@
   height: 70px;
   justify-content: center;
   position: absolute;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
   width: 70px;
 
   > * {
@@ -122,7 +122,7 @@
     padding-bottom: 24px;
     padding-left: 20px;
     padding-top: 24px;
-    transition: background-color 0.5s ease-in-out;
+    transition: background-color var(--time);
 
     > * {
       pointer-events: none;
@@ -144,7 +144,7 @@
   justify-content: space-between;
   left: calc(0px - var(--width-navbar));
   position: fixed;
-  transition: background-color 0.5s ease-in-out, left 0.5s ease;
+  transition: background-color var(--time), left var(--time);
   width: var(--width-navbar);
   z-index: 20;
 
@@ -170,7 +170,7 @@
   background-color: var(--color-header);
   display: grid;
   padding: 10px 0px;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color var(--time);
 }
 
 .navbar-footer {
@@ -208,7 +208,7 @@
   height: 100%;
   opacity: 0;
   position: fixed;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility var(--time), opacity var(--time);
   visibility: hidden;
   width: 100%;
   z-index: 10;
@@ -320,7 +320,7 @@
   background-size: cover;
   border-radius: 20px;
   height: 100%;
-  transition: all 0.5s ease-in-out;
+  transition: all var(--time);
   width: 100%;
 
   @media (hover: hover) {
@@ -338,7 +338,7 @@
     pointer-events: none;
     -webkit-text-stroke-color: var(--color-light);
     -webkit-text-stroke-width: 1px;
-    transition: all 0.5s ease-in-out;
+    transition: all var(--time);
 
     @media (max-width: $width-mobile) {
       font-size: 36px;
