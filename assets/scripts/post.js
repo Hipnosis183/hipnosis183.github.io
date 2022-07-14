@@ -1,11 +1,11 @@
-$(function () {
+$(() => {
     // Get all hidden collapsible buttons.
-    var collapseHide = document.getElementsByClassName("collapsible-hide");
-    for (var i = 0; i < collapseHide.length; i++) {
+    let collapseHide = document.getElementsByClassName("collapsible-hide");
+    for (let i = 0; i < collapseHide.length; i++) {
         // Attach a click listener to all buttons.
-        collapseHide[i].addEventListener("click", function () {
+        collapseHide[i].addEventListener("click", () => {
             // Select the box element and switch the visibility.
-            var content = document.getElementById(this.id + "-data");
+            let content = document.getElementById(this.id + "-data");
             content.style.display = content.style.display === "block" ? "none" : "block";
             // Toggle class to change the button color and text.
             content.classList.toggle("active");
@@ -14,12 +14,12 @@ $(function () {
         });
     }
     // Get all shown collapsible buttons.
-    var collapseShow = document.getElementsByClassName("collapsible-show");
-    for (var i = 0; i < collapseShow.length; i++) {
+    let collapseShow = document.getElementsByClassName("collapsible-show");
+    for (let i = 0; i < collapseShow.length; i++) {
         // Attach a click listener to all buttons.
-        collapseShow[i].addEventListener("click", function () {
+        collapseShow[i].addEventListener("click", () => {
             // Select the box element and switch the visibility.
-            var content = document.getElementById(this.id + "-data");
+            let content = document.getElementById(this.id + "-data");
             content.style.display = content.style.display === "block" ? "none" : "block";
             // Toggle class to change the button color and text.
             content.classList.toggle("active");

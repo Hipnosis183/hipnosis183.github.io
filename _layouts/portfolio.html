@@ -39,7 +39,7 @@ layout: default
 </div>
 
 <script>
-  $(function () {
+  $(() => {
     $("head link[type='text/css']").last()
       .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/portfolio.css' }}''>");
     $("head script").last().after("<script src='{{ '/assets/scripts/portfolio.js' }}''>");
