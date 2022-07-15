@@ -1,10 +1,5 @@
 /* Import partials. */
-@import
-  'theme/variables',
-  'theme/base',
-  'theme/layout',
-  'theme/syntax-highlighting'
-;
+@import 'theme/variables', 'theme/base', 'theme/layout', 'theme/syntax-highlighting';
 
 /* Media queries. */
 @mixin media-query($device) {
