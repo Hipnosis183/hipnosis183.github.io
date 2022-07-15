@@ -21,6 +21,79 @@
   max-width: var(--width-large) !important;
 }
 
+.port-bar {
+  align-items: center;
+  background-color: var(--color-header);
+  bottom: 0px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  left: 0px;
+  position: absolute;
+  transition: background-color var(--time);
+  width: 100%;
+  z-index: 20;
+
+  span {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    height: 100%;
+    padding: 0px 10px;
+    transition: background-color var(--time);
+
+    & img {
+      background-color: var(--color-text);
+      padding: 10px;
+      transition: background-color var(--time);
+    }
+
+    &.close img {
+      mask-image: url('/assets/images/icons/icon-cross.svg');
+      -webkit-mask-image: url('/assets/images/icons/icon-cross.svg');
+    }
+
+    &.next img,
+    &.prev img {
+      mask-image: url('/assets/images/icons/icon-arrow.svg');
+      -webkit-mask-image: url('/assets/images/icons/icon-arrow.svg');
+      padding-bottom: 12px;
+    }
+
+    &.next img {
+      transform: rotate(90deg);
+    }
+
+    &.prev img {
+      transform: rotate(-90deg);
+    }
+
+    &.open img {
+      mask-image: url('/assets/images/icons/icon-open.svg');
+      -webkit-mask-image: url('/assets/images/icons/icon-open.svg');
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-button);
+      }
+    }
+  }
+
+  & .count {
+    cursor: default;
+    margin-right: 12rem;
+    position: absolute;
+  }
+
+  & .other {
+    display: flex;
+    height: 100%;
+    margin-left: 13.5rem;
+    position: absolute;
+  }
+}
+
 .port-block {
   cursor: default;
   opacity: 1;
@@ -60,7 +133,7 @@
   text-align: center;
   text-decoration: none;
   transition: background-color var(--time);
-  width: 15%;
+  width: 20%;
 
   &:visited {
     color: var(--color-text);
@@ -335,8 +408,7 @@
   width: 30px;
 }
 
-.port-image-full {
-  border-radius: 10px;
+.port-full {
   max-height: 100%;
   max-width: 100%;
 }
@@ -370,7 +442,7 @@
 
 .port-link {
   margin-left: auto;
-  width: 200px;
+  width: 212px;
 }
 
 .port-link-mobile {
@@ -433,24 +505,13 @@
 .port-overlay {
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  cursor: pointer;
   display: flex;
-  height: calc(100% - 100px);
+  height: calc(100% - 110px);
   justify-content: center;
   left: 0px;
-  opacity: 0;
-  padding: 20px;
   position: fixed;
   top: 60px;
-  transition: visibility var(--time), opacity 0.2s linear;
-  visibility: hidden;
-  width: calc(100% - 40px);
-  z-index: 10;
-
-  &.port-image-open {
-    opacity: 1;
-    visibility: visible;
-  }
+  width: 100%;
 }
 
 .port-tags,
@@ -460,6 +521,7 @@
 
   code {
     font-family: 'Ubuntu';
+    padding: 3px 8px;
 
     &:not(:first-child) {
       margin-left: 10px;
@@ -472,4 +534,16 @@
   line-height: 1;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.port-viewer {
+  opacity: 0;
+  transition: visibility var(--time), opacity 0.2s linear;
+  visibility: hidden;
+  z-index: 10;
+
+  &.port-open {
+    opacity: 1;
+    visibility: visible;
+  }
 }

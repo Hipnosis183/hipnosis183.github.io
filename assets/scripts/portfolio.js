@@ -4,6 +4,7 @@ $(() => {
     const offset = 60
     let response = []
     let deviations = []
+    let portCategory, portIndex, portSelected, portTotal
 
     // Get and manage the design category.
     const getDesignCategory = (url, reset) => {
@@ -102,24 +103,43 @@ $(() => {
                         let portButtonFull = document.createElement('div')
                         portButtonFull.className = 'port-design-button'
                         portButtonFull.innerHTML = 'View Full Size'
-                        portButtonFull.onclick = () => {
-                            $('.port-image-full').attr('src', '')
-                            $('.port-image-full').attr('src', val.image)
-                            document.getElementById('port-image-full').classList.toggle('port-image-open')
-                        }
+                        $(portButtonFull).on('click', () => {
+                            portSelected = i
+                            $('.count').text((portSelected + 1) + ' / ' + deviations.length)
+                            $('.port-full').attr('src', '')
+                            $('.port-full').attr('src', val.image)
+                            $('.port-viewer').toggleClass('port-open')
+                        })
                         $(portButtons).append(portButtonLink).append(portButtonFull)
                         $(portContent).append($(portDate).clone()).append($(portTitle).clone()).append(portButtons)
                         $(portInfo).append(portOverlay).append(portContent)
 
                         // Manage deviation image element.
                         let portImage = document.createElement('img')
-                        portImage.onclick = () => { window.open(val.link) }
+                        $(portImage).on('click', () => { window.open(val.link) })
                         portImage.src = val.thumb
                         $(portContainer).append(portInfo).append(portImage.cloneNode())
                         $(portContainerMobile).append(portImage).append(portDate).append(portTitle)
                         $(portGrid).append(portContainer)
                         $(portGridMobile).append(portContainerMobile)
                     })
+
+                    // Manage full image viewer elements.
+                    $('.prev').off('click').on('click', () => {
+                        if (portSelected > 0) {
+                            portSelected--
+                            $('.count').text((portSelected + 1) + ' / ' + deviations.length)
+                            $('.port-full').attr('src', deviations[portSelected].image)
+                        }
+                    })
+                    $('.next').off('click').on('click', () => {
+                        if (portSelected + 1 < deviations.length) {
+                            portSelected++
+                            $('.count').text((portSelected + 1) + ' / ' + deviations.length)
+                            $('.port-full').attr('src', deviations[portSelected].image)
+                        }
+                    })
+
                     // Manage design content element.
                     let portDesign = document.createElement('div')
                     portDesign.className = 'port-design'
@@ -162,25 +182,25 @@ $(() => {
                     let portImageLite = document.createElement('img')
                     portImageLite.className = 'logo-lite'
                     portImageLite.src = '/assets/images/portfolio/' + response[cat][i].name + (response[cat][i].dark ? '/logo-lite.svg' : '/logo.svg')
-                    portImageLite.onclick = () => {
+                    $(portImageLite).on('click', () => {
                         let portBlock = document.getElementsByClassName('port-block')[0]
                         portBlock.classList.toggle('port-block-open')
                         setTimeout(() => {
                             getSoftProject(cat, i)
                             setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100)
                         }, 200)
-                    }
+                    })
                     let portImageDark = document.createElement('img')
                     portImageDark.className = 'logo-dark'
                     portImageDark.src = '/assets/images/portfolio/' + response[cat][i].name + (response[cat][i].dark ? '/logo-dark.svg' : '/logo.svg')
-                    portImageDark.onclick = () => {
+                    $(portImageDark).on('click', () => {
                         let portBlock = document.getElementsByClassName('port-block')[0]
                         portBlock.classList.toggle('port-block-open')
                         setTimeout(() => {
                             getSoftProject(cat, i)
                             setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100)
                         }, 200)
-                    }
+                    })
 
                     // Manage project header element for mobile.
                     let portHeader = document.createElement('div')
@@ -234,6 +254,7 @@ $(() => {
 
     // Get and manage software projects.
     const getSoftProject = (cat, i) => {
+        portCategory = cat, portIndex = i
         // Manage request to open the software projects file.
         let request = new XMLHttpRequest()
         request.open('GET', '/assets/software.json', true)
@@ -269,19 +290,82 @@ $(() => {
                 if (response[cat][i].images == 0) {
                     portImages.style.display = 'none'
                 }
+                portTotal = response[cat][i].images
                 for (let k = 0; k < response[cat][i].images; k++) {
                     // Manage project image element.
                     let portImage = document.createElement('img')
                     let portCont = document.createElement('div')
                     portImage.src = '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '-thumb.png'
-                    portImage.onclick = () => {
-                        $('.port-image-full').attr('src', '')
-                        $('.port-image-full').attr('src', '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '.png')
-                        document.getElementById('port-image-full').classList.toggle('port-image-open')
-                    }
+                    $(portImage).on('click', () => {
+                        portSelected = k
+                        $('.count').text((portSelected + 1) + ' / ' + portTotal)
+                        $('.port-full').attr('src', '')
+                        $('.port-full').attr('src', '/assets/images/portfolio/' + response[cat][i].name + '/' + k + '.png')
+                        $('.port-viewer').toggleClass('port-open')
+                    })
                     $(portImages).append($(portCont).append(portImage))
                 }
                 $('.port-images').replaceWith(portImages)
+
+                // Create the HTML elements for the full image viewer.
+                // Manage bottom navigation bar element.
+                let portBar = document.createElement('div')
+                portBar.className = 'port-bar'
+
+                // Manage images counter element.
+                let portCount = document.createElement('div')
+                portCount.className = 'count'
+
+                // Manage previous image element.
+                let portBarPrev = document.createElement('span')
+                portBarPrev.className = 'prev'
+                let portBarPrevImg = document.createElement('img')
+                $(portBarPrev).append(portBarPrevImg)
+                $(portBarPrev).on('click', () => {
+                    if (portSelected > 0) {
+                        portSelected--
+                        $('.count').text((portSelected + 1) + ' / ' + portTotal)
+                        $('.port-full').attr('src', '/assets/images/portfolio/' + response[portCategory][portIndex].name + '/' + portSelected + '.png')
+                    }
+                })
+
+                // Manage next image element.
+                let portBarNext = document.createElement('span')
+                portBarNext.className = 'next'
+                let portBarNextImg = document.createElement('img')
+                $(portBarNext).append(portBarNextImg)
+                $(portBarNext).on('click', () => {
+                    if (portSelected + 1 < portTotal) {
+                        portSelected++
+                        $('.count').text((portSelected + 1) + ' / ' + portTotal)
+                        $('.port-full').attr('src', '/assets/images/portfolio/' + response[portCategory][portIndex].name + '/' + portSelected + '.png')
+                    }
+                })
+
+                // Manage external (full) image opening element.
+                let portOpen = document.createElement('span')
+                portOpen.className = 'open'
+                let portOpenImg = document.createElement('img')
+                $(portOpen).append(portOpenImg)
+                $(portOpen).on('click', () => {
+                    window.open($('.port-full').attr('src'))
+                })
+
+                // Manage close viewer element.
+                let portClose = document.createElement('span')
+                portClose.className = 'close'
+                let portCloseImg = document.createElement('img')
+                $(portClose).append(portCloseImg)
+                $(portClose).on('click', () => {
+                    $('.port-viewer').toggleClass('port-open')
+                })
+
+                // Manage other actions container element.
+                let portOther = document.createElement('div')
+                portOther.className = 'other'
+                $(portOther).append(portOpen).append(portClose)
+                $(portBar).append(portBarPrev).append(portBarNext).append(portCount).append(portOther)
+                $('.port-bar').replaceWith(portBar)
             }
         }
         request.send()
@@ -349,14 +433,9 @@ $(() => {
     }
 
     // Manage category buttons.
-    $('#port-button-web').click({ cat: '0' }, getCategorySelect)
-    $('#port-button-other').click({ cat: '1' }, getCategorySelect)
-    $('#port-button-design').click({ cat: '2' }, getCategorySelect)
-
-    // Manage full image display state.
-    $('.port-overlay').click(() => {
-        document.getElementById('port-image-full').classList.toggle('port-image-open')
-    })
+    $('#port-button-web').on('click', { cat: '0' }, getCategorySelect)
+    $('#port-button-other').on('click', { cat: '1' }, getCategorySelect)
+    $('#port-button-design').on('click', { cat: '2' }, getCategorySelect)
 
     // Set default category and project.
     getCategorySelect('0', true)

@@ -6,19 +6,17 @@ $(() => {
     });
 
     // Open/close sidenav.
-    $("div#menu-open").click(() => {
+    $("div#menu-open").on('click', () => {
         $("#navbar-open").toggleClass('navbar-open');
         $("#navbar-overlay").toggleClass('navbar-open');
     });
-    $("div#navbar-overlay").click(() => {
+    $("div#navbar-overlay").on('click', () => {
         $("#navbar-open").toggleClass('navbar-open');
         $("#navbar-overlay").toggleClass('navbar-open');
     });
 
     // Switch between light and dark theme.
-    $("div#dark-mode").click(() => {
-        switchTheme();
-    });
+    $("div#dark-mode").on('click', () => { switchTheme(); });
     // Check the local storage for theming.
     if (localStorage.getItem("theme") === "dark") {
         if (!document.body.classList.contains('dark-mode')) {
@@ -29,13 +27,8 @@ $(() => {
     // Set timer for short hovers and smooth transitions.
     const root = document.documentElement;
     const setTransitionTime = (timeout) => {
-        if (!timeout) {
-            root.style.setProperty('--time', '0.5s ease-in-out');
-        } else {
-            setTimeout(() => {
-                root.style.setProperty('--time', '0.2s');
-            }, 600);
-        }
+        if (!timeout) { root.style.setProperty('--time', '0.5s ease-in-out'); }
+        else { setTimeout(() => { root.style.setProperty('--time', '0.2s'); }, 600); }
     }
 
     const switchTheme = () => {
