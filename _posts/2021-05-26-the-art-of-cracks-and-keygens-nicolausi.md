@@ -1,5 +1,7 @@
 ---
 layout: post
+language: "en"
+code: "the-art-of-cracks-and-keygens-nicolausi"
 title: The art of cracks and keygens – Nicolausi
 description: Have you ever wondered how these things worked? Well, finding it out can be very fascinating.
 thumb: /assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/thumb.jpg

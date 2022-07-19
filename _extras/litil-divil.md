@@ -1,5 +1,7 @@
 ---
 layout: extra
+language: "en"
+code: "litil-divil"
 title: "Litil Divil"
 description: "CD-ROM Release - DOS (1993)"
 name: "No-CD Patch"

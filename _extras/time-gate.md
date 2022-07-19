@@ -1,5 +1,7 @@
 ---
 layout: extra
+language: "en"
+code: "time-gate"
 title: "Time Gate Knight's Chase"
 description: "SVGA Re-Release - DOS (1995)"
 name: "No-CD Patch"

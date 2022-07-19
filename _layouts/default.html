@@ -5,21 +5,51 @@
 
 <body>
   <script>
+    // Set english as the default language.
+    if (localStorage.getItem('lang') == null) {
+      localStorage.setItem('lang', 'en');
+    }
+    // Set language at page load.
+    if (localStorage.getItem('lang') == 'en') {
+      document.body.classList.toggle('lang-en');
+    }
+    if (localStorage.getItem('lang') == 'es') {
+      document.body.classList.toggle('lang-es');
+    }
     // Set dark mode as the default theme.
     if (localStorage.getItem('theme') == null) {
-      localStorage.setItem('theme', 'dark')
+      localStorage.setItem('theme', 'dark');
     }
     // Set theme before rendering to avoid flickering.
     if (localStorage.getItem('theme') == 'dark') {
-      document.body.classList.toggle('dark-mode')
+      document.body.classList.toggle('dark-mode');
     }
   </script>
-  {% include header.html %}
+  <div class="lang-en">
+    {% include header.html language="en" %}
+  </div>
+  <div class="lang-es">
+    {% include header.html language="es" %}
+  </div>
   <main class="page-content" aria-label="Content">
     <div class="page-wrapper">
       {{ content }}
     </div>
   </main>
+  <script>
+    // Remove other language elements.
+    let lang_es = document.body.classList.contains('lang-es');
+    if (lang_es) { $('div.lang-en').remove(); }
+    let lang_en = document.body.classList.contains('lang-en');
+    if (lang_en) { $('div.lang-es').remove(); }
+  </script>
 </body>
+
+<script>
+  $(() => {
+    $("head link[type='text/css']").last()
+      .after("<link rel='stylesheet' type='text/css' href='{{ '/assets/styles/icons.css' }}''>");
+  });
+</script>
 
 </html>

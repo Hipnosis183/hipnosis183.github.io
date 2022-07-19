@@ -43,6 +43,19 @@ body {
       background-color: rgba(255, 255, 255, 0.1) !important;
     }
   }
+
+  &.lang-en .lang-en,
+  &.lang-es .lang-es {
+    display: contents;
+  }
+
+  &.lang-en .lang-es {
+    display: none;
+  }
+
+  &.lang-es .lang-en {
+    display: none;
+  }
 }
 
 a {

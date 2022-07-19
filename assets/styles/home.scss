@@ -135,9 +135,12 @@ $width-home: 600px - 1px;
 
 .home-title {
   border-bottom: solid 1px var(--color-grey);
+  display: flex;
   font-size: 48px;
+  justify-content: center;
   margin-bottom: 20px;
   padding-bottom: 10px;
+  white-space: nowrap;
   width: 80%;
 
   @media (max-width: $width-content) {

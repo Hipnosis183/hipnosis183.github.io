@@ -1,5 +1,7 @@
 ---
 layout: extra
+language: "en"
+code: "spider-man"
 title: "Spider-Man The Sinister Six"
 description: "Spanish Release - DOS (1996)"
 name: "No-CD Patch"

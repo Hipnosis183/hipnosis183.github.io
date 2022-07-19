@@ -1,5 +1,7 @@
 ---
 layout: post
+language: "en"
+code: "bringing-back-to-modern-life-tonic-trouble"
 title: Bringing back to modern life – Tonic Trouble
 description: Develop a solution to give new life to an old title in modern times.
 thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg

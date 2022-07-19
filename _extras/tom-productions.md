@@ -1,5 +1,7 @@
 ---
 layout: extra
+language: "en"
+code: "tom-productions"
 title: "Tom Productions"
 description: "Nicolausi & PC-Bakterien - DOS/Windows"
 name: "Key Generator"

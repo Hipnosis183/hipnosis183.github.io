@@ -5,7 +5,10 @@ layout: default
 <!-- May be a cool idea to add a game or something here. -->
 <div class="error-page">
   <h1 class="error-title">404</h1>
-  <p><strong>Page not found.</strong></p>
-  <p>Stop playing with URLs.</p><br>
-  <p>Here, have some <a href="/extras">patches and cracks.</a></p>
+  <div class="lang-en">
+    {% include en/404.html %}
+  </div>
+  <div class="lang-es">
+    {% include es/404.html %}
+  </div>
 </div>

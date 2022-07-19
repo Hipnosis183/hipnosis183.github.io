@@ -24,6 +24,9 @@ $(() => {
     }
   }
 
+  // Switch between english and spanish languages.
+  $('div#language').on('click', () => { switchLanguage(); });
+
   // Set timer for short hovers and smooth transitions.
   const root = document.documentElement;
   const setTransitionTime = (timeout) => {
@@ -33,24 +36,31 @@ $(() => {
 
   const switchTheme = () => {
     setTransitionTime(0);
-    let themeSwitch = document.body.classList.toggle('dark-mode');
+    let theme = document.body.classList.toggle('dark-mode');
     // Store on the client's local storage for persistency.
-    localStorage.setItem('theme', themeSwitch ? 'dark' : 'light');
+    localStorage.setItem('theme', theme ? 'dark' : 'light');
     // Update dark mode button.
     updateTheme();
     setTransitionTime(1);
   }
 
+  const switchLanguage = () => {
+    let lang = localStorage.getItem('lang');
+    // Store on the client's local storage for persistency.
+    localStorage.setItem('lang', lang === 'en' ? 'es' : 'en');
+    // Reload page for the changes to take effect.
+    document.location.reload();
+  }
+
   const updateTheme = () => {
-    let themeSwitch = document.body.classList.contains('dark-mode');
+    let theme = document.body.classList.contains('dark-mode');
     // Update dark mode button.
-    $('#dark-icon-header').css('-webkit-mask-image', themeSwitch
+    $('#dark-icon-header').css('-webkit-mask-image', theme
       ? 'url(/assets/images/icons/icon-sunny.svg)'
       : 'url(/assets/images/icons/icon-moon.svg)');
-    $('#dark-icon').css('-webkit-mask-image', themeSwitch
+    $('#dark-icon').css('-webkit-mask-image', theme
       ? 'url(/assets/images/icons/icon-sunny.svg)'
       : 'url(/assets/images/icons/icon-moon.svg)');
-    $('#dark-text').text(themeSwitch ? 'Light Mode' : 'Dark Mode');
   }
   // Update dark mode button.
   updateTheme();

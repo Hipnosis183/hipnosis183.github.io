@@ -6,7 +6,10 @@
   <a class="header-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
   <nav class="header-buttons">
     <a class="header-button" href="/blog/">
-      <img id="articles" class="header-icon" />Articles
+      <img id="articles" class="header-icon" />
+      {% if include.language == "en" %} Articles
+      {% else %} Artículos
+      {% endif %}
     </a>
     <a class="header-button" href="/portfolio/">
       <img id="portfolio" class="header-icon" />Portfolio
@@ -15,10 +18,16 @@
       <img id="extras" class="header-icon" />Extras
     </a>
     <a class="header-button" href="/about/">
-      <img id="about" class="header-icon" />About
+      <img id="about" class="header-icon" />
+      {% if include.language == "en" %} About
+      {% else %} Acerca de
+      {% endif %}
     </a>
     <div id="dark-mode" class="header-button">
       <img id="dark-icon-header" class="header-icon" style="margin-right: 0px; height: 24px; width: 24px;" />
+    </div>
+    <div id="language" class="header-button">
+      <img src="/assets/images/icons/nav-lang.svg" class="header-lang" />
     </div>
   </nav>
 </header>
@@ -27,7 +36,10 @@
     <a class="navbar-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
     <nav class="navbar-buttons">
       <a class="navbar-button" href="/blog/">
-        <img id="articles" class="navbar-icon" />Articles
+        <img id="articles" class="navbar-icon" />
+        {% if include.language == "en" %} Articles
+        {% else %} Artículos
+        {% endif %}
       </a>
       <a class="navbar-button" href="/portfolio/">
         <img id="portfolio" class="navbar-icon" />Portfolio
@@ -36,17 +48,20 @@
         <img id="extras" class="navbar-icon" />Extras
       </a>
       <a class="navbar-button" href="/about/">
-        <img id="about" class="navbar-icon" />About
+        <img id="about" class="navbar-icon" />
+        {% if include.language == "en" %} About
+        {% else %} Acerca de
+        {% endif %}
       </a>
     </nav>
   </div>
   <div>
-    <nav class="navbar-buttons">
-      <div id="dark-mode" class="navbar-button" style="padding-left: 0px; justify-content: space-evenly;">
-        <div style="display: flex; align-items: center;">
-          <img id="dark-icon" class="navbar-icon" style="margin-left: -20px; margin-right: 10px;" />
-          <span id="dark-text">Dark Mode</span>
-        </div>
+    <nav class="navbar-buttons" style="flex-direction: row;">
+      <div id="dark-mode" class="navbar-button" style="justify-content: center; padding-left: 0px; width: 100%;">
+        <img id="dark-icon" class="navbar-icon" style="margin: 0px;" />
+      </div>
+      <div id="language" class="navbar-button" style="justify-content: center; padding-left: 0px; width: 100%;">
+        <img src="/assets/images/icons/nav-lang.svg" class="navbar-lang" />
       </div>
     </nav>
     <div class="navbar-foot">

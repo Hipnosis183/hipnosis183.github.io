@@ -1,5 +1,7 @@
 ---
 layout: extra
+language: "en"
+code: "raiden"
 title: "Raiden"
 description: "CD-ROM Release - DOS (1994)"
 name: "Remove Copy Protection"
