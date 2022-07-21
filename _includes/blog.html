@@ -1,9 +1,3 @@
-{% if include.language == "es" %}
-<script>
-  let lang = document.body.classList.contains('lang-es');
-  if (lang) { document.title = 'Artículos'; }
-</script>
-{% endif %}
 {% assign articles = site.posts | where: "code", page.code | where: "language", include.language %}
 {% for article in articles %}
 <li>
@@ -22,3 +16,9 @@
   </div>
 </li>
 {% endfor %}
+{% if include.language == "es" %}
+<script>
+  let lang = document.body.classList.contains('lang-es');
+  if (lang) { document.title = 'Artículos'; }
+</script>
+{% endif %}

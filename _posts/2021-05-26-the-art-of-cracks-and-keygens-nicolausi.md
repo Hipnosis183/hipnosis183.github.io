@@ -7,10 +7,10 @@ description: Have you ever wondered how these things worked? Well, finding it ou
 thumb: /assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/thumb.jpg
 ---
 
-# Introduction, and a short story about piracy
-During the entirety of my childhood, I’ve been solely a PC user, no video game consoles whatsoever. The fact that in my country video games weren’t very widespread nor cheap in those days, *freeware* games and *piracy* were the way to go. In fact, I consider it a cultural problem that has always existed and kind of remains until this very day, but thankfully modern digital stores/platforms like Steam with their regional pricing helped to highly reduce this issue and mindset. But the takeaway is, piracy was normalized, and (in the PC world) **cracks** and **keygens** were common and normal to see. If there was any sort of commercial game, it surely was distributed over the internet with one of them.
+# Introduction, and a short tale about piracy
+During the entirety of my childhood I’ve been solely a PC user, no video game consoles whatsoever. The fact that in my country video games weren’t very widespread nor cheap in those days, *freeware* games and *piracy* were the way to go. In fact, I consider it a cultural problem that has always existed and kind of remains until this very day, but thankfully modern digital stores/platforms like Steam with their regional pricing helped to highly reduce this issue and mindset. But the takeaway is, piracy was normalized, and (in the PC world) **cracks** and **keygens** were common and normal to see. If there was any commercial game out there for download (online) or sale (at least over here), it surely was a pirated copy and distributed with one of these.
 
-I was always blown away by keygens: open the game, copy this code here, generate, go back to the game, paste and profit, you now have a fully unlocked game. Not so much for cracks, since those were there but you never really noticed them. I remember the *'installation process'*, managed by my father, which always included a crack, a serial or a keygen. Nostalgic times, for sure. However, this was always the key point: I thought it was normal, and didn’t realize the harm that piracy involved. That’s what I meant by *'cultural problem'*. Not trying to justify it, but that’s the way it was.
+I was always amazed by keygens: open the game, copy this code here, generate, go back to the game, paste and profit, you now have a fully unlocked game. Not so much for cracks, since those were there but you never really noticed them. I still remember the *'installation process'*, managed by my father, which always included a crack or a serial/keygen. Nostalgic times, for sure. However, this was always the key point: I thought it was normal, and didn’t realize the harm that piracy involved. That’s what I meant by *'cultural problem'*. Not trying to justify it, but that’s the way it was.
 
 During the early days of my adulthood, I kept the piracy culture and practices, but this time on my own. This led me to be more and more interested in those topics, and all the technicality behind it. It wasn’t only about the games anymore, but rather the whole security bypassing, breaking the programs in ways they were never meant to be broken, *that was exciting*. But at that time I was barely capable of understanding anything about it, let alone having the knowledge and skills necessary, besides being completely lost in where to start to learn.
 
@@ -19,7 +19,7 @@ Eventually, that day came (well, not literally, it was a process), and since the
 <br>
 
 # The game
-Nicolausi is a german *'action'* game, where you help *Santa Claus* (or *Nikolaus* in this case, which I suppose the game takes its name from) to collect and deliver presents to the correct house on each level. Of course, you are being chased by none other than the *Easter Bunny*, who equipped with his *'Ghettoblaster'* and the power of *techno music*, will try to destroy you and ruin Christmas, so you better avoid him.
+Nicolausi is a german *'action'* game, where you help *Santa Claus* (or *Nikolaus* in this case, which I suppose the game takes its name from) to collect and deliver presents to the correct house on each level. Of course, you are being chased by none other than the *Easter Bunny* itself, who equipped with his *'Ghettoblaster'* and the power of *techno music*, will try to destroy you and ruin Christmas, so you better avoid him.
 
 The game is basically an isometric maze game, kind of frustrating and boring as well, since it’s more about brute forcing your way through rather than thinking your moves carefully. Short on content as well, with only 3 levels available in the **shareware** version. But that won’t be a problem anymore, since we’re going to unlock the full 10 levels of the **registered** version.
 
@@ -31,14 +31,14 @@ I don’t know, it just happened. I guess it was the fact that this game didn’
 <br>
 
 # Disclaimer
-Before starting, I have to make clear that this article is just for **entertainment and educational purposes** only, and it’s **not to encourage piracy**. That’s because **the game is still being sold** by the developer (yep, right on their [website](https://www.tom-productions.de/) like in the old days). As such, while there will be research, code and algorithms exposed, no registration codes will be displayed, nor the final keygen produced will be *publicly* available. That said, let’s start with this thing.
+Before starting, I have to make clear that this article is just for **entertainment and educational purposes** only, and it’s **not to encourage piracy**. That’s because **the game is still being sold** by the developer (yep, right on their [website](https://www.tom-productions.de/) like in the old days). As such, while there will be research, code and algorithms exposed, no registration codes will be displayed, nor the final keygen produced will be *publicly* available. That said, let’s get started with this thing.
 
 <br>
 
 # Choosing between DOS and Windows
-So, we have ourselves a DOS game to crack, which means **DOSBox Debugger**. I’ve used it before, and while it’s not as comfortable and easy to use as Windows programs of the same kind, it gets the job done, and it’s definitely better than any native DOS debugger. However, I’ve only used it to debug the **DOS API**, like *CD checks* and such, but wasn’t very successful with in-game logic, so I try to avoid using it whenever I can. Thankfully, this is one of those lucky cases, since there’s also a Windows version of the game.
+So, we have ourselves a DOS game to crack, which means **DOSBox Debugger**. I’ve used it before, and while it’s not as comfortable and easy to use as Windows programs of the same kind, it gets the job done, and it’s definitely better than any native DOS debugger. However, I’ve only used it to debug the **DOS API**, like *CD checks* and such, but wasn’t very successful with in-game logic, so I try to avoid using it whenever I can. Thankfully, this is one of those lucky cases, since there’s also a Windows version of Nicolausi.
 
-The Windows version, developed *'due to the high demands'*, is a **DirectDraw** port of the DOS version, being referenced as an *'emulator'* (maybe it is, but I doubt they developed a freakin’ DOS emulator instead of just porting the damn game, or even easier, shipping it with **DOSBox**). There’s also an **Ad-lib emulator** (the **Sound-Engine**), because why not, and to preserve that *beautiful techno music* that plays whenever the *Easter Bunny* is near you. Finally, this version also uses the original DOS data files.
+The Windows version, developed *'due to the high demands'*, is a **DirectDraw** port of the DOS version, being referenced as an *'emulator'* (maybe it is, but I doubt they developed a fucking DOS emulator instead of just porting the damn game, or even easier, shipping it with **DOSBox**). There’s also an **Ad-lib emulator** (the **Sound-Engine**), because why not, and to preserve that *beautiful techno music* that plays whenever the *Easter Bunny* is near you. Finally, this version also uses the original DOS data files.
 
 Now, the initial plan is quite simple: crack the Windows version, and then see if we can use some of that to patch the DOS executable as well. Even if the game runs or not on top of an emulator, the game logic *should be* similar. So, before starting with the analysis, let’s see the differences between the two versions:
 
@@ -131,7 +131,7 @@ Yeah, this game is boring, but we can still have some fun with it.
 
 So far we have made a crack for one version, and generated our own keys for both, albeit in a nonconventional way, so we’ve to fix that.
 
-This is actually the main point of this whole post, to reverse the key generation algorithm and implement it in a *high-level* language, so keys can be generated by the press of a button instead of searching in memory at execution time. What makes it more exciting is that **I’ve never done something like this**, not at this *low-level*, and I’ve *zero* algorithm theory and experience, so bear with me and wish me luck.
+After all, this is actually the main point of this whole post, to reverse the key generation algorithm and implement it in a *high-level* language, so keys can be generated by the press of a button instead of searching in memory at execution time. What makes it more exciting is that **I’ve never done something like this**, not at this *low-level*, and I’ve *zero* algorithm theory and experience, so bear with me and wish me luck.
 
 <br>
 
@@ -310,7 +310,7 @@ The developers, **TOM Productions**, have a couple more games out there, and one
 ![](/assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/08.png){: .center-image }
 
 {: .center-text }
-**PC-Bakterien** has **20** levels instead of **Nicolausi**’s **10**. Behold level 20. Of course I’m not a masochist to play all the levels, but rather exploited the save file. Said exploit consisted of `0x00`ing `80` bytes, and it even gave me crazy high scores. This works on Nicolausi as well (`40` bytes instead). And as a fun side note, **yes**, PC-Bakterien has the exact same crashing and text box sizing issues as Nicolausi.
+**PC-Bakterien** has **20** levels instead of **Nicolausi**’s **10**. Behold level 20. Of course I’m not a masochist to play all the levels, but rather exploited the save file. Said exploit consisted of `0x00`ing `80` bytes, and it even gave me very high scores. This works on Nicolausi as well (`40` bytes instead). And as a fun side note, **yes**, PC-Bakterien has the exact same crashing and text box sizing issues as Nicolausi.
 
 <br>
 
@@ -321,7 +321,7 @@ I haven’t tried with the rest of the games, and I think that I had enough alre
 # Closing up
 This whole thing took me roughly like 3-4 days, a **lot** less than I anticipated. It was definitely a lot more fun than playing the game itself. But most importantly, **I realized my dream of making a keygen** (no fancy graphics and music, *I know*), and hopefully it will be the first of many more.
 
-Now on a *serious note*, despite me shitting on the game during the entire writing, it’s actually not that bad, and if you like this kind of game you can find some joy out of it. However, this joy from 1995 it’s definitely **not** worth $14 in 2021, and on top of that, having to buy it straight from the developer’s website is a big no today. If you’re part of TOM Productions and are reading this, put your stuff on **Steam** or **GOG** at an accessible price, at least you’ll have a lot more visibility there, and might *actually sell* something. As I said at the very beginning, the only reliable way for me and a bunch of people to buy games is through Steam and their regional prices, and if the game would’ve been there, I’d have bought it without a doubt.
+Now on a *serious note*, despite me shitting on the game during the entire writing, it’s actually not *that* bad, and if you like this kind of game you can find some joy out of it. However, this joy from 1995 it’s definitely **not** worth $14 in 2021, and on top of that, having to buy it straight from the developer’s website is a big no today. If you’re part of TOM Productions and are reading this (hi Andreas), put your stuff on **Steam** or **GOG** at an accessible price, at least you’ll have a lot more visibility there, and might *actually sell* something. As I said at the very beginning, the only reliable way for me and a bunch of people to buy games is through Steam and their regional prices, and if the game would’ve been there, I’d have bought it without a doubt.
 
 And lastly, as promised there will be no final keygen or crack publicly available, though you could *easily* develop one with the explanation and code showcased above. Also, there’s the *revised decompilation* on GitHub, which is uploaded to give the interested a guide to follow the explanation, and to have fun with it, *I guess*. But if you choose to do it, *please* keep it for yourself and don’t share it over the internet, have some respect for the developers, which surprisingly are still supporting a game for a dead platform.
 
@@ -334,7 +334,7 @@ That said, whenever the developers stop supporting and/or selling the game and I
 <br>
 
 # Hipnosis 4:20 - Those who wait shall be rewarded by time
-So as expected, TOM Productions finally pulled the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create a keygens page on the site in the future, so it can be used without having to download anything.
+So as expected, TOM Productions finally pulled the plug to their proprietary store of evil, making all their games *officially* **unavailable to buy**. And as promised (once that happened), the keygen is now available to download. Head over the project page on [GitHub](https://github.com/Hipnosis183/NicolausiKey) to grab the keygen in one of two flavors: **C#** (WinForms and Console) or **JavaScript**. I decided to add the latter, since I plan to create page on the site in the future so it can be used without having to download anything.
 
 <br>
 
