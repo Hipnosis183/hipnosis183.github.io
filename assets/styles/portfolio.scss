@@ -81,7 +81,6 @@
   }
 
   & .count {
-    cursor: default;
     margin-right: 12rem;
     position: absolute;
   }
@@ -95,7 +94,6 @@
 }
 
 .port-block {
-  cursor: default;
   opacity: 1;
   overflow: hidden;
   transition: visibility var(--time), opacity 0.2s linear;
@@ -310,7 +308,6 @@
 
 .port-design-info {
   align-items: center;
-  cursor: default;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -470,6 +467,7 @@
     color: var(--color-text);
     margin: 0px;
     margin-left: 6px;
+    pointer-events: none;
   }
 }
 
