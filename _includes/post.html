@@ -13,4 +13,10 @@
   </header>
 </div>
 <div class="post-content" itemprop="articleBody">{{ post.content }}</div>
+{% if include.language == "en" %}
+<script>
+  let lang = document.body.classList.contains('lang-en');
+  if (lang) { document.title = '{{ post.title }}'; }
+</script>
+{% endif %}
 {% endfor %}
