@@ -4,6 +4,7 @@ $(() => {
   const offset = 60;
   let response = [];
   let deviations = [];
+  let language = localStorage.getItem('lang') == 'en';
   let portCategory, portIndex, portSelected, portTotal;
 
   // Get and manage the design category.
@@ -30,11 +31,12 @@ $(() => {
             let date = new Date($(val).find('pubDate').text());
             let options = { year: 'numeric', month: 'long', day: 'numeric' };
             let formatted = new Intl.DateTimeFormat('en-US', options);
+            let text = language ? 'Published' : 'Publicado';
             // Build deviantion object.
             let deviation = {
               title: $(val).find('title').text(),
               link: $(val).find('link').text(),
-              date: 'Published • ' + formatted.format(date),
+              date: text + ' • ' + formatted.format(date),
               image: $(val).find('media\\:content').attr('url'),
               thumb: $($(val).find('media\\:thumbnail')[1]).attr('url')
             };
@@ -99,7 +101,7 @@ $(() => {
             // Manage deviation full size button element.
             let portButtonFull = document.createElement('div');
             portButtonFull.className = 'port-design-button';
-            portButtonFull.innerHTML = 'View Full Size';
+            portButtonFull.innerHTML = language ? 'View Full Size' : 'Ver Tamaño Completo';
             $(portButtonFull).on('click', () => {
               portSelected = i;
               $('.count').text((portSelected + 1) + ' / ' + deviations.length);
@@ -232,7 +234,8 @@ $(() => {
           let portLink = document.createElement('a');
           portLink.className = 'port-link-mobile';
           portLink.href = response[cat][i].link;
-          portLink.innerHTML = '<p>Visit on GitHub</p><div class="port-icon"></div>';
+          let text = language ? 'Visit on GitHub' : 'Visitar en GitHub';
+          portLink.innerHTML = `<p>${text}</p><div class="port-icon"></div>`;
           $(portBody).append(portLink);
 
           // Manage project description element for mobile.
