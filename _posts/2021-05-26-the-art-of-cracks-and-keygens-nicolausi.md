@@ -180,8 +180,8 @@ const uint localSalt = mainSalt >> 0x10 ^ mainSalt & 0xFFFF; // 0x3066
 SetGlobalSalt(localSalt);
 
 static void SetGlobalSalt(uint localSalt) {
-    // Set a 16-bit mask of the local salt.
-    globalSalt = localSalt & 0xFFFF;
+  // Set a 16-bit mask of the local salt.
+  globalSalt = localSalt & 0xFFFF;
 }
 {% endhighlight %}
 </div>
@@ -198,21 +198,21 @@ Then the *parsing*:
 {% highlight cs %}
 // Parse the input string.
 while (nameInput.Length != 0) {
-    // Uppercase chars and remove spaces and numbers.
-    NameFormat();
+  // Uppercase chars and remove spaces and numbers.
+  NameFormat();
 }
 
 static void NameFormat() {
-    foreach (char letter in nameInput) {
-        // Remove char from input string.
-        nameInput = nameInput.Remove(0, 1);
+  foreach (char letter in nameInput) {
+    // Remove char from input string.
+    nameInput = nameInput.Remove(0, 1);
 
-        // Check if char is a space or number.
-        if (letter != 0x20 && !Char.IsNumber(letter))
-            // Add to the parsed string.
-            nameParsed += (Char.ToUpper(letter));
-        else break;
-    }
+    // Check if char is a space or number.
+    if (letter != 0x20 && !Char.IsNumber(letter))
+      // Add to the parsed string.
+      nameParsed += (Char.ToUpper(letter));
+    else break;
+  }
 }
 {% endhighlight %}
 </div>
@@ -233,19 +233,19 @@ uint nameGlobal32 = BitConverter.ToUInt32(nameGlobal, 0);
 nameGlobal32 = nameGlobal32 & 0xFFFF0000;
 
 while (nameParsed.Length != 0) {
-    // Set the lower 2 bytes of the working string, starting with the current character.
-    byte[] nameLocal = Encoding.ASCII.GetBytes(nameParsed.PadRight(2, 0x00));
-    uint nameLocal16 = BitConverter.ToUInt16(nameLocal, 0);
+  // Set the lower 2 bytes of the working string, starting with the current character.
+  byte[] nameLocal = Encoding.ASCII.GetBytes(nameParsed.PadRight(2, 0x00));
+  uint nameLocal16 = BitConverter.ToUInt16(nameLocal, 0);
 
-    // Actual hashing.
-    charSalt = ReturnGlobalSalt();
-    charSalt = charSalt ^ (nameGlobal32 ^ nameLocal16);
+  // Actual hashing.
+  charSalt = ReturnGlobalSalt();
+  charSalt = charSalt ^ (nameGlobal32 ^ nameLocal16);
 
-    // Sum the result to the key.
-    keyCode += (int)charSalt;
+  // Sum the result to the key.
+  keyCode += (int)charSalt;
 
-    // Remove char from parsed string.
-    nameParsed = nameParsed.Remove(0, 1);
+  // Remove char from parsed string.
+  nameParsed = nameParsed.Remove(0, 1);
 }
 {% endhighlight %}
 </div>
@@ -284,14 +284,14 @@ Then just call the function from *main*:
 <div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cs %}
 static void Main() {
-    // Name input.
-    Console.Write("Enter name: ");
-    string nameConsole = Console.ReadLine();
-    
-    // Key generation.
-    uint keygenResult = KeyGenerate(nameConsole);
-    Console.WriteLine("Your key is: " + keygenResult);
-    Console.ReadKey();
+  // Name input.
+  Console.Write("Enter name: ");
+  string nameConsole = Console.ReadLine();
+
+  // Key generation.
+  uint keygenResult = KeyGenerate(nameConsole);
+  Console.WriteLine("Your key is: " + keygenResult);
+  Console.ReadKey();
 }
 {% endhighlight %}
 </div>

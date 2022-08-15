@@ -195,17 +195,17 @@ El primero es simple, con 3 archivos binarios empaquetados: uno para las *opcion
 {% highlight cs %}
 // Preparar la configuración del programa.
 public static void InitialSetup() {
-    SettingsName = Path.GetFileNameWithoutExtension(Default.GetType().Assembly.Location)+ ".bin";
-    if (!File.Exists(SettingsName))
-        Launcher.ExtractFileFromResources("TTLauncher.Files.App.bin", SettingsName, 0, 16);
-    SettingsLoaded = File.ReadAllBytes(SettingsName);
+  SettingsName = Path.GetFileNameWithoutExtension(Default.GetType().Assembly.Location)+ ".bin";
+  if (!File.Exists(SettingsName))
+    Launcher.ExtractFileFromResources("TTLauncher.Files.App.bin", SettingsName, 0, 16);
+  SettingsLoaded = File.ReadAllBytes(SettingsName);
 }
 
 private static void UnpackFiles() {
-    ExtractFileFromResources("TTLauncher.Files.Data.bin", "TonicTrouble.exe", 16, 967168);
-    ExtractFileFromResources("TTLauncher.Files.Data.bin", "SetupTT.exe", 967200, 95744);
-    UnpackedFiles.Add("TonicTrouble.exe");
-    UnpackedFiles.Add("SetupTT.exe");
+  ExtractFileFromResources("TTLauncher.Files.Data.bin", "TonicTrouble.exe", 16, 967168);
+  ExtractFileFromResources("TTLauncher.Files.Data.bin", "SetupTT.exe", 967200, 95744);
+  UnpackedFiles.Add("TonicTrouble.exe");
+  UnpackedFiles.Add("SetupTT.exe");
 }
 {% endhighlight %}
 </div>
@@ -221,21 +221,21 @@ Después tenemos los parches, en forma de *arrays de bytes* (`byte[]`):
 <div id="code-2-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static byte[] VideosPath = new byte[] {
-    0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
+  0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
 };
 private static byte[] ConfigurationFile = new byte[] {
-    0x2E, 0x69, 0x6E, 0x69, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+  0x2E, 0x69, 0x6E, 0x69, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 private static byte[] ConfigurationPath1 = new byte[] {
-    0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x90
+  0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90
 };
 private static byte[] ConfigurationPath2 = new byte[] {
-    0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
-    0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
-    0x83, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
+  0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
+  0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
+  0x83, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
 };
 {% endhighlight %}
 </div>
@@ -251,29 +251,29 @@ Y algunas funciones para aplicarlos:
 <div id="code-3-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherPortable(string FileNameInput) {
-    BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
-    BinWrite.BaseStream.Position = 0xD5ACC;
-    BinWrite.Write(VideosPath);
-    BinWrite.BaseStream.Position = 0xD5B84;
-    BinWrite.Write(ConfigurationFile);
-    BinWrite.BaseStream.Position = 0xFDD0;
-    BinWrite.Write(ConfigurationPath1);
-    BinWrite.BaseStream.Position = 0x12D4D;
-    BinWrite.Write(ConfigurationPath1);
-    BinWrite.BaseStream.Position = 0x41AA6;
-    BinWrite.Write(ConfigurationPath2);
-    BinWrite.Close();
+  BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
+  BinWrite.BaseStream.Position = 0xD5ACC;
+  BinWrite.Write(VideosPath);
+  BinWrite.BaseStream.Position = 0xD5B84;
+  BinWrite.Write(ConfigurationFile);
+  BinWrite.BaseStream.Position = 0xFDD0;
+  BinWrite.Write(ConfigurationPath1);
+  BinWrite.BaseStream.Position = 0x12D4D;
+  BinWrite.Write(ConfigurationPath1);
+  BinWrite.BaseStream.Position = 0x41AA6;
+  BinWrite.Write(ConfigurationPath2);
+  BinWrite.Close();
 }
 
 public static void PatcherSetup(string FileNameInput) {
-    BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
-    BinWrite.BaseStream.Position = 0x62E8;
-    BinWrite.Write(ConfigurationFile);
-    BinWrite.BaseStream.Position = 0x42D;
-    BinWrite.Write(ConfigurationPath1);
-    BinWrite.BaseStream.Position = 0x5C0;
-    BinWrite.Write(ConfigurationPath1);
-    BinWrite.Close();
+  BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
+  BinWrite.BaseStream.Position = 0x62E8;
+  BinWrite.Write(ConfigurationFile);
+  BinWrite.BaseStream.Position = 0x42D;
+  BinWrite.Write(ConfigurationPath1);
+  BinWrite.BaseStream.Position = 0x5C0;
+  BinWrite.Write(ConfigurationPath1);
+  BinWrite.Close();
 }
 {% endhighlight %}
 </div>
@@ -289,11 +289,11 @@ También un *blanqueador*, ya que necesitamos llenar algunas partes con bytes va
 <div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherBlanker(string FileNameInput, int Offset, int Lenght) {
-    BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
-    BinWrite.BaseStream.Position = Offset;
-    for (int i = 0; i < Lenght; i++)
-        BinWrite.Write((byte)0x00);
-    BinWrite.Close();
+  BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
+  BinWrite.BaseStream.Position = Offset;
+  for (int i = 0; i < Lenght; i++) {
+    BinWrite.Write((byte)0x00);
+  } BinWrite.Close();
 }
 {% endhighlight %}
 </div>
@@ -319,9 +319,9 @@ Patches.PatcherSetup("SetupTT.exe");
 {% highlight cs %}
 // Aplicar algunos parches iniciales, sin importar la configuración.
 private static void InitialPatching() {
-    Patches.PatcherBlanker("TonicTrouble.exe", 0xD28A8, 11);
-    Patches.PatcherBlanker("TonicTrouble.exe", 0xD28EC, 9);
-    Patches.PatcherBlanker("SetupTT.exe", 0x69C4, 9);
+  Patches.PatcherBlanker("TonicTrouble.exe", 0xD28A8, 11);
+  Patches.PatcherBlanker("TonicTrouble.exe", 0xD28EC, 9);
+  Patches.PatcherBlanker("SetupTT.exe", 0x69C4, 9);
 }
 {% endhighlight %}
 </div>
@@ -337,20 +337,20 @@ Finalmente, ejecutamos el programa. Importante el uso del parámetro `-cd-rom:`,
 <div id="code-6-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static void RunGame() {
-    Process TonicTrouble = new Process();
-    TonicTrouble.StartInfo.FileName = "TonicTrouble.exe";
-    if (SettingsLoaded[2] == 0x01)
-        TonicTrouble.StartInfo.Arguments = "-cdrom:";
-    TonicTrouble.Start();
-    CheckGame();
+  Process TonicTrouble = new Process();
+  TonicTrouble.StartInfo.FileName = "TonicTrouble.exe";
+  if (SettingsLoaded[2] == 0x01)
+    TonicTrouble.StartInfo.Arguments = "-cdrom:";
+  TonicTrouble.Start();
+  CheckGame();
 }
 
 private static void CheckGame() {
-    System.Threading.Thread.Sleep(1000);
-    Process[] CurrentProcess = Process.GetProcessesByName("TonicTrouble");
-    foreach (Process Process in CurrentProcess)
-        if (Process.ProcessName == "TonicTrouble")
-            Process.WaitForExit();
+  System.Threading.Thread.Sleep(1000);
+  Process[] CurrentProcess = Process.GetProcessesByName("TonicTrouble");
+  foreach (Process Process in CurrentProcess)
+    if (Process.ProcessName == "TonicTrouble")
+      Process.WaitForExit();
 }
 {% endhighlight %}
 </div>
@@ -386,24 +386,24 @@ Para determinar esto, primero necesitamos una forma de identifica la versión de
 <div id="code-7-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static string CalculateCheckSum(string FileName) {
-    using (Stream Executable = File.OpenRead(FileName)) {
-        byte[] CheckSum = SHA256.Create().ComputeHash(Executable);
-        string Formatted = BitConverter.ToString(CheckSum).Replace("-", String.Empty);
-        return Formatted; // Después chequeamos por el texto en la lista.
-    }
+  using (Stream Executable = File.OpenRead(FileName)) {
+    byte[] CheckSum = SHA256.Create().ComputeHash(Executable);
+    string Formatted = BitConverter.ToString(CheckSum).Replace("-", String.Empty);
+    return Formatted; // Después chequeamos por el texto en la lista.
+  }
 }
 
 public static List<string> VersionCheckSum = new List<string> {
-    // REVIEW ENGLISH : TT221099-PC - SPANISH - PROTEGIDO
-    "17457C330D11621474A50B2852618D7DF53468C24899176CB2AFC951B51518FB",
-    // REVIEW ENGLISH : TT221099-PC - ITALIAN - PROTEGIDO
-    "C379FFADD35C738C0041CEB9916CCA31C35C6EC096B1B3F257F2C66000F0BBFA",
-    // RETAIL MASTER V5 : TT181099-PC - FRENCH - SIN PROTECCIÓN
-    "6AD8506714FC86856369FFE834BB22792AEBCD0FF4FAB780E03AA0ADB47643B3",
-    // RETAIL MASTER GERMAN V3: TT221099-PC - GERMAN - PROTEGIDO
-    "EA4BE88CEB9BB7C438BEE7F97767CF12C0F9439707A2CDAEE362FFA01C88FDA6",
-    // RETAIL MASTER V3 : TT131099-PC - BRAZILIAN|CHINESE|EUROPE|USA - PROTEGIDO
-    "37631F2FE37C07DD4CCDE32C0981685E152AC016920BEB01CCC0E8FC0E53DC57"
+  // REVIEW ENGLISH : TT221099-PC - SPANISH - PROTECTED
+  "17457C330D11621474A50B2852618D7DF53468C24899176CB2AFC951B51518FB",
+  // REVIEW ENGLISH : TT221099-PC - ITALIAN - PROTECTED
+  "C379FFADD35C738C0041CEB9916CCA31C35C6EC096B1B3F257F2C66000F0BBFA",
+  // RETAIL MASTER V5 : TT181099-PC - FRENCH - UNPROTECTED
+  "6AD8506714FC86856369FFE834BB22792AEBCD0FF4FAB780E03AA0ADB47643B3",
+  // RETAIL MASTER GERMAN V3: TT221099-PC - GERMAN - PROTECTED
+  "EA4BE88CEB9BB7C438BEE7F97767CF12C0F9439707A2CDAEE362FFA01C88FDA6",
+  // RETAIL MASTER V3 : TT131099-PC - BRAZILIAN|CHINESE|EUROPE|USA - PROTECTED
+  "37631F2FE37C07DD4CCDE32C0981685E152AC016920BEB01CCC0E8FC0E53DC57"
 };
 {% endhighlight %}
 </div>
@@ -421,32 +421,32 @@ Después de estos cambios los parches se ven así:
 <div id="code-8-data" class="content-hide" markdown="1">
 {% highlight cs %}
 private static byte[] VideosPath = new byte[] {
-    0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
+  0x56, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x00, 0x00
 };
 private static byte[] ConfigurationFile = new byte[] {
-    0x2E, 0x69, 0x6E, 0x69, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+  0x2E, 0x69, 0x6E, 0x69, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 private static byte[] ConfigurationPathProtected1 = new byte[] {
-    0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x90
+  0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90
 };
 private static byte[] ConfigurationPathProtected2 = new byte[] {
-    0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
-    0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
-    0x83, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
+  0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
+  0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
+  0x83, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
 };
 private static byte[] ConfigurationPathUnProtected1 = new byte[] {
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x8D,
-    0x85, 0xFC, 0xFD, 0xFF, 0xFF, 0x66,
-    0xC7, 0x00, 0x2E, 0x00, 0x90, 0x90
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x8D,
+  0x85, 0xFC, 0xFD, 0xFF, 0xFF, 0x66,
+  0xC7, 0x00, 0x2E, 0x00, 0x90, 0x90
 };
 private static byte[] ConfigurationPathUnProtected2 = new byte[] {
-    0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
-    0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
-    0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
-    0x73, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
+  0x8D, 0x84, 0x24, 0x00, 0x01, 0x00, 0x00, 0x53,
+  0x56, 0x57, 0x66, 0xC7, 0x00, 0x2E, 0x00, 0x90,
+  0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0xBF, 0x80,
+  0x73, 0x4D, 0x00, 0x83, 0xC9, 0xFF, 0x33, 0xC0
 };
 {% endhighlight %}
 </div>
@@ -462,33 +462,33 @@ Y las funciones ahora admiten direcciones como parámetros:
 <div id="code-9-data" class="content-hide" markdown="1">
 {% highlight cs %}
 public static void PatcherPortable(string FileNameInput, int Address1, int Address2, int Address3, int Address4, int Address5) {
-    byte[] ConfigurationPath = SetConfiguration(2);
-    BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
-    BinWrite.BaseStream.Position = Address1;
-    BinWrite.Write(VideosPath);
-    BinWrite.BaseStream.Position = Address2;
-    BinWrite.Write(ConfigurationFile);
-    BinWrite.BaseStream.Position = Address3;
-    BinWrite.Write(ConfigurationPathProtected1);
-    BinWrite.BaseStream.Position = Address4;
-    BinWrite.Write(ConfigurationPathProtected1);
-    BinWrite.BaseStream.Position = Address5;
-    BinWrite.Write(ConfigurationPath);
-    BinWrite.Close();
+  byte[] ConfigurationPath = SetConfiguration(2);
+  BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
+  BinWrite.BaseStream.Position = Address1;
+  BinWrite.Write(VideosPath);
+  BinWrite.BaseStream.Position = Address2;
+  BinWrite.Write(ConfigurationFile);
+  BinWrite.BaseStream.Position = Address3;
+  BinWrite.Write(ConfigurationPathProtected1);
+  BinWrite.BaseStream.Position = Address4;
+  BinWrite.Write(ConfigurationPathProtected1);
+  BinWrite.BaseStream.Position = Address5;
+  BinWrite.Write(ConfigurationPath);
+  BinWrite.Close();
 }
 
 // Aplicar el parche indicado dependiendo del nivel de protección.
 private static byte[] SetConfiguration(int Configuration) {
-    if (Launcher.IsProtected())
-        if (Configuration == 1)
-            return ConfigurationPathProtected1;
-        else
-            return ConfigurationPathProtected2;
+  if (Launcher.IsProtected())
+    if (Configuration == 1)
+      return ConfigurationPathProtected1;
     else
-        if (Configuration == 1)
-            return ConfigurationPathUnProtected1;
-        else
-            return ConfigurationPathUnProtected2;
+      return ConfigurationPathProtected2;
+  else
+    if (Configuration == 1)
+      return ConfigurationPathUnProtected1;
+    else
+      return ConfigurationPathUnProtected2;
 }
 {% endhighlight %}
 </div>
@@ -505,16 +505,16 @@ private static byte[] SetConfiguration(int Configuration) {
 {% highlight cs %}
 // Parchear los ejecutables del juego y configuración.
 private static void PatchExecutables() {
-    // Para versiones desprotegidas.
-    if (SettingsLoaded[0] == 0x02) {
-        Patches.PatcherPortable(ExeGame, 0xD56CC, 0xD5784, 0xFCF0, 0x12C5D, 0x40EF6);
-        Patches.PatcherSetup(ExeSetup, 0x70E8, 0x439, 0x5D9);
-    }
-    // Para versiones protegidas.
-    else {
-        Patches.PatcherPortable(ExeGame, 0xD5ACC, 0xD5B84, 0xFDD0, 0x12D4D, 0x41AA6);
-        Patches.PatcherSetup(ExeSetup, 0x62E8, 0x42D, 0x5C0);
-    }
+  // Para versiones desprotegidas.
+  if (SettingsLoaded[0] == 0x02) {
+    Patches.PatcherPortable(ExeGame, 0xD56CC, 0xD5784, 0xFCF0, 0x12C5D, 0x40EF6);
+    Patches.PatcherSetup(ExeSetup, 0x70E8, 0x439, 0x5D9);
+  }
+  // Para versiones protegidas.
+  else {
+    Patches.PatcherPortable(ExeGame, 0xD5ACC, 0xD5B84, 0xFDD0, 0x12D4D, 0x41AA6);
+    Patches.PatcherSetup(ExeSetup, 0x62E8, 0x42D, 0x5C0);
+  }
 }
 {% endhighlight %}
 </div>
@@ -532,20 +532,20 @@ El *video de introducción* es algo especial. Si no es detectado simplemente no 
 <div id="code-11-data" class="content-hide" markdown="1">
 {% highlight cs %}
 if (!File.Exists("Ubi.ini"))
-    using (StreamWriter Stream = File.CreateText("Ubi.ini")) {
-        Stream.WriteLine("[TONICT]");
-        // Necesario para los ejecutables del juego y configuración.
-        Stream.WriteLine("Directory=");
-        // Necesario para reproducir el video de introducción y algunos sonidos.
-        Stream.WriteLine("Language=" + CheckSum.VersionLanguage[SettingsLoaded[0]]);
-    }
+  using (StreamWriter Stream = File.CreateText("Ubi.ini")) {
+    Stream.WriteLine("[TONICT]");
+    // Necesario para los ejecutables del juego y configuración.
+    Stream.WriteLine("Directory=");
+    // Necesario para reproducir el video de introducción y algunos sonidos.
+    Stream.WriteLine("Language=" + CheckSum.VersionLanguage[SettingsLoaded[0]]);
+  }
 
 public static List<string> VersionLanguage = new List<string> {
-    "Spanish",
-    "Italian",
-    "French",
-    "German",
-    "English"
+  "Spanish",
+  "Italian",
+  "French",
+  "German",
+  "English"
 };
 {% endhighlight %}
 </div>

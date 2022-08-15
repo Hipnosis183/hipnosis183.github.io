@@ -83,12 +83,12 @@ En el caso de los juegos de eX-BOARD, estos fueron distribuídos en **cartuchos 
 
 <div id="code-0-data" class="content-hide" markdown="1">
 {% highlight cpp %}
-BOOL APIENTRY HookFunctions()
-    // Hook de funciones de eX-BOARD.
-    HGetKeyLicense = HookIt("IpgExKey.dll", "_GetKeyLicense@0", Hook_GetKeyLicense);
+BOOL APIENTRY HookFunctions() {
+  // Hook de funciones de eX-BOARD.
+  HGetKeyLicense = HookIt("IpgExKey.dll", "_GetKeyLicense@0", Hook_GetKeyLicense);
+}
 
-INT APIENTRY Hook_GetKeyLicense(VOID)
-    return 1;
+INT APIENTRY Hook_GetKeyLicense(VOID) { return 1; }
 {% endhighlight %}
 </div>
 
@@ -157,17 +157,17 @@ Como la placa JVS de E/S está conectada al puerto COM2, necesitamos un **dispos
 <div id="code-1-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 BOOL APIENTRY HookFunctions() {
-    // Hooks de funciones para los dispositivos de comunicación.
-    HOOK("kernel32.dll", ClearCommError, H, LP, Hook);
-    HOOK("kernel32.dll", CloseHandle, H, LP, Hook);
-    HOOK("kernel32.dll", EscapeCommFunction, H, LP, Hook);
-    HOOK("kernel32.dll", GetCommModemStatus, H, LP, Hook);
-    HOOK("kernel32.dll", GetCommState, H, LP, Hook);
-    HOOK("kernel32.dll", GetCommTimeouts, H, LP, Hook);
-    HOOK("kernel32.dll", SetCommMask, H, LP, Hook);
-    HOOK("kernel32.dll", SetCommState, H, LP, Hook);
-    HOOK("kernel32.dll", SetCommTimeouts, H, LP, Hook);
-    HOOK("kernel32.dll", SetupComm, H, LP, Hook);
+  // Hooks de funciones para los dispositivos de comunicación.
+  HOOK("kernel32.dll", ClearCommError, H, LP, Hook);
+  HOOK("kernel32.dll", CloseHandle, H, LP, Hook);
+  HOOK("kernel32.dll", EscapeCommFunction, H, LP, Hook);
+  HOOK("kernel32.dll", GetCommModemStatus, H, LP, Hook);
+  HOOK("kernel32.dll", GetCommState, H, LP, Hook);
+  HOOK("kernel32.dll", GetCommTimeouts, H, LP, Hook);
+  HOOK("kernel32.dll", SetCommMask, H, LP, Hook);
+  HOOK("kernel32.dll", SetCommState, H, LP, Hook);
+  HOOK("kernel32.dll", SetCommTimeouts, H, LP, Hook);
+  HOOK("kernel32.dll", SetupComm, H, LP, Hook);
 }
 {% endhighlight %}
 </div>
@@ -186,16 +186,16 @@ Aparte del dispositivo COM falso, también necesitamos una *capa de entrada verd
 {% highlight cpp %}
 // Previene a los juegos de obtener acceso a los dispositivos de entrada.
 HRESULT APIENTRY Fake_DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut, LPUNKNOWN punkOuter) {
-    // Bandera para crear un dispositivo de DInput verdadero despues de que el falso ya haya sido creado.
-    if (DIMagicCall)
-        // Pase para crear un dispositivo de DInput normal.
-        return FDirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
-    else {
-        *ppvOut = (LPVOID)pFakeInterface;
-        punkOuter = NULL;
-        // Este dispositivo devuelve null cuando se llama a GetState(), asi no se registran entradas.
-        return DI_OK;
-    }
+  // Bandera para crear un dispositivo de DInput verdadero despues de que el falso ya haya sido creado.
+  if (DIMagicCall)
+    // Pase para crear un dispositivo de DInput normal.
+    return FDirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
+  else {
+    *ppvOut = (LPVOID)pFakeInterface;
+    punkOuter = NULL;
+    // Este dispositivo devuelve null cuando se llama a GetState(), asi no se registran entradas.
+    return DI_OK;
+  }
 }
 {% endhighlight %}
 </div>
@@ -212,12 +212,12 @@ La inicialización de DInput se comporta de forma normal, los dispositivos son e
 {% highlight cpp %}
 // Chequear por un comando de mando.
 if (IS_JOY_OBJECT(InValue)) {
-    // Chequear ejes y botones de mando.
+  // Chequear ejes y botones de mando.
 }
 // Chequear por comandos de teclado.
 else {
-    int Button = GET_JOY_BUT(InValue);
-    StateTable[i] = JoyState[JoyNumber].rgbButtons[Button] & 0x80 ? 1 : 0;
+  int Button = GET_JOY_BUT(InValue);
+  StateTable[i] = JoyState[JoyNumber].rgbButtons[Button] & 0x80 ? 1 : 0;
 }
 {% endhighlight %}
 </div>
@@ -233,14 +233,14 @@ Chequear si algún botón/tecla es presionada y asignar la bandera correspondien
 {% highlight cpp %}
 // Estado del control. Comando SWINP.
 case 0x20: {
-    // Enviar a byte 0.
-    JVS.bPush(InputMgr.GetState(TEST_MODE) ? 0x80 : 0);
-    // Enviar a bytes 1 y 2.
-    JVS.bPush(InInfo.Xp1HiByte());
-    JVS.bPush(InInfo.Xp1LoByte());
-    JVS.bPush(InInfo.Xp2HiByte());
-    JVS.bPush(InInfo.Xp2LoByte());
-    break;
+  // Enviar a byte 0.
+  JVS.bPush(InputMgr.GetState(TEST_MODE) ? 0x80 : 0);
+  // Enviar a bytes 1 y 2.
+  JVS.bPush(InInfo.Xp1HiByte());
+  JVS.bPush(InInfo.Xp1LoByte());
+  JVS.bPush(InInfo.Xp2HiByte());
+  JVS.bPush(InInfo.Xp2LoByte());
+  break;
 }
 {% endhighlight %}
 </div>
@@ -259,37 +259,37 @@ Cuando el dispositivo de JVS falso detecta la bandera, asigna el *bit* en el *by
 <div id="code-5-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 BYTE Xp1HiByte() {
-    BYTE Byte = 0;
-    if (InputMgr.GetState(P1_START))
-        Byte |= 0x80;
-    if (InputMgr.GetState(P1_SERVICE))
-        Byte |= 0x40;
-    if (InputMgr.GetState(P1_UP))
-        Byte |= 0x20;
-    if (InputMgr.GetState(P1_DOWN))
-        Byte |= 0x10;
-    if (InputMgr.GetState(P1_RIGHT))
-        Byte |= 0x04;
-    if (InputMgr.GetState(P1_LEFT))
-        Byte |= 0x08;
-    if (InputMgr.GetState(P1_BUTTON_1))
-        Byte |= 0x02;
-    if (InputMgr.GetState(P1_BUTTON_2))
-        Byte |= 0x01;
-    return Byte;
+  BYTE Byte = 0;
+  if (InputMgr.GetState(P1_START))
+    Byte |= 0x80;
+  if (InputMgr.GetState(P1_SERVICE))
+    Byte |= 0x40;
+  if (InputMgr.GetState(P1_UP))
+    Byte |= 0x20;
+  if (InputMgr.GetState(P1_DOWN))
+    Byte |= 0x10;
+  if (InputMgr.GetState(P1_RIGHT))
+    Byte |= 0x04;
+  if (InputMgr.GetState(P1_LEFT))
+    Byte |= 0x08;
+  if (InputMgr.GetState(P1_BUTTON_1))
+    Byte |= 0x02;
+  if (InputMgr.GetState(P1_BUTTON_2))
+    Byte |= 0x01;
+  return Byte;
 }
 
 BYTE Xp1LoByte() {
-    BYTE Byte = 0;
-    if (InputMgr.GetState(P1_BUTTON_3))
-        Byte |= 0x80;
-    if (InputMgr.GetState(P1_BUTTON_4))
-        Byte |= 0x40;
-    if (InputMgr.GetState(P1_BUTTON_5))
-        Byte |= 0x20;
-    if (InputMgr.GetState(P1_BUTTON_6))
-        Byte |= 0x10;
-    return Byte;
+  BYTE Byte = 0;
+  if (InputMgr.GetState(P1_BUTTON_3))
+    Byte |= 0x80;
+  if (InputMgr.GetState(P1_BUTTON_4))
+    Byte |= 0x40;
+  if (InputMgr.GetState(P1_BUTTON_5))
+    Byte |= 0x20;
+  if (InputMgr.GetState(P1_BUTTON_6))
+    Byte |= 0x10;
+  return Byte;
 }
 {% endhighlight %}
 </div>
@@ -358,38 +358,36 @@ En la función de rastreo de entrada, solo el eje izquierdo (`AxisL`) y los boto
 
 // Rastreo de los ejes y cruceta del mando.
 switch (GET_JOY_AXIS(InValue)) {
-    case AXIS_X: {
-        if (IS_NEGATIVE_AXIS(InValue)) {
-            if ((JoyState[JoyNumber].lX < -DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
-            ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP))))
-                StateTable[i] = 1;
-        }
-        else {
-            if ((JoyState[JoyNumber].lX > DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
-            ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN))))
-                StateTable[i] = 1;
-        }
-        break;
+  case AXIS_X: {
+    if (IS_NEGATIVE_AXIS(InValue)) {
+      if ((JoyState[JoyNumber].lX < -DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
+      ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP))))
+        StateTable[i] = 1;
     }
-    case POVN: {
-        // Para evitar problemas, los controles de la cruceta son deshabilitados
-        // y forzados a funcionar como ejes si la opción PovAsAxis está habilitada.
-        if ((JoyState[JoyNumber].rgdwPOV[0] != -1) && !mTable[CONFIG_POVASAXIS]) {
-            if (GET_JOY_RANGE(InValue) == POV_UP &&
-            ((Dir == POV_UP) || (Dir == POV_UP_RIGHT) || (Dir == POV_LEFT_UP)))
-                StateTable[i] = 1;
-            if (GET_JOY_RANGE(InValue) == POV_RIGHT &&
-            ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN)))
-                StateTable[i] = 1;
-            if (GET_JOY_RANGE(InValue) == POV_DOWN &&
-            ((Dir == POV_DOWN) || (Dir == POV_RIGHT_DOWN) || (Dir == POV_DOWN_LEFT)))
-                StateTable[i] = 1;
-            if (GET_JOY_RANGE(InValue) == POV_LEFT &&
-            ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP)))
-                StateTable[i] = 1;
-        }
-        break;
-    }
+    else {
+      if ((JoyState[JoyNumber].lX > DEADZONE) || (mTable[CONFIG_POVASAXIS] &&
+      ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN))))
+        StateTable[i] = 1;
+    } break;
+  }
+  case POVN: {
+    // Para evitar problemas, los controles de la cruceta son deshabilitados
+    // y forzados a funcionar como ejes si la opción PovAsAxis está habilitada.
+    if ((JoyState[JoyNumber].rgdwPOV[0] != -1) && !mTable[CONFIG_POVASAXIS]) {
+      if (GET_JOY_RANGE(InValue) == POV_UP &&
+      ((Dir == POV_UP) || (Dir == POV_UP_RIGHT) || (Dir == POV_LEFT_UP)))
+        StateTable[i] = 1;
+      if (GET_JOY_RANGE(InValue) == POV_RIGHT &&
+      ((Dir == POV_RIGHT) || (Dir == POV_UP_RIGHT) || (Dir == POV_RIGHT_DOWN)))
+        StateTable[i] = 1;
+      if (GET_JOY_RANGE(InValue) == POV_DOWN &&
+      ((Dir == POV_DOWN) || (Dir == POV_RIGHT_DOWN) || (Dir == POV_DOWN_LEFT)))
+        StateTable[i] = 1;
+      if (GET_JOY_RANGE(InValue) == POV_LEFT &&
+      ((Dir == POV_LEFT) || (Dir == POV_DOWN_LEFT) || (Dir == POV_LEFT_UP)))
+        StateTable[i] = 1;
+    } break;
+  }
 }
 {% endhighlight %}
 </div>
@@ -408,10 +406,10 @@ Ahora que ya terminamos con los controles, veamos algunas funciones que creí qu
 <div id="code-8-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 HRESULT HookIDirect3D9::CreateDevice(LPVOID _this, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface) {
-    pPresentationParameters->Windowed = FALSE;
-    pPresentationParameters->BackBufferWidth = 640;
-    pPresentationParameters->BackBufferHeight = 480;
-    return pD3D->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
+  pPresentationParameters->Windowed = FALSE;
+  pPresentationParameters->BackBufferWidth = 640;
+  pPresentationParameters->BackBufferHeight = 480;
+  return pD3D->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 }
 {% endhighlight %}
 </div>
@@ -434,12 +432,11 @@ Para los títulos de eX-BOARD es sencillo, ya que los datos no se guardan en el 
 <div id="code-9-data" class="content-hide" markdown="1">
 {% highlight cpp %}
 VOID SaveSRAM() {
-    FILE* Stream = NULL;
-    Stream = fopen(SRAM_NAME, "wb");    
-    if (!Stream)
-        return;
-    fwrite(SRAM, 1, SRAM_SIZE, Stream);
-    fclose(Stream);
+  FILE* Stream = NULL;
+  Stream = fopen(SRAM_NAME, "wb");    
+  if (!Stream) { return; }
+  fwrite(SRAM, 1, SRAM_SIZE, Stream);
+  fclose(Stream);
 }
 {% endhighlight %}
 </div>
@@ -458,68 +455,62 @@ using namespace std::literals;
 
 // Hermosa recursión. Necesario para los títulos que crean subcarpetas para guardar los datos.
 void CreateFolderA(CHAR* SaveFolder, CHAR* SaveSubFolderC) {
-    if (strcmp(SaveFolder, SaveSubFolderC) != 0) {
-        CHAR SaveSubFolder[MAX_PATH];
-        strcpy(SaveSubFolder, SaveSubFolderC);
-        strrchr(SaveSubFolderC, '\\')[0] = '\0';
+  if (strcmp(SaveFolder, SaveSubFolderC) != 0) {
+    CHAR SaveSubFolder[MAX_PATH];
+    strcpy(SaveSubFolder, SaveSubFolderC);
+    strrchr(SaveSubFolderC, '\\')[0] = '\0';
+    CreateFolderA(SaveFolder, SaveSubFolderC);
+    HCreateDirectoryA(SaveSubFolder, nullptr);
+  } else { HCreateDirectoryA(SaveFolder, nullptr); }
+}
+
+BOOL APIENTRY Hook_CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes) {
+  if (mTable[CONFIG_SAVEPATCH]) {
+    // Asumiendo que ningún título de Type X guarda información en la partición C:.
+    // Excluye directorios/rutas relativas.
+    if ((lpPathName[0] != 'C' && lpPathName[0] != 'c') && lpPathName[1] == ':') {
+      CHAR RootPath[MAX_PATH];
+      GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
+      strrchr(RootPath, '\\')[0] = '\0';
+      std::string SavePath = RootPath + "\\sv\\"s;
+      return HCreateDirectoryA(SavePath.c_str(), nullptr);
+    }
+  } return HCreateDirectoryA(lpPathName, lpSecurityAttributes);
+}
+
+HANDLE APIENTRY Hook_CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile) {
+  if (mTable[CONFIG_SAVEPATCH]) {
+    // Asumiendo que ningún título de Type X guarda información en la partición C:.
+    // Excluye directorios/rutas relativas.
+    if ((lpFileName[0] != 'C' && lpFileName[0] != 'c') && lpFileName[1] == ':') {
+      // Obtener el directorio del programa.
+      CHAR RootPath[MAX_PATH];
+      GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
+      // Eliminar el ejecutable de la ruta.
+      strrchr(RootPath, '\\')[0] = '\0';
+      std::string FilePath = lpFileName;
+      std::string FileName = FilePath.substr(3);
+      // Obtener longitud del directorio actual.
+      int PathLenght = 0;
+      for (int i = 0; i < MAX_PATH; i++)
+        if (RootPath[i] == '\0') {
+          PathLenght = i;
+          break;
+        }
+      // Excluir archivos del directorio. Evita romper operaciones de archivos normales.
+      if (strncmp(lpFileName, RootPath, PathLenght) != 0) {
+        std::string SavePath = RootPath + "\\sv\\"s;
+        std::string SaveFile = SavePath + FileName;
+        std::string SaveSubFolderS = SaveFile.substr(0, SaveFile.length() - (FileName.length() - FileName.rfind('\\')));
+        CHAR SaveFolder[MAX_PATH];
+        strcpy(SaveFolder, (SavePath.substr(0, SavePath.length() - 1)).c_str());
+        CHAR SaveSubFolderC[MAX_PATH];
+        strcpy(SaveSubFolderC, SaveSubFolderS.c_str());
         CreateFolderA(SaveFolder, SaveSubFolderC);
-        HCreateDirectoryA(SaveSubFolder, nullptr);
+        return HCreateFileA(SaveFile.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+      }
     }
-    else
-        HCreateDirectoryA(SaveFolder, nullptr);
-}
-
-BOOL APIENTRY Hook_CreateDirectoryA(LPCSTR lpPathName, LPSECURITY_ATTRIBUTES lpSecurityAttributes)
-{
-    if (mTable[CONFIG_SAVEPATCH]) {
-        // Asumiendo que ningún título de Type X guarda información en la partición C:.
-        // Excluye directorios/rutas relativas.
-        if ((lpPathName[0] != 'C' && lpPathName[0] != 'c') && lpPathName[1] == ':') {
-            CHAR RootPath[MAX_PATH];
-            GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
-            strrchr(RootPath, '\\')[0] = '\0';
-            std::string SavePath = RootPath + "\\sv\\"s;
-            return HCreateDirectoryA(SavePath.c_str(), nullptr);
-        }
-    }
-    return HCreateDirectoryA(lpPathName, lpSecurityAttributes);
-}
-
-HANDLE APIENTRY Hook_CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile)
-{
-    if (mTable[CONFIG_SAVEPATCH]) {
-        // Asumiendo que ningún título de Type X guarda información en la partición C:.
-        // Excluye directorios/rutas relativas.
-        if ((lpFileName[0] != 'C' && lpFileName[0] != 'c') && lpFileName[1] == ':') {
-            // Obtener el directorio del programa.
-            CHAR RootPath[MAX_PATH];
-            GetModuleFileNameA(GetModuleHandleA(nullptr), RootPath, _countof(RootPath));
-            // Eliminar el ejecutable de la ruta.
-            strrchr(RootPath, '\\')[0] = '\0';
-            std::string FilePath = lpFileName;
-            std::string FileName = FilePath.substr(3);
-            // Obtener longitud del directorio actual.
-            int PathLenght = 0;
-            for (int i = 0; i < MAX_PATH; i++)
-                if (RootPath[i] == '\0') {
-                  PathLenght = i;
-                  break;
-                }
-            // Excluir archivos del directorio. Evita romper operaciones de archivos normales.
-            if (strncmp(lpFileName, RootPath, PathLenght) != 0) {
-                std::string SavePath = RootPath + "\\sv\\"s;
-                std::string SaveFile = SavePath + FileName;
-                std::string SaveSubFolderS = SaveFile.substr(0, SaveFile.length() - (FileName.length() - FileName.rfind('\\')));
-                CHAR SaveFolder[MAX_PATH];
-                strcpy(SaveFolder, (SavePath.substr(0, SavePath.length() - 1)).c_str());
-                CHAR SaveSubFolderC[MAX_PATH];
-                strcpy(SaveSubFolderC, SaveSubFolderS.c_str());
-                CreateFolderA(SaveFolder, SaveSubFolderC);
-                return HCreateFileA(SaveFile.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
-            }
-        }
-    }
-    return HCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+  } return HCreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
 }
 {% endhighlight %}
 </div>
@@ -556,43 +547,42 @@ Si bien al principio sonó sencillo, en realidad fue bastante complicado de impl
 // pueden ser presionadas al mismo tiempo. Por ejemplo: 'A' está asignada a la tecla 'A', y 'B'
 // está asignada a la tecla '1'. Ambas no pueden ser presionadas a la vez porque originalmente 'A' apunta a '1'.
 void PollInputMulti(int ThreadNumber) {
-    for (;;) {
-        // +3 es el desplazamiento para las entradas de mahjong.
-        if (InputMgr.GetState(ThreadNumber + 3)) {
-            // Evitar que el hilo procese una tecla que ya está siendo procesada por otro.
-            if (isPressed[ThreadNumber] == 0) {
-                isPressed[ThreadNumber] = 1;
-                INPUT Input = { 0 };
-                Input.type = INPUT_KEYBOARD;
-                Input.ki.wScan = MapVirtualKey(LOBYTE(VI_CODES[ThreadNumber]), 0);
-                // Valor necesario para la liberación de las teclas apuntadas.
-                int isPointer = 0xFF;
-                // Chequear si la tecla presionada es una tecla puntero.
-                for (int k = M_START; k < M_END; k++)
-                    if ((DIK_CODES[ThreadNumber] == iTable[k])) {
-                        isPointer = k;
-                        break;
-                    }
-                if (isPointer != 0xFF)
-                    isPressed[isPointer] = 2;
-                // Bucle del SendInput.
-                while (InputMgr.GetState(ThreadNumber + 3)) {
-                    Input.ki.dwFlags = KEYEVENTF_SCANCODE;
-                    SendInput(1, &Input, sizeof(Input));
-                    Sleep(10); // Pausa necesaria para que la tecla siguiente sea reconocida.
-                    Input.ki.dwFlags = KEYEVENTF_KEYUP;
-                    SendInput(1, &Input, sizeof(Input));
-                }
-                // Esperar a que otro hilo procese y rechace el último SendInput,
-                // en caso de que la tecla enviada apunte a otra tecla ya asignada.
-                Sleep(50);
-                if (isPointer != 0xFF)
-                    isPressed[isPointer] = 0;
-                isPressed[ThreadNumber] = 0;
-            }
+  for (;;) {
+    // +3 es el desplazamiento para las entradas de mahjong.
+    if (InputMgr.GetState(ThreadNumber + 3)) {
+      // Evitar que el hilo procese una tecla que ya está siendo procesada por otro.
+      if (isPressed[ThreadNumber] == 0) {
+        isPressed[ThreadNumber] = 1;
+        INPUT Input = { 0 };
+        Input.type = INPUT_KEYBOARD;
+        Input.ki.wScan = MapVirtualKey(LOBYTE(VI_CODES[ThreadNumber]), 0);
+        // Valor necesario para la liberación de las teclas apuntadas.
+        int isPointer = 0xFF;
+        // Chequear si la tecla presionada es una tecla puntero.
+        for (int k = M_START; k < M_END; k++)
+          if ((DIK_CODES[ThreadNumber] == iTable[k])) {
+            isPointer = k;
+            break;
+          }
+        if (isPointer != 0xFF)
+          isPressed[isPointer] = 2;
+        // Bucle del SendInput.
+        while (InputMgr.GetState(ThreadNumber + 3)) {
+          Input.ki.dwFlags = KEYEVENTF_SCANCODE;
+          SendInput(1, &Input, sizeof(Input));
+          Sleep(10); // Pausa necesaria para que la tecla siguiente sea reconocida.
+          Input.ki.dwFlags = KEYEVENTF_KEYUP;
+          SendInput(1, &Input, sizeof(Input));
         }
-        Sleep(20); // Reducir el procesamiento del hilo.
-    }
+        // Esperar a que otro hilo procese y rechace el último SendInput,
+        // en caso de que la tecla enviada apunte a otra tecla ya asignada.
+        Sleep(50);
+        if (isPointer != 0xFF)
+          isPressed[isPointer] = 0;
+        isPressed[ThreadNumber] = 0;
+      }
+    } Sleep(20); // Reducir el procesamiento del hilo.
+  }
 }
 {% endhighlight %}
 </div>
