@@ -5,6 +5,7 @@ code: "the-art-of-cracks-and-keygens-nicolausi"
 title: El arte de los cracks y keygens – Nicolausi
 description: ¿Alguna vez te preguntaste cómo funcionan estas cosas? Descubrirlo puede ser muy fascinante.
 thumb: /assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/thumb.jpg
+readtime: 15
 ---
 
 # Introducción, y una pequeña historia sobre piratería

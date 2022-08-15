@@ -5,6 +5,7 @@ code: "an-overlook-on-jvs-io-emulation-and-implementation"
 title: Explorando la emulación de E/S de JVS y su implementación
 description: Cómo conseguimos correr software arcade basado en PC en casa, y expandiendo sobre lo ya existente.
 thumb: /assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
+readtime: 18
 ---
 
 # Introducción

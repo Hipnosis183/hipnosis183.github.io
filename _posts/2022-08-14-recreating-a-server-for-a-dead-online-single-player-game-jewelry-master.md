@@ -5,6 +5,8 @@ code: "recreating-a-server-for-a-dead-online-single-player-game-jewelry-master"
 title: Recreating a server for a dead online single-player game - Jewelry Master
 description: Let's save old and forgotten online games from obscurity.
 thumb: /assets/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/thumb.jpg
+readtime: 19
+wordcount: 4012
 ---
 
 # Introduction to online games

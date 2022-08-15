@@ -5,6 +5,8 @@ code: "an-overlook-on-jvs-io-emulation-and-implementation"
 title: An overlook on JVS I/O emulation and implementation
 description: How we get to run PC-based arcade software at home, and expanding on what already exists.
 thumb: /assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
+readtime: 18
+wordcount: 3287
 ---
 
 # Introduction

@@ -5,6 +5,8 @@ code: "reversing-and-cracking-the-chinese-android-based-laptop-arcade-games"
 title: Reversing and cracking the Chinese, Android-based, Laptop Arcade games
 description: China is cool man.
 thumb: /assets/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/thumb.jpg
+readtime: 12
+wordcount: 2829
 ---
 
 # Some backstory with Android RE

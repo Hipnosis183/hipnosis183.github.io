@@ -5,6 +5,8 @@ code: "bringing-back-to-modern-life-tonic-trouble"
 title: Bringing back to modern life – Tonic Trouble
 description: Develop a solution to breathe new life to an old title in modern times.
 thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
+readtime: 16
+wordcount: 2922
 ---
 
 # Introduction

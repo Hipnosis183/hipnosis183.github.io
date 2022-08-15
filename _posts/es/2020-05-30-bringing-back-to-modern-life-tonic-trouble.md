@@ -5,6 +5,7 @@ code: "bringing-back-to-modern-life-tonic-trouble"
 title: Regresando a la vida moderna – Tonic Trouble
 description: Desarrollar una solución para darle vida nuevamente a un viejo título en tiempos modernos.
 thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
+readtime: 16
 ---
 
 # Introducción
