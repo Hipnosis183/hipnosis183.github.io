@@ -165,7 +165,7 @@
 .port-buttons {
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 
   @media (max-width: $width-content) {
     flex-direction: column;
@@ -192,7 +192,6 @@
   background-color: var(--color-navbar);
   border-radius: 20px;
   display: flex;
-  height: calc(100vh - 240px);
   max-height: 800px;
   opacity: 1;
   overflow-y: hidden;
@@ -532,6 +531,10 @@
   line-height: 1;
   margin-bottom: 20px;
   text-align: center;
+
+  @media (min-width: $width-content) {
+    display: none;
+  }
 }
 
 .port-viewer {
