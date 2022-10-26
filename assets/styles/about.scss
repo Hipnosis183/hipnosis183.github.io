@@ -52,7 +52,7 @@
   flex-direction: column;
 
   @media (min-height: $width-mobile) {
-    height: calc(100vh - 108px);
+    min-height: calc(100vh - 168px);
 
     @media (max-width: $width-content) {
       height: calc(100vh - 118px);
