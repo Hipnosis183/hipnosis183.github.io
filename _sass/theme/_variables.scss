@@ -11,6 +11,7 @@ $color-light-0: rgb(241, 245, 249);
 $color-light-1: rgb(227, 234, 241);
 $color-light-2: rgb(211, 220, 230);
 $color-light-3: rgb(198, 210, 220);
+$color-light-4: rgb(173, 184, 193);
 $color-white: rgb(246, 248, 250);
 
 :root {
@@ -18,9 +19,11 @@ $color-white: rgb(246, 248, 250);
   --color-blue: #{$color-blue-0};
   --color-button: #{$color-light-2};
   --color-dark: #{$color-dark-0};
-  --color-footer: #{$color-light-3};
+  --color-footer: #{$color-light-1};
+  --color-footer-b: #{$color-light-3};
   --color-grey: #{$color-grey};
   --color-header: #{$color-light-3};
+  --color-header-b: #{$color-light-4};
   --color-light: #{$color-light-0};
   --color-navbar: #{$color-light-1};
   --color-text: #{$color-dark-0};
@@ -32,8 +35,10 @@ $color-white: rgb(246, 248, 250);
   --color-blue: #{$color-blue-1};
   --color-button: #{$color-dark-1};
   --color-dark: #{$color-light-0};
-  --color-footer: #{$color-dark-0};
+  --color-footer: #{$color-dark-2};
+  --color-footer-b: #{$color-dark-0};
   --color-header: #{$color-dark-3};
+  --color-header-b: #{$color-dark-0};
   --color-light: #{$color-dark-0};
   --color-navbar: #{$color-dark-2};
   --color-text: #{$color-light-3};
@@ -48,11 +53,32 @@ $width-navbar: 320px;
 $width-phone: 440px;
 
 :root {
-  --width-large: 1200px;
-  --width-content: 1000px;
-  --width-mobile: 720px;
-  --width-navbar: 320px;
-  --width-phone: 440px;
+  --width-large: #{$width-large};
+  --width-content: #{$width-content};
+  --width-mobile: #{$width-mobile};
+  --width-navbar: #{$width-navbar};
+  --width-phone: #{$width-phone};
+}
+
+/* Height variables. */
+$height-header: 61px;
+$height-header-m: 71px;
+$height-footer: 60px;
+$height-padding: 48px;
+$height-page: $height-header + $height-padding + $height-footer;
+$height-page-nf: $height-header + $height-padding;
+$height-page-m: $height-header-m + $height-padding + $height-footer;
+$height-page-m-nf: $height-header-m + $height-padding;
+
+:root {
+  --height-header: #{$height-header};
+  --height-header-m: #{$height-header-m};
+  --height-footer: #{$height-footer};
+  --height-padding: #{$height-padding};
+  --height-page: #{$height-page};
+  --height-page-nf: #{$height-page-nf};
+  --height-page-m: #{$height-page-m};
+  --height-page-m-nf: #{$height-page-m-nf};
 }
 
 /* Time variable. */

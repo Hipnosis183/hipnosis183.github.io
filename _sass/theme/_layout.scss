@@ -1,8 +1,8 @@
 /* Footer. */
 .footer-container {
   align-items: center;
-  background-color: var(--color-navbar);
-  border-top: solid 1px var(--color-footer);
+  background-color: var(--color-footer);
+  border-top: solid 1px var(--color-footer-b);
   display: flex;
   justify-content: center;
   left: 0px;
@@ -20,7 +20,7 @@
 
 .footer-links {
   align-items: center;
-  border-left: solid 1px var(--color-footer);
+  border-left: solid 1px var(--color-footer-b);
   display: flex;
   height: 32px;
   margin-left: 8px;
@@ -80,10 +80,11 @@
 
 .header-container {
   background-color: var(--color-header);
+  border-bottom: solid 1px var(--color-header-b);
   display: flex;
   position: sticky;
   top: 0px;
-  transition: background-color var(--time);
+  transition: background-color var(--time), border-color var(--time);
   width: 100%;
   z-index: 20;
 
@@ -213,9 +214,10 @@
 
 .navbar-foot {
   background-color: var(--color-header);
+  border-top: solid 1px var(--color-header-b);
   display: grid;
   padding: 10px 0px;
-  transition: background-color var(--time);
+  transition: background-color var(--time), border-color var(--time);
 }
 
 .navbar-footer {
@@ -316,7 +318,7 @@
 }
 
 .post-container {
-  min-height: calc(100vh - 168px);
+  min-height: calc(100vh - var(--height-page));
 }
 
 .post-content {
