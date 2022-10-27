@@ -1,4 +1,3 @@
-<script>document.title = 'Acerca de';</script>
 <div class="about-content">
   <p class="about-subtitle">Desarrollador de Software, Diseñador Gráfico</p>
   <a class="about-button" href="/assets/resume.pdf">Currículum (2022/03/16)
@@ -34,3 +33,7 @@
 <a class="about-button about-button-mobile" href="/assets/resume.pdf">Currículum (2022/03/16)
   <img class='about-flag' src='/assets/images/flags/es.svg'>
 </a>
+<script>
+  let lang = document.body.classList.contains('lang-es');
+  if (lang) { document.title = 'Acerca de'; }
+</script>
