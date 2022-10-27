@@ -3,7 +3,7 @@ $(() => {
   let collapseHide = document.getElementsByClassName('collapsible-hide');
   for (let i = 0; i < collapseHide.length; i++) {
     // Attach a click listener to all buttons.
-    $(collapseHide[i]).on('click', () => {
+    $(collapseHide[i]).on('click', (e) => {
       // Select the box element and switch the visibility.
       let _content = document.getElementById(e.target.id);
       let content = document.getElementById(e.target.id + '-data');
