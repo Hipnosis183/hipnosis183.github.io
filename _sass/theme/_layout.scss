@@ -319,6 +319,10 @@
 
 .post-container {
   min-height: calc(100vh - var(--height-page));
+
+  @media (max-width: $width-content) {
+    min-height: calc(100vh - var(--height-page-m));
+  }
 }
 
 .post-content {
