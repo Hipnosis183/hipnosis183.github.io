@@ -3,7 +3,7 @@
 <li>
   <div class="post-block">
     <a class="post-style" href="{{ article.url | relative_url }}">
-      <div class="post-image" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('{{ article.thumb }}')"></div>
+      <div class="post-image" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('{{ article.thumb }}'); background-position: {{ article.position || 'center' }};"></div>
     </a>
     <header class="post-header" style="pointer-events: none;">
       <h1 class="post-title">

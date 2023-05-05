@@ -1,7 +1,7 @@
 {% assign posts = site.posts | where: "code", page.code | where: "language", include.language %}
 {% for post in posts %}
 <div class="post-block">
-  <span class="post-style" style="--url: url('{{ post.thumb }}')"></span>
+  <span class="post-style" style="--url: url('{{ post.thumb }}'); background-position: {{ post.position || 'center' }};"></span>
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">{{ post.title | escape }}</h1>
     <p class="post-meta">
