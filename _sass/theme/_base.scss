@@ -132,7 +132,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: $base-font-weight;
 }
 
+ol {
+  counter-reset: list;
+
+  & > li {
+    counter-increment: list;
+    list-style: none;
+  
+    &::marker {
+      content: counter(list) ".\a0";
+    }
+  }
+}
+
+ol, ul {
+  margin-left: 1.2rem;
+}
+
 li {
+  &::marker {
+    color: rgb(255, 180, 90);
+  }
+
   > ol, > ul {
     margin-bottom: 0;
   }
