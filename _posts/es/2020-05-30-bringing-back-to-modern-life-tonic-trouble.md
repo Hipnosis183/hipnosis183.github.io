@@ -2,8 +2,10 @@
 layout: post
 language: "es"
 code: "bringing-back-to-modern-life-tonic-trouble"
-title: Regresando a la vida moderna – Tonic Trouble
-description: Desarrollar una solución para darle vida nuevamente a un viejo título en tiempos modernos.
+title: Bringing back to modern life – Tonic Trouble
+_title: Regresando a la vida moderna – Tonic Trouble
+description: Develop a solution to breathe new life to an old title in modern times.
+_description: Desarrollar una solución para darle vida nuevamente a un viejo título en tiempos modernos.
 thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
 readtime: 16
 ---

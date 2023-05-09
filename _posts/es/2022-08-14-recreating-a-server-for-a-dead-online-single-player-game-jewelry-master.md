@@ -2,8 +2,10 @@
 layout: post
 language: "es"
 code: "recreating-a-server-for-a-dead-online-single-player-game-jewelry-master"
-title: Recreando un servidor para un videojuego en línea ya muerto - Jewelry Master
-description: Salvemos estos títulos en línea viejos y abandonados del olvido.
+title: Recreating a server for a dead online single-player game - Jewelry Master
+_title: Recreando un servidor para un videojuego en línea ya muerto - Jewelry Master
+description: Let's save old and forgotten online games from obscurity.
+_description: Salvemos estos títulos en línea viejos y abandonados del olvido.
 thumb: /assets/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/thumb.jpg
 readtime: 19
 ---

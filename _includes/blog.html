@@ -7,10 +7,10 @@
     </a>
     <header class="post-header" style="pointer-events: none;">
       <h1 class="post-title">
-        <a class="post-link" href="{{ article.url | relative_url }}">{{ article.title | escape }}</a>
+        <a class="post-link" href="{{ article.url | relative_url }}">{{ article._title | default: article.title | escape }}</a>
       </h1>
       <div class="post-content">
-        <p class="post-description">{{ article.description }}</p>
+        <p class="post-description">{{ article._description | default: article.description }}</p>
       </div>
     </header>
   </div>

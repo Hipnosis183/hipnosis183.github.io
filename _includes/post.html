@@ -3,7 +3,7 @@
 <div class="post-block">
   <span class="post-style" style="--url: url('{{ post.thumb }}'); background-position: {{ post.position || 'center' }};"></span>
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">{{ post.title | escape }}</h1>
+    <h1 class="post-title" itemprop="name headline">{{ post._title | default: post.title | escape }}</h1>
     <p class="post-meta">
       <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: '%b %-d, %Y' }}</time> •
       <span itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -13,10 +13,10 @@
   </header>
 </div>
 <div class="post-content" itemprop="articleBody">{{ post.content }}</div>
-{% if include.language == "en" %}
+{% if include.language == "es" %}
 <script>
-  let lang = document.body.classList.contains('lang-en');
-  if (lang) { document.title = '{{ post.title }}'; }
+  let lang = document.body.classList.contains('lang-es');
+  if (lang) { document.title = '{{ post._title }}'; }
 </script>
 {% endif %}
 {% endfor %}

@@ -2,8 +2,10 @@
 layout: post
 language: "es"
 code: "reversing-and-cracking-the-chinese-android-based-laptop-arcade-games"
-title: Analizando y crackeando el dispositivo chino basado en Android, el Laptop Arcade Player
-description: Algún día China va a dominar el mundo.
+title: Reversing and cracking the Chinese, Android-based, Laptop Arcade games
+_title: Analizando y crackeando el dispositivo chino basado en Android, el Laptop Arcade Player
+description: China is cool man.
+_description: Algún día China va a dominar el mundo.
 thumb: /assets/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/thumb.jpg
 readtime: 12
 ---

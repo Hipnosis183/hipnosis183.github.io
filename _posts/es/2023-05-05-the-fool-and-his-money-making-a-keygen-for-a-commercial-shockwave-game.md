@@ -2,8 +2,10 @@
 layout: post
 language: "es"
 code: "the-fool-and-his-money-making-a-keygen-for-a-commercial-shockwave-game"
-title: The Fool and his Money - Haciendo un keygen para un videojuego de Shockwave comercial
-description: Los sabios hacen proberbios, pero los tontos los repiten.
+title: The Fool and his Money - Making a keygen for a commercial Shockwave game
+_title: The Fool and his Money - Haciendo un keygen para un videojuego de Shockwave comercial
+description: Wise men make proverbs, but fools repeat them.
+_description: Los sabios hacen proberbios, pero los tontos los repiten.
 thumb: /assets/images/posts/the-fool-and-his-money-making-a-keygen-for-a-commercial-shockwave-game/thumb.jpg
 position: top
 readtime: 11

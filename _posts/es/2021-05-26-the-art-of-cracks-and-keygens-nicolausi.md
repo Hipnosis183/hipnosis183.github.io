@@ -2,8 +2,10 @@
 layout: post
 language: "es"
 code: "the-art-of-cracks-and-keygens-nicolausi"
-title: El arte de los cracks y keygens – Nicolausi
-description: ¿Alguna vez te preguntaste cómo funcionan estas cosas? Descubrirlo puede ser muy fascinante.
+title: The art of cracks and keygens – Nicolausi
+_title: El arte de los cracks y keygens – Nicolausi
+description: Have you ever wondered how these things worked? Well, finding it out can be very fascinating.
+_description: ¿Alguna vez te preguntaste cómo funcionan estas cosas? Descubrirlo puede ser muy fascinante.
 thumb: /assets/images/posts/the-art-of-cracks-and-keygens-nicolausi/thumb.jpg
 readtime: 15
 ---
