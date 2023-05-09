@@ -10,6 +10,7 @@ email: renzopigliacampo@gmail.com
 description: Computers and Graphics Design stuff.
 baseurl: ""
 url: "https://hipnosis183.github.io"
+image: /assets/images/home.png
 github_username:  Hipnosis183
 
 # Build settings
