@@ -6,7 +6,7 @@ title: Bringing back to modern life – Tonic Trouble
 description: Develop a solution to breathe new life to an old title in modern times.
 thumb: /assets/images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
 readtime: 16
-wordcount: 2922
+wordcount: 2939
 ---
 
 # Introduction
@@ -15,21 +15,21 @@ Some old games tend to be a bit tricky to make work on modern systems, and ~~Ray
 <br>
 
 # Background
-This is the case for the often forgotten (and shadowed by its sister project, Rayman 2) Tonic Trouble. It’s worth mentioning that this game release was kind of a mess, with two different versions: one completed (**Retail**), and an unfinished one (**Special Edition**). Because Ubisoft fucked up the release across Europe, we’ll be focusing just on the intended release, the Retail version, despite that, later on, the same treatment could be applied to the Special Edition as well, since a lot of people seem to like that one more.
+This is the case for the often forgotten (and shadowed by its sister project, **Rayman 2**) Tonic Trouble. It’s worth mentioning that this game release was kind of a mess, with two different versions: one completed (**Retail**), and one unfinished (**Special Edition**). Because **Ubisoft** fucked up the release across Europe, we’ll be focusing just on the intended release, the Retail version, despite that, later on, the same treatment could be applied to the Special Edition as well, since a lot of people seem to like that one more.
 
 At the same time, the Retail release had several versions released. It mostly has to do with the releases on different countries, each with a different one depending on the date it was released. I don't know the changes across versions, but most likely these were just bug fixes, nothing big. While the plan here is to cover all of them, we need to start somewhere, so we’ll begin with the latest of the latest, the **Review English** version, released in Italy and Spain, *of course*. Later on it’ll make more sense and be part of the several re-releases all over Europe.
 
 <br>
 
 # The objective here
-Before we begin, I should explain the objective here. There’s no science in using a **wrapper** and *presto*, the game is working (well not exactly, you’ll see why). But this is an attempt to ease and automatize the setup and configuration process, mostly for the average user that just want to play the game without any hassle. The goal is to make an *all-in-one* (AIO) program that deals with everything (a *launcher*, if you like), including the more straightforward stuff like the pre-configurated graphics wrapper as well as the more technical stuff, which will be the main focus of the article and deeply explained in what remains of it.
+Before we begin, I should explain the objective here. There’s no science in using a wrapper and *presto*, the game is working (well not exactly, you’ll see why). But this is an attempt to ease and automatize the setup and configuration process, mostly for the average user that just want to play the game without any hassle. The goal is to make an *all-in-one* (AIO) program that deals with everything (a launcher, if you like), including the more straightforward stuff like the pre-configurated graphics wrapper as well as the more technical stuff, which will be the main focus of the article and deeply explained in what remains of it.
 
 The contents will include very basic and simple x86 analysis and reverse engineering. But as a beginner on this field, I think it could be of interest to some in a similar situation, or who think this kind of stuff is very complex. Once you understand the basics on how assembly works and get familiar with the tools and software needed, is very straightforward (but not always easy) and logical to work with. So if something (maybe the whole article) seems like a stupid and pointless thing to explain, keep that aspect in mind. With that said, let’s begin.
 
 <br>
 
 # Analyzing the situation and setting up a working environment
-So, the Review English version is very particular, since unlike the others, for whatever reason, it has the executable packed. So we just unpack it, *right?*. Don't be silly, of course there’s a catch. Trough normal analysis, we can easily tell the executable is packed, since from the `PE Header` to the `Sections Table` there’s garbled data:
+So, the Review English version is very particular, since unlike the others, for whatever reason, it has the executable packed. So we just unpack it, *right?*. Don't be silly, of course there’s a catch. Through normal analysis, we can easily tell the executable is packed, since from the **PE Header** to the **Sections Table** there’s garbled data:
 
 <br>
 
@@ -51,31 +51,31 @@ Fuck.
 
 <br>
 
-Fantastic, we don’t know with what it was compressed. You’ll say, *'okay, not big deal'*, but the thing is that whatever is used to unpack the file, it doesn’t work on anything past `Windows XP`, making the program crash during the unpack process in modern systems, just like the one you’re using right now. Besides, this wouldn't allow us to statically decompile and analyze the program.
+Fantastic, we don’t know with what it was compressed. You’ll say, *'okay, no big deal'*, but the thing is that whatever is used to unpack the file, it doesn’t work on anything past **Windows XP**, making the program crash during the unpack process in modern systems, just like the one you’re using right now. Besides, this wouldn't allow us to statically decompile and analyze the program.
 
-The only solution I could think of at this point is the *brute* way, **dumping the memory**. After hours of debugging and research (keep in mind, I'm a newbie when it comes to reversing, let alone knowing about the PE format structure and rebuilding an executable) on a **real** `Windows XP` machine (not virtual machines, since the virtual GPUs don't meet the game requirements), I gave up. While the data was there, there were missing imports, rendering the executable unusable, and I’m not experienced enough to find and redirect that manually.
+The only solution I could think of at this point is the brute way, dumping the memory. After hours of debugging and research (keep in mind, I'm a newbie when it comes to reversing, let alone knowing about the PE format structure and rebuilding an executable) on a real Windows XP machine (not virtual machines, since the virtual GPUs don't meet the game requirements), I gave up. While the data was there, there were missing imports, rendering the executable unusable, and I’m not experienced enough to find and redirect that manually.
 
-Thankfully, the community I mentioned at the beginning comes at rescue. In the **Rayman Pirate-Community** (by the way it’s a Rayman 2 pun, nothing to do with piracy), the user **RibShark** had already achieved it, sharing the unpacked executable. As I stated before, it was done by manual unpacking, so shoutouts to him for it.
+Thankfully, the community I mentioned at the beginning comes at rescue. In the **[Rayman Pirate-Community](https://raymanpc.com/)** (by the way it’s a Rayman 2 pun, nothing to do with piracy), the user **RibShark** had already achieved it, sharing the unpacked executable. As I stated before, it was done by manual unpacking, so shoutouts to him for it.
 
 Now with the unprotected executable, and the temporal help of a video wrapper, we can begin to work.
 
 <br>
 
 # Enhancing the executable
-With everything in a minimum working state, we can begin adding some nice features from a more technical aspect, since the game already works *as-is*, although in a *sketchy* way. First the game needs some files to start, which are generated by the included setup program, which in turn also needs files created when the game is installed from the CD.
+With everything in a minimum working state, we can begin adding some nice features from a more technical aspect, since the game already works as is, although in a *sketchy* way. First the game needs some files to start, which are generated by the included setup program, which in turn also needs files created when the game is installed from the CD.
 
-We need to keep in mind that the game dates from 1999, and around that time a **LOT** of software used the `Windows` folder to store most of its configuration and other data as well. This case is no exception, and the game stores its settings under `Windows/UbiSoft` (remember when they were stylized *LikeThat*?). One of our tasks is to change that and make it use the game root folder. This will make the game fully portable, and will avoid having to install the game in first place. Also, some other *quality-of-life* (QOL) enhancements will be added, like removing the log system and redirect some folders, rendering the necessity of the CD non-existent.
+We need to keep in mind that the game dates from 1999, and around that time a *lot* of software used the `Windows` folder to store most of its configuration and other data as well. This case is no exception, and the game stores its settings under `Windows/UbiSoft` (remember when they were stylized *LikeThat*?). One of our tasks is to change that and make it use the game root folder. This will make the game fully portable, and will avoid having to install the game in first place. Also, some other *quality-of-life* (QOL) enhancements will be added, like removing the log system and redirect some folders, rendering the necessity of the CD non-existent.
 
-For the graphics department, a video wrapper will be included (the magnificent **dgVoodoo**), to max the resolution to desktop. Additionally, a widescreen patch will be available, which involves some nice math. All of this will be implemented in a dynamic way so no manual configuration should be involved, it's just a matter of activating or deactivating each option.
+For the graphics department, a video wrapper will be included (the magnificent **[dgVoodoo](http://dege.freeweb.hu/dgVoodoo2/)**), to max the resolution to desktop. Additionally, a widescreen patch will be available, which involves some nice math. All of this will be implemented in a dynamic way so no manual configuration should be involved, it's just a matter of activating or deactivating each option.
 
 Now that we have an idea of what we want to do and how everything will work, we can begin with the neat stuff.
 
 <br>
 
 # Getting dirty
-Okay, so this step will require some decompiling and debugging. The two aren’t really necessary together, but I like to see things from both perspectives. Still, I use a lot more decompilation for static code analyzing, and hex editors for the actual test of the patches. Pretty unconventional I know, but I’m more comfortable working that way for simple stuff like this. But don't get me wrong, *breakpoints are fun*.
+Okay, so this step will require some decompiling and debugging. The two aren’t really necessary together, but I like to see things from both perspectives. Still, I use a lot more decompilation for static code analyzing, and hex editors for the actual test of the patches. Pretty unconventional I know, but I’m more comfortable working that way for simple stuff like this. But don't get me wrong, *I do like breakpoints*.
 
-For this, we’ll go full open software, with **Ghidra** for decompilation and **x64dbg** (**x32dbg** actually) for debugging. Extra software will include a hex editor (**HxD**) and **Process Monitor**, core for our success.
+For this, we’ll use **[Ghidra](https://www.ghidra-sre.org/)** for decompilation and **[x64dbg](https://x64dbg.com/)** (**x32dbg** actually) for debugging, in addition of a hex editor (**[HxD](https://mh-nexus.de/en/hxd/)**) and **[Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)**, core for our success.
 
 The first obvious thing to try is to see if we can modify the values of interest directly from the binary with a hex editor, mainly stored strings. But it looks like it’s just possible to change filenames, not directories. This lets us change quite some things, like logs and other files, but not the game configuration path.
 
@@ -89,11 +89,11 @@ With that, we start right away analyzing the executable with Ghidra. We’re try
 
 We can see the `UbiSoft/Ubi.ini` string, also present in the binary. This means that we found what we were looking for, repeating in the four calls, all at the beginning of their respective functions. Now it's time to see what to do.
 
-At first, in an unsuccessful attempt, I tried to tweak them into `GetCurrentDirectoryA` calls. By the logic of the function, it *should’ve* worked, but computers are smarter than me. The string ended up cut for some reason, checked in x32dbg and Process Monitor. After more stupid attempts, I realized something **very** important.
+At first, in an unsuccessful attempt, I tried to tweak them into `GetCurrentDirectoryA` calls. By the logic of the function, it *should’ve* worked, but computers are smarter than me. The string ended up cut for some reason, checked in x32dbg and Process Monitor. After more stupid attempts, I realized something *very* important.
 
-Remember at the beginning when I mentioned **Rayman 2** as a *sister project*? Turns out that Rayman 2 uses the base game engine as Tonic Trouble, with quiet some more polishing on top. The cool part is that it behaves *exactly* the same as Tonic Trouble file management-wise, which means it also stores files under the `Windows` folder. This would mean nothing if Rayman 2 wasn’t a very popular game, but that’s not the case. In 2011, Ubisoft re-launched Rayman 2 in **GOG**, making some fixes along the way for its proper functioning in the systems at the time. One of those changes was the one we are treating right here, file redirection from the `Windows` folder to the game folder.
+Remember at the beginning when I mentioned **Rayman 2** as a sister project? Turns out that Rayman 2 uses the same base game engine as Tonic Trouble, with quiet some more polishing on top. The cool part is that it behaves *exactly* the same as Tonic Trouble file management-wise, which means it also stores files under the `Windows` folder. This would mean nothing if Rayman 2 wasn’t a very popular game, but that’s not the case. In 2011, Ubisoft re-launched Rayman 2 on **GOG**, making some fixes along the way for its proper functioning in the systems at the time. One of those changes was the one we are treating right here, file redirection from the `Windows` folder to the game folder.
 
-With this information, now we are going to do the exact same process with these two executables, the original, unpatched Rayman 2 executable, and the new, patched GOG executable. Since it’s patched, is very likely that we won’t found any matches for a `GetWindowsDirectoryA` search. Here’s when the original executable comes to play: we can search for the function over there, then search its *address* in the patched executable. When search for the function, something familiar can be seen:
+With this information, now we are going to do the exact same process with these two executables, the original, unpatched Rayman 2 executable, and the new, patched GOG executable. Since it’s patched, is very likely that we won’t found any matches for a `GetWindowsDirectoryA` search. Here’s when the original executable comes to play: we can search for the function over there, then search its address in the patched executable. When search for the function, something familiar can be seen:
 
 <br>
 
@@ -111,11 +111,11 @@ Jokes aside, is literally the same code. Now, when we search it in the patched e
 ![](/assets/images/posts/bringing-back-to-modern-life-tonic-trouble/04.png){: .center-image }
 
 {: .center-text }
-Nice NOPs.
+Nice `NOPs`.
 
 <br>
 
-So, turns out that leaving the string *empty* is the key. The game searches for the file in the working directory, so no need to use `GetCurrentDirectoryA`. Some values are adjusted so the registers and stack don’t fuck up and everything keeps the flow.
+So, turns out that leaving the string empty is the key. The game searches for the file in the working directory, so no need to use `GetCurrentDirectoryA`. Some values are adjusted so the registers and stack don’t fuck up and everything keeps the flow.
 
 Okay, let’s try *something stupid* (I'm starting to see a pattern over here). Let’s replace the Tonic Trouble executable functions with the block of `MOV` and `NOPs` instructions:
 
@@ -130,16 +130,16 @@ Surprise!
 
 It wasn’t a very stupid idea after all. As Process Monitor shows, the file is being correctly read from the game directory, and now everything is working as expected. Also, the same applies to the setup program, which shares the same code. Patching this file is also important.
 
-This finishes this first part, so now we can move to the second feature to implement, the widescreen patch.
+This finishes this first part, so now we can move to the second feature to implement, the **widescreen patch**.
 
 <br>
 
 # Wide that beautiful view
 This feature is rather simple to implement, since it follows a common and well-known practice in video game hacking. To put it simple, the game outputs on the screen at a defined resolution, and determines the visual range in the boundaries of that screen resolution with a *field-of-view* (FOV) value. There’re a series of common hex values that can be found in the game binary, and by modifying those, we can change the game options.
 
-In this case, we’re going to modify the resolution option, with the *integer* value of `800x600` (`640x480`, while ideal since is the default resolution of the game, crashes if its value is modified), and the FOV, with the *float* value of `1`. Remember that we’re always working on *hexadecimal*, so all those values should be converted respectively.
+In this case, we’re going to modify the resolution option, with the integer value of `800x600` (`640x480`, while ideal since is the default resolution of the game, crashes if its value is modified), and the FOV, with the float value of `1`. Remember that we’re always working on hexadecimal, so all those values should be converted respectively.
 
-Before any modification, let me explain the process. First we change the resolution values. This is to get a proper *vertical image* (`Ver-`) display, but in turn, the horizontal gets stretched (depending on the game, it will stretch the image or adjust it). That’s when the FOV comes in place. After treating the resolution with some math, we can get the proper FOV and *horizontal image* value (`Hor+`), for then get a correct aspect ratio and image display.
+Before any modification, let me explain the process. First we change the resolution values. This is to get a proper **vertical image** (`Ver-`) display, but in turn, the horizontal gets stretched (depending on the game, it will stretch the image or adjust it). That’s when the FOV comes in place. After treating the resolution with some math, we can get the proper FOV and **horizontal image** value (`Hor+`), for then get a correct aspect ratio and image display.
 
 This process is very easy, we just find the offsets for those formatted values and modify them:
 
@@ -183,11 +183,11 @@ It’s worth mentioning that some people like to use generic values, and while c
 # Ready for some coding
 Now that we sorted out the file management and widescreen, it’s time to start working on the program that will reflect all the research and improvements that we have done until now.
 
-The program will be a very simple `Windows Form` application, with a main and a settings window. I’ll be using `.NET Framework 3.5` to max the compatibility across systems, or at least enough to make it run on a `Windows XP` machine, since it’ll have features and enhancements that these old systems can also take advantage of.
+The program will be a very simple **Windows Forms** application, with a main and a settings window. I’ll be using **.NET Framework 3.5** to max the compatibility across systems, or at least enough to make it run on a Windows XP machine, since it’ll have features and enhancements that these old systems can also take advantage of.
 
 The only parts worth showing might be the file packaging and patching, so I'll center on those.
 
-The first is designed very simple, with 3 bundled binaries: one for the *app settings* (`App.bin`), other with the *game executables* (`Data.bin`), and the last one with the *video wrapper files* (`Video.bin`), knowing each of the offsets and lengths of the files to extract them at runtime, depending on the options selected:
+The first is designed very simple, with 3 bundled binaries: one for the **app settings** (`App.bin`), other with the **game executables** (`Data.bin`), and the last one with the **video wrapper** files (`Video.bin`), knowing each of the offsets and lengths of the files to extract them at runtime, depending on the options selected:
 
 <br>
 
@@ -214,7 +214,7 @@ private static void UnpackFiles() {
 
 <br>
 
-Then we have the patches, in the form of *byte arrays* (`byte[]`):
+Then we have the patches, in the form of byte arrays (`byte[]`):
 
 <br>
 
@@ -282,7 +282,7 @@ public static void PatcherSetup(string FileNameInput) {
 
 <br>
 
-Also a *blanker*, since we need to fill some parts with empty bytes:
+Also a bleacher function, since we need to fill some parts with empty bytes:
 
 <br>
 
@@ -290,7 +290,7 @@ Also a *blanker*, since we need to fill some parts with empty bytes:
 
 <div id="code-4-data" class="content-hide" markdown="1">
 {% highlight cs %}
-public static void PatcherBlanker(string FileNameInput, int Offset, int Lenght) {
+public static void PatcherBleacher(string FileNameInput, int Offset, int Lenght) {
   BinaryWriter BinWrite = new BinaryWriter(File.Open(FileNameInput, FileMode.Open, FileAccess.ReadWrite));
   BinWrite.BaseStream.Position = Offset;
   for (int i = 0; i < Lenght; i++) {
@@ -321,16 +321,16 @@ Patches.PatcherSetup("SetupTT.exe");
 {% highlight cs %}
 // Make some initial patches, regardless of the configuration set.
 private static void InitialPatching() {
-  Patches.PatcherBlanker("TonicTrouble.exe", 0xD28A8, 11);
-  Patches.PatcherBlanker("TonicTrouble.exe", 0xD28EC, 9);
-  Patches.PatcherBlanker("SetupTT.exe", 0x69C4, 9);
+  Patches.PatcherBleacher("TonicTrouble.exe", 0xD28A8, 11);
+  Patches.PatcherBleacher("TonicTrouble.exe", 0xD28EC, 9);
+  Patches.PatcherBleacher("SetupTT.exe", 0x69C4, 9);
 }
 {% endhighlight %}
 </div>
 
 <br>
 
-Finally, we run the game. Note the use of the `-cd-rom:` parameter, which will be activated if the *portable mode* option is selected, and will tell the game the CD drive location. Leaving it empty uses the current directory:
+Finally, we run the game. Note the use of the `-cd-rom:` parameter, which will be activated if the **portable mode** option is selected, and will tell the game the CD drive location. Leaving it empty uses the current directory:
 
 <br>
 
@@ -368,7 +368,7 @@ At the end, the application ended up like this:
 
 <br>
 
-Mind that this is *temporal* and *incomplete*. The version combo is just a placeholder; the plan is to support the other versions as well, but that will require to do everything again, most likely. A fun task, indeed.
+Mind that this is temporal and incomplete. The version combo is just a placeholder; the plan is to support the other versions as well, but that will require to do everything again, most likely. A fun task, indeed.
 
 <br>
 
@@ -377,7 +377,7 @@ Mind that this is *temporal* and *incomplete*. The version combo is just a place
 <br>
 
 # Finishing it up
-As expected, it required quite some refactoring, since now we have **two** different parts that will work with the same code, separated into the *protected/packed* versions and the *unprotected/unpacked* versions. The first group have been covered already, but we need to adjust everything to also work with the others.
+As expected, it required quite some refactoring, since now we have two different parts that will work with the same code, separated into the **protected/packed** versions and the **unprotected/unpacked** versions. The first group have been covered already, but we need to adjust everything to also work with the others.
 
 To determine this, first we need a way to identify the executable version, for which I tracked all the releases of the game out in the wild, and to my surprise, most of them used the same executable, even the same data. In code, we just calculate the hash (I chose the `SHA-256` algorithm) and compare with a list:
 
@@ -525,7 +525,7 @@ private static void PatchExecutables() {
 
 With this now everything is working as expected. The game version is detected and the correct patches are applied. But we're not done yet, since this whole thing made me realize of a detail that I missed at some point.
 
-The *intro video* is something special. If it's not detected, it just doesn't play, and the game continues normally. Because of this, there's the video path patch, but that's not enough. Each version has a different language, and there's one folder that's named before it (**English**, **French**, **German**, **Italian** and **Spanish**). If the folder has not the correct name, the intro (and some sounds) won't play neither. It was a pretty lame oversight, since I tested the video patch with the english version and everything worked fine (`English` is the default value), but later moved to the italian version and didn't notice that the video didn't play at all. After inspecting the executable all of them have the same `English` directory, but changing it didn't do anything, so the configuration has to be somewhere else. It turns out I was missing the entry `Language` in the `Ubi.ini` file, which overrides the source path with the one specified, so it was actually important to include (there're a lot of useless settings written in the `Ubi.ini` file, so unless necessary I just skip its inclusion).
+The **intro video** is something special. If it's not detected, it just doesn't play, and the game continues normally. Because of this, there's the video path patch, but that's not enough. Each version has a different language, and there's one folder that's named before it (`English`, `French`, `German`, `Italian` and `Spanish`). If the folder has not the correct name, the intro (and some sounds) won't play neither. It was a pretty lame oversight, since I tested the video patch with the english version and everything worked fine (`English` is the default value), but later moved to the italian version and didn't notice that the video didn't play at all. After inspecting the executable all of them have the same `English` directory, but changing it didn't do anything, so the configuration has to be somewhere else. It turns out I was missing the entry `Language` in the `Ubi.ini` file, which overrides the source path with the one specified, so it was actually important to include (there're a lot of useless settings written in the `Ubi.ini` file, so unless necessary I just skip its inclusion).
 
 <br>
 
@@ -554,7 +554,7 @@ public static List<string> VersionLanguage = new List<string> {
 
 <br>
 
-And now, this time for real, we're pretty much done. Every feature has been tested with every version, and everything is working and looking *nice and good*.
+And now, this time for real, we're pretty much done. Every feature has been tested with every version, and everything is working and looking nice and good.
 
 <br>
 
@@ -562,4 +562,4 @@ And now, this time for real, we're pretty much done. Every feature has been test
 
 <br>
 
-After this I'll re-think about supporting the ***Special Edition...***
+The launcher (**TTLauncher**) is available on [GitHub](https://github.com/Hipnosis183/TTLauncher). After this I'll re-think about supporting the ***Special Edition...***

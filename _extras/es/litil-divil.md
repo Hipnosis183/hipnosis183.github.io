@@ -18,6 +18,6 @@ thumb: /assets/images/extras/litil-divil.jpg
 </div>
 <br>
 
-Después de darle la ruta de *"instalación"* como parámetro al ejecutable, el programa aún necesita una unidad de CD presente, aunque no importa cual. Por lo tanto, en adición al texto *"MCDEX debe ser cargado"*, estamos frente a un salto muy sencillo.
+Después de darle la ruta de *'instalación'* como parámetro al ejecutable, el programa aún necesita una unidad de CD presente, aunque no importa cual. Por lo tanto, en adición al texto *'MCDEX debe ser cargado'*, estamos frente a un salto muy sencillo.
 
 De hecho, después de dar con el breakpoint en `INT 2F 1500`, hay varios chequeos y saltos, y por lo tanto, múltiples formas de craquear. Por diversión listé varias soluciones, así que elige la que más te guste.

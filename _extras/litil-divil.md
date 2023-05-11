@@ -18,6 +18,6 @@ thumb: /assets/images/extras/litil-divil.jpg
 </div>
 <br>
 
-After feeding the executable with the *"installation"* path as a parameter, the game still requires a CD to be present, but it doesn't care which. As such, in addition to the text *"MCDEX must be loaded"*, we are within a very simple bypass.
+After feeding the executable with the *'installation'* path as a parameter, the game still requires a CD to be present, but it doesn't care which. As such, in addition to the text *'MCDEX must be loaded'*, we are within a very simple bypass.
 
 In fact, after hitting the breakpoint at `INT 2F 1500` there are multiple checks and jumps, and thus, multiple ways to crack. We can even just bypass the function call as a whole. Just for fun I listed a bunch, so pick the one you like the most.

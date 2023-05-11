@@ -6,34 +6,34 @@ title: An overlook on JVS I/O emulation and implementation
 description: How we get to run PC-based arcade software at home, and expanding on what already exists.
 thumb: /assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
 readtime: 18
-wordcount: 3287
+wordcount: 3280
 ---
 
 # Introduction
-It’s been almost two decades since PCs have become a reliable platform for arcades, and the high success of the **Type X** platform from **Taito** settled that down to never go back. The logistics are simple, out off the shelf components with mass production are cheaper to manufacture and give support, reducing overall costs. Not only this, but software would be easier and more accessible to develop, since the platform that will run on top of is not only very well-known, but also a lot more standardized. *PC-based arcades* have the potential to open arcade software development to a wider amount of developers.
+It’s been almost two decades since PCs have become a reliable platform for arcades, and the high success of the **Type X** platform from **Taito** settled that down to never go back. The logistics are simple, out off the shelf components with mass production are cheaper to manufacture and give support, reducing overall costs. Not only this, but software would be easier and more accessible to develop, since the platform that will run on top of is not only very well-known, but also a lot more standardized. PC-based arcades have the potential to open arcade software development to a wider amount of developers.
 
-The only downside might be piracy and *bootlegging*, and though it’s always been a problem in the arcade scene, this time could go stronger since PCs, as simple as it is to develop for, the same could be said for cracking protections and decrypting information. These form part of the layer that prohibits us from running the software on normal PCs, in conjunction with the *I/O devices*.
+The only downside might be piracy and *bootlegging*, and though it’s always been a problem in the arcade scene, this time could go stronger since PCs, as simple as it is to develop for, the same could be said for cracking protections and decrypting information. These form part of the layer that prohibits us from running the software on normal PCs, in conjunction with the **I/O devices**.
 
 <br>
 
 # Some history
-Despite the vast amount of PC-based arcade platforms that appeared through time, going strong until this day, I’ll just be focusing on two specific hardware machines and their software: **Taito Type X** and **Examu eX-BOARD**, one was a *classic*, the other a *failure*, but both were pioneers in the PC-based arcade movement.
+Despite the vast amount of PC-based arcade platforms that appeared through time, going strong until this day, I’ll just be focusing on two specific hardware machines and their software: **Taito Type X** and **Examu eX-BOARD**, one was a classic, the other a failure, but both were pioneers in the PC-based arcade movement.
 
-The story dates back to 2009-2011 (I can’t remember exactly), when data dumps of most of the Type X games, some of **X2**, and all the eX-BOARD titles were released in arcade forums. This data was unprotected, which means that no security devices or checks were needed for the games to work. I can’t recall if the emulator for I/O was also released at the same time, but for sure shortly after one appeared. This first *loader* did just that, emulate the I/O device, and thus removing the final wall that prevented the software to be run without displaying an `I/O ERROR` screen.
+The story dates back to 2009-2011 (I can’t remember exactly), when data dumps of most of the Type X games, some of **X2**, and all the eX-BOARD titles were released in arcade forums. This data was unprotected, which means that no security devices or checks were needed for the games to work. I can’t recall if the emulator for I/O was also released at the same time, but for sure shortly after one appeared. This first loader did just that, emulate the I/O device, and thus removing the final wall that prevented the software to be run without displaying an `I/O ERROR` screen.
 
-Some time after, **Romhack** reworked this emulator into the *open-source Type X I/O emulator*, **ttx_monitor**, and later built on top of it the *eX-BOARD variant*, **xb_monitor**. He later also did a *Cave-PC variant*, **cv_monitor**, but to my knowledge it hasn’t been open-sourced. The Romhack emulators became the default to use during a long time, until more recently other capable alternatives appeared, like **JConfig** and **TeknoParrot**, and despite these emulate much more I/O devices of other machines as well, the Type X and eX-BOARD cores are all based on Romhack’s emulators. Now even myself entered the trend, and made *enhanced versions* of both ttx_monitor and xb_monitor, **TTX-Monitor+** and **XB-Monitor+** respectively.
+Some time after, **[Romhack](https://github.com/zxmarcos)** reworked this emulator into the open-source Type X I/O emulator, **[ttx_monitor](https://github.com/zxmarcos/ttx_monitor)**, and later built on top of it the eX-BOARD variant, **[xb_monitor](https://github.com/zxmarcos/xb_monitor)**. He later also did a Cave-PC variant, **cv_monitor**, but to my knowledge it hasn’t been open-sourced. The Romhack emulators became the default to use during a long time, until more recently other capable alternatives appeared, like **[JConfig](https://jconfig-universe.fandom.com/wiki/JConfig_Universe_Wiki)** and **[TeknoParrot](https://teknogods.github.io/)**, and despite these emulate much more I/O devices of other machines as well, the Type X and eX-BOARD cores are all based on Romhack’s emulators. Now even myself entered the trend, and made enhanced versions of both ttx_monitor and xb_monitor, **[TTX-Monitor+](https://github.com/Hipnosis183/TTX-Monitor)** and **[XB-Monitor+](https://github.com/Hipnosis183/XB-Monitor)**, respectively.
 
 <br>
 
 # What to expect
-First, we’ll take a quick look at the protection of the software at a high level, to then go into the hardware (and **JVS** overall), how to emulate it, analyze Romhack’s implementation and building on top of the existing, adding features and some quality of life enhancements.
+First, we’ll take a quick look at the protection of the software at a high-level, to then go into the hardware (and **JVS** overall), how to emulate it, analyze Romhack’s implementation and building on top of the existing, adding features and some quality of life enhancements.
 
 Since I don’t own any arcades, some basic terminology such as **JAMMA** was unknown to me, and still kind of is, so my only supports are the original JVS documentation and Romhack’s code, besides some *self-play* with the software which uses those devices. Still, I think it was enough to understand how things work, hence the *high-level* remark. That being said, this write might be only enjoyed by casual people that aren't on topic, and don’t be surprised if any inaccuracies present during the lecture.
 
 <br>
 
 # Protection at its finest
-Older machines implemented some *nasty* and *wild* protection, even at a hardware level, like suicidal chips and batteries. Thankfully, we don’t have any of that kamikaze protection, it’s just a simple USB *dongle check*, but let’s dive into it. The hard disk drive has two partitions:
+Older machines implemented some *nasty* protection, even at a hardware level, like suicidal chips and batteries. Thankfully, we don’t have any of that kamikaze protection, it’s just a simple USB dongle check, but let’s dive into it. The hard disk drive has two partitions:
 
 <br>
 
@@ -44,18 +44,18 @@ Older machines implemented some *nasty* and *wild* protection, even at a hardwar
 
 <br>
 
-The first has a `Windows XP Embedded` install, a Type X *loader/launcher* and a *virtual image disk* with the game data.
+The first has a **Windows XP Embedded** install, a Type X **loader/launcher** and a **virtual image disk** with the game data:
 
 <br>
 
 ![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/01.png){: .center-image }
 
 {: .center-text }
-The root of the **C:** partition, the **TypeXsys** folder contents and last the encrypted disk image inside the **data** folder with the game data. Also, **yes.txt**.
+The root of the `C:` partition, the `TypeXsys` folder contents and last the encrypted disk image inside the `data` folder with the game data. Also, `yes.txt`.
 
 <br>
 
-The loader does hardware checks (dongle, disk drive, partitions) and if everything is okay, a key is retrieved, which decrypts the image file, thus being able to run the game. Once the game is executed, it checks for a valid **JVS I/O device** in the **COM2 port**. If present, the game continues normally reaching full execution, and if not, the *I/O board error* will show up.
+The loader does hardware checks (dongle, disk drive, partitions) and if everything is okay, a key is retrieved, which decrypts the image file, thus being able to run the game. Once the game is executed, it checks for a valid **JVS I/O device** in the **COM2 port**. If present, the game continues normally reaching full execution, and if not, the *'I/O board error'* will show up.
 
 <br>
 
@@ -73,7 +73,7 @@ There’s also a second partition, which stores all the game configuration and d
 ![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/03.png){: .center-image }
 
 {: .center-text }
-A sole partition just for this.
+One partition just for this.
 
 <br>
 
@@ -99,7 +99,7 @@ Function hook in XB-Monitor+.
 
 <br>
 
-Loading the DLL in **Ghidra**, we can see all exported functions, `GetKeyLicense` being one of them:
+Loading the DLL in **[Ghidra](https://www.ghidra-sre.org/)**, we can see all exported functions, `GetKeyLicense` being one of them:
 
 <br>
 
@@ -107,12 +107,12 @@ Loading the DLL in **Ghidra**, we can see all exported functions, `GetKeyLicense
 
 <br>
 
-I think it’s safe to assume from its name that it handles the *protection check*, so making it always return *true* is enough to bypass it. Now with the decrypted data and protection cracked, the only barrier left is the JVS I/O device.
+I think it’s safe to assume from its name that it handles the **protection check**, so making it always return true is enough to bypass it. Now with the decrypted data and protection cracked, the only barrier left is the JVS I/O device.
 
 <br>
 
 # Communication Device
-The JVS board has the I/O functionality in a *separated board*, which has a JAMMA connector for the controllers, and a **CN2** to **USB** connector, for data transfer between the **main I/O board** and the **child TAITO I/O board** inside the Type X itself. Despite the USB physical connection, the **JVS protocol** is used for data transfer through **RS-485** serial transmission. This child board is connected to the COM2 port on the motherboard, so we can say that it works as an interface between the I/O board and the machine itself.
+The JVS board has the I/O functionality in a separated board, which has a JAMMA connector for the controllers, and a **CN2** to **USB** connector, for data transfer between the **main I/O board** and the **child TAITO I/O board** inside the Type X itself. Despite the USB physical connection, the **JVS protocol** is used for data transfer through **RS-485** serial transmission. This child board is connected to the COM2 port on the motherboard, so we can say that it works as an interface between the I/O board and the machine itself.
 
 <br>
 
@@ -134,7 +134,7 @@ JVS protocol package structure.
 
 <br>
 
-To put it simply, the `Sync Code` determines the start of a valid JVS packet, which always has the value of `0xE0`. The `Node` indicates the destination address, or the slave device/node of destination. The `Byte` determines the size of the rest of the packet, including the *checksum*, and this sum helps to identify if a packet is corrupt or not. The `Data` is, precisely, the data, which is formed by a *command* and arguments. There’s a large list of commands for different functions. In emulation, most of the commands are hardcoded for the initialization of the I/O board, so the one that really matters to us is the command `0x20`, `SWINP`, or more friendly, **Switch Inputs**:
+To put it simply, the `Sync Code` determines the start of a valid JVS packet, which always has the value of `0xE0`. The `Node` indicates the destination address, or the slave device/node of destination. The `Byte` determines the size of the rest of the packet, including the checksum, and this sum helps to identify if a packet is corrupt or not. The `Data` is, precisely, the data, which is formed by a **command** and arguments. There’s a large list of commands for different functions. In emulation, most of the commands are hardcoded for the initialization of the I/O board, so the one that really matters to us is the command `0x20`, `SWINP`, or more friendly, **Switch Inputs**:
 
 <br>
 
@@ -150,7 +150,7 @@ So, how do we emulate this process?
 <br>
 
 # I/O Emulation
-Since the JVS I/O board is connected into the COM2 port, we need a **fake COM device** that will let us make any input device behave as JVS compatible. For this, we *inject* our own *hooks* for the **COM functions** in the system library `Kernel32` for the running process, that will retrieve the correct data from the fake virtual device we created.
+Since the JVS I/O board is connected into the COM2 port, we need a **fake COM device** that will let us make any input device behave as JVS compatible. For this, we inject our own hooks for the **COM functions** in the system library `Kernel32` for the running process, that will retrieve the correct data from the fake virtual device we created.
 
 <br>
 
@@ -176,9 +176,9 @@ BOOL APIENTRY HookFunctions() {
 
 <br>
 
-In concept is simple, we create a *stream of data* that will *simulate* the JVS transfer structure, build the correct packets and return a valid reply. Basically, we feed the data that the stream wants to hear. The interesting part is the request of command `0x20`, when the second part of the emulation comes to play.
+In concept is simple, we create a stream of data that will **simulate** the JVS transfer structure, build the correct packets and return a valid reply. Basically, we feed the data that the stream wants to hear. The interesting part is the request of command `0x20`, when the second part of the emulation comes to play.
 
-Besides the fake COM device, we also need a *true input layer*, which then we can link with the former and thus generating the input signals through a **virtual JVS packet**. For this, we create two `DirectInput` devices (although any input *API* would work, we use DInput since the games by themselves also use it, so we need it anyways): a *fake* one, which is hooked into the game so it doesn’t detect any inputs, and a *real* one, that will read our inputs from the selected device. This way, we cancel any input read from the game, and we inject our inputs into the JVS stream, which then will be read by the game.
+Besides the fake COM device, we also need a true input layer, which then we can link with the former and thus generating the input signals through a **virtual JVS packet**. For this, we create two **DirectInput** devices (although any input API would work, we use DInput since the games by themselves also use it, so we need it anyways): a **fake** one, which is hooked into the game so it doesn’t detect any inputs, and a **real** one, that will read our inputs from the selected device. This way, we cancel any input read from the game, and we inject our inputs into the JVS stream, which then will be read by the game.
 
 <br>
 
@@ -204,7 +204,7 @@ HRESULT APIENTRY Fake_DirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFII
 
 <br>
 
-The DInput initialization behaves as normal, the devices are enumerated, acquire the one we want and finally create a **polling thread**. When we press a key/button on the device, it will set a *flag* in an *input state array*, which is read by the **JVS stream polling**.
+The DInput initialization behaves as normal, the devices are enumerated, acquire the one we want and finally create a **polling thread**. When we press a key/button on the device, it will set a flag in an input state array, which is read by the **JVS stream polling**.
 
 <br>
 
@@ -252,7 +252,7 @@ Then the JVS polling will get the state of the input table and process it.
 
 <br>
 
-When the fake JVS detects the flag, it sets the *bit* in the corresponding *byte* of the **Input Switch data block**:
+When the fake JVS detects the flag, it sets the bit in the corresponding byte of the **Input Switch data block**:
 
 <br>
 
@@ -301,21 +301,21 @@ Setting up the first 2 bytes, which belong to P1's inputs.
 
 <br>
 
-Finally, the packet is sent and the function returns, the reply is buffered and then it’s interpreted by the game as a *legit* JVS I/O button press.
+Finally, the packet is sent and the function returns, the reply is buffered and then it’s interpreted by the game as a legit JVS I/O button press.
 
 <br>
 
 # Excellent, now what
-All we’ve seen so far is what was implemented in Romhack’s loaders. This includes the JVS I/O emulation and the input handling. The first works as expected, but the latter, while works, is lacking some, in *my* opinion, *basic features*. Most of them were made popular by loaders like JConfig, so it makes it feel outdated in comparison.
+All we’ve seen so far is what was implemented in Romhack’s loaders. This includes the JVS I/O emulation and the input handling. The first works as expected, but the latter, while works, is lacking some, in *my* opinion, basic features. Most of them were made popular by loaders like JConfig, so it makes it feel outdated in comparison.
 
-But why not use the modern alternatives then? Because, for whatever reason, *none* of them have support for Examu’s eX-BOARD titles, and by them I mean JConfig, because TeknoParrot seems to support the platform, but since it had a very sketchy past (**VMProtect** anyone?), I don’t really like to use the software itself, so I prefer to avoid it, even if that means to develop my own solution.
+But why not use the modern alternatives then? Because, for whatever reason, none of them have support for Examu’s eX-BOARD titles, and by them I mean JConfig, because TeknoParrot seems to support the platform, but since it had a very sketchy past (**VMProtect** anyone?), I don’t really like to use the software itself, so I prefer to avoid it, even if that means to develop my own solution.
 
-Here’s where my enhanced version of the *only* open source solution available, xb_monitor, comes to play, trying to put the old loader up to modern alternatives. And since I was already there, I also decided to apply the same treatment to ttx_loader, because *why not* (and well, both share most of the code anyways), though later I’d find a good use for it. But before going through those new features, it’s important to remark that both projects have seen a big overhaul of the *codebase*, in such a way that *I* feel is much better to read and understand, so if you want to see the inner works, might want to check TTX-Monitor+ and XB-Monitor+ over the originals.
+Here’s where my enhanced version of the only open-source solution available, xb_monitor, comes to play, trying to put the old loader up to modern alternatives. And since I was already there, I also decided to apply the same treatment to ttx_loader, because *why not* (and well, both share most of the code anyways), though later I’d find a good use for it. But before going through those new features, it’s important to remark that both projects have seen a big overhaul of the codebase, in such a way that I feel is much better to read and understand, so if you want to see the inner works, might want to check TTX-Monitor+ and XB-Monitor+ over the originals.
 
 <br>
 
 # QOL Enhancements
-First, *controls*. The *deadzone* values for the axis were *too* low, so in modern and sensitive controllers, like the `Xbox Controller` and `DualShock 4`, it was literally *impossible* to configure and play with analog sticks, let alone if you have *drifting* issues like myself, even if they’re minimal. Incrementing this hardcoded value a bit was enough to fix this issue.
+First, **controls**. The deadzone values for the axis were *too* low, so in modern and sensitive controllers, like the `Xbox Controller` and `DualShock 4`, it was literally impossible to configure and play with analog sticks, let alone if you have drifting issues like myself, even if they’re minimal. Incrementing this hardcoded value a bit was enough to fix this issue.
 
 <br>
 
@@ -328,11 +328,11 @@ First, *controls*. The *deadzone* values for the axis were *too* low, so in mode
 </div>
 
 {: .center-text }
-The new deadzone value (500), with the old implementation commented out (10).
+The new deadzone value (`500`), with the old implementation commented out (`10`).
 
 <br>
 
-In the function for input pooling, only the left axis (`AxisL`) and buttons were checked, *very limited*. Support for the right axis (`AxisR`), triggers (`AxisZ`) and `POVs` were added, in addition to a `PovAsAxis` option, which allows to use POVs together with the left axis mapped inputs (like the `Analog` button on DualShock controllers).
+In the function for input pooling, only the left axis (`AxisL`) and buttons were checked, very limited. Support for the right axis (`AxisR`), triggers (`AxisZ`) and `POVs` were added, in addition to a `PovAsAxis` option, which allows to use `POVs` together with the left axis mapped inputs (like the `Analog` button on DualShock controllers).
 
 <br>
 
@@ -399,7 +399,7 @@ Extract from the input polling function.
 
 <br>
 
-Now that we're done with controls, I’ll touch in some features that I thought were unnecessary to include: the *logging functions* and the `DirectDraw` wrapper. The former is still present *code-wise*, and is available as a *debug tool* just for development, instead of always being on and creating logs that most users don’t care at all. While the DirectDraw wrapper has been removed, the `Direct3D 9` was required for XB-Monitor+, but has been reduced to a single purpose: fix the window drawing in **Arcana Heart 3**. The original implementation was more complex, but for this I just forced *fullscreen* mode @`640x480`, like the rest of eX-BOARD games do.
+Now that we're done with controls, I’ll touch in some features that I thought were unnecessary to include: the logging functions and the **DirectDraw** wrapper. The former is still present *code-wise*, and is available as a debug tool just for development, instead of always being on and creating logs that most users don’t care at all. While the DirectDraw wrapper has been removed, the **Direct3D 9** was required for XB-Monitor+, but has been reduced to a single purpose: fix the window drawing in **Arcana Heart 3**. The original implementation was more complex, but for this I just forced fullscreen mode @`640x480`, like the rest of eX-BOARD games do.
 
 <br>
 
@@ -421,11 +421,11 @@ The important part of the wrapper.
 
 <br>
 
-This decision was in favor of the use of *external wrappers*, like the *excellent* **dgVoodoo**, which not only could solve *incompatibilities* in modern systems (particularly important since these machines came out around 2004-2008), but also *enhance* the visuals. Other loaders like JConfig have wrappers included to have a more *out-of-the-box* experience, but under mine those are very limited and don’t work pretty well, or lack features.
+This decision was in favor of the use of external wrappers, like the excellent **[dgVoodoo](http://dege.freeweb.hu/dgVoodoo2/)**, which not only could solve incompatibilities in modern systems (particularly important since these machines came out around 2004-2008), but also enhance the visuals. Other loaders like JConfig have wrappers included to have a more *out-of-the-box* experience, but under mine those are very limited and don’t work pretty well, or lack features.
 
-Last but not least, a `SavePatch` feature. As shown at the beginning of the article, most games stored their options and score data in a different partition. Their behaviour didn’t change and they will attempt to save there. The problems are, not everyone has a second partition with the specified drive letter, and we don’t want our data to be *all over the place*. To fix this, we redirect all the file and directory operations to a specified *save folder* in the root directory of the application.
+Last but not least, a `SavePatch` feature. As shown at the beginning of the article, most games stored their options and score data in a different partition. Their behaviour didn’t change and they will attempt to save there. The problems are, not everyone has a second partition with the specified drive letter, and we don’t want our data to be all over the place. To fix this, we redirect all the file and directory operations to a specified save folder in the root directory of the application.
 
-For eX-BOARD games is simple, since the data isn’t stored in the hard drive, but rather in *volatile memory* (although I don’t know specifically in which form), so we create a **virtual SRAM** file, which then is loaded in memory. xb_monitor already placed the SRAM binary data in the `sv` folder, a structure that’s used in JConfig and *binary patches*, and will be carried over XB-Monitor+ and TTX-Monitor+ as well.
+For eX-BOARD games is simple, since the data isn’t stored in the hard drive, but rather in volatile memory (although I don’t know specifically in which form), so we create a **virtual SRAM** file, which then is loaded in memory. xb_monitor already placed the SRAM binary data in the `sv` folder, a structure that’s used in JConfig and binary patches, and will be carried over XB-Monitor+ and TTX-Monitor+ as well.
 
 <br>
 
@@ -445,7 +445,7 @@ VOID SaveSRAM() {
 
 <br>
 
-But Type X is a different *beast*, that looks simple at first, but its implementation gets complicated. In *theory* we hook our own `CreateDirectory` and `CreateFile` system functions (both *ANSI* and *wide character* variants) and call it a day, but when we start to deal with subdirectories *this shit gets annoying*. With the current implementation, I’ve got all games saving in the save directory, but some like **The King Of Fighters '98**, **Gouketsuji Ichizoku Senzo Kuyou** and **Trouble Witches** won’t read the data back. While it might be fixable, perhaps with a different algorithm, it wasn’t worth the hassle, considering that other loaders probably have *game-specific* patches (certainly TeknoParrot), while I aim for a more *dynamic* approach.
+But Type X is a *different beast*, that looks simple at first, but its implementation gets complicated. In theory we hook our own `CreateDirectory` and `CreateFile` system functions (both ANSI and wide character variants) and call it a day, but when we start to deal with subdirectories it gets very annoying. With the current implementation, I’ve got all games saving in the save directory, but some like **The King Of Fighters '98**, **Gouketsuji Ichizoku Senzo Kuyou** and **Trouble Witches** won’t read the data back. While it might be fixable, perhaps with a different algorithm, it wasn’t worth the hassle, considering that other loaders probably have *game-specific* patches (certainly TeknoParrot), while I aim for a more dynamic approach.
 
 <br>
 
@@ -526,15 +526,15 @@ Something important to point out is that we only redirect file operations that a
 <br>
 
 # Introducing mahjong input support
-The brand *new* and *exciting* feature *unique* to TTX-Monitor+ is support for **mahjong games**. Well, actually only **Taisen Hot Gimmick 5** for now, maybe **Taisen Hot Gimmick Mix Party** in the future. There’s quite some history with mahjong games and their JVS I/O emulation.
+The brand new and exciting feature unique to TTX-Monitor+ is support for **mahjong games**. Well, actually only **Taisen Hot Gimmick 5** for now, maybe **Taisen Hot Gimmick Mix Party** in the future. There’s quite some history with mahjong games and their JVS I/O emulation.
 
-Apparently, while both use indeed JVS for I/O communication, it seems like a *custom implementation*, since JVS is *flexible enough* to do this. *Why?* I don’t know, they could’ve stuck with the standard (you know, the `S` part) mahjong panel handling. The people behind JConfig have been trying to figure this out, and told me that a *different* **JVS dump** is needed in order to provide the *correct data* the games are expecting. Until then, let’s go for a *hacky* solution.
+Apparently, while both use indeed JVS for I/O communication, it seems like a **custom implementation**, since JVS is flexible enough to do this. Why? I don’t know, they could’ve stuck with the standard (you know, the `S` part) mahjong panel handling. The people behind JConfig have been trying to figure this out, and told me that a different JVS dump is needed in order to provide the correct data the games are expecting. Until then, let’s go for a *hacky* solution.
 
-Luckily for us, the developers left keyboard controls for *debugging*, or at least on `THG5`, which uses DirectInput. `THGMP` doesn’t, though it seems to map some keys, which aren’t activated for some reason. I’m still investigating this, so hopefully there’s a way to unlock the keyboard for THGMP. It should work until a proper way to emulate the mahjong JVS I/O is finally sorted out.
+Luckily for us, the developers left keyboard controls for debugging, or at least on **THG5**, which uses DirectInput. **THGMP** doesn’t, though it seems to map some keys, which aren’t activated for some reason. I’m still investigating this, so hopefully there’s a way to unlock the keyboard for THGMP. It should work until a proper way to emulate the mahjong JVS I/O is finally sorted out.
 
-The *only* loader that was able to run THG5 with the debug controls is the original, the first released `TypeX Loader`. The reason for this is that every other loader creates a fake DirectInput device to prevent the games from taking inputs by themselves, forcing only the virtual JVS inputs to be recognized. For mahjong titles, this hook was *disabled*, leaving the game to take the inputs, and despite the loader offering a mahjong panel input configuration, it was never implemented and *never worked*. We’ll be doing the first, and *fix* the later.
+The only loader that was able to run THG5 with the debug controls is the original, the first released **TypeX Loader**. The reason for this is that every other loader creates a fake DirectInput device to prevent the games from taking inputs by themselves, forcing only the virtual JVS inputs to be recognized. For mahjong titles, this hook was disabled, leaving the game to take the inputs, and despite the loader offering a mahjong panel input configuration, it was never implemented and never worked. We’ll be doing the first, and fix the later.
 
-So, with this in mind, the idea is to give the *fake feeling* of proper emulation, by enabling the *remapping* of the keyboard keys to any device, including the keyboard itself. For this, a DirectInput wrapper is implemented, with some algorithm complexity. Basically, it takes care of all the input handling, and manages the *original* and *user* mapped keys. This way, we want to avoid any conflicts that might occur when *overlapping* the original and user configuration.
+So, with this in mind, the idea is to give the fake feeling of proper emulation, by enabling the **remapping** of the keyboard keys to any device, including the keyboard itself. For this, a DirectInput wrapper is implemented, with some algorithm complexity. Basically, it takes care of all the input handling, and manages the original and user mapped keys. This way, we want to avoid any conflicts that might occur when overlapping the original and user configuration.
 
 While it sounded simple at first, it was quite challenging to implement correctly. All the mahjong input configuration has been separated from the normal input, to make it easier and cleaner to develop and understand.
 
@@ -593,30 +593,30 @@ Multi-threaded version of the polling algorithm.
 
 <br>
 
-For the input polling, a *new thread* is created for *each* button. At first I wanted to make the thread count arbitrary, but that wasn’t going anywhere. Also, single thread polling is available, which *funnily enough* fixes a problem of how inconsistently the game handles multiple input presses.
+For the input polling, a new thread is created for each button. At first I wanted to make the thread count arbitrary, but that wasn’t going anywhere. Also, single thread polling is available, which funnily enough fixes a problem of how inconsistently the game handles multiple input presses.
 
 <br>
 
 # One final touch
-Now that all the core features and enhancements, *planned and not*, are implemented, there’s one more thing to track down: the *user interface*. The original UI (**ttx_config**) was very simple, made with the `MFC Application Wizard`. It did the job, but it copied the code from the main loader, meaning that all the controller features will shave to be ported over there, plus adding mahjong support.
+Now that all the core features and enhancements, planned and not, are implemented, there’s one more thing to track down: the user interface. The original UI (**ttx_config**) was very simple, made with the **MFC Application Wizard**. It did the job, but it copied the code from the main loader, meaning that all the controller features will shave to be ported over there, plus adding mahjong support.
 
-Instead of updating the old UI, I went with a new `.NET Windows Forms` solution made from scratch. Well, *kind of*, since I had most of it done for another *arcade-related* project, including all the interface operations and controller integration, through the `DirectInput API`. When I first developed this, it took quite the time, considering that I had never worked with `DirectX` nor any input API before, but at the same time it helped me a lot to understand the whole input implementation in ttx_monitor and xb_monitor.
+Instead of updating the old UI, I went with a new **.NET Windows Forms** solution made from scratch. Well, *kind of*, since I had most of it done for another *arcade-related* project, including all the interface operations and controller integration, through the DirectInput API. When I first developed this, it took quite the time, considering that I had never worked with **DirectX** nor any input API before, but at the same time it helped me a lot to understand the whole input implementation in ttx_monitor and xb_monitor.
 
 <br>
 
 ![](/assets/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/08.png){: .center-image }
 
 {: .center-text }
-Also put my graphic designer skills to show with two brand new logos and icons, **neat.**
+Also put my graphic designer skills to show with two brand new logos and icons, **neat**.
 
 <br>
 
 # Might not be over yet
-While I consider everything *mostly* done, there’s still that mahjong game *bugging* me. I’ll give it a shot to see if I can get it to work with the debug keyboard controls that I *suspect* are there, but just disabled. If so, the current mahjong engine *should* work, maybe with some modifications.
+While I consider everything mostly done, there’s still that mahjong game bugging me. I’ll give it a shot to see if I can get it to work with the debug keyboard controls that I suspect are there, but just disabled. If so, the current mahjong engine should work, maybe with some modifications.
 
-However, the game behaves *differently* than TGH5: TGHMP is a collection of the first 4 games in the series. Each game has its own executable on its own folder, including the *test mode* and the *special menu* to select the game. It turns out that `game.exe` is the process which handles the **child process creation** and the **JVS communication**, acting as a *pipeline* to the real game processes. For this reason, this game is a *pain* to debug, so it’s not very straightforward as it’d usually be. Still, I’ll give it a try.
+However, the game behaves differently than TGH5: TGHMP is a collection of the first 4 games in the series. Each game has its own executable on its own folder, including the test mode and the special menu to select the game. It turns out that `game.exe` is the process which handles the **child process creation** and the **JVS communication**, acting as a pipeline to the real game processes. For this reason, this game is a *pain* to debug, so it’s not very straightforward as it’d usually be. Still, I’ll give it a try.
 
-It was a long journey that I don’t consider over yet, but I take the experience of *programming in C for the first time*, implementing new core features in someone else's project, and just learning more about how modern arcade machines work.
+It was a long journey that I don’t consider over yet, but I take the experience of programming in C for the first time, implementing new core features in someone else's project, and just learning more about how modern arcade machines work.
 
 <br>
 
