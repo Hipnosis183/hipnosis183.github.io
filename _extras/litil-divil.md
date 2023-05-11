@@ -10,10 +10,17 @@ thumb: /assets/images/extras/litil-divil.jpg
 
 <div id="litil-divil" class="collapsible-show">No-CD Patch</div>
 <div id="litil-divil-data" class="content-show" markdown="1">
-{% highlight php %}
-'DIVIL.EXE'  |  'DIVIL.EXE'     |  'DIVIL.EXE'        |  'DIVIL.EXE'
-             |                  |                     |
-@0xE672  01  |  @0xE673  90 90  |  @0xE7BB  90 90 90  |  @0xEC96  90 90
+{% highlight lua %}
+DIVIL.EXE > 0xE672  01
+{% endhighlight %}
+{% highlight lua %}
+DIVIL.EXE > 0xE673  90 90
+{% endhighlight %}
+{% highlight lua %}
+DIVIL.EXE > 0xE7BB  90 90 90
+{% endhighlight %}
+{% highlight lua %}
+DIVIL.EXE > 0xEC96  90 90
 {% endhighlight %}
 </div>
 <br>

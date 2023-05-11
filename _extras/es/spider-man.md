@@ -10,11 +10,9 @@ thumb: /assets/images/extras/spider-man.jpg
 
 <div id="spider-man" class="collapsible-show">Parche No-CD</div>
 <div id="spider-man-data" class="content-show" markdown="1">
-{% highlight php %}
-'SPIDER.EXE'
-
-@0x68AD1  00 00 00 00 00 00 00 00
-@0x68ADD  00 00 00
+{% highlight lua %}
+SPIDER.EXE > 0x68AD1  00 00 00 00 00 00 00 00
+           > 0x68ADD  00 00 00
 {% endhighlight %}
 </div>
 <br>

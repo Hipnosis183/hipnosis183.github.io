@@ -10,11 +10,13 @@ thumb: /assets/images/extras/time-gate.jpg
 
 <div id="time-gate" class="collapsible-show">Parche No-CD</div>
 <div id="time-gate-data" class="content-show" markdown="1">
-{% highlight php %}
-'KNIGHTS.EXE' (SVGA)   |  'KNIGHTS.EXE' (VGA)
-                       |
-@0x8A7B8  2E           |  @0x8A7B8  2E
-@0x77F6C  90 90 90 90  |  @0x77C16  90 90 90 90
+{% highlight lua %}
+KNIGHTS.EXE (VGA) > 0x8A7B8  2E
+                  > 0x77C16  90 90 90 90
+{% endhighlight %}
+{% highlight lua %}
+KNIGHTS.EXE (SVGA) > 0x8A7B8  2E
+                   > 0x77F6C  90 90 90 90
 {% endhighlight %}
 </div>
 <br>

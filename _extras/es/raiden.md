@@ -10,10 +10,8 @@ thumb: /assets/images/extras/raiden.jpg
 
 <div id="raiden" class="collapsible-show">Protección Anti-copias Removida</div>
 <div id="raiden-data" class="content-show" markdown="1">
-{% highlight php %}
-'RAIDEN.EXE'
-
-@0x4AF  90 90 90
+{% highlight lua %}
+RAIDEN.EXE > 0x4AF  90 90 90
 {% endhighlight %}
 </div>
 <br>
