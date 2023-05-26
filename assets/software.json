@@ -1,6 +1,34 @@
 {
   "0": [
     {
+      "name": "viridian",
+      "title": "Viridian",
+      "tags": [
+        "Angular",
+        "TypeScript",
+        "Tailwind",
+        "Electron"
+      ],
+      "link": "https://github.com/Hipnosis183/Viridian",
+      "description": "<b>Viridian</b> is an <b>FFmpeg</b>-based, feature-rich <b>video editor</b>, offering a wide variety of both <b>lossless</b> and <b>lossy</b> operations. It allows you to easily manipulate video files without having to deal with the command line and FFmpeg's complexity, ensuring always the <b>best output quality possible</b>.\n\nViridian is also an excellent tool for advanced users, as it enables you to <b>manually edit</b> the final output command as you wish, without holding back any little nuances you might like to control.\n\n<h2>Features</h2><li><b>Fast</b>, as it uses native FFmpeg binaries for video processing</li><li>Simple, yet <b>powerful video player</b>, with support for thumbnails, various navigation options (frame advance, between clips, keyframes, etc.) and metadata correction (aspect ratio, rotation)</li><li>Lossy visual operations such as <b>crop</b>, <b>rotate</b>, <b>flip/mirror</b> and <b>scale</b></li><li>Open multiple files at once, allowing lossless and lossy <b>concatenation</b></li><li>Several <b>video cut</b> modes: lossy, lossless (normal and keyframe) and smart (lossy + lossless)</li><li>Rich cut manipulation: drag, resize, snap, split and manually edit video clips</li><li>Export clips to individual files or merge everything together</li><li>Extensive video format and encoding output settings</li><li>View current encoding status (lossy/lossless/mixed)</li><li>View and modify the final output command</li><li>File tracks and metadata viewer</li><li>Frame capture/screenshot</li><li>Remove audio tracks</li><li>Clear file metadata</li>",
+      "images": 4,
+      "dark": true
+    },
+    {
+      "name": "glaucous",
+      "title": "Glaucous",
+      "tags": [
+        "Vue",
+        "Tailwind",
+        "Electron",
+        "NeDB"
+      ],
+      "link": "https://github.com/Hipnosis183/Glaucous",
+      "description": "<b>Glaucous</b> is a videogames database builder, library manager and emulator frontend. It allows you to create your own customized database, plus the ability to use it as a <i>launcher/frontend</i>.\n\nThe application and database are designed to be as dynamic as possible, giving you the freedom to choose what you want to see and how. Customization and flexibility are paramount, allowing you to adapt your current setup without forcing any specific changes to work.\n\nA quality database is being slowly worked on. Once it reaches a mature state, it will be available online, and users will be able to scrape the information from the application right away. Extensive documentation for the program usage and configuration will also be available at a later date.",
+      "images": 10,
+      "dark": true
+    },
+    {
       "name": "instagular",
       "title": "Instagular",
       "tags": [
@@ -13,20 +41,6 @@
       "link": "https://github.com/Hipnosis183/Instagular",
       "description": "<b>Instagular</b> is a custom web client for Instagram, aiming for a better desktop experience, unlike the mobile-on-web design that the official site has, while adding extra features not found on regular Instagram.\n\nThis project implements its own backend API server using a custom fork of <a href='https://github.com/Hipnosis183/instagram-private-api'>instagram-private-api</a> to connect/interface to Instagram, acting as a middleware between the Instagular client and the Instagram server.\n\nThe app is fully compatible with Instagram routing structure, so it's possible to replace the domain with Instagular's and continue navigating right away.\n\nWhile the app should be safe to use in general (I personally use it myself), there's still the possibility for the user account to get blocked if too many actions/requests are made in a short period of time, or if a feature is not implemented correctly. Therefore, I won't take responsability for any damages caused to your account, so use at your own risk.\n\n<h2>Implemented features</h2>\n<li>Login/logout with persistent session on local storage.</li><li>Feeds with auto pagination management.</li><li>Fullscreen media viewer, with high quality photos and videos play.</li><li>Profile user pages (posts, reels, videos, tagged).</li><li>Stories/highlights support.</li><li>User interaction (like/unlike, follow/unfollow, comments).</li><li>High/original quality media download.</li><li>Saved collections management.</li><li>Users search engine.</li>\nPlanned features:\n\n<li>Stories interaction.</li><li>Direct messaging.</li><li>Activity/notifications.</li><li>Quality of life options (dark mode, accesibility, etc.)</li>",
       "images": 7,
-      "dark": true
-    },
-    {
-      "name": "viridian",
-      "title": "Viridian",
-      "tags": [
-        "Vue",
-        "Tailwind",
-        "Electron",
-        "NeDB"
-      ],
-      "link": "https://github.com/Hipnosis183/Viridian",
-      "description": "Videogames database builder, library manager and emulator frontend with <b>Vue</b>, <b>Electron</b> and <b>Tailwind</b>.\n\n<b>Viridian</b> allows you to create your own personalized videogames database, plus the ability to use it as a <i>launcher/frontend</i>. The application design and structure makes it possible to build dynamic databases, and its configuration is very customizable, being adaptable to your needs and current setup, without forcing you to make things in a specific way.\n\nWhile the application is <b>fully-featured</b>, <b>completely functional</b> and <b>stable</b> (<i>a.k.a.</i> '<b>Production Ready</b>'), it shows its true potential when used with a populated database. There's been a lot of care and effort put into data entry operations and features to make it pleasant and easy to use, but it's still a very time consuming task.\n\nSince I plan to make a <b><i>Viridian-compatible</b></i>, high quality online database in the future, where users would be able to scrape the information right away from the app and browser, documentation and more details will be eventually added at a later time.\n\nStill, I encourage you to try the app on its current state for yourself and discover its true potential!",
-      "images": 10,
       "dark": true
     },
     {
