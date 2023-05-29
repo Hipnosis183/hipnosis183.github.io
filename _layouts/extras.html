@@ -2,7 +2,14 @@
 layout: default
 ---
 
-<article class="post-container">
-  <div class="post-content" itemprop="articleBody">{{ content }}</div>
-</article>
+<div class="post-container">
+  <div class="post-content">
+    <div class="lang-en">
+      {% include extras.html language="en" %}
+    </div>
+    <div class="lang-es">
+      {% include extras.html language="es" %}
+    </div>
+  </div>
+</div>
 {% include footer.html %}

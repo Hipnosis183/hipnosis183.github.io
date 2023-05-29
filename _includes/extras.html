@@ -1,13 +1,5 @@
-# Other Projects
-
-Here are some hacking projects that I've done throught the years. These range from PC (DOS and Windows) through Mobile (Android), going from simple checks and bypasses, to more convoluted situations requiring more complex analysis and reversing.
-
-Most of the projects listed here don't have a dedicated article, since these are not interesting enough and there's not much to talk about to justify such a large and in-depth post.
-
-<br>
-
 <div class="post-grid">
-  {% assign extras = site.extras | where: "language", "en" %}
+  {% assign extras = site.extras | where: "language", include.language %}
   {% for extra in extras %}
   <div class="post-block">
     <a class="post-style" href="{{ extra.url | relative_url }}">
@@ -29,3 +21,4 @@ Most of the projects listed here don't have a dedicated article, since these are
   </div>
   {% endfor %}
 </div>
+{% include footer.html %}
