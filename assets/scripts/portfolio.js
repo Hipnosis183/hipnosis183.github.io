@@ -185,6 +185,7 @@ $(() => {
             let portBlock = document.getElementsByClassName('port-block')[0];
             portBlock.classList.toggle('port-block-open');
             setTimeout(() => {
+              setSoftProject(i);
               getSoftProject(cat, i);
               setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100);
             }, 200);
@@ -196,6 +197,7 @@ $(() => {
             let portBlock = document.getElementsByClassName('port-block')[0];
             portBlock.classList.toggle('port-block-open');
             setTimeout(() => {
+              setSoftProject(i);
               getSoftProject(cat, i);
               setTimeout(() => { portBlock.classList.toggle('port-block-open') }, 100);
             }, 200);
@@ -250,6 +252,24 @@ $(() => {
       }
     }
     request.send();
+  }
+
+  // Set currently selected software project.
+  const setSoftProject = (i) => {
+    // Get all list elements for both themes.
+    let listLite = document.querySelectorAll('.port-list > .logo-lite');
+    let listDark = document.querySelectorAll('.port-list > .logo-dark');
+    // Manage projects selected state.
+    for (let k = 0; k < listLite.length; k++) {
+      if (k == i) { // Selected
+        listLite[k].classList.toggle('selected');
+        listDark[k].classList.toggle('selected');
+      } else { // Not selected.
+        listLite[k].classList.remove('selected');
+        listDark[k].classList.remove('selected');
+      }
+    } // Reset project description scroll position.
+    document.getElementsByClassName('port-description')[0].scrollTop = 0;
   }
 
   // Get and manage software projects.
@@ -428,8 +448,9 @@ $(() => {
       setTimeout(() => {
         portContents.classList.toggle('port-contents-open');
         portContentsMobile.classList.toggle('port-contents-open');
+        setTimeout(() => { setSoftProject(0); }, 100);
       }, 100);
-    }, 200);
+    }, 100);
   }
 
   // Manage category buttons.

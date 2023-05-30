@@ -472,9 +472,17 @@
 
 .port-list {
   background-color: var(--color-header);
+  overflow-x: hidden;
+  overflow-y: overlay;
   padding-right: 48px;
   transition: background-color var(--time);
   width: 20%;
+
+  &:not(:hover) {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   img {
     cursor: pointer;
@@ -484,8 +492,16 @@
     transition: background-color var(--time);
     width: 100%;
 
+    &.selected:not(.dark-mode) {
+      background-color: rgba($color-blue-0, 0.5);
+    }
+
+    .dark-mode &.selected {
+      background-color: rgba($color-blue-0, 0.2);
+    }
+
     @media (hover: hover) {
-      &:hover {
+      &:hover:not(.selected) {
         background-color: var(--color-button);
       }
     }
