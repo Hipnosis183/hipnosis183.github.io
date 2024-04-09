@@ -1,0 +1,30 @@
+---
+// Define input variables.
+const width = Astro.props.width ?? '100%';
+---
+
+<!-- Input element. -->
+<input class="input-container" disabled={ Astro.props.disabled } id={ Astro.props.id }
+  maxlength={ Astro.props.maxlength } placeholder={ Astro.props.placeholder } />
+
+<style define:vars={{ 'input-width': width }}>
+/* Input element. */
+.input-container {
+  background-color: var(--color-input);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 16px;
+  outline: 1px solid var(--color-input-border);
+  padding: 12px 16px;
+  transition: background-color 0.2s, outline-color 0.2s;
+  width: var(--input-width);
+}
+.input-container:hover {
+  background-color: var(--color-header-button);
+}
+.input-container::placeholder {
+  color: var(--color-grey);
+}
+</style>

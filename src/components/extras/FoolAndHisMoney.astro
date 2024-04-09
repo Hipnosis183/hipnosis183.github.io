@@ -1,0 +1,173 @@
+---
+// Import Astro components.
+import Input from '@/components/ui/Input.astro';
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+---
+
+<!-- Keygen container. -->
+<div class="keygen-container keygen-fool">
+  <!-- Keygen data input. -->
+  <div class="keygen-data">
+    <Input id="keygen-name" placeholder="Jonathan Raven" width="250px" />
+    <Input id="keygen-pass" maxlength="11" placeholder="JON-972-AXE" width="250px" />
+  </div>
+  <!-- Keygen output results. -->
+  <div class="keygen-results">
+    <button id="keygen-button">{ language.EXTRA.GENERATE }</button>
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    // Check password formatting.
+    const keyPass = document.getElementById('keygen-pass');
+    keyPass.addEventListener('input', (e) => { e.target.value = keyCheck(e.target.value); });
+    const keyCheck = (v) => {
+      const m = v.replace(/\W/g, '').match(/^([a-zA-Z]{0,3})?(\d{0,3})?([a-zA-Z]{0,3})?/);
+      let r = ''; if (m[1]) {
+        r += m[1];
+        if (m[2] && m[1].length == 3) {
+          r += `-${m[2]}`;
+          if (m[3] && m[2].length == 3) {
+            r += `-${m[3]}`;
+          }
+        }
+      } return r.toUpperCase();
+    };
+
+    // Generate key.
+    const keyButton = document.getElementById('keygen-button');
+    keyButton.addEventListener('click', () => { keyGenerate(); });
+    const keyGenerate = () => {
+      // Get inputs text.
+      const keyName = document.getElementById('keygen-name').value;
+      // Set default password if the field is left empty.
+      if (keyName.length > 0 && keyPass.value.length == 0) {
+        keyPass.value = 'OOO-000-OOO';
+      } // Remove dashes from password input.
+      let $keyPass = keyPass.value.replace(/\W/g, '');
+      // Return if inputs are empty or incorrect.
+      if (keyName.length == 0 || $keyPass.length != 9) { return; }
+      // Define and encode key name and password.
+      const keyData = `|${$keyPass}|${keyName}|`;
+      const keyEncoded = encodeZip(keyData);
+      // Store key file locally.
+      keySave(keyEncoded);
+    };
+
+    // Save key file.
+    const keySave = (key) => {
+      // Create valid format for the key file generation.
+      const k = `   ${key}`.padEnd(1000, ' ');
+      const f = new Blob([k], { type: 'text/plain' });
+      // Create URL object for file storage.
+      const l = document.createElement('a');
+      l.href = URL.createObjectURL(f);
+      // Store file with generated key locally.
+      l.download = 'PassKey.txt'; l.click();
+      // Remove URL object.
+      URL.revokeObjectURL(l.href);
+    };
+
+    // Define 'zip-code' and 'zip-mark' cast member data.
+    const zipCode = [37, 28, 52, 88, 65, 20, 92, 49, 67, 11, 5, 44, 2, 29, 3, 93, 60, 22, 69, 56, 35, 81, 83, 68, 24, 13, 31, 80, 26, 8, 85, 19, 94, 77, 90, 41, 66, 79, 58, 30, 17, 73, 34, 15, 75, 27, 91, 43, 50, 48, 25, 53, 23, 72, 55, 42, 82, 51, 39, 4, 32, 46, 36, 74, 33, 70, 1, 84, 59, 14, 38, 64, 7, 71, 16, 40, 57, 61, 10, 86, 63, 45, 78, 76, 47, 87, 54, 62, 89, 21, 12, 9, 6, 18];
+    const ZM = '*&^%$#@!?=({[/|\\]})+<>:;,.”’';
+
+    // Encode algorithm.
+    const encodeZip = (S) => {
+      // Get character at random.
+      let ct = Math.floor(Math.random() * ZM.length);
+      // Store character for later decoding.
+      let SS = ZM[ct];
+      // Loop through all input characters.
+      for (let x = 0; x < S.length; x++) {
+        // Get current character keycode.
+        let N = S[x].charCodeAt();
+        // Check if the current is a valid ASCII printable character.
+        if (N >= 32 && N <= 126) {
+          ct++;
+          if (ct >= 94) { ct = 0; }
+          N = S[x].charCodeAt() + zipCode[ct];
+          if (N > 126) { N -= 94; }
+          SS += String.fromCharCode(N);
+        } // Invalid character, leave it as is.
+        else { SS += S[x]; }
+      } // Return final encoded string.
+      return SS;
+    };
+
+    // Decode algorithm.
+    const decodeZip = (S) => {
+      let ct = 0;
+      // Find random character used for encoding.
+      for (let x = 0; x < ZM.length; x++) {
+        if (S[0] == ZM[x]) { ct = x; }
+      } // Initialize empty decoded string.
+      let SS = '';
+      // Loop through all input characters.
+      for (let x = 1; x < S.length; x++) {
+        // Get current character keycode.
+        let N = S[x].charCodeAt();
+        // Check if the current is a valid ASCII printable character.
+        if (N >= 32 && N <= 126) {
+          ct++;
+          if (ct >= 94) { ct = 0; }
+          N = S[x].charCodeAt() - zipCode[ct];
+          if (N < 32) { N += 94; }
+          SS += String.fromCharCode(N);
+        } // Invalid character, leave it as is.
+        else { SS += S[x]; }
+      } // Return final decoded string.
+      return SS;
+    };
+  })();
+</script>
+
+<style>
+/* Keygen container. */
+.keygen-container {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+}
+
+/* Keygen data input. */
+.keygen-data {
+  border-right: solid 2px var(--color-input);
+  margin-right: 24px;
+  padding-right: 24px;
+  transition: border 0.2s;
+}
+:global(.keygen-fool .keygen-data > *:first-child) {
+  margin-right: 16px;
+}
+:global(.keygen-fool .keygen-data > input:last-child) {
+  font-family: '0xProto' !important;
+}
+
+/* Keygen output results. */
+.keygen-results {
+  width: 150px;
+}
+.keygen-results > button {
+  background-color: var(--color-header);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  outline: 1px solid var(--color-button-border);
+  padding: 12px 16px;
+  text-align: center;
+  transition: background-color 0.2s, outline-color 0.2s;
+  white-space: nowrap;
+  width: 100%;
+}
+.keygen-results > button:hover {
+  background-color: var(--color-header-button);
+}
+</style>

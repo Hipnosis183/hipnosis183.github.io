@@ -1,0 +1,104 @@
+.token.comment {
+  color: rgb(110, 120, 140);
+  font-style: italic;
+}
+
+.token.boolean,
+.token.number,
+.token.property:not(.macro),
+.token.symbol,
+.token.tag {
+  color: rgb(240, 90, 0);
+}
+.dark .token.boolean,
+.dark .token.number,
+.dark .token.property:not(.macro),
+.dark .token.symbol,
+.dark .token.tag {
+  color: rgb(255, 160, 90);
+}
+
+.token.class-name,
+.token.parameter {
+  color: rgb(0, 160, 90);
+}
+.dark .token.class-name,
+.dark .token.parameter {
+  color: rgb(0, 220, 190);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.double-colon,
+.token.interpolation-punctuation,
+.token.keyword,
+.token.operator {
+  color: rgb(255, 20, 20);
+}
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.double-colon,
+.dark .token.interpolation-punctuation,
+.dark .token.keyword,
+.dark .token.operator {
+  color: rgb(255, 60, 60);
+}
+
+.token.attr-name,
+.token.builtin,
+.token.char,
+.token.class-name:not(.return-type) .keyword,
+.token.inserted,
+.token.selector,
+.token.string {
+  color: rgb(20, 140, 255);
+}
+.dark .token.attr-name,
+.dark .token.builtin,
+.dark .token.char,
+.dark .token.class-name:not(.return-type) .keyword,
+.dark .token.inserted,
+.dark .token.selector,
+.dark .token.string {
+  color: rgb(120, 190, 255);
+}
+
+.token.function {
+  color: rgb(0, 90, 180);
+}
+.dark .token.function {
+  color: rgb(80, 170, 255);
+}
+
+.token.directive.keyword,
+.token.directive-hash,
+.token.function-variable {
+  color: rgb(150, 50, 255);
+}
+.dark .token.directive.keyword,
+.dark .token.directive-hash,
+.dark .token.function-variable {
+  color: rgb(200, 140, 255);
+}
+
+.token.register.variable {
+  color: rgb(40, 170, 0);
+}
+.dark .token.register.variable {
+  color: rgb(200, 255, 0);
+}
+
+.token.regex {
+  color: #e90;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+
+.token.punctuation:not(.interpolation-punctuation) {
+  color: var(--color-text);
+}

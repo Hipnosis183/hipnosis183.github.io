@@ -1,0 +1,207 @@
+---
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Define portfolio design variables.
+const api = 'https://backend.deviantart.com/rss.xml?q=gallery%3Ahipnosis183%2F67799208&offset=';
+const deviations = [], $deviations = [], offset = 60;
+let cursor = 0, response = [];
+
+// Manage request to DeviantArt RSS API.
+import { XMLParser } from 'fast-xml-parser';
+do {
+  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
+  const parsed = parser.parse(await (await fetch(api + cursor)).text());
+  // Store local request response.
+  response = parsed.rss.channel.item;
+  // Store global request response.
+  for (let deviation of response) { $deviations.push(deviation); }
+  // Update request offset cursor.
+  cursor += offset;
+  // Repeat request if there are more items available.
+} while (response.length >= offset);
+// Create the deviation objects.
+for (let deviation of $deviations) {
+  // Add deviation object to list.
+  deviations.push({
+    title: deviation['title'],
+    link: deviation['link'],
+    date: deviation['pubDate'],
+    image: deviation['media:content']['url'],
+    thumb: deviation['media:thumbnail'][1]['url'],
+  });
+}
+
+// Manage entry date formatting.
+const entryDate = (v) => {
+  let month = new Date(v).toLocaleString(Astro.currentLocale, { month: 'long', timeZone: 'UTC' });
+  if (Astro.currentLocale == 'en') {
+    return `${month} ${new Date(v).getUTCDate()}, ${new Date(v).getUTCFullYear()}`;
+  } else {
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+    return `${new Date(v).getUTCDate()} de ${month}, ${new Date(v).getUTCFullYear()}`;
+  }
+};
+---
+
+<!-- Design container. -->
+<div id="design" class="design-container portfolio-entries">
+  <div>
+    <!-- Design entries list. -->
+    { deviations.map((deviation, i) => (
+      <div class="design-list">
+        <div>
+          <div class="design-overlay" />
+          { /* Design entry contents. */ }
+          <div class="design-contents">
+            <p class="design-date">
+              <span>{ language.PORTFOLIO.PUBLISHED } • </span>
+              <time>{ entryDate(deviation.date) }</time>
+            </p>
+            <p class="design-title">{ deviation.title }</p>
+            { /* Design entry buttons. */ }
+            <div class="design-buttons">
+              <a target="_blank" rel="noopener noreferrer" href={ deviation.link }>
+                <div class="design-deviantart" />
+              </a>
+              <p data-id="design" data-index={ i } data-image={ deviation.image }>{ language.PORTFOLIO.FULL }</p>
+            </div>
+          </div>
+        </div>
+        { /* Design entry image. */ }
+        <img src={ deviation.thumb } />
+      </div>
+    )) }
+  </div>
+</div>
+
+<style>
+/* Design container. */
+.design-container {
+  background-color: var(--color-footer);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: none;
+  flex: 1;
+  overflow-y: scroll !important;
+  padding: 16px;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 100%;
+}
+.design-container.active {
+  display: flex;
+}
+.design-container::-webkit-scrollbar-track-piece:start {
+  margin-top: 20px;
+}
+.design-container::-webkit-scrollbar-track-piece:end {
+  margin-bottom: 20px;
+}
+.design-container > div {
+  align-items: center;
+  display: grid;
+  grid-gap: 16px 28px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+/* Design entries list. */
+.design-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+.design-list > img {
+  height: 200px;
+  object-fit: contain;
+  width: 300px;
+}
+.design-list > div {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+.design-list > div:hover {
+  opacity: 1;
+}
+.design-overlay {
+  background-color: var(--color-footer);
+  height: 100%;
+  opacity: 0.95;
+  position: absolute;
+  width: 100%;
+}
+
+/* Design entry contents. */
+.design-contents {
+  position: absolute;
+  text-align: center;
+}
+.design-date {
+  color: var(--color-grey);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.design-title {
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+/* Design entry buttons. */
+.design-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+.design-buttons > * {
+  align-items: center;
+  background-color: var(--color-header);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  line-height: 1;
+  padding: 8px;
+  transition: background-color 0.2s;
+  width: fit-content;
+}
+.design-buttons > *:hover {
+  background-color: var(--color-blue);
+  text-decoration: none;
+}
+.design-buttons > *:not(:first-child) {
+  margin-left: 12px;
+}
+.design-buttons > p {
+  font-size: 16px;
+  font-weight: 800;
+  padding: 8px 12px;
+}
+.design-deviantart {
+  background-color: var(--color-text);
+  height: 20px;
+  mask-image: url('/images/icons/logo-deviantart.svg');
+  -webkit-mask-image: url('/images/icons/logo-deviantart.svg');
+  width: 20px;
+}
+
+/* Responsiveness. */
+@media screen and (min-width: 1248px) {
+  .design-container > div {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+</style>

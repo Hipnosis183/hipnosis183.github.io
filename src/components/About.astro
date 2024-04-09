@@ -1,0 +1,180 @@
+---
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+---
+
+<!-- About page. -->
+<div class='about-container'>
+  <!-- About page image. -->
+  <div class="about-image" />
+  <!-- About page links. -->
+  <div class="about-links">
+    <a id="about-medium" target="_blank" rel="noopener noreferrer"
+      href="https://medium.com/@renzopigliacampo" />
+    <a id="about-twitter" target="_blank" rel="noopener noreferrer"
+      href="https://twitter.com/HipnosisStuff" />
+    <a id="about-github" target="_blank" rel="noopener noreferrer"
+      href="https://github.com/Hipnosis183" />
+    <a id="about-deviantart" target="_blank" rel="noopener noreferrer"
+      href="https://deviantart.com/Hipnosis183" />
+    <a id="about-linkedin" target="_blank" rel="noopener noreferrer"
+      href="https://www.linkedin.com/in/renzo-pigliacampo/" />
+    <a id="about-youtube" target="_blank" rel="noopener noreferrer"
+      href="https://youtube.com/@RenzoPigliacampo" />
+  </div>
+  <!-- About page header. -->
+  <p class='about-title'>{ language.SITE.AUTHOR }</p>
+  <p class="about-subtitle">{ language.SITE.OCCUPATION }</p>
+  <!-- About page body. -->
+  <div class="about-body">
+    <p set:html={ language.ABOUT.TEXT } />
+  </div>
+  <!-- About page button. -->
+  <a class="about-button" target="_blank" rel="noopener noreferrer" href="/resume.pdf">
+    <p>{ language.ABOUT.RESUME } (2022/03/16)</p>
+    <img src='/images/icons/flag-es.svg' />
+  </a>
+</div>
+
+<style>
+/* About page. */
+.about-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* About page image. */
+.about-image {
+  background-image: url('/images/about.jpg');
+  background-position: center;
+  background-size: cover;
+  border-radius: 9999px;
+  height: 150px;
+  width: 150px;
+}
+
+/* About page links. */
+.about-links {
+  align-items: center;
+  border-bottom: 1px solid var(--color-post-border);
+  display: flex;
+  margin: 16px 0;
+  padding-bottom: 16px;
+}
+.about-links > a {
+  background-color: var(--color-text);
+  height: 40px;
+  margin-right: 0;
+  transition: border-color 0.2s, transform 0.2s;
+  width: 40px;
+}
+.about-links > a:hover {
+  transform: scale(1.2);
+}
+.about-links > a:not(:first-child) {
+  margin-left: 10px;
+}
+
+/* About page header. */
+.about-title {
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.about-subtitle {
+  color: var(--color-grey);
+  font-size: 18px;
+  font-weight: 300;
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+/* About page body. */
+.about-body {
+  margin: 24px 0;
+}
+
+/* About page button. */
+.about-button {
+  align-items: center;
+  background-color: var(--color-button);
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: 18px;
+  height: fit-content;
+  outline: 1px solid var(--color-button-border);
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, outline-color 0.2s;
+}
+.about-button:hover {
+  background-color: var(--color-blue);
+  outline-color: transparent;
+  text-decoration: none;
+}
+.about-button:visited {
+  color: var(--color-text);
+}
+.about-button > * {
+  pointer-events: none;
+}
+.about-button > img {
+  border-radius: 2px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+/* About page icons. */
+#about-medium {
+  mask-image: url('/images/icons/logo-medium.svg');
+  -webkit-mask-image: url('/images/icons/logo-medium.svg');
+}
+#about-twitter {
+  mask-image: url('/images/icons/logo-twitter.svg');
+  -webkit-mask-image: url('/images/icons/logo-twitter.svg');
+}
+#about-github {
+  mask-image: url('/images/icons/logo-github-octocat.svg');
+  -webkit-mask-image: url('/images/icons/logo-github-octocat.svg');
+}
+#about-deviantart {
+  mask-image: url('/images/icons/logo-deviantart.svg');
+  -webkit-mask-image: url('/images/icons/logo-deviantart.svg');
+}
+#about-linkedin {
+  mask-image: url('/images/icons/logo-linkedin.svg');
+  -webkit-mask-image: url('/images/icons/logo-linkedin.svg');
+}
+#about-youtube {
+  mask-image: url('/images/icons/logo-youtube.svg');
+  -webkit-mask-image: url('/images/icons/logo-youtube.svg');
+}
+
+/* Responsiveness. */
+@media screen and (max-width: 768px) {
+  .about-title {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+  .about-subtitle {
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: calc(768px + 1px)) {
+  .about-body {
+    text-align: center;
+  }
+}
+</style>

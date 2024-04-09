@@ -1,0 +1,134 @@
+---
+// Define select variables.
+const width = Astro.props.width ?? '100%';
+---
+
+<!-- Select element. -->
+<div class="select-container">
+  <!-- Select input. -->
+  <div class="select-input">
+    <input disabled placeholder={ Astro.props.placeholder } />
+  </div>
+  <!-- Select arrow. -->
+  <div class="select-arrow" />
+  <!-- Select options. -->
+  <div class="select-options">
+    <div>
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  const loadSelect = () => {
+    // Switch collapsible state button.
+    document.querySelectorAll('.select-container').forEach((v) => {
+      v.addEventListener('click', (e) => {
+        // Update elements visibility.
+        e.currentTarget.classList.toggle('active');
+      });
+    });
+    // Update select value from options.
+    document.querySelectorAll('.select-options > div > div').forEach((v) => {
+      v.addEventListener('click', (e) => {
+        // Hey, it works, okay?
+        e.target.parentElement.parentElement.parentElement.children[0].children[0].value = e.target.innerText;
+      });
+    });
+  }; loadSelect();
+  // Reload script after an Astro transition.
+  document.addEventListener('astro:after-swap', loadSelect);
+</script>
+
+<style define:vars={{ 'select-width': width }}>
+/* Select element. */
+.select-container {
+  position: relative;
+}
+
+/* Select input. */
+.select-input {
+  background-color: var(--color-input);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  margin-top: 14px;
+  outline: 1px solid var(--color-input-border);
+  transition: background-color 0.2s, outline-color 0.2s;
+}
+.select-container.active .select-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.select-input:hover {
+  background-color: var(--color-header-button);
+}
+.select-input > input {
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 40px 12px 16px;
+  pointer-events: none;
+  transition: background-color 0.2s, outline-color 0.2s;
+  width: var(--select-width);
+}
+.select-input > input:hover {
+  background-color: var(--color-header-button);
+}
+.select-input > input::placeholder {
+  color: var(--color-grey);
+}
+
+/* Select arrow. */
+.select-arrow {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--color-grey);
+  height: 4px;
+  pointer-events: none;
+  position: absolute;
+  right: 14px;
+  top: 45%;
+  width: 4px;
+}
+
+/* Select options. */
+.select-options {
+  display: none;
+  position: relative;
+}
+.select-container.active .select-options {
+  display: block;
+}
+.select-options > div {
+  background-color: var(--color-input);
+  border: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  color: var(--color-text);
+  display: block;
+  font-family: inherit;
+  font-size: 16px;
+  outline: 1px solid var(--color-input-border);
+  position: absolute;
+  transition: background-color 0.2s, outline-color 0.2s;
+  width: var(--select-width);
+}
+:global(.select-options > div > div) {
+  cursor: pointer;
+  padding: 10px 16px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+:global(.select-options > div > div:hover) {
+  background-color: var(--color-header-button);
+}
+:global(.select-options > div > div:first-child) {
+  border-top: 1px solid var(--color-header-button);
+}
+</style>

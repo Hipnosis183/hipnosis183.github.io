@@ -1,0 +1,179 @@
+---
+// Import Astro components.
+import Input from '@/components/ui/Input.astro';
+import Select from '@/components/ui/Select.astro';
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+---
+
+<!-- Keygen container. -->
+<div class="keygen-container keygen-tom">
+  <!-- Keygen data input. -->
+  <div class="keygen-data">
+    <Input id="keygen-name" placeholder={ language.EXTRA.NAME } width="300px" />
+    <br />
+    <Select placeholder={ language.EXTRA.SELECT } width="300px">
+      <div onclick="gameSelected = 1">Nicolausi</div>
+      <div onclick="gameSelected = 2">PC-Bakterien</div>
+    </Select>
+  </div>
+  <!-- Keygen output results. -->
+  <div class="keygen-results">
+    <button id="keygen-button">{ language.EXTRA.GENERATE }</button>
+    <br />
+    <Input id="keygen-output" disabled placeholder={ language.EXTRA.KEY } />
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+  // Selected game.
+  gameSelected = 0;
+
+  (() => {
+    // Define keygen variables.
+    let globalSalt = 0x00000000;
+    let nameInput = '';
+    let nameParsed = '';
+
+    // Generate key.
+    const keyButton = document.getElementById('keygen-button');
+    keyButton.addEventListener('click', () => { keyGenerate(); });
+    const keyGenerate = () => {
+      // Get game parameters.
+      const name = document.getElementById('keygen-name').value;
+      // Check if input mets conditions.
+      if (!name || name.split(' ').length < 2 || !gameSelected) { return; }
+      // Set input name string.
+      nameInput = name.toUpperCase();
+      // Final key value to return.
+      let keyCode = 0;
+      // Stores the result of the character being processed.
+      let charSalt;
+      // Despite being calculated, their values are consistent.
+      const mainSalt = gameSelected == 1 ? 0x03533335 : 0x00784326;
+      const localSalt = mainSalt >> 0x10 ^ mainSalt & 0xFFFF; // 0x3066
+      // Set global salt.
+      setGlobalSalt(localSalt);
+      // Parse the input string.
+      while (nameInput.length != 0) {
+        // Uppercase chars and remove spaces.
+        nameFormat();
+        // Reset global salt.
+        setGlobalSalt(localSalt);
+        // Set the first 4 bytes of the working string, needed for the hashing.
+        let nameGlobal = nameParsed.padEnd(4, 0x00).toString(16);
+        let nameGlobal32 = nameGlobal.slice(0, 4).toString(16);
+        nameGlobal32 = nameConvert(nameGlobal32) & 0xFFFF0000;
+        while (nameParsed.length != 0) {
+          // Set the lower 2 bytes of the working string, starting with the current character.
+          let nameLocal = nameParsed.toString(16);
+          let nameLocal16 = nameLocal.slice(0, 2).toString(16);
+          nameLocal16 = nameConvert(nameLocal16) & 0xFFFFFFFF;
+          // Actual hashing.
+          charSalt = returnGlobalSalt();
+          charSalt = charSalt ^ (nameGlobal32 ^ nameLocal16);
+          // Sum the result to the key.
+          keyCode += parseInt(charSalt);
+          // Remove char from parsed string.
+          nameParsed = nameParsed.slice(1);
+        }
+      }
+      // Return lower bytes of the final key code result.
+      const result = keyCode & 0xFFFF | 0x2000;
+      document.getElementById('keygen-output').value = result;
+    };
+
+    // Salt management functions.
+    const setGlobalSalt = (localSalt) => {
+      // Set a 16-bit mask of the local salt.
+      globalSalt = localSalt & 0xFFFF;
+    };
+    const returnGlobalSalt = () => {
+      // Hard-coded salt value.
+      globalSalt = mulGlobalSalt(globalSalt, 0x15A4E35);
+      globalSalt = (globalSalt & 0xFFFFFFFF) + 1;
+      // Return the higher 16-bits of the salt.
+      return (globalSalt & 0xFFFFFFFF) >> 0x10 & 0x7FFF;
+    };
+    const mulGlobalSalt = (a, b) => {
+      const ah = (a >> 16) & 0xFFFF, al = a & 0xFFFF;
+      const bh = (b >> 16) & 0xFFFF, bl = b & 0xFFFF;
+      const high = ((ah * bl) + (al * bh)) & 0xFFFF;
+      return ((high << 16) >>> 0) + (al * bl);
+    };
+
+    // Format input name.
+    const nameFormat = () => {
+      for (let letter of nameInput) {
+        // Remove char from input string.
+        nameInput = nameInput.slice(1);
+        // Check if char is a space or number.
+        if ((letter != ' ') && !(letter >= '0' && letter <= '9')) {
+          // Add to the parsed string.
+          nameParsed += letter;
+        } else { break; }
+      }
+    };
+
+    // Convert input name.
+    const nameConvert = (name) => {
+      // Initialize hex output string.
+      const nameGlobalArray = [];
+      for (let char of name) {
+        // Convert each character into their hex value.
+        nameGlobalArray.push(char.charCodeAt(0).toString(16));
+      } return '0x' + nameGlobalArray.reverse().join('');
+    };
+  })();
+</script>
+
+<style>
+/* Keygen container. */
+.keygen-container {
+  align-items: baseline;
+  display: flex;
+  justify-content: center;
+}
+
+/* Keygen data input. */
+.keygen-data {
+  border-right: solid 2px var(--color-input);
+  margin-right: 24px;
+  padding-right: 24px;
+  transition: border 0.2s;
+}
+
+/* Keygen output results. */
+.keygen-results {
+  width: 150px;
+}
+.keygen-results > button {
+  background-color: var(--color-header);
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  outline: 1px solid var(--color-button-border);
+  padding: 12px 16px;
+  text-align: center;
+  transition: background-color 0.2s, outline-color 0.2s;
+  white-space: nowrap;
+  width: 100%;
+}
+.keygen-results > button:hover {
+  background-color: var(--color-header-button);
+}
+:global(.keygen-tom .keygen-results > input) {
+  cursor: default;
+  font-family: '0xProto' !important;
+  margin-top: 14px;
+  text-align: center;
+}
+:global(.keygen-tom .keygen-results > input:hover) {
+  background-color: var(--color-input) !important;
+}
+</style>

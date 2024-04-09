@@ -1,0 +1,64 @@
+{
+  "ABOUT": {
+    "RESUME": "Resume",
+    "TEXT": "I'm a professional <b>Full Stack</b> software developer with 6 years of experience, with a greater focus on frontend development and design. My current development stack is <b>NodeJS/Electron</b> + <b>MongoDB</b> + <b>Vue/Angular</b>, although I'm comfortable working with other JS/TS and CSS libraries/frameworks, such as <b>Astro</b> and <b>Tailwind</b>.<br /><br />Also, I'm a hobbyist graphic designer. While I started doing illustrations, these abilities have clearly been very influential in all of my software's UI/UX designs, plus my personal touch of, I believe, good taste.<br /><br />Whenever I'm not programming, I'm still programming, but not the usual, everyday web development. I've always been fascinated with the extensive diversity of fields in computer science, so every now and then I find myself doing other things, like <b>reverse engineering</b> and <b>low-level programming</b>, which not only gives me a good rest from centering containers and playing with colors, but also improves my overall skills in a way that otherwise wouldn't be possible. Also, hacking is what the cool kids do.<br /><br />Be sure to visit my <b><a href=\"/portfolio/\">portfolio</a></b> to see all my works, and the <b><a href=\"/blog/\">articles</a></b> page to read interesting things that I usually write from time to time."
+  },
+  "BLOG": {
+    "POST": "Post",
+    "POSTS": "Posts"
+  },
+  "COLLAPSIBLE": {
+    "HIDE": "Press to hide the code",
+    "SHOW": "Press to show the code"
+  },
+  "EXTRA": {
+    "GENERATE": "Generate Key",
+    "KEY": "Key",
+    "NAME": "Name Input",
+    "SELECT": "Game Select"
+  },
+  "EXTRAS": {
+    "ELEMENT": "Element",
+    "ELEMENTS": "Elements",
+    "KEYGENS": "Key Generators",
+    "PATCHES": "Patches"
+  },
+  "HEADER": {
+    "POSTS": "Articles",
+    "PORTFOLIO": "Portfolio",
+    "EXTRAS": "Extras",
+    "ABOUT": "About"
+  },
+  "HOME": {
+    "CODING": {
+      "TITLE": "Coding",
+      "TEXT": "Full Stack web developer, computer and software enthusiast in general. Reaching the objectives of my projects with clean, documented and efficient code, performance, security, and a lot of love."
+    },
+    "DESIGN": {
+      "TITLE": "Design",
+      "TEXT": "Graphic design, illustrations, UI/UX, you name it. Always ensuring quality even on the little details, while embracing simplicity and modern design."
+    }
+  },
+  "LANG": "en",
+  "NOTFOUND": {
+    "NOTFOUND": "Page not found",
+    "TEXT": "Hey, stop that. Here, have an <a>article</a>.",
+    "FOOTER": "While I know it's probably your fault, I may have fucked something up. If so, please report it on <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://github.com/Hipnosis183/hipnosis183.github.io/issues\">Github</a>."
+  },
+  "PORTFOLIO": {
+    "WEB": "Web Applications",
+    "OTHER": "Other Software",
+    "DESIGN": "Graphic Design",
+    "DESCRIPTION": "Read description",
+    "GITHUB": "Visit on GitHub",
+    "IMAGES": "View images",
+    "NOIMAGES": "No images",
+    "PUBLISHED": "Published",
+    "FULL": "View full size"
+  },
+  "SITE": {
+    "AUTHOR": "Renzo Pigliacampo",
+    "NAME": "Hipnosis' Stuff",
+    "OCCUPATION": "Full Stack Web Developer, Graphic Designer"
+  }
+}

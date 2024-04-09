@@ -1,0 +1,140 @@
+---
+// Import markdown element.
+const mdx = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/extras/en/*.mdx') : await Astro.glob('@/assets/extras/es/*.mdx');
+const { Content, frontmatter } = mdx.filter((v) => v.frontmatter.code == Astro.params.slug)[0];
+---
+
+<!-- Extra page. -->
+<div class="extra-container">
+  <!-- Extra header. -->
+  <div class="extra-header">
+    <!-- Extra image. -->
+    <div class="extra-image" style={{ backgroundImage: `url('${frontmatter.thumb}')`, backgroundPosition: frontmatter.position || 'center' }} />
+    <!-- Extra title. -->
+    <div class="extra-title">
+      <h1>{ frontmatter.title }</h1>
+      <p>{ frontmatter.description }</p>
+    </div>
+  </div>
+  <!-- Extra body. -->
+  <div class="extra-body">
+    <Content />
+  </div>
+</div>
+
+<style>
+/* Extra page. */
+.extra-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* Extra header. */
+.extra-header {
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  margin-bottom: 20px;
+  min-height: 190px;
+  place-content: center;
+  position: relative;
+}
+
+/* Extra image. */
+.extra-image {
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px 8px 0 0;
+  bottom: 0;
+  left: 0;
+  mask-image: linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  outline: 1px solid var(--color-extra-border);
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: outline-color 0.2s;
+}
+
+/* Extra title. */
+.extra-title {
+  margin-bottom: 0;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+}
+.extra-title > h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.extra-title > p {
+  color: var(--color-grey);
+  font-size: 16px;
+}
+
+/* Extra body. */
+:global(.extra-body h1) {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+:global(.extra-body h1:not(:first-child)) {
+  margin-top: 8px;
+}
+:global(.extra-body h2) {
+  font-size: 32px;
+  font-weight: 700;
+}
+:global(.extra-body h3) {
+  font-size: 26px;
+  font-weight: 600;
+}
+:global(.extra-body h4) {
+  font-size: 20px;
+  font-weight: 500;
+}
+:global(.extra-body img) {
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+}
+:global(.extra-body img),
+:global(.extra-body pre) {
+  margin-bottom: 4px;
+}
+:global(.extra-body pre + p),
+:global(.extra-body div:has(pre) + p),
+:global(.extra-body img + img),
+:global(.extra-body img + p) {
+  color: var(--color-grey);
+  font-size: 16px;
+  margin-top: 8px;
+  text-align: center;
+}
+:global(.extra-body p) {
+  padding-bottom: 4px;
+}
+
+/* Responsiveness. */
+@media screen and (max-width: 768px) {
+  .extra-title {
+    padding: 16px;
+  }
+  .extra-title > h1 {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .extra-title > p {
+    font-size: 14px;
+  }
+  :global(.extra-body h1) {
+    font-size: 28px;
+  }
+}
+</style>

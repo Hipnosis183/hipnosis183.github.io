@@ -1,0 +1,168 @@
+---
+// Import Astro components.
+import HeaderMobile from '@/components/mobile/Header.astro';
+
+// Import Astro elements.
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+
+// Define locales.
+const locale = getAbsoluteLocaleUrl(Astro.currentLocale);
+const $locale = Astro.url.pathname.slice(0, 4) == '/es/' ? Astro.url.pathname.slice(3) : '/es' + Astro.url.pathname;
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+---
+
+<!-- Header bar. -->
+<header class="header-container">
+  <!-- Header title. -->
+  <a class="header-title" href={ locale }>
+    <img src="/images/icons/nav-hipnosis.svg" />
+    <p>{ language.SITE.NAME }</p>
+  </a>
+  <!-- Header buttons. -->
+  <nav class="header-buttons">
+    <a href={ locale + 'blog/' }>
+      <span id="header-posts" />
+      <p>{ language.HEADER.POSTS }</p>
+    </a>
+    <a href={ locale + 'portfolio/' }>
+      <span id="header-portfolio" />
+      <p>{ language.HEADER.PORTFOLIO }</p>
+    </a>
+    <a href={ locale + 'extras/' }>
+      <span id="header-extras" />
+      <p>{ language.HEADER.EXTRAS }</p>
+    </a>
+    <a href={ locale + 'about/' }>
+      <span id="header-about" />
+      <p>{ language.HEADER.ABOUT }</p>
+    </a>
+    <a id="header-theme">
+      <span />
+    </a>
+    <a href={ $locale } id="header-language">
+      <img src="/images/icons/nav-lang.svg" />
+    </a>
+  </nav>
+</header>
+<!-- Mobile header. -->
+<HeaderMobile />
+
+<script is:inline data-astro-rerun>
+  (() => {
+    // Switch theme state button.
+    document.querySelectorAll('#header-theme').forEach((v) => {
+      v.addEventListener('click', () => {
+        const theme = localStorage.getItem('theme') ?? 'dark';
+        // Update elements visibility.
+        if (theme == 'dark') { document.body.classList.remove('dark'); }
+        else { document.body.classList.add('dark'); }
+        // Update theme configuration in storage.
+        localStorage.setItem('theme', theme == 'dark' ? 'light' : 'dark');
+      });
+    });
+  })();
+</script>
+
+<style>
+/* Header bar. */
+.header-container {
+  background-color: var(--color-header);
+  border-bottom: solid 1px var(--color-header-border);
+  display: flex;
+  justify-content: space-evenly;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.header-container a,
+.header-container a:visited {
+  color: var(--color-text);
+}
+.header-container a:hover {
+  text-decoration: none;
+}
+.header-container a > * {
+  pointer-events: none;
+}
+
+/* Header title. */
+.header-title {
+  align-items: center;
+  display: flex;
+}
+.header-title > img {
+  height: 30px;
+}
+.header-title > p {
+  font-size: 30px;
+  font-weight: 200;
+  line-height: 40px;
+  padding: 11px 10px 9px 10px;
+}
+
+/* Header buttons. */
+.header-buttons {
+  display: flex;
+}
+.header-buttons > * {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  font-weight: 300;
+  height: 100%;
+  padding: 0 20px;
+  transition: background-color 0.2s;
+}
+.header-buttons > *:hover {
+  background-color: var(--color-header-button);
+}
+.header-buttons > a > span {
+  background-color: var(--color-text);
+  height: 20px;
+  width: 20px;
+}
+.header-buttons > a > span:not(:last-child) {
+  margin-right: 10px;
+}
+
+/* Header icons. */
+#header-posts {
+  mask-image: url('/images/icons/nav-posts.svg');
+  -webkit-mask-image: url('/images/icons/nav-posts.svg');
+}
+#header-portfolio {
+  mask-image: url('/images/icons/nav-portfolio.svg');
+  -webkit-mask-image: url('/images/icons/nav-portfolio.svg');
+}
+#header-extras {
+  mask-image: url('/images/icons/nav-extras.svg');
+  -webkit-mask-image: url('/images/icons/nav-extras.svg');
+}
+#header-about {
+  mask-image: url('/images/icons/nav-about.svg');
+  -webkit-mask-image: url('/images/icons/nav-about.svg');
+}
+#header-theme > span {
+  height: 24px;
+  mask-image: url('/images/icons/icon-moon.svg');
+  -webkit-mask-image: url('/images/icons/icon-moon.svg');
+  width: 24px;
+}
+body.dark #header-theme > span {
+  mask-image: url('/images/icons/icon-sunny.svg');
+  -webkit-mask-image: url('/images/icons/icon-sunny.svg');
+}
+#header-language > img {
+  background-color: transparent;
+  border-radius: 2px;
+  width: 30px;
+}
+
+/* Responsiveness. */
+@media screen and (max-width: calc(1024px - 1px)) {
+  .header-container {
+    display: none;
+  }
+}
+</style>

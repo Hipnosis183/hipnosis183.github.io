@@ -1,0 +1,92 @@
+---
+// Import Astro elements.
+import { ViewTransitions } from 'astro:transitions';
+
+// Import Astro components.
+import HeaderComponent from '@/components/Header.astro';
+
+// Define head variables.
+const headProps = {
+  url: Astro.url.href,
+  site: 'Hipnosis\' Stuff',
+  title: Astro.props.title ? `${Astro.props.title} | Hipnosis\' Stuff` : 'Hipnosis\' Stuff',
+  description: Astro.props.description ?? 'Programming and cool stuff, by Renzo Pigliacampo.',
+  image: Astro.props.image ? `${Astro.url.origin}${Astro.props.image}` : `${Astro.url.origin}/images/home.png`,
+};
+---
+
+<html lang={ Astro.currentLocale }>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" href="/favicon.ico" />
+    <!-- Import CSS files. -->
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/styles/highlight.css">
+    <!-- Page title. -->
+		<title>{ headProps.title }</title>
+    <!-- Page description. -->
+    <meta name="description" content={ headProps.description }>
+    <!-- Canonical link. -->
+    <link rel="canonical" href={ headProps.url }>
+    <!-- Website metadata. -->
+    <meta property="og:url" content={ headProps.url }>
+    <meta property="og:site_name" content={ headProps.site }>
+    <meta property="og:title" content={ headProps.title }>
+    <meta property="og:description" content={ headProps.description }>
+    <meta property="og:image" content={ headProps.image }>
+    <!-- Twitter metadata. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={ headProps.site } />
+    <meta name="twitter:title" content={ headProps.title } />
+    <meta name="twitter:description" content={ headProps.description } />
+    <meta name="twitter:image" content={ headProps.image } />
+    <!-- Astro transitions. -->
+    <ViewTransitions />
+	</head>
+	<body>
+    <script>
+      // Set theme before rendering to avoid flickering.
+      if (localStorage.getItem('theme') != 'light') { document.body.classList.add('dark'); }
+      // Set page visibility state.
+      setTimeout(() => { document.body.style.opacity = '1'; });
+    </script>
+    <HeaderComponent />
+    <!-- Page contents. -->
+    <div class="page-contents">
+      <slot />
+    </div>
+	</body>
+</html>
+
+<script>
+  // Reload script after an Astro transition.
+  document.addEventListener('astro:after-swap', () => {
+    // Set theme before rendering to avoid flickering.
+    if (localStorage.getItem('theme') != 'light') { document.body.classList.add('dark'); }
+    // Set page visibility state.
+    setTimeout(() => {
+      document.body.style.transition = 'background-color 0.2s, color 0.2s, opacity 0s';
+      document.body.style.opacity = '1';
+    });
+  });
+</script>
+
+<style>
+/* Page contents. */
+.page-contents {
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 109px);
+  max-height: calc(100vh - 109px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 24px;
+}
+.page-contents > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+</style>

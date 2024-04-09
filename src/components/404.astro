@@ -1,0 +1,73 @@
+---
+// Import Astro elements.
+import { getAbsoluteLocaleUrl } from "astro:i18n";
+
+// Define current locale.
+const locale = getAbsoluteLocaleUrl(Astro.currentLocale);
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Manage random post selection.
+const postsList = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/posts/en/*.mdx') : await Astro.glob('@/assets/posts/es/*.mdx');
+const posts = postsList.map((v) => `${locale}blog/${v.frontmatter.code}/`);
+---
+
+<!-- Not found page. -->
+<div class="notfound-container">
+  <div class="notfound-contents">
+    <b>404</b>
+    <b>{ language.NOTFOUND.NOTFOUND }</b>
+    <p set:html={ language.NOTFOUND.TEXT } />
+  </div>
+  <!-- Not found footer message. -->
+  <div class="notfound-footer">
+    <p set:html={ language.NOTFOUND.FOOTER } />
+  </div>
+</div>
+
+<script is:inline define:vars={{ locale, posts }}>
+  // Set random post link.
+  document.querySelector('.notfound-contents a').href = posts[[Math.floor(Math.random() * posts.length)]];
+  // Set page title, since Astro doesn't suppor i18n on 404.
+  if (locale == '/es/') { document.title = 'No Encontrado | Hipnosis\' Stuff'; }
+</script>
+
+<style>
+/* Not found page. */
+.notfound-container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 100%;
+}
+.notfound-contents {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.notfound-contents > *:first-child {
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: -32px;
+}
+.notfound-contents > *:last-child {
+  margin-top: 32px;
+  text-align: center;
+}
+
+/* Not found footer message. */
+.notfound-footer {
+  bottom: 0;
+  font-size: 14px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+</style>

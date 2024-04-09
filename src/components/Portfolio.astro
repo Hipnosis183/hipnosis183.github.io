@@ -1,0 +1,430 @@
+---
+// Import Astro components.
+import Design from '@/components/portfolio/Design.astro';
+import ImageViewer from '@/components/portfolio/ImageViewer.astro';
+import PortfolioMobile from '@/components/mobile/Portfolio.astro';
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Manage portfolio entries ordering and grouping.
+const entries = [];
+const entriesList = await Astro.glob('@/assets/portfolio/*.mdx');
+for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf() })) {
+  const i = entries.findIndex((v) => v.type == entry.frontmatter.type);
+  if (i >= 0) { entries[i].entries.push(entry); }
+  else { entries.push({ type: entry.frontmatter.type, entries: [entry] }); }
+}
+---
+
+<!-- Portfolio page. -->
+<div class="portfolio-container p-desktop">
+  <!-- Portfolio categories. -->
+  <div class="portfolio-categories">
+    <div id="web">
+      <span>{ language.PORTFOLIO.WEB }</span>
+      <div />
+    </div>
+    <div id="other">
+      <span>{ language.PORTFOLIO.OTHER }</span>
+      <div />
+    </div>
+    <div id="design">
+      <span>{ language.PORTFOLIO.DESIGN }</span>
+      <div />
+    </div>
+  </div>
+  <!-- Portfolio entries. -->
+  { entries.map(($entries) => (
+    <div id={ $entries.type } class="portfolio-entries">
+      { /* Portfolio entries list. */ }
+      <div class="portfolio-list">
+        { $entries.entries.map((entry) => (
+          <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-lite' : ''}.svg` } class="dark" />
+          <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-dark' : ''}.svg` } class="light" />
+        )) }
+      </div>
+      { $entries.entries.map((entry) => (
+        <div style="display:contents;">
+          { /* Portfolio entries contents. */ }
+          <div id={ entry.frontmatter.code } class="portfolio-contents">
+            { /* Portfolio entry header. */ }
+            <div class="portfolio-header">
+              <div class="portfolio-name">{ entry.frontmatter.title }</div>
+              <span class="portfolio-tags">
+                { entry.frontmatter.tags.map((tag) => (
+                  <code>{ tag }</code>
+                )) }
+              </span>
+            </div>
+            { /* Portfolio entry body. */ }
+            <div class="portfolio-body">
+              <entry.Content />
+            </div>
+          </div>
+          { /* Portfolio entries sidebar. */ }
+          <div id={ entry.frontmatter.code } class="portfolio-sidebar">
+            { /* Portfolio entry link. */ }
+            <div class="portfolio-link">
+              <a target="_blank" rel="noopener noreferrer" href={ entry.frontmatter.link }>
+                <p>{ language.PORTFOLIO.GITHUB }</p>
+                <div class="portfolio-github" />
+              </a>
+            </div>
+            { /* Portfolio entry images. */ }
+            { entry.frontmatter.images > 0 &&
+              <div class="portfolio-images">
+                { [...Array(entry.frontmatter.images)].map((v, i) =>
+                  <div>
+                    <img src={ `/images/portfolio/${entry.frontmatter.code}/${i}-thumb.png` }
+                      data-id={ entry.frontmatter.code } data-index={ i } data-image={ `/images/portfolio/${entry.frontmatter.code}/${i}.png` } />
+                  </div>
+                )}
+              </div>
+            }
+            { entry.frontmatter.images == 0 &&
+              <div class="portfolio-noimages">
+                <span />
+                <p>{ language.PORTFOLIO.NOIMAGES }</p>
+              </div>
+            }
+          </div>
+        </div>
+      )) }
+    </div>
+  )) }
+  <!-- Portfolio design entries. -->
+  <Design />
+  <!-- Portfolio image viewer. -->
+  <ImageViewer />
+</div>
+<!-- Mobile portfolio. -->
+<PortfolioMobile />
+
+<script is:inline data-astro-rerun>
+  // Define portfolio selection variables.
+  portfolioType = 'web';
+  portfolioIndex = 'viridian';
+
+  (() => {
+    // Portfolio selection update.
+    const portfolioUpdateType = () => {
+      document.querySelectorAll('.p-desktop .portfolio-categories > div, .p-desktop .portfolio-entries').forEach((v) => {
+        // Update selected category.
+        if (v.id == portfolioType) {
+          v.classList.add('active');
+          // Update selected index.
+          if (v.classList.contains('portfolio-entries')) {
+            portfolioIndex = v.children[0].children[0].id;
+            portfolioUpdateIndex();
+          }
+        } else { v.classList.remove('active'); }
+      });
+    }; 
+    const portfolioUpdateIndex = () => {
+      document.querySelectorAll('.p-desktop .portfolio-list > img, .p-desktop .portfolio-contents, .p-desktop .portfolio-sidebar').forEach((v) => {
+        // Update selected index.
+        if (v.id == portfolioIndex) { v.classList.add('active'); }
+        else { v.classList.remove('active'); }
+      });
+    };
+    portfolioUpdateType();
+    portfolioUpdateIndex();
+
+    // Update selected portfolio category.
+    const $portfolioUpdateType = (v) => {
+      portfolioType = v;
+      portfolioUpdateType();
+    };
+    document.querySelectorAll('.p-desktop .portfolio-categories > div').forEach((v) => {
+      v.addEventListener('click', (e) => {
+        $portfolioUpdateType(e.target.id);
+      });
+    });
+
+    // Update selected portfolio entry.
+    const $portfolioUpdateIndex = (v) => {
+      portfolioIndex = v;
+      portfolioUpdateIndex();
+    };
+    document.querySelectorAll('.p-desktop .portfolio-list').forEach((v) => {
+      for (let x of v.children) {
+        x.addEventListener('click', (e) => {
+          $portfolioUpdateIndex(e.target.id);
+        });
+      }
+    });
+  })();
+</script>
+
+<style>
+/* Portfolio page. */
+.portfolio-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 169px);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  width: 100%;
+}
+:global(.portfolio-container *::-webkit-scrollbar) {
+  background-color: transparent;
+  border-radius: 8px;
+  height: 3px;
+  width: 3px;
+}
+:global(.portfolio-container *::-webkit-scrollbar-thumb) {
+  background-clip: content-box;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+:global(body.dark .portfolio-container *::-webkit-scrollbar-thumb) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Portfolio categories. */
+.portfolio-categories {
+  background-color: var(--color-header);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 100%;
+}
+.portfolio-categories > div {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+.portfolio-categories > div:hover {
+  background-color: var(--color-header-button);
+}
+.portfolio-categories > div > * {
+  pointer-events: none;
+}
+.portfolio-categories > div > div {
+  border-bottom: 3px solid transparent;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-categories > div.active > div {
+  border-color: var(--color-blue);
+}
+
+/* Portfolio entries. */
+.portfolio-entries {
+  background-color: var(--color-footer);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: none;
+  flex: 1;
+  overflow-y: hidden;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-entries.active {
+  display: flex;
+}
+
+/* Portfolio entries list. */
+.portfolio-list {
+  background-color: var(--color-portfolio);
+  border-right: 1px solid var(--color-button-border);
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 224px;
+}
+.portfolio-list > img {
+  cursor: pointer;
+  height: 90px;
+  object-fit: contain;
+  padding: 0 12px;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+.portfolio-list > img:hover:not(.active) {
+  background-color: var(--color-button);
+}
+.portfolio-list > img.active {
+  background-color: var(--color-blue);
+}
+body.dark .portfolio-list > img.light {
+  display: none;
+}
+body:not(.dark) .portfolio-list > img.dark {
+  display: none;
+}
+
+/* Portfolio entries contents. */
+.portfolio-contents {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 12px;
+}
+.portfolio-contents.active {
+  display: flex;
+}
+
+/* Portfolio entry header. */
+.portfolio-header {
+  align-items: center;
+  border-bottom: solid 1px var(--color-header-border);
+  display: flex;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  text-wrap: nowrap;
+  transition: border-color 0.2s;
+}
+.portfolio-name {
+  font-size: 36px;
+  font-weight: 800;
+  margin-left: 4px;
+  margin-right: 16px;
+}
+.portfolio-tags {
+  display: flex;
+  white-space: nowrap;
+}
+.portfolio-tags > code {
+  background-color: var(--color-portfolio-code);
+  padding: 3px 8px;
+}
+.portfolio-tags > code:not(:first-child) {
+  margin-left: 8px;
+}
+
+/* Portfolio entry body. */
+.portfolio-body {
+  margin-right: -4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+:global(.portfolio-body h2) {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* Portfolio entries sidebar. */
+.portfolio-sidebar {
+  background-color: var(--color-portfolio);
+  border-left: 1px solid var(--color-button-border);
+  box-sizing: initial;
+  display: none;
+  flex-direction: column;
+  padding: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 200px;
+}
+.portfolio-sidebar.active {
+  display: flex;
+}
+
+/* Portfolio entry link. */
+.portfolio-link {
+  border-bottom: 1px solid var(--color-portfolio-link);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.portfolio-link > a {
+  align-items: center;
+  background-color: var(--color-button);
+  border: 1px solid var(--color-portfolio-link);
+  border-radius: 4px;
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.portfolio-link > a:hover {
+  background-color: var(--color-blue);
+  border-color: transparent;
+  text-decoration: none;
+}
+.portfolio-link > a > p {
+  margin-left: 6px;
+  pointer-events: none;
+}
+.portfolio-github {
+  background-color: var(--color-text);
+  height: 30px;
+  margin-left: 10px;
+  mask-image: url('/images/icons/logo-github-octocat.svg');
+  -webkit-mask-image: url('/images/icons/logo-github-octocat.svg');
+  transition: background-color 0.2s;
+  width: 30px;
+}
+
+/* Portfolio entry images. */
+.portfolio-images {
+  margin-right: -6px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+.portfolio-images > div {
+  border-radius: 4px;
+  overflow: hidden;
+}
+.portfolio-images > div:not(:first-child) {
+  margin-top: 8px;
+}
+.portfolio-images > div > img {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.portfolio-images > div > img:hover {
+  transform: scale(1.05);
+}
+.portfolio-noimages {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  opacity: 0.5;
+}
+.portfolio-noimages > span {
+  background-color: var(--color-text);
+  height: 64px;
+  margin-bottom: 8px;
+  margin-top: 32px;
+  mask-image: url('/images/icons/icon-noimages.svg');
+  -webkit-mask-image: url('/images/icons/icon-noimages.svg');
+  transition: background-color 0.2s;
+  width: 64px;
+}
+
+/* Responsiveness. */
+@media screen and (min-width: 1248px) {
+  .portfolio-container {
+    max-width: 1200px;
+  }
+}
+@media screen and (max-width: calc(768px - 1px)) {
+  .portfolio-container {
+    display: none;
+  }
+}
+</style>

@@ -1,0 +1,105 @@
+---
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Define collapsible variables.
+const label = Astro.props.label ?? language.COLLAPSIBLE.SHOW;
+---
+
+<!-- Collapsible button. -->
+<div class:list={['collapsible-button', { 'visible': Astro.props.visible }]} style={ Astro.props.style }
+  data-hide={ language.COLLAPSIBLE.HIDE } data-show={ language.COLLAPSIBLE.SHOW } data-label={ Astro.props.label }>
+  <label>{ label }</label>
+  <!-- Collapsible contents. -->
+  <div>
+    <div>
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  const loadCollapsible = () => {
+    // Switch collapsible state button.
+    document.querySelectorAll('.collapsible-button').forEach((v) => {
+      // Get the contents height for its hidden state.
+      v.children[1].children[0].style.marginTop = `-${v.children[1].clientHeight}px`;
+      // Set transition after initial rendering.
+      setTimeout(() => { v.children[1].children[0].style.transition = 'all 0.5s ease-in-out'; }, 500);
+      v.children[0].addEventListener('click', (e) => {
+        // Update elements visibility.
+        e.target.parentElement.classList.toggle('active');
+        // Update label text.
+        if (!e.target.parentElement.dataset.label) {
+          e.currentTarget.innerText = e.target.parentElement.classList.contains('active') ? e.target.parentElement.dataset.hide : e.target.parentElement.dataset.show;
+        }
+      });
+    });
+  }; loadCollapsible();
+  // Reload script after an Astro transition.
+  document.addEventListener('astro:after-swap', loadCollapsible);
+  // Recalculate contents height on resize.
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.collapsible-button').forEach((v) => {
+      v.children[1].children[0].style.transition = 'none';
+      v.children[1].children[0].style.marginTop = '0px';
+      v.children[1].children[0].style.marginTop = `-${v.children[1].offsetHeight}px`;
+      setTimeout(() => { v.children[1].children[0].style.transition = 'all 0.5s ease-in-out'; });
+    });
+  });
+</script>
+
+<style>
+/* Collapsible button. */
+.collapsible-button > label {
+  background-color: var(--color-button);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--color-text);
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  font-size: 18px;
+  margin-bottom: -1px;
+  padding: 10px 0;
+  text-align: center;
+  transition: background-color 0.2s, border-color 0.2s, border-radius 0.5s;
+  width: 100%;
+}
+.collapsible-button.active > label {
+  background-color: var(--color-header-button);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Collapsible contents. */
+.collapsible-button > div {
+  overflow: hidden;
+}
+.collapsible-button.active > div > div {
+  margin-top: 0 !important;
+}
+:global(.collapsible-button.active pre:first-child) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Responsiveness. */
+@media screen and (min-width: calc(768px + 1px)) {
+  .collapsible-button:not(.visible) > label {
+    display: none;
+  }
+  .collapsible-button:not(.visible) > div > div {
+    margin-top: 0 !important;
+  }
+  .collapsible-button > label:hover {
+    background-color: var(--color-header-button);
+  }
+  .collapsible-button.active > label:hover {
+    background-color: var(--color-button);
+  }
+}
+</style>

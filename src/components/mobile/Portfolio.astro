@@ -1,0 +1,296 @@
+---
+// Import Astro components.
+import Collapsible from '@/components/ui/Collapsible.astro';
+import DesignMobile from '@/components/mobile/portfolio/Design.astro';
+import ImageViewerMobile from '@/components/mobile/portfolio/ImageViewer.astro';
+
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Manage portfolio entries ordering and grouping.
+const entries = [];
+const entriesList = await Astro.glob('@/assets/portfolio/*.mdx');
+for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf() })) {
+  const i = entries.findIndex((v) => v.type == entry.frontmatter.type);
+  if (i >= 0) { entries[i].entries.push(entry); }
+  else { entries.push({ type: entry.frontmatter.type, entries: [entry] }); }
+}
+---
+
+<!-- Portfolio page. -->
+<div class="portfolio-container p-mobile">
+  <!-- Portfolio categories. -->
+  <div class="portfolio-categories">
+    <div id="web">
+      <span>{ language.PORTFOLIO.WEB }</span>
+    </div>
+    <div id="other">
+      <span>{ language.PORTFOLIO.OTHER }</span>
+    </div>
+    <div id="design">
+      <span>{ language.PORTFOLIO.DESIGN }</span>
+    </div>
+  </div>
+  <!-- Portfolio entries. -->
+  { entries.map(($entries) => (
+    <div id={ $entries.type } class="portfolio-entries active">
+      { $entries.entries.map((entry) => (
+        <div>
+          { /* Portfolio entries list. */ }
+          <div class="portfolio-list">
+            <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-lite' : ''}.svg` } class="dark" />
+            <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-dark' : ''}.svg` } class="light" />
+          </div>
+          { /* Portfolio entries contents. */ }
+          <div id={ entry.frontmatter.code } class="portfolio-contents">
+            { /* Portfolio entry header. */ }
+            <div class="portfolio-header">
+              <span class="portfolio-tags">
+                { entry.frontmatter.tags.map((tag) => (
+                  <code>{ tag }</code>
+                )) }
+              </span>
+            </div>
+            { /* Portfolio entry link. */ }
+            <div class="portfolio-link">
+              <a target="_blank" rel="noopener noreferrer" href={ entry.frontmatter.link }>
+                <p>{ language.PORTFOLIO.GITHUB }</p>
+                <div class="portfolio-github" />
+              </a>
+            </div>
+            { /* Portfolio entry body. */ }
+            <Collapsible label={ language.PORTFOLIO.DESCRIPTION } style="margin-top:8px;">
+              <div class="portfolio-body">
+                <entry.Content />
+              </div>
+            </Collapsible>
+            { /* Portfolio entry images. */ }
+            { entry.frontmatter.images > 0 &&
+              <Collapsible label={ language.PORTFOLIO.IMAGES } style="margin-top:8px;">
+                <div class="portfolio-images">
+                  { [...Array(entry.frontmatter.images)].map((v, i) =>
+                    <div>
+                      <img src={ `/images/portfolio/${entry.frontmatter.code}/${i}-thumb.png` }
+                        data-id={ entry.frontmatter.code } data-index={ i } data-image={ `/images/portfolio/${entry.frontmatter.code}/${i}.png` } />
+                    </div>
+                  )}
+                </div>
+              </Collapsible>
+            }
+          </div>
+        </div>
+      )) }
+    </div>
+  )) }
+  <!-- Portfolio design entries. -->
+  <DesignMobile />
+  <!-- Portfolio image viewer. -->
+  <ImageViewerMobile />
+</div>
+
+<script is:inline data-astro-rerun>
+  // Define portfolio selection variables.
+  portfolioType = 'web';
+
+  (() => {
+    // Portfolio selection update.
+    const portfolioUpdateType = () => {
+      document.querySelectorAll('.p-mobile .portfolio-categories > div, .p-mobile .portfolio-entries').forEach((v) => {
+        // Update selected category.
+        if (v.id == portfolioType) { v.classList.add('active'); }
+        else { v.classList.remove('active'); }
+        window.dispatchEvent(new Event('resize'));
+      });
+    }; 
+    portfolioUpdateType();
+
+    // Update selected portfolio category.
+    const $portfolioUpdateType = (v) => {
+      portfolioType = v;
+      portfolioUpdateType();
+    };
+    document.querySelectorAll('.p-mobile .portfolio-categories > div').forEach((v) => {
+      v.addEventListener('click', (e) => {
+        $portfolioUpdateType(e.target.id);
+      });
+    });
+  })();
+</script>
+
+<style>
+/* Portfolio page. */
+.portfolio-container {
+  width: 100%;
+}
+
+/* Portfolio categories. */
+.portfolio-categories {
+  background-color: var(--color-header);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-categories > div {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 100%;
+}
+.portfolio-categories > div:not(:last-child) {
+  border-bottom: 1px solid var(--color-button-border);
+}
+.portfolio-categories > div.active {
+  background-color: var(--color-blue);
+}
+.portfolio-categories > div > * {
+  pointer-events: none;
+}
+
+/* Portfolio entries. */
+.portfolio-entries > div {
+  background-color: var(--color-footer);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow-y: hidden;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-entries > div:not(:last-child) {
+  margin-bottom: 8px;
+}
+.portfolio-entries:not(.active) {
+  display: none;
+}
+
+/* Portfolio entries list. */
+.portfolio-list {
+  background-color: var(--color-portfolio);
+  border-bottom: 1px solid var(--color-button-border);
+  box-sizing: border-box;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-list > img {
+  height: 100px;
+  object-fit: contain;
+  padding: 16px;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+body.dark .portfolio-list > img.light {
+  display: none;
+}
+body:not(.dark) .portfolio-list > img.dark {
+  display: none;
+}
+
+/* Portfolio entries contents. */
+.portfolio-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  padding-bottom: 16px;
+}
+
+/* Portfolio entry header. */
+.portfolio-header {
+  align-items: center;
+  border-bottom: solid 1px var(--color-header-border);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  transition: border-color 0.2s;
+}
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  white-space: nowrap;
+}
+.portfolio-tags > code {
+  background-color: var(--color-portfolio-code);
+  margin-bottom: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+  padding: 3px 8px;
+}
+
+/* Portfolio entry body. */
+.portfolio-body {
+  background-color: var(--color-portfolio);
+  border: 1px solid var(--color-button-border);
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  padding: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Portfolio entry images. */
+.portfolio-images {
+  align-items: center;
+  background-color: var(--color-portfolio);
+  border: 1px solid var(--color-button-border);
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.portfolio-images > div {
+  border-radius: 4px;
+  overflow: hidden;
+  width: fit-content;
+}
+.portfolio-images > div:not(:first-child) {
+  margin-top: 8px;
+}
+.portfolio-images > div > img {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Portfolio entry link. */
+.portfolio-link > a {
+  align-items: center;
+  background-color: var(--color-button);
+  border: 1px solid var(--color-portfolio-link);
+  border-radius: 4px;
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.portfolio-link > a > p {
+  margin-left: 6px;
+  pointer-events: none;
+}
+.portfolio-github {
+  background-color: var(--color-text);
+  height: 30px;
+  margin-left: 10px;
+  mask-image: url('/images/icons/logo-github-octocat.svg');
+  -webkit-mask-image: url('/images/icons/logo-github-octocat.svg');
+  transition: background-color 0.2s;
+  width: 30px;
+}
+
+/* Responsiveness. */
+@media screen and (min-width: 768px) {
+  .portfolio-container {
+    display: none;
+  }
+}
+</style>

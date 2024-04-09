@@ -1,0 +1,155 @@
+---
+// Import markdown element.
+const mdx = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/posts/en/*.mdx') : await Astro.glob('@/assets/posts/es/*.mdx');
+const { Content, frontmatter } = mdx.filter((v) => v.frontmatter.code == Astro.params.slug)[0];
+
+// Manage post date formatting.
+const postDate = (v) => {
+  let month = new Date(v).toLocaleString(Astro.currentLocale, { month: 'long', timeZone: 'UTC' });
+  if (Astro.currentLocale == 'en') {
+    return `${month} ${new Date(v).getUTCDate()}, ${new Date(v).getUTCFullYear()}`;
+  } else {
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+    return `${new Date(v).getUTCDate()} de ${month}, ${new Date(v).getUTCFullYear()}`;
+  }
+};
+---
+
+<!-- Post page. -->
+<div class="post-container">
+  <!-- Post header. -->
+  <div class="post-header">
+    <!-- Post image. -->
+    <div class="post-image" style={{ backgroundImage: `url('${frontmatter.thumb}')`, backgroundPosition: frontmatter.position || 'center' }} />
+    <!-- Post title. -->
+    <div class="post-title">
+      <h1>{ frontmatter.title }</h1>
+      <p>
+        <time>{ postDate(frontmatter.date) }</time>
+        <span>{ ' • Renzo Pigliacampo' }</span>
+      </p>
+    </div>
+  </div>
+  <!-- Post body. -->
+  <div class="post-body">
+    <Content />
+  </div>
+</div>
+
+<style>
+/* Post page. */
+.post-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+/* Post header. */
+.post-header {
+  align-items: center;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  margin-bottom: 20px;
+  min-height: 190px;
+  place-content: center;
+  position: relative;
+}
+
+/* Post image. */
+.post-image {
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px 8px 0 0;
+  bottom: 0;
+  left: 0;
+  mask-image: linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  outline: 1px solid var(--color-post-border);
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: outline-color 0.2s;
+}
+
+/* Post title. */
+.post-title {
+  margin-bottom: 0;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+}
+.post-title > h1 {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.post-title > p {
+  color: var(--color-grey);
+  font-size: 16px;
+}
+
+/* Post body. */
+:global(.post-body h1) {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+:global(.post-body h1:not(:first-child)) {
+  margin-top: 8px;
+}
+:global(.post-body h2) {
+  font-size: 32px;
+  font-weight: 700;
+}
+:global(.post-body h3) {
+  font-size: 26px;
+  font-weight: 600;
+}
+:global(.post-body h4) {
+  font-size: 20px;
+  font-weight: 500;
+}
+:global(.post-body img) {
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+}
+:global(.post-body img),
+:global(.post-body pre) {
+  margin-bottom: 4px;
+}
+:global(.post-body pre + p),
+:global(.post-body script + p),
+:global(.post-body div:has(pre) + p),
+:global(.post-body img + img),
+:global(.post-body img + p) {
+  color: var(--color-grey);
+  font-size: 16px;
+  margin-top: 8px;
+  text-align: center;
+}
+:global(.post-body p) {
+  padding-bottom: 4px;
+}
+
+/* Responsiveness. */
+@media screen and (max-width: 768px) {
+  .post-title {
+    padding: 16px;
+  }
+  .post-title > h1 {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .post-title > p {
+    font-size: 14px;
+  }
+  :global(.post-body h1) {
+    font-size: 28px;
+  }
+}
+</style>

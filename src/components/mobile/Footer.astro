@@ -1,0 +1,96 @@
+---
+---
+
+<!-- Footer bar. -->
+<footer class="footer-container">
+  <!-- Footer links. -->
+  <div class="footer-links">
+    <a id="footer-medium" target="_blank" rel="noopener noreferrer"
+      href="https://medium.com/@renzopigliacampo" />
+    <a id="footer-twitter" target="_blank" rel="noopener noreferrer"
+      href="https://twitter.com/HipnosisStuff" />
+    <a id="footer-github" target="_blank" rel="noopener noreferrer"
+      href="https://github.com/Hipnosis183" />
+    <a id="footer-deviantart" target="_blank" rel="noopener noreferrer"
+      href="https://deviantart.com/Hipnosis183" />
+    <a id="footer-linkedin" target="_blank" rel="noopener noreferrer"
+      href="https://www.linkedin.com/in/renzo-pigliacampo/" />
+    <a id="footer-youtube" target="_blank" rel="noopener noreferrer"
+      href="https://youtube.com/@RenzoPigliacampo" />
+  </div>
+  <p class="footer-text" />
+</footer>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    // Get current year.
+    const footerYear = new Date().getFullYear();
+    document.querySelectorAll('.footer-text').forEach((v) => {
+      v.textContent = `© Renzo Pigliacampo - ${footerYear}`;
+    });
+  })();
+</script>
+
+<style>
+/* Footer bar. */
+.footer-container {
+  align-items: center;
+  background-color: var(--color-footer);
+  border-top: solid 1px var(--color-footer-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+  width: 100%;
+}
+.footer-container > p {
+  font-weight: 300;
+  margin: 0;
+  padding: 8px;
+  padding-bottom: 10px;
+}
+
+/* Footer links. */
+.footer-links {
+  align-items: center;
+  display: flex;
+  height: 32px;
+  margin-top: 10px;
+}
+.footer-links > a {
+  background-color: var(--color-text);
+  height: 28px;
+  opacity: 0.6;
+  transition: background-color 0.2s;
+  width: 28px;
+}
+.footer-links > a:not(:first-child) {
+  margin-left: 10px;
+}
+
+/* Footer icons. */
+#footer-medium {
+  mask-image: url('/images/icons/logo-medium.svg');
+  -webkit-mask-image: url('/images/icons/logo-medium.svg');
+}
+#footer-twitter {
+  mask-image: url('/images/icons/logo-twitter.svg');
+  -webkit-mask-image: url('/images/icons/logo-twitter.svg');
+}
+#footer-github {
+  mask-image: url('/images/icons/logo-github-octocat.svg');
+  -webkit-mask-image: url('/images/icons/logo-github-octocat.svg');
+}
+#footer-deviantart {
+  mask-image: url('/images/icons/logo-deviantart.svg');
+  -webkit-mask-image: url('/images/icons/logo-deviantart.svg');
+}
+#footer-linkedin {
+  mask-image: url('/images/icons/logo-linkedin.svg');
+  -webkit-mask-image: url('/images/icons/logo-linkedin.svg');
+}
+#footer-youtube {
+  mask-image: url('/images/icons/logo-youtube.svg');
+  -webkit-mask-image: url('/images/icons/logo-youtube.svg');
+}
+</style>

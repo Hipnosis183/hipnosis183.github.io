@@ -1,0 +1,201 @@
+---
+---
+
+<!-- Viewer container. -->
+<div class="viewer-container">
+  <!-- Viewer image element. -->
+  <div class="viewer-image">
+    <img />
+  </div>
+  <!-- Viewer bar. -->
+  <div class="viewer-bar">
+    <span class="viewer-previous">
+      <img />
+    </span>
+    <span class="viewer-next">
+      <img />
+    </span>
+    <div class="viewer-count" />
+    <div>
+      <span class="viewer-link">
+        <img />
+      </span>
+      <span class="viewer-close">
+        <img />
+      </span>
+    </div>
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+  // Define viewer variables.
+  viewerId = '';
+  viewerImage = '';
+  viewerIndex = 0;
+  viewerTotal = 0;
+
+  (() => {
+    // Configure and toggle image viewer.
+    const viewerOpen = (e) => {
+      // Update viewer variables.
+      viewerId = e.target.getAttribute('data-id');
+      viewerImage = e.target.getAttribute('data-image');
+      viewerIndex = parseInt(e.target.getAttribute('data-index'));
+      viewerTotal = document.querySelectorAll(`.p-desktop [data-id="${viewerId}"]`).length;
+      // Update image source.
+      document.querySelector('.p-desktop .viewer-image > img').src = '';
+      document.querySelector('.p-desktop .viewer-image > img').src = viewerImage;
+      // Update image counter.
+      document.querySelector('.p-desktop .viewer-count').innerText = `${viewerIndex + 1} / ${viewerTotal}`;
+      // Open image viewer.
+      document.querySelector('.p-desktop .viewer-container').classList.add('open');
+    }
+    const viewerClose = () => {
+      // Update viewer variables.
+      viewerId = '';
+      viewerImage = '';
+      viewerIndex = 0;
+      viewerTotal = 0;
+      // Close image viewer.
+      document.querySelector('.p-desktop .viewer-container').classList.remove('open');
+    };
+    document.querySelector('.p-desktop .viewer-close').addEventListener('click', () => { viewerClose(); });
+    setTimeout(() => {
+      document.querySelectorAll('.p-desktop [data-id][data-index][data-image]').forEach((v) => {
+        v.addEventListener('click', (e) => { viewerOpen(e); });
+      });
+    }, 500);
+
+    // Navigate viewer elements.
+    const viewerPrevious = () => {
+      // Update current index.
+      if (viewerIndex <= 0) { return; }
+      viewerIndex--;
+      viewerUpdate();
+    };
+    const viewerNext = () => {
+      // Update current index.
+      if (viewerIndex + 1 >= viewerTotal) { return; }
+      viewerIndex++;
+      viewerUpdate();
+    };
+    const viewerUpdate = () => {
+      // Update image source.
+      viewerImage = document.querySelector(`.p-desktop [data-id="${viewerId}"][data-index="${viewerIndex}"]`).getAttribute('data-image');
+      document.querySelector('.p-desktop .viewer-image > img').src = viewerImage;
+      // Update image counter.
+      document.querySelector('.p-desktop .viewer-count').innerText = `${viewerIndex + 1} / ${viewerTotal}`;
+    };
+    document.querySelector('.p-desktop .viewer-previous').addEventListener('click', () => { viewerPrevious(); });
+    document.querySelector('.p-desktop .viewer-next').addEventListener('click', () => { viewerNext(); });
+    document.querySelector('body').addEventListener('keydown', (e) => {
+      if (!viewerId) { return; }
+      // Define keyboard navigation.
+      if (e.code == 'ArrowLeft') { viewerPrevious(); }
+      if (e.code == 'ArrowRight') { viewerNext(); }
+      if (e.code == 'Enter') { viewerLink(); }
+      if (e.code == 'Escape') { viewerClose(); }
+    }, true);
+
+    // Open external image links.
+    const viewerLink = () => { window.open(viewerImage, '_blank'); };
+    document.querySelector('.p-desktop .viewer-link').addEventListener('click', () => { viewerLink(); });
+  })();
+</script>
+
+<style>
+/* Viewer container. */
+.viewer-container {
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s linear;
+  visibility: hidden;
+  z-index: 10;
+}
+.viewer-container.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Viewer image element. */
+.viewer-image {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  height: calc(100% - 110px);
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 60px;
+  width: 100%;
+}
+.viewer-image > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/* Viewer bar. */
+.viewer-bar {
+  align-items: center;
+  background-color: var(--color-header);
+  border-top: solid 1px var(--color-header-border);
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  transition: background-color 0.2s;
+  user-select: none;
+  width: 100%;
+  z-index: 20;
+}
+.viewer-bar span {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  padding: 0 10px;
+  transition: background-color 0.2s;
+}
+.viewer-bar span:hover {
+  background-color: var(--color-button);
+}
+.viewer-bar span > img {
+  background-color: var(--color-text);
+  padding: 10px;
+  transition: background-color 0.2s;
+}
+.viewer-bar > div:last-child {
+  display: flex;
+  height: 100%;
+  margin-left: 13.5rem;
+  position: absolute;
+}
+
+/* Viewer bar buttons. */
+.viewer-count {
+  margin-right: 12rem;
+  position: absolute;
+}
+.viewer-previous > img {
+  mask-image: url('/images/icons/icon-arrow.svg');
+  -webkit-mask-image: url('/images/icons/icon-arrow.svg');
+  padding-bottom: 12px;
+  transform: rotate(-90deg);
+}
+.viewer-next > img {
+  mask-image: url('/images/icons/icon-arrow.svg');
+  -webkit-mask-image: url('/images/icons/icon-arrow.svg');
+  padding-bottom: 12px;
+  transform: rotate(90deg);
+}
+.viewer-link > img {
+  mask-image: url('/images/icons/icon-open.svg');
+  -webkit-mask-image: url('/images/icons/icon-open.svg');
+}
+.viewer-close > img {
+  mask-image: url('/images/icons/icon-cross.svg');
+  -webkit-mask-image: url('/images/icons/icon-cross.svg');
+}
+</style>

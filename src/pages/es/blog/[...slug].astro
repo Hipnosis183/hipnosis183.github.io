@@ -1,0 +1,23 @@
+---
+// Import Astro layouts.
+import AppComponent from '@/layouts/App.astro';
+import PostComponent from '@/layouts/Post.astro';
+
+// Import Astro components.
+import FooterComponent from '@/components/Footer.astro';
+
+// Define posts subpages.
+export const getStaticPaths = async () => {
+  const posts = await Astro.glob('@/assets/posts/en/*.mdx');
+	return posts.map((post) => ({ params: { slug: post.frontmatter.code } }));
+};
+
+// Get and set page title.
+const posts = await Astro.glob('@/assets/posts/es/*.mdx');
+const post = posts.filter((v) => v.frontmatter.code == Astro.params.slug)[0].frontmatter;
+---
+
+<AppComponent title={ post.title } description={ post.description } image={ post.thumb }>
+  <PostComponent />
+  <FooterComponent />
+</AppComponent>

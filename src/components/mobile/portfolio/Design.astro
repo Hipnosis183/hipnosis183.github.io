@@ -1,0 +1,145 @@
+---
+// Import language files.
+const languages = await Astro.glob('@/assets/i18n/*.json');
+const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+
+// Define portfolio design variables.
+const api = 'https://backend.deviantart.com/rss.xml?q=gallery%3Ahipnosis183%2F67799208&offset=';
+const deviations = [], $deviations = [], offset = 60;
+let cursor = 0, response = [];
+
+// Manage request to DeviantArt RSS API.
+import { XMLParser } from 'fast-xml-parser';
+do {
+  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
+  const parsed = parser.parse(await (await fetch(api + cursor)).text());
+  // Store local request response.
+  response = parsed.rss.channel.item;
+  // Store global request response.
+  for (let deviation of response) { $deviations.push(deviation); }
+  // Update request offset cursor.
+  cursor += offset;
+  // Repeat request if there are more items available.
+} while (response.length >= offset);
+// Create the deviation objects.
+for (let deviation of $deviations) {
+  // Add deviation object to list.
+  deviations.push({
+    title: deviation['title'],
+    link: deviation['link'],
+    date: deviation['pubDate'],
+    image: deviation['media:content']['url'],
+    thumb: deviation['media:thumbnail'][1]['url'],
+  });
+}
+
+// Manage entry date formatting.
+const entryDate = (v) => {
+  let month = new Date(v).toLocaleString(Astro.currentLocale, { month: 'long', timeZone: 'UTC' });
+  if (Astro.currentLocale == 'en') {
+    return `${month} ${new Date(v).getUTCDate()}, ${new Date(v).getUTCFullYear()}`;
+  } else {
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+    return `${new Date(v).getUTCDate()} de ${month}, ${new Date(v).getUTCFullYear()}`;
+  }
+};
+---
+
+<!-- Design container. -->
+<div id="design" class="design-container portfolio-entries">
+  <!-- Design entries list. -->
+  { deviations.map((deviation, i) => (
+    <div class="design-contents">
+      { /* Design entry contents. */ }
+      <p class="design-title">{ deviation.title }</p>
+      <p class="design-date">
+        <span>{ language.PORTFOLIO.PUBLISHED } • </span>
+        <time>{ entryDate(deviation.date) }</time>
+      </p>
+      { /* Design entry image. */ }
+      <div class="design-image">
+        <img src={ deviation.thumb } data-id="design" data-index={ i } data-image={ deviation.image } />
+      { /* Design entry button. */ }
+        <a target="_blank" rel="noopener noreferrer" href={ deviation.link }>
+          <div class="design-deviantart" />
+        </a>
+      </div>
+    </div>
+  )) }
+</div>
+
+<style>
+/* Design container. */
+.design-container:not(.active) {
+  display: none;
+}
+
+/* Design entry contents. */
+.design-contents {
+  background-color: var(--color-footer);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.design-contents:not(:last-child) {
+  margin-bottom: 8px;
+}
+.design-title {
+  background-color: var(--color-portfolio);
+  border-bottom: 1px solid var(--color-button-border);
+  box-sizing: border-box;
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+  padding: 8px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.design-date {
+  border-bottom: 1px solid var(--color-button-border);
+  box-sizing: border-box;
+  color: var(--color-grey);
+  font-size: 16px;
+  padding: 4px 0;
+  transition: border-color 0.2s;
+}
+
+/* Design entry image. */
+.design-image {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.design-image > img {
+  height: 100%;
+  max-height: 232px;
+  max-width: 332px;
+  object-fit: contain;
+  padding: 16px;
+  width: 100%;
+}
+.design-image > a {
+  background-color: var(--color-header);
+  border: 1px solid var(--color-button-border);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  transition: background-color 0.2s;
+}
+
+/* Design entry button. */
+.design-deviantart {
+  background-color: var(--color-text);
+  height: 20px;
+  mask-image: url('/images/icons/logo-deviantart.svg');
+  -webkit-mask-image: url('/images/icons/logo-deviantart.svg');
+  width: 20px;
+}
+</style>
