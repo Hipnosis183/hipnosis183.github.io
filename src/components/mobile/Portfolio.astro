@@ -103,7 +103,7 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.dat
         window.dispatchEvent(new Event('resize'));
       });
     }; 
-    portfolioUpdateType();
+    setTimeout(() => { portfolioUpdateType(); }, 500);
 
     // Update selected portfolio category.
     const $portfolioUpdateType = (v) => {

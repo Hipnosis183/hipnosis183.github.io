@@ -23,6 +23,16 @@
   </div>
 </footer>
 
+<script is:inline data-astro-rerun>
+  (() => {
+    // Get current year.
+    const footerYear = new Date().getFullYear();
+    document.querySelectorAll('.footer-text').forEach((v) => {
+      v.textContent = `© Renzo Pigliacampo - ${footerYear}`;
+    });
+  })();
+</script>
+
 <style>
 /* Footer empty space filler. */
 .footer-empty {
