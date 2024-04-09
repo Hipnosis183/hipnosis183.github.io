@@ -1,9 +1,0 @@
-/* Import partials. */
-@import 'theme/variables', 'theme/base', 'theme/layout', 'theme/syntax-highlighting';
-
-/* Media queries. */
-@mixin media-query($device) {
-  @media screen and (max-width: $device) {
-    @content;
-  }
-}
