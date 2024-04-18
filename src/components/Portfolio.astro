@@ -67,10 +67,13 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.dat
           <div id={ entry.frontmatter.code } class="portfolio-sidebar">
             { /* Portfolio entry link. */ }
             <div class="portfolio-link">
-              <a target="_blank" rel="noopener noreferrer" href={ entry.frontmatter.link }>
+              { entry.frontmatter.development && <span>
+                <p>{ language.PORTFOLIO.DEVELOPMENT }</p>
+              </span> }
+              { entry.frontmatter.link && <a target="_blank" rel="noopener noreferrer" href={ entry.frontmatter.link }>
                 <p>{ language.PORTFOLIO.GITHUB }</p>
                 <div class="portfolio-github" />
-              </a>
+              </a> }
             </div>
             { /* Portfolio entry images. */ }
             { entry.frontmatter.images > 0 &&
@@ -347,7 +350,8 @@ body:not(.dark) .portfolio-list > img.dark {
   padding-bottom: 12px;
   transition: border-color 0.2s;
 }
-.portfolio-link > a {
+.portfolio-link > a,
+.portfolio-link > span {
   align-items: center;
   background-color: var(--color-button);
   border: 1px solid var(--color-portfolio-link);
@@ -366,6 +370,10 @@ body:not(.dark) .portfolio-list > img.dark {
 }
 .portfolio-link > a > p {
   margin-left: 6px;
+  pointer-events: none;
+}
+.portfolio-link > span > p {
+  line-height: 30px;
   pointer-events: none;
 }
 .portfolio-github {
