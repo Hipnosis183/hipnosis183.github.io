@@ -10,7 +10,7 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
 
 // Manage portfolio entries ordering and grouping.
 const entries = [];
-const entriesList = await Astro.glob('@/assets/portfolio/*.mdx');
+const entriesList = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/portfolio/en/*.mdx') : await Astro.glob('@/assets/portfolio/es/*.mdx');
 for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf() })) {
   const i = entries.findIndex((v) => v.type == entry.frontmatter.type);
   if (i >= 0) { entries[i].entries.push(entry); }

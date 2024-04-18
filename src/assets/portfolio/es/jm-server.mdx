@@ -1,0 +1,35 @@
+---
+date: 2022-08-01
+code: jm-server
+title: JM-Server
+tags: ['C', 'NodeJS + Express', 'MongoDB + Mongoose']
+link: https://github.com/Hipnosis183/JM-Server
+theme: true
+type: other
+images: 0
+---
+
+**JM-Server** es un emulador de servidor para **Jewelry Master**, un juego de puzzle arcade en línea desarrollado por **Arika** en 2006. Este proyecto sirvió como prototipo para el siguiente título en la serie, **Jewelry Master Twinkle**. El servicio original cerró en 2011, y desde entonces permaneció injugable, hasta ahora.
+
+<br />
+
+La funcionalidad del servidor fue retroingeniada y reimplementada por completo de dos formas diferentes:
+
+<br />
+
+- Un **servidor de NodeJS**, imitando como funcionaba el servidor original, donde los usuarios pueden conectarse desde el cliente a través de internet.
+- Un **servidor embebido en C**, como una solución portable que no requiere la inicialización de servidores y bases de datos externas, mientras se mantiene todo el comportamiento y funcionalidad del original.
+
+<br />
+
+Ambas implementan la administración de usuarios y puntuaciones en su totalidad, incluyendo el almacenamiento de repeticiones. Adicionalmente, hay varias opciones disponibles para personalizar el comportamiento del servidor.
+
+<br />
+
+## Servidor de NodeJS
+La versión de **NodeJS** está pensada para hostear servidores a través de internet, aunque también puede utilizarse para conectarse y juegar localmente. Al utilizar tecnologías de servidor y base de datos (**MongoDB**) robustas, es más adecuado para manejar múltiples conexiones y tráfico de datos alto.
+
+<br />
+
+## Servidor de C
+La versión en **C** se distribuye para uso local y portable, donde al solo correr un ejecutable, se inicializa un pequeño servidor embebido de **Mongoose** junto a una base de datos de **LMDB** ligera y rendidora, al mismo tiempo que hace un hook (enganche) a las funciones de red del ejecutable para redireccionar las llamadas internas de la API hacia este servidor local.
