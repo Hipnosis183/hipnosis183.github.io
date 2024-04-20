@@ -1,0 +1,173 @@
+/* General styling. */
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: rgb(30, 80, 220);
+  text-decoration: none;
+}
+body {
+  color: rgb(20, 40, 100);
+  font-family: "Poppins";
+}
+ul {
+  list-style-type: disc;
+  padding-inline-start: 20px;
+}
+
+/* Header container. */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* Header title. */
+.header-title {
+  display: flex;
+  flex-direction: column;
+}
+.header-title > b {
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.header-title > p {
+  font-size: 20px;
+}
+
+/* Header information. */
+.header-info {
+  display: flex;
+}
+.header-personal {
+  border-right: 1px solid rgb(90, 120, 200);
+  text-align: right;
+  margin-right: 14px;
+  padding-right: 16px;
+}
+.header-personal > p:not(:last-child) {
+  margin-bottom: 4px;
+}
+
+/* Header links. */
+.header-links {
+  display: flex;
+  flex-direction: column;
+}
+.header-links > span {
+  align-items: center;
+  display: flex;
+}
+.header-links > span:not(:last-child) {
+  margin-bottom: 4px;
+}
+.header-links > span > img {
+  height: 20px;
+  margin-right: 12px;
+}
+
+/* Body container. */
+.body-section {
+  margin-bottom: 28px;
+}
+.body-section > b {
+  border-bottom: 1px solid rgb(90, 120, 200);
+  color: rgb(30, 50, 120);
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 4px;
+  width: 100%;
+}
+.body-section > div {
+  padding-left: 24px;
+  padding-top: 16px;
+}
+.body-section > p {
+  font-size: 17px;
+  padding-left: 24px;
+  padding-top: 16px;
+}
+
+/* Body skills. */
+.body-skills > span {
+  display: block;
+}
+.body-skills > span:not(:last-child) {
+  margin-bottom: 12px;
+}
+.body-skills > span > b {
+  color: rgb(30, 60, 145);
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+/* Body experience. */
+.body-experience > span {
+  display: block;
+}
+.body-experience > span:not(:last-child) {
+  margin-bottom: 16px;
+}
+.body-experience > span > b {
+  color: rgb(30, 60, 145);
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.body-experience > span > div {
+  padding-left: 16px;
+  padding-top: 8px;
+}
+.body-experience > span > div:not(:last-child) {
+  margin-bottom: 12px;
+}
+.body-experience > span > div > b {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.body-experience > span > div > p {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* Body education. */
+.body-education > span:first-child {
+  align-items: center;
+  display: flex;
+}
+.body-education > span:not(:last-child) {
+  margin-bottom: 8px;
+}
+.body-education > span > b {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+}
+.body-education > span:first-child > b {
+  margin-right: 4px;
+}
+.body-education > span:not(:first-child) > b {
+  margin-bottom: 4px;
+}
+.body-infinite {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 0;
+  margin-left: 4px;
+  margin-top: -3px;
+}
+
+/* Footer container. */
+.footer-container {
+  text-align: right;
+  padding-top: 16px;
+}

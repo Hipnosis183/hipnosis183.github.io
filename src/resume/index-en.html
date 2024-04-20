@@ -1,0 +1,228 @@
+<!--
+  Imprimir con tamaño de papel: A4.
+  Imprimir con márgenes: 8mm (top, bottom), 10mm (left, right).
+  Imprimir con escala: 80%.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Load styles. -->
+  <link rel="stylesheet" type="text/css" href="./main.css">
+  <!-- Load Poppins font. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <title>Resume</title>
+</head>
+<body>
+  <!-- Header container. -->
+  <div class="header-container">
+    <!-- Header title. -->
+    <div class="header-title">
+      <b>Renzo Pigliacampo</b>
+      <p>Full Stack Web Developer</p>
+    </div>
+    <!-- Header information. -->
+    <div class="header-info">
+      <div class="header-personal">
+        <p>Tucumán 387 (2200)</p>
+        <p>San Lorenzo, Santa Fe</p>
+        <p>Argentina</p>
+        <p>+54 9 (3476) 61-6563</p>
+      </div>
+      <!-- Header links. -->
+      <div class="header-links">
+        <span>
+          <img src="./assets/icon-link.svg">
+          <a target="_blank" rel="noopener noreferrer" href="https://hipnosis183.github.io/">hipnosis183.github.io</a>
+        </span>
+        <span>
+          <img src="./assets/icon-github.svg">
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183">github.com/Hipnosis183</a>
+        </span>
+        <span>
+          <img src="./assets/icon-mail.svg">
+          <a target="_blank" rel="noopener noreferrer" href="mailto:renzopigliacampo@gmail.com">renzopigliacampo@gmail.com</a>
+        </span>
+        <span>
+          <img src="./assets/icon-linkedin.svg">
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/renzo-pigliacampo/">linkedin.com/in/renzo-pigliacampo</a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- Body container. -->
+  <div class="body-container">
+    <div class="body-section">
+      <b>About me</b>
+      <!-- Body profile. -->
+      <div class="body-profile">
+        <p>I'm a professional Full Stack software developer with 6 years of experience, with a greater focus on frontend development and design. My current development stack is NodeJS/Electron + MongoDB + Vue/Angular, although I'm comfortable working with other JS/TS and CSS libraries/frameworks, such as Astro and Tailwind.</p>
+      </div>
+    </div>
+    <div class="body-section">
+      <b>Skills</b>
+      <!-- Body skills. -->
+      <div class="body-skills">
+        <span>
+          <b>Web Development</b>
+          <ul>
+            <li>General: JavaScript / TypeScript, HTML, CSS</li>
+            <li>Frontend: Vue, Angular, Astro, Tailwind</li>
+            <li>Backend: Node.js, Express, MongoDB, Mongoose, Electron</li>
+            <li>Others: JSX, AngularJS, jQuery, Sass, Material, Bootstrap</li>
+            <li>Tools: Visual Studio (CE and Code), Git, NPM</li>
+          </ul>
+        </span>
+        <span>
+          <b>Programming</b>
+          <ul>
+            <li>Proficient: JavaScript / TypeScript</li>
+            <li>Familiar: C / C++, C#, Python, Java, Assembly (x86)</li>
+          </ul>
+        </span>
+        <span>
+          <b>Graphic Design</b>
+          <ul>
+            <li>Adobe Illustrator, Adobe Photoshop, Artificial Intelligence (AI), Inkscape</li>
+          </ul>
+        </span>
+        <span>
+          <b>Languages</b>
+          <ul>
+            <li>Spanish (Native)</li>
+            <li>English (C1 | Advanced)</li>
+          </ul>
+        </span>
+      </div>
+    </div>
+    <div class="body-section">
+      <b>Experience</b>
+      <!-- Body experience. -->
+      <div class="body-experience">
+        <span>
+          <b>Professional</b>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://hipnosis183.github.io/portfolio/">Hornero</a>
+               - Feature-rich, modern bussiness management software
+            </b>
+            <p>Freelance | Vue, Node.js, Express, MongoDB (July 2023 - Now)</p>
+            <ul>
+              <li>Responsible for the software's design and programming, including the engineering process.</li>
+              <li>Analysis of the administrative and commercial needs of the clients.</li>
+              <li>Legal receipts generation and electronic billing implementation consuming AFIP's (Argentina's taxation authority) web services.</li>
+              <li>Development of Hornero UI, a set of high complexity UI components.</li>
+            </ul>
+          </div>
+          <div>
+            <b>IT Technician</b>
+            <p>Televisora Color Capitán Bermúdez (April 2020 - July 2020)</p>
+            <ul>
+              <li>Hardware and software maintenance.</li>
+              <li>Local server and virtual machines (Hyper-V and Windows Server) maintenance.</li>
+              <li>Assist coworkers with the software they use, and communicate with the developers when necessary.</li>
+              <li>Substantial security and infrastructure improvements.</li>
+              <li>Installation and maintenance of local networks.</li>
+              <li>Setup of MikroTik routers and VPN connections for remote access to the local servers.</li>
+            </ul>
+          </div>
+        </span>
+        <span>
+          <b>Personal</b>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183/Viridian">Viridian</a>
+               - Feature-rich video editor
+            </b>
+            <p>Angular, TypeScript, Tailwind, Electron (October 2022 - Now)</p>
+            <ul>
+              <li>In-depth research and learning about video encoding and related concepts.</li>
+              <li>Extensive FFmpeg exploration, to implement several of its features in the application.</li>
+              <li>Usage of Angular with Electron.</li>
+            </ul>
+          </div>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183/Instagular">Instagular</a>
+               - Custom Instagram client for a better desktop experience
+            </b>
+            <p>Angular, TypeScript, Tailwind, Node.js (January 2022 - September 2022)</p>
+            <ul>
+              <li>Analysis, study and reimplementation of the design and functionality of a grand-scale social media platform.</li>
+              <li>Implementation of a private backend API to bypass the limitations of the original service.</li>
+              <li>Redesign of the user interface for a better desktop experience.</li>
+            </ul>
+          </div>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183/JM-Server">JM-Server</a>
+               - Server emulator for Jewelry Master
+            </b>
+            <p>C, Node.js, Express, MongoDB (August 2022)</p>
+            <ul>
+              <li>Server reimplementation for an online videogame already out of service.</li>
+              <li>Analysis of network functions through reverse engineering.</li>
+              <li>Development of a HTTP server in both Node.js and C.</li>
+            </ul>
+          </div>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183/Glaucous">Glaucous</a>
+               - Videogames database builder, library manager and emulator frontend
+            </b>
+            <p>Vue, Tailwind, Electron, NeDB (June 2021 - Paused)</p>
+            <ul>
+              <li>Understanding concepts and usage of modern frameworks.</li>
+              <li>Development of desktop applications with web technologies.</li>
+              <li>Customizable and dynamic design, considering elements such as user preferences and accessibility.</li>
+            </ul>
+          </div>
+          <div>
+            <b>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/Hipnosis183/SALNE">SALNE</a>
+               - Standarized Management Software for National Libraries
+            </b>
+            <p>AngularJS, Node.js, Express, MongoDB, PMBOK 6 (November 2020 - May 2021)</p>
+            <ul>
+              <li>Development of Full Stack web applications, including Backend APIs and Frontend clients.</li>
+              <li>Introduction and general knowledge on software project management.</li>
+              <li>Application of planning and design to a software product.</li>
+              <li>Familiarization with agile development methodologies (SCRUM).</li>
+            </ul>
+          </div>
+        </span>
+      </div>
+      <p>Be sure to visit my <a target="_blank" rel="noopener noreferrer" href="https://hipnosis183.github.io/portfolio/">portfolio</a> at my website to see all my works, and also the <a target="_blank" rel="noopener noreferrer" href="https://hipnosis183.github.io/blog/">articles</a> section to read interesting things that I usually write from time to time.</p>
+    </div>
+    <div class="body-section">
+      <b>Education</b>
+      <!-- Body education. -->
+      <div class="body-education">
+        <span>
+          <b>Autodidact</b>
+          <p>(2018 - </p>
+          <p class="body-infinite">&infin;</p>
+          <p>)</p>
+        </span>
+        <span>
+          <b>Software Developer</b>
+          <p>Instituto Superior de Educación Técnica Nro. 25 - Puerto Gral. San Martín (March 2018 - May 2021)</p>
+        </span>
+      </div>
+    </div>
+    <div class="body-section">
+      <b>References</b>
+      <!-- Body references. -->
+      <div class="body-references">
+        <p>Available at request.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Footer container. -->
+  <div class="footer-container">
+    <p>Updated: 2024/04/20</p>
+  </div>
+</body>
+</html>

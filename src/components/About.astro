@@ -30,11 +30,16 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
   <div class="about-body">
     <p set:html={ language.ABOUT.TEXT } />
   </div>
-  <!-- About page button. -->
-  <a class="about-button" target="_blank" rel="noopener noreferrer" href="/resume.pdf">
-    <p>{ language.ABOUT.RESUME } (2022/03/16)</p>
-    <img src='/images/icons/flag-es.svg' />
-  </a>
+  <!-- About page resume. -->
+  <div class="about-resume">
+    <p>{ language.ABOUT.RESUME } (2024/04/20)</p>
+    <a target="_blank" rel="noopener noreferrer" href="/curriculum.pdf">
+      <img src='/images/icons/flag-es.svg' />
+    </a>
+    <a target="_blank" rel="noopener noreferrer" href="/resume.pdf">
+      <img src='/images/icons/flag-en.svg' />
+    </a>
+  </div>
 </div>
 
 <style>
@@ -102,38 +107,37 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
   margin: 24px 0;
 }
 
-/* About page button. */
-.about-button {
+/* About page resume. */
+.about-resume {
+  display: flex;
+}
+.about-resume > * {
   align-items: center;
   background-color: var(--color-button);
-  border-radius: 4px;
-  color: var(--color-text);
-  cursor: pointer;
   display: flex;
-  font-family: inherit;
-  font-size: 18px;
-  height: fit-content;
   outline: 1px solid var(--color-button-border);
-  padding: 10px 16px;
-  text-align: center;
-  text-decoration: none;
   transition: background-color 0.2s, outline-color 0.2s;
 }
-.about-button:hover {
-  background-color: var(--color-blue);
-  outline-color: transparent;
-  text-decoration: none;
+.about-resume > *:first-child {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  padding: 8px 16px;
+  text-align: center;
 }
-.about-button:visited {
-  color: var(--color-text);
+.about-resume > *:last-child {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
-.about-button > * {
-  pointer-events: none;
+.about-resume > *:not(:first-child) {
+  cursor: pointer;
+  padding: 0 16px;
 }
-.about-button > img {
-  border-radius: 2px;
-  height: 20px;
-  margin-left: 10px;
+.about-resume > a {
+  min-height: 48px;
+  width: 64px;
+}
+.about-resume > a > img {
+  border-radius: 3px;
 }
 
 /* About page icons. */
@@ -163,6 +167,11 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
 }
 
 /* Responsiveness. */
+@media screen and (max-width: calc(440px - 1px)) {
+  .about-resume > *:first-child {
+    width: min-content;
+  }
+}
 @media screen and (max-width: 768px) {
   .about-title {
     font-size: 44px;
@@ -175,6 +184,11 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
 @media screen and (min-width: calc(768px + 1px)) {
   .about-body {
     text-align: center;
+  }
+  .about-resume > *:not(:first-child):hover {
+    background-color: var(--color-blue);
+    outline-color: transparent;
+    text-decoration: none;
   }
 }
 </style>
