@@ -69,14 +69,12 @@
     // Navigate viewer elements.
     const viewerPrevious = () => {
       // Update current index.
-      if (viewerIndex <= 0) { return; }
-      viewerIndex--;
+      viewerIndex = viewerIndex <= 0 ? viewerTotal - 1 : viewerIndex - 1;
       viewerUpdate();
     };
     const viewerNext = () => {
       // Update current index.
-      if (viewerIndex + 1 >= viewerTotal) { return; }
-      viewerIndex++;
+      viewerIndex = viewerIndex + 1 >= viewerTotal ? 0 : viewerIndex + 1;
       viewerUpdate();
     };
     const viewerUpdate = () => {
