@@ -2,9 +2,12 @@
 // Import Astro components.
 import HomeMobile from '@/components/mobile/Home.astro';
 
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 ---
 
 <!-- Home page. -->
@@ -28,17 +31,17 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
         <a id="home-youtube" target="_blank" rel="noopener noreferrer"
           href="https://youtube.com/@RenzoPigliacampo" />
       </div>
-      <p>{ language.SITE.AUTHOR }</p>
-      <p>{ language.SITE.OCCUPATION }</p>
+      <p>{ language.data.SITE.AUTHOR }</p>
+      <p>{ language.data.SITE.OCCUPATION }</p>
     </div>
     <!-- Home page sections. -->
     <div id="design" class="home-section">
-      <p>{ language.HOME.DESIGN.TITLE }</p>
-      <p>{ language.HOME.DESIGN.TEXT }</p>
+      <p>{ language.data.HOME.DESIGN.TITLE }</p>
+      <p>{ language.data.HOME.DESIGN.TEXT }</p>
     </div>
     <div id="coding" class="home-section">
-      <p>{ language.HOME.CODING.TITLE }</p>
-      <p>{ language.HOME.CODING.TEXT }</p>
+      <p>{ language.data.HOME.CODING.TITLE }</p>
+      <p>{ language.data.HOME.CODING.TEXT }</p>
     </div>
   </div>
 </div>

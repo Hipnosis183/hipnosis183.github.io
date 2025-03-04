@@ -1,7 +1,10 @@
 ---
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Define portfolio design variables.
 const api = 'https://backend.deviantart.com/rss.xml?q=gallery%3Ahipnosis183%2F67799208&offset=';
@@ -53,7 +56,7 @@ const entryDate = (v) => {
       { /* Design entry contents. */ }
       <p class="design-title">{ deviation.title }</p>
       <p class="design-date">
-        <span>{ language.PORTFOLIO.PUBLISHED } • </span>
+        <span>{ language.data.PORTFOLIO.PUBLISHED } • </span>
         <time>{ entryDate(deviation.date) }</time>
       </p>
       { /* Design entry image. */ }

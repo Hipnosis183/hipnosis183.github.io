@@ -1,7 +1,11 @@
 ---
+// Import Astro elements.
+import { getCollection, render } from 'astro:content';
+
 // Import markdown element.
-const mdx = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/posts/en/*.mdx') : await Astro.glob('@/assets/posts/es/*.mdx');
-const { Content, frontmatter } = mdx.filter((v) => v.frontmatter.code == Astro.params.slug)[0];
+const mdx = Astro.currentLocale == 'en' ? await getCollection('posts_en') : await getCollection('posts_es');
+const post = mdx.filter((v) => v.data.code == Astro.params.slug)[0];
+const { Content } = await render(post);
 
 // Manage post date formatting.
 const postDate = (v) => {
@@ -20,12 +24,12 @@ const postDate = (v) => {
   <!-- Post header. -->
   <div class="post-header">
     <!-- Post image. -->
-    <div class="post-image" style={{ backgroundImage: `url('${frontmatter.thumb}')`, backgroundPosition: frontmatter.position || 'center' }} />
+    <div class="post-image" style={{ backgroundImage: `url('${post.data.thumb}')`, backgroundPosition: post.data.position || 'center' }} />
     <!-- Post title. -->
     <div class="post-title">
-      <h1>{ frontmatter.title }</h1>
+      <h1>{ post.data.title }</h1>
       <p>
-        <time>{ postDate(frontmatter.date) }</time>
+        <time>{ postDate(post.data.date) }</time>
         <span>{ ' • Renzo Pigliacampo' }</span>
       </p>
     </div>

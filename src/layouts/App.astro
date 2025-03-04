@@ -1,6 +1,6 @@
 ---
 // Import Astro elements.
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 // Import Astro components.
 import HeaderComponent from '@/components/Header.astro';
@@ -42,7 +42,7 @@ const headProps = {
     <meta name="twitter:description" content={ headProps.description } />
     <meta name="twitter:image" content={ headProps.image } />
     <!-- Astro transitions. -->
-    <ViewTransitions />
+    <ClientRouter />
 	</head>
 	<body>
     <script>

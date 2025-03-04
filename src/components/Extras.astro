@@ -1,21 +1,22 @@
 ---
 // Import Astro elements.
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { getCollection } from 'astro:content';
 
 // Define current locale.
 const locale = getAbsoluteLocaleUrl(Astro.currentLocale);
 
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage extras ordering and grouping.
 const extras = [];
-const extrasList = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/extras/en/*.mdx') : await Astro.glob('@/assets/extras/es/*.mdx');
+const extrasList = Astro.currentLocale == 'en' ? await getCollection('extras_en') : await getCollection('extras_es');
 for (let extra of extrasList) {
-  const i = extras.findIndex((v) => v.type == extra.frontmatter.type);
+  const i = extras.findIndex((v) => v.type == extra.data.type);
   if (i >= 0) { extras[i].extras.push(extra); }
-  else { extras.push({ type: extra.frontmatter.type, extras: [extra] }); }
+  else { extras.push({ type: extra.data.type, extras: [extra] }); }
 }
 ---
 
@@ -25,25 +26,25 @@ for (let extra of extrasList) {
     <div>
       { /* Extras group header. */ }
       <div class="extras-header">
-        <p>{ $extras.type == 'key' ? language.EXTRAS.KEYGENS : language.EXTRAS.PATCHES }</p>
-        <p>{ $extras.extras.length + ' ' + ($extras.extras.length == 1 ? language.EXTRAS.ELEMENT : language.EXTRAS.ELEMENTS) }</p>
+        <p>{ $extras.type == 'key' ? language.data.EXTRAS.KEYGENS : language.data.EXTRAS.PATCHES }</p>
+        <p>{ $extras.extras.length + ' ' + ($extras.extras.length == 1 ? language.data.EXTRAS.ELEMENT : language.data.EXTRAS.ELEMENTS) }</p>
       </div>
       { /* Extras group contents. */ }
       <div class="extras-body">
         { $extras.extras.map((extra) => (
           <li>
-            <a href={ `${locale}extras/${extra.frontmatter.code}/` }>
+            <a href={ `${locale}extras/${extra.data.code}/` }>
               { /* Extra image. */ }
               <div class="extras-image">
-                <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${extra.frontmatter.thumb}')`, backgroundPosition: extra.frontmatter.position || 'center' }} />
+                <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${extra.data.thumb}')`, backgroundPosition: extra.data.position || 'center' }} />
               </div>
               { /* Extra title. */ }
               <div class="extras-title">
-                <h1>{ extra.frontmatter.title }</h1>
+                <h1>{ extra.data.title }</h1>
                 <span class="extras-name">
-                  <code>{ extra.frontmatter.name }</code>
+                  <code>{ extra.data.name }</code>
                 </span>
-                <p>{ extra.frontmatter.description }</p>
+                <p>{ extra.data.description }</p>
               </div>
             </a>
           </li>

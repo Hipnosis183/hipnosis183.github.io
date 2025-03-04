@@ -3,15 +3,16 @@
 import Footer from '@/components/mobile/Footer.astro';
 
 // Import Astro elements.
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { getCollection } from 'astro:content';
 
 // Define locales.
 const locale = getAbsoluteLocaleUrl(Astro.currentLocale);
 const $locale = Astro.url.pathname.slice(0, 4) == '/es/' ? Astro.url.pathname.slice(3) : '/es' + Astro.url.pathname;
 
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 ---
 
 <!-- Header bar. -->
@@ -23,7 +24,7 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
   <!-- Header title. -->
   <a class="header-title" href={ locale }>
     <img src="/images/icons/nav-hipnosis.svg" />
-    <p>{ language.SITE.NAME }</p>
+    <p>{ language.data.SITE.NAME }</p>
   </a>
 </header>
 <!-- Header overlay. -->
@@ -34,19 +35,19 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
   <nav class="header-buttons">
     <a href={ locale + 'blog/' }>
       <span id="header-posts" />
-      <p>{ language.HEADER.POSTS }</p>
+      <p>{ language.data.HEADER.POSTS }</p>
     </a>
     <a href={ locale + 'portfolio/' }>
       <span id="header-portfolio" />
-      <p>{ language.HEADER.PORTFOLIO }</p>
+      <p>{ language.data.HEADER.PORTFOLIO }</p>
     </a>
     <a href={ locale + 'extras/' }>
       <span id="header-extras" />
-      <p>{ language.HEADER.EXTRAS }</p>
+      <p>{ language.data.HEADER.EXTRAS }</p>
     </a>
     <a href={ locale + 'about/' }>
       <span id="header-about" />
-      <p>{ language.HEADER.ABOUT }</p>
+      <p>{ language.data.HEADER.ABOUT }</p>
     </a>
   </nav>
   <div>

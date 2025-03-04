@@ -3,27 +3,30 @@
 import Input from '@/components/ui/Input.astro';
 import Select from '@/components/ui/Select.astro';
 
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 ---
 
 <!-- Keygen container. -->
 <div class="keygen-container keygen-tom">
   <!-- Keygen data input. -->
   <div class="keygen-data">
-    <Input id="keygen-name" placeholder={ language.EXTRA.NAME } width="300px" />
+    <Input id="keygen-name" placeholder={ language.data.EXTRA.NAME } width="300px" />
     <br />
-    <Select placeholder={ language.EXTRA.SELECT } width="300px">
+    <Select placeholder={ language.data.EXTRA.SELECT } width="300px">
       <div onclick="gameSelected = 1">Nicolausi</div>
       <div onclick="gameSelected = 2">PC-Bakterien</div>
     </Select>
   </div>
   <!-- Keygen output results. -->
   <div class="keygen-results">
-    <button id="keygen-button">{ language.EXTRA.GENERATE }</button>
+    <button id="keygen-button">{ language.data.EXTRA.GENERATE }</button>
     <br />
-    <Input id="keygen-output" disabled placeholder={ language.EXTRA.KEY } />
+    <Input id="keygen-output" disabled placeholder={ language.data.EXTRA.KEY } />
   </div>
 </div>
 

@@ -1,21 +1,22 @@
 ---
 // Import Astro elements.
-import { getAbsoluteLocaleUrl } from "astro:i18n";
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { getCollection } from 'astro:content';
 
 // Define current locale.
 const locale = getAbsoluteLocaleUrl(Astro.currentLocale);
 
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage posts ordering and grouping.
 const posts = [];
-const postsList = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/posts/en/*.mdx') : await Astro.glob('@/assets/posts/es/*.mdx');
-for (let post of postsList.sort((a, b) => { return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf() })) {
-  const i = posts.findIndex((v) => v.year == new Date(post.frontmatter.date).getFullYear());
+const postsList = Astro.currentLocale == 'en' ? await getCollection('posts_en') : await getCollection('posts_es');
+for (let post of postsList.sort((a, b) => { return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf() })) {
+  const i = posts.findIndex((v) => v.year == new Date(post.data.date).getFullYear());
   if (i >= 0) { posts[i].posts.push(post); }
-  else { posts.push({ year: new Date(post.frontmatter.date).getFullYear(), posts: [post] }); }
+  else { posts.push({ year: new Date(post.data.date).getFullYear(), posts: [post] }); }
 }
 ---
 
@@ -26,20 +27,20 @@ for (let post of postsList.sort((a, b) => { return new Date(b.frontmatter.date).
       { /* Blog posts group header. */ }
       <div class="blog-header">
         <p>{ $posts.year }</p>
-        <p>{ $posts.posts.length + ' ' + ($posts.posts.length == 1 ? language.BLOG.POST : language.BLOG.POSTS) }</p>
+        <p>{ $posts.posts.length + ' ' + ($posts.posts.length == 1 ? language.data.BLOG.POST : language.data.BLOG.POSTS) }</p>
       </div>
       { /* Blog posts group contents. */ }
       { $posts.posts.map((post) => (
         <li class="blog-body">
-          <a href={ `${locale}blog/${post.frontmatter.code}/` }>
+          <a href={ `${locale}blog/${post.data.code}/` }>
             { /* Blog post image. */ }
             <div class="blog-image">
-              <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${post.frontmatter.thumb}')`, backgroundPosition: post.frontmatter.position || 'center' }} />
+              <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${post.data.thumb}')`, backgroundPosition: post.data.position || 'center' }} />
             </div>
             { /* Blog post title. */ }
             <div class="blog-title">
-              <h1>{ post.frontmatter.title }</h1>
-              <p>{ post.frontmatter.description }</p>
+              <h1>{ post.data.title }</h1>
+              <p>{ post.data.description }</p>
             </div>
           </a>
         </li>

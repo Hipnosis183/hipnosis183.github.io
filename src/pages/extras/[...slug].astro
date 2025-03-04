@@ -6,15 +6,18 @@ import ExtraComponent from '@/layouts/Extra.astro';
 // Import Astro components.
 import FooterComponent from '@/components/Footer.astro';
 
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Define elements subpages.
 export const getStaticPaths = async () => {
-  const elements = await Astro.glob('@/assets/extras/en/*.mdx');
-	return elements.map((element) => ({ params: { slug: element.frontmatter.code } }));
+  const elements = await getCollection('extras_en');
+	return elements.map((element) => ({ params: { slug: element.data.code } }));
 };
 
 // Get and set page title.
-const elements = await Astro.glob('@/assets/extras/en/*.mdx');
-const element = elements.filter((v) => v.frontmatter.code == Astro.params.slug)[0].frontmatter;
+const elements = await getCollection('extras_en');
+const element = elements.filter((v) => v.data.code == Astro.params.slug)[0].data;
 ---
 
 <AppComponent title={ element.title } description={ element.description } image={ element.thumb }>

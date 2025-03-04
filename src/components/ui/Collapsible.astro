@@ -1,15 +1,18 @@
 ---
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Define collapsible variables.
-const label = Astro.props.label ?? language.COLLAPSIBLE.SHOW;
+const label = Astro.props.label ?? language.data.COLLAPSIBLE.SHOW;
 ---
 
 <!-- Collapsible button. -->
 <div class:list={['collapsible-button', { 'visible': Astro.props.visible }]} style={ Astro.props.style }
-  data-hide={ language.COLLAPSIBLE.HIDE } data-show={ language.COLLAPSIBLE.SHOW } data-label={ Astro.props.label }>
+  data-hide={ language.data.COLLAPSIBLE.HIDE } data-show={ language.data.COLLAPSIBLE.SHOW } data-label={ Astro.props.label }>
   <label>{ label }</label>
   <!-- Collapsible contents. -->
   <div>

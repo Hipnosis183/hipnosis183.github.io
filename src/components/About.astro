@@ -1,7 +1,10 @@
 ---
+// Import Astro elements.
+import { getCollection } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 ---
 
 <!-- About page. -->
@@ -24,15 +27,15 @@ const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
       href="https://youtube.com/@RenzoPigliacampo" />
   </div>
   <!-- About page header. -->
-  <p class='about-title'>{ language.SITE.AUTHOR }</p>
-  <p class="about-subtitle">{ language.SITE.OCCUPATION }</p>
+  <p class='about-title'>{ language.data.SITE.AUTHOR }</p>
+  <p class="about-subtitle">{ language.data.SITE.OCCUPATION }</p>
   <!-- About page body. -->
   <div class="about-body">
-    <p set:html={ language.ABOUT.TEXT } />
+    <p set:html={ language.data.ABOUT.TEXT } />
   </div>
   <!-- About page resume. -->
   <div class="about-resume">
-    <p>{ language.ABOUT.RESUME } (2024/04/20)</p>
+    <p>{ language.data.ABOUT.RESUME } (2024/04/20)</p>
     <a target="_blank" rel="noopener noreferrer" href="/curriculum.pdf">
       <img src='/images/icons/flag-es.svg' />
     </a>

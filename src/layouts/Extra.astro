@@ -1,7 +1,11 @@
 ---
+// Import Astro elements.
+import { getCollection, render } from 'astro:content';
+
 // Import markdown element.
-const mdx = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/extras/en/*.mdx') : await Astro.glob('@/assets/extras/es/*.mdx');
-const { Content, frontmatter } = mdx.filter((v) => v.frontmatter.code == Astro.params.slug)[0];
+const mdx = Astro.currentLocale == 'en' ? await getCollection('extras_en') : await getCollection('extras_es');
+const extra = mdx.filter((v) => v.data.code == Astro.params.slug)[0];
+const { Content } = await render(extra);
 ---
 
 <!-- Extra page. -->
@@ -9,11 +13,11 @@ const { Content, frontmatter } = mdx.filter((v) => v.frontmatter.code == Astro.p
   <!-- Extra header. -->
   <div class="extra-header">
     <!-- Extra image. -->
-    <div class="extra-image" style={{ backgroundImage: `url('${frontmatter.thumb}')`, backgroundPosition: frontmatter.position || 'center' }} />
+    <div class="extra-image" style={{ backgroundImage: `url('${extra.data.thumb}')`, backgroundPosition: extra.data.position || 'center' }} />
     <!-- Extra title. -->
     <div class="extra-title">
-      <h1>{ frontmatter.title }</h1>
-      <p>{ frontmatter.description }</p>
+      <h1>{ extra.data.title }</h1>
+      <p>{ extra.data.description }</p>
     </div>
   </div>
   <!-- Extra body. -->

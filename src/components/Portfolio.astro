@@ -4,17 +4,21 @@ import Design from '@/components/portfolio/Design.astro';
 import ImageViewer from '@/components/portfolio/ImageViewer.astro';
 import PortfolioMobile from '@/components/mobile/Portfolio.astro';
 
+// Import Astro elements.
+import { getCollection, render } from 'astro:content';
+
 // Import language files.
-const languages = await Astro.glob('@/assets/i18n/*.json');
-const language = languages.filter((v) => v.LANG == Astro.currentLocale)[0];
+const languages = await getCollection('i18n');
+const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage portfolio entries ordering and grouping.
 const entries = [];
-const entriesList = Astro.currentLocale == 'en' ? await Astro.glob('@/assets/portfolio/en/*.mdx') : await Astro.glob('@/assets/portfolio/es/*.mdx');
-for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf() })) {
-  const i = entries.findIndex((v) => v.type == entry.frontmatter.type);
-  if (i >= 0) { entries[i].entries.push(entry); }
-  else { entries.push({ type: entry.frontmatter.type, entries: [entry] }); }
+const entriesList = Astro.currentLocale == 'en' ? await getCollection('portfolio_en') : await getCollection('portfolio_es');
+for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf() })) {
+  const { Content } = await render(entry);
+  const i = entries.findIndex((v) => v.type == entry.data.type);
+  if (i >= 0) { entries[i].entries.push({ ...entry, Content }); }
+  else { entries.push({ type: entry.data.type, entries: [{ ...entry, Content }] }); }
 }
 ---
 
@@ -23,15 +27,15 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.dat
   <!-- Portfolio categories. -->
   <div class="portfolio-categories">
     <div id="web">
-      <span>{ language.PORTFOLIO.WEB }</span>
+      <span>{ language.data.PORTFOLIO.WEB }</span>
       <div />
     </div>
     <div id="other">
-      <span>{ language.PORTFOLIO.OTHER }</span>
+      <span>{ language.data.PORTFOLIO.OTHER }</span>
       <div />
     </div>
     <div id="design">
-      <span>{ language.PORTFOLIO.DESIGN }</span>
+      <span>{ language.data.PORTFOLIO.DESIGN }</span>
       <div />
     </div>
   </div>
@@ -41,19 +45,19 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.dat
       { /* Portfolio entries list. */ }
       <div class="portfolio-list">
         { $entries.entries.map((entry) => (
-          <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-lite' : ''}.svg` } class="dark" />
-          <img id={ entry.frontmatter.code } src={ `/images/portfolio/${entry.frontmatter.code}/logo${entry.frontmatter.theme ? '-dark' : ''}.svg` } class="light" />
+          <img id={ entry.data.code } src={ `/images/portfolio/${entry.data.code}/logo${entry.data.theme ? '-lite' : ''}.svg` } class="dark" />
+          <img id={ entry.data.code } src={ `/images/portfolio/${entry.data.code}/logo${entry.data.theme ? '-dark' : ''}.svg` } class="light" />
         )) }
       </div>
       { $entries.entries.map((entry) => (
         <div style="display:contents;">
           { /* Portfolio entries contents. */ }
-          <div id={ entry.frontmatter.code } class="portfolio-contents">
+          <div id={ entry.data.code } class="portfolio-contents">
             { /* Portfolio entry header. */ }
             <div class="portfolio-header">
-              <div class="portfolio-name">{ entry.frontmatter.title }</div>
+              <div class="portfolio-name">{ entry.data.title }</div>
               <span class="portfolio-tags">
-                { entry.frontmatter.tags.map((tag) => (
+                { entry.data.tags.map((tag) => (
                   <code>{ tag }</code>
                 )) }
               </span>
@@ -64,32 +68,32 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.frontmatter.dat
             </div>
           </div>
           { /* Portfolio entries sidebar. */ }
-          <div id={ entry.frontmatter.code } class="portfolio-sidebar">
+          <div id={ entry.data.code } class="portfolio-sidebar">
             { /* Portfolio entry link. */ }
             <div class="portfolio-link">
-              { entry.frontmatter.development && <span>
-                <p>{ language.PORTFOLIO.DEVELOPMENT }</p>
+              { entry.data.development && <span>
+                <p>{ language.data.PORTFOLIO.DEVELOPMENT }</p>
               </span> }
-              { entry.frontmatter.link && <a target="_blank" rel="noopener noreferrer" href={ entry.frontmatter.link }>
-                <p>{ language.PORTFOLIO.GITHUB }</p>
+              { entry.data.link && <a target="_blank" rel="noopener noreferrer" href={ entry.data.link }>
+                <p>{ language.data.PORTFOLIO.GITHUB }</p>
                 <div class="portfolio-github" />
               </a> }
             </div>
             { /* Portfolio entry images. */ }
-            { entry.frontmatter.images > 0 &&
+            { entry.data.images > 0 &&
               <div class="portfolio-images">
-                { [...Array(entry.frontmatter.images)].map((v, i) =>
+                { [...Array(entry.data.images)].map((v, i) =>
                   <div>
-                    <img src={ `/images/portfolio/${entry.frontmatter.code}/${i}-thumb.png` }
-                      data-id={ entry.frontmatter.code } data-index={ i } data-image={ `/images/portfolio/${entry.frontmatter.code}/${i}.png` } />
+                    <img src={ `/images/portfolio/${entry.data.code}/${i}-thumb.png` }
+                      data-id={ entry.data.code } data-index={ i } data-image={ `/images/portfolio/${entry.data.code}/${i}.png` } />
                   </div>
                 )}
               </div>
             }
-            { entry.frontmatter.images == 0 &&
+            { entry.data.images == 0 &&
               <div class="portfolio-noimages">
                 <span />
-                <p>{ language.PORTFOLIO.NOIMAGES }</p>
+                <p>{ language.data.PORTFOLIO.NOIMAGES }</p>
               </div>
             }
           </div>
