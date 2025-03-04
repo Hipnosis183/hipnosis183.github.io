@@ -76,6 +76,44 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
         });
       });
     });
+
+    // Manage swipe gesture for opening the menu.
+    const swipeThreshold = 50;
+    let swipeTimeout = false;
+    let eventStart = null;
+
+    document.addEventListener('touchstart', (e) => {
+      eventStart = e;
+      // Trigger on fast gestures only.
+      swipeTimeout = false;
+      setTimeout(() => { swipeTimeout = true; }, 200);
+    });
+
+    document.addEventListener('touchend', (eventEnd) => {
+      if (swipeTimeout || (!eventStart.changedTouches || !eventEnd.changedTouches)) { return; }
+
+      // Get event coordinates.
+      const touchStart = eventStart.changedTouches[0];
+      const touchEnd = eventEnd.changedTouches[0];
+      if (!touchStart || !touchEnd) { return; }
+      const scrollDiffX = touchStart.screenX - touchEnd.screenX;
+      const scrollDiffY = touchStart.screenY - touchEnd.screenY;
+
+      // Vertical swipe, do nothing.
+      if (scrollDiffY >= swipeThreshold || scrollDiffY <= -swipeThreshold) { return; }
+      // Horizontal right swipe, open menu.
+      if (scrollDiffX <= -swipeThreshold) {
+        document.querySelectorAll('.header-menu, .header-overlay, .header-panel').forEach((v) => {
+          v.classList.add('open');
+        });
+      }
+      // Horizontal left swipe, close menu.
+      if (scrollDiffX >= swipeThreshold) {
+        document.querySelectorAll('.header-menu, .header-overlay, .header-panel').forEach((v) => {
+          v.classList.remove('open');
+        });
+      }
+    });
   })();
 </script>
 

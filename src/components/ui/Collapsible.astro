@@ -29,6 +29,12 @@ const label = Astro.props.label ?? language.data.COLLAPSIBLE.SHOW;
     document.querySelectorAll('.collapsible-button').forEach((v) => {
       // Get the contents height for its hidden state.
       v.children[1].children[0].style.marginTop = `-${v.children[1].clientHeight}px`;
+      // Prevent swipe gesture if the container is scrollable.
+      v.children[1].children[0].children[0].addEventListener('touchend', (e) => {
+        if (v.children[1].children[0].children[0].scrollWidth > v.children[1].children[0].children[0].offsetWidth) {
+          e.stopImmediatePropagation();
+        }
+      });
       // Set transition after initial rendering.
       setTimeout(() => { v.children[1].children[0].style.transition = 'all 0.5s ease-in-out'; }, 500);
       v.children[0].addEventListener('click', (e) => {
