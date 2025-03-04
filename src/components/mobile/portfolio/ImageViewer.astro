@@ -90,6 +90,38 @@
     // Open external image links.
     const viewerLink = () => { window.open(viewerImage, '_blank'); };
     document.querySelector('.p-mobile .viewer-link').addEventListener('click', () => { viewerLink(); });
+
+    // Manage swipe gesture for navigating images.
+    const swipeThreshold = 50;
+    let swipeTimeout = false;
+    let eventStart = null;
+
+    document.querySelector('.p-mobile .viewer-container').addEventListener('touchstart', (e) => {
+      eventStart = e;
+      // Trigger on fast gestures only.
+      swipeTimeout = false;
+      setTimeout(() => { swipeTimeout = true; }, 200);
+    });
+
+    document.querySelector('.p-mobile .viewer-container').addEventListener('touchend', (eventEnd) => {
+      if (swipeTimeout || (!eventStart.changedTouches || !eventEnd.changedTouches)) { return; }
+      // Prevent swipe gesture if the image viewer is closed.
+      if (!document.querySelector('.p-mobile .viewer-container').classList.contains('open')) { return; }
+
+      // Get event coordinates.
+      const touchStart = eventStart.changedTouches[0];
+      const touchEnd = eventEnd.changedTouches[0];
+      if (!touchStart || !touchEnd) { return; }
+      const scrollDiffX = touchStart.screenX - touchEnd.screenX;
+      const scrollDiffY = touchStart.screenY - touchEnd.screenY;
+
+      // Vertical swipe, close image viewer.
+      if (scrollDiffY >= swipeThreshold || scrollDiffY <= -swipeThreshold) { viewerClose(); }
+      // Horizontal right swipe, previous image.
+      if (scrollDiffX <= -swipeThreshold) { viewerPrevious(); }
+      // Horizontal left swipe, next image.
+      if (scrollDiffX >= swipeThreshold) { viewerNext(); }
+    });
   })();
 </script>
 

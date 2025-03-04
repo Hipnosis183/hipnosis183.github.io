@@ -91,6 +91,8 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
     document.addEventListener('touchend', (eventEnd) => {
       if (swipeTimeout || (!eventStart.changedTouches || !eventEnd.changedTouches)) { return; }
+      // Prevent swipe gesture if the image viewer is open.
+      if (document.querySelector('.p-mobile .viewer-container')?.classList?.contains('open')) { return; }
 
       // Get event coordinates.
       const touchStart = eventStart.changedTouches[0];
