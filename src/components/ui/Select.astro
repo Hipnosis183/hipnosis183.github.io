@@ -21,24 +21,20 @@ const width = Astro.props.width ?? '100%';
 
 <script>
   // @ts-nocheck
-  const loadSelect = () => {
-    // Switch collapsible state button.
-    document.querySelectorAll('.select-container').forEach((v) => {
-      v.addEventListener('click', (e) => {
-        // Update elements visibility.
-        e.currentTarget.classList.toggle('active');
-      });
+  // Switch collapsible state button.
+  document.querySelectorAll('.select-container').forEach((v) => {
+    v.addEventListener('click', (e) => {
+      // Update elements visibility.
+      e.currentTarget.classList.toggle('active');
     });
-    // Update select value from options.
-    document.querySelectorAll('.select-options > div > div').forEach((v) => {
-      v.addEventListener('click', (e) => {
-        // Hey, it works, okay?
-        e.target.parentElement.parentElement.parentElement.children[0].children[0].value = e.target.innerText;
-      });
+  });
+  // Update select value from options.
+  document.querySelectorAll('.select-options > div > div').forEach((v) => {
+    v.addEventListener('click', (e) => {
+      // Hey, it works, okay?
+      e.target.parentElement.parentElement.parentElement.children[0].children[0].value = e.target.innerText;
     });
-  }; loadSelect();
-  // Reload script after an Astro transition.
-  document.addEventListener('astro:after-swap', loadSelect);
+  });
 </script>
 
 <style define:vars={{ 'select-width': width }}>

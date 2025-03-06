@@ -24,31 +24,30 @@ const label = Astro.props.label ?? language.data.COLLAPSIBLE.SHOW;
 
 <script>
   // @ts-nocheck
-  const loadCollapsible = () => {
-    // Switch collapsible state button.
-    document.querySelectorAll('.collapsible-button').forEach((v) => {
-      // Get the contents height for its hidden state.
-      v.children[1].children[0].style.marginTop = `-${v.children[1].clientHeight}px`;
-      // Prevent swipe gesture if the container is scrollable.
-      v.children[1].children[0].children[0].addEventListener('touchend', (e) => {
-        if (v.children[1].children[0].children[0].scrollWidth > v.children[1].children[0].children[0].offsetWidth) {
-          e.stopImmediatePropagation();
-        }
-      });
-      // Set transition after initial rendering.
-      setTimeout(() => { v.children[1].children[0].style.transition = 'all 0.5s ease-in-out'; }, 500);
-      v.children[0].addEventListener('click', (e) => {
-        // Update elements visibility.
-        e.target.parentElement.classList.toggle('active');
-        // Update label text.
-        if (!e.target.parentElement.dataset.label) {
-          e.currentTarget.innerText = e.target.parentElement.classList.contains('active') ? e.target.parentElement.dataset.hide : e.target.parentElement.dataset.show;
-        }
-      });
+  // Switch collapsible state button.
+  document.querySelectorAll('.collapsible-button').forEach((v) => {
+    v.children[1].children[0].style.transition = 'none';
+    v.children[1].children[0].style.marginTop = '0px';
+    // Get the contents height for its hidden state.
+    v.children[1].children[0].style.marginTop = `-${v.children[1].clientHeight}px`;
+    // Set transition after initial rendering.
+    setTimeout(() => { v.children[1].children[0].style.transition = 'all 0.5s ease-in-out'; }, 500);
+    // Assign click event to collapsible button.
+    v.children[0].addEventListener('click', (e) => {
+      // Update elements visibility.
+      e.target.parentElement.classList.toggle('active');
+      // Update label text.
+      if (!e.target.parentElement.dataset.label) {
+        e.currentTarget.innerText = e.target.parentElement.classList.contains('active') ? e.target.parentElement.dataset.hide : e.target.parentElement.dataset.show;
+      }
     });
-  }; loadCollapsible();
-  // Reload script after an Astro transition.
-  document.addEventListener('astro:after-swap', loadCollapsible);
+    // Prevent swipe gesture if the container is scrollable.
+    v.children[1].children[0].children[0].addEventListener('touchend', (e) => {
+      if (v.children[1].children[0].children[0].scrollWidth > v.children[1].children[0].children[0].offsetWidth) {
+        e.stopImmediatePropagation();
+      }
+    });
+  });
   // Recalculate contents height on resize.
   window.addEventListener('resize', () => {
     document.querySelectorAll('.collapsible-button').forEach((v) => {
