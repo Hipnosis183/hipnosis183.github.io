@@ -17,6 +17,11 @@ const postDate = (v) => {
     return `${new Date(v).getUTCDate()} de ${month}, ${new Date(v).getUTCFullYear()}`;
   }
 };
+
+// Manage post reading time formatting.
+const postReadtime = (v) => {
+  return Astro.currentLocale == 'en' ? ` • ${v} min. read` : ` • ${v} min. de lectura`;
+};
 ---
 
 <!-- Post page. -->
@@ -28,9 +33,10 @@ const postDate = (v) => {
     <!-- Post title. -->
     <div class="post-title">
       <h1>{ post.data.title }</h1>
+      <p>{ post.data.description }</p>
       <p>
         <time>{ postDate(post.data.date) }</time>
-        <span>{ ' • Renzo Pigliacampo' }</span>
+        <span>{ postReadtime(post.data.readtime) }</span>
       </p>
     </div>
   </div>
@@ -55,7 +61,7 @@ const postDate = (v) => {
   border-radius: 8px 8px 0 0;
   display: flex;
   margin-bottom: 20px;
-  min-height: 190px;
+  min-height: 200px;
   place-content: center;
   position: relative;
 }
@@ -80,7 +86,7 @@ const postDate = (v) => {
 /* Post title. */
 .post-title {
   margin-bottom: 0;
-  padding: 20px;
+  padding: 0 20px;
   position: relative;
   text-align: center;
 }
@@ -88,11 +94,13 @@ const postDate = (v) => {
   font-size: 42px;
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 .post-title > p {
-  color: var(--color-grey);
   font-size: 16px;
+}
+.post-title > p:last-child {
+  color: var(--color-grey);
 }
 
 /* Post body. */
@@ -146,8 +154,7 @@ const postDate = (v) => {
     padding: 16px;
   }
   .post-title > h1 {
-    font-size: 28px;
-    margin-bottom: 14px;
+    font-size: 25px;
   }
   .post-title > p {
     font-size: 14px;
