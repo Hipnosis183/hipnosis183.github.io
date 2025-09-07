@@ -1,6 +1,5 @@
 .token.comment {
   color: rgb(110, 120, 140);
-  font-style: italic;
 }
 
 .token.boolean,
@@ -41,7 +40,7 @@
 .dark .token.interpolation-punctuation,
 .dark .token.keyword,
 .dark .token.operator {
-  color: rgb(255, 60, 60);
+  color: rgb(240, 80, 80);
 }
 
 .token.attr-name,
