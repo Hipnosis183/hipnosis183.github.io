@@ -1,0 +1,1176 @@
+---
+language: es
+date: 2025-09-12
+code: reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade
+title: Reviviendo un clásico videojuego en línea coreano - TwinHexa Arcade
+description: Bueno... tal vez no sea un clásico, pero es ciertamente interesante.
+thumb: /images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/thumb.jpg
+readtime: 33
+---
+import Collapsible from '@/components/ui/Collapsible.astro';
+
+# Introducción
+Hace rato ya que hablé sobre videojuegos en línea, y desde entonces estuve un poco obsesionado con su lado histórico, dedicando incontable cantidad de horas y fines de semana enteros investigando sobre el tema. Sin embargo, fue una rama en específico la que me llamó más la atención: **videojuegos en línea coreanos**.
+
+Tal vez conozcas a Corea del Sur más que nada por sus MMORPGs, con algunos títulos masivos (jej) bajo la manga, tales como **Lineage** y **Maple Story**, pero quiero hablar sobre la otra parte menos conocida de la historia: los videojuegos en línea **no MMORPG**.
+
+En esta ocasión traigo otro juego de tipo rompecabezas, y si bien la última vez ya dejé en claro que generalmente me importan un carajo este tipo de juegos, hay un trasfondo bastante interesante e históricamente relevante para contar.
+
+<br />
+
+# Antecedentes
+Como mencioné anteriormente, Corea del Sur es un país pionero de los videojuegos en línea, no solo por consumirlos, sino también por desarrollarlos. Uno de esos desarrolladores es **CCR**, una compañía fundada en 1995, conocida principalmente por la legendaria serie **Fortress** y, su emblemático MMORPG, **RF Online**.
+
+Ahora, seguramente muchos ni escucharon sobre **Fortress 2**, pero supo ser el juego en línea más popular en Corea del Sur alrededor de 2000-2001, incluso rompiendo récords de usuarios totales y jugadores activos durante su pico de popularidad. No solo eso, sino que también es uno de los videojuegos coreanos más longevos de la historia, sobreviviendo cerca de 21 años en servicio. De más está decir que es un título muy importante en el contexto histórico de los videojuegos en línea.
+
+En los años siguientes, **CCR** perdería relevancia y se convertiría en una sombra de lo que alguna vez fue, con varios intentos fallidos de mantener viva la franquicia **Fortress**, y a la vez haciendo nada para crecer como compañía. Sin embargo, mirando a través de su catálogo, definitivamente dejaron algunos títulos interesantes, uno de ellos siendo **TwinHexa Arcade**, lanzado en el año 2000 para el servicio **X2Game**, la plataforma de distribución en línea de **CCR**, más o menos al mismo tiempo que **Fortress 2**.
+
+**TwinHexa Arcade** es un juego de tipo rompecabezas en línea, similar a **Columns** para ser más específicos, o mejor aún, similar a **Hexa**, siendo en sí una copia de la copia, teniendo sus raíces en un juego llamado **Hexa**, lanzado por **D.R. Korea** en 1990 para arcades. Recordemos que por aquel entonces, Corea era comparable a China cuando hablamos de infringir derechos de autor.
+
+Pero antes de **TwinHexa Arcade** vino el **TwinHexa** original, lanzado en 1997 y publicado por **NETSGO** en lugar de **CCR**, el desarrollador del juego. De hecho, hubo una disputa legal entre ambos dos sobre los derechos de distribución del **Fortress** original, pero esa es una historia para otra ocasión.
+
+**TwinHexa Arcade** es también uno de los primeros títulos lanzados por **CCR** con un equipo de desarrollo como la gente, **MARS**, ofreciendo música y gráficos originales y de alta calidad, comparado con desarrollos anteriores. Si bien este juego no estuvo ni cerca a la popularidad de **Fortress 2**, se mantuvo bastante bien por su cuenta, generando incluso varios grupos y foros de jugadores dedicados.
+
+Ahora, después de toda esa pared de información tal vez te preguntarás: ¿por qué elegir **TwinHexa** sobre **Fortress**? Y de hecho la respuesta es exactamente la misma que tuve para [**Jewelry Master**](/es/blog/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/): es un juego más sencillo con funcionalidad reducida. O al menos eso pensé, ya como verás a continuación, este proyecto terminó siendo mucho más complejo de lo que había anticipado inicialmente, prácticamente en todos los aspectos.
+
+Antes de continuar, un pequeño aviso: en realidad comencé este proyecto por allá en 2023, trabajándolo solo por un par de días hasta que resumí el desarrollo hace unos meses, así que hay un hueco de dos años en el medio. Consecuentemente, si bien intenté escribir algo coherente, es posible que me haya perdido algún que otro detalle, así que me disculpo por adelantado si algo no 'conecta' correctamente o tiene sentido del todo. Dicho esto, arranquemos.
+
+<br />
+
+# Vistazo inicial
+Después de la instalación, podemos explorar los archivos y encontrar lo que parece ser el ejecutable del juego, `TH_Arc.exe`. Tras ejecutarlo aparece una ventana, y después... no pasa nada, como era de esperar:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/00.png" />
+
+Se queda trabado acá, aparentemente tratando de conectarse a algún lado.
+
+<br />
+
+En caso de que tu coreano este un poco oxidado, te comento que el título de la ventana menciona que es un programa actualizador, y no el juego en sí. En cambio, este programa se encarga de comprobar si hay actualizaciones al inicio y, una vez terminado, ejecutar el que sería el proceso real del juego. Si continuamos indagando los demás archivos podemos encontrar el llamado `tha.dat`, que si analizamos su contenido:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/01.png" class="border-image" />
+
+El clásico ejecutable escondido.
+
+<br />
+
+Si renombramos este archivo a `tha.exe` y lo ejecutamos aparece la siguiente ventana, la cual podemos asumir que es el lanzador del juego:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/02.png" />
+
+<br />
+
+Lo que podemos ver acá es el listado de servidores, y por supuesto, ninguno de ellos está disponible. Entonces, ¿de dónde proviene esta lista? Primero busqué en el registro, ya que la llave `HKLM\SOFTWARE\CCR\MARSTEAM\TwinHexaArcade` se crea durante la instalación, junto a las variables `Server` y `MainServer`, que apuntan a `http://twinhexa.x2game.com/`. Sin embargo, después de investigarlo un poco más, me di cuenta que estos valores son leídos solo por el programa actualizador, y no por el ejecutable del juego, por lo que podemos descartar esta posibilidad. Después de eso decidí que es momento de de empezar a descompilar y depurar el ejecutable, y eventualmente, encontré que el listado de servidores se carga desde el archivo `twinhexa00.dat`, con un formato y método de encriptación bastante sencillos:
+
+<br />
+
+- Formato: `URL` (IP o dominio) + `\r\n` + `Nombre`
+- Encriptación: todos los bytes son invertidos en orden y valor (0xFF - 0xYY)
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/03.png" class="border-image" />
+
+Lista de servidores codificada original (arriba), y el resultado descodificado (abajo).
+
+<br />
+
+Con esta información, podemos crear nuestra propia lista de servidores y apuntar a un servidor local. Añadiendo un nuevo registro con la dirección `127.0.0.1` y creando un servidor en `localhost` puerto `61400`, podemos continuar y ver que pasa:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/04.png" />
+
+Éxito.
+
+<br />
+
+Al presionar el primer botón para iniciar el juego... *de nuevo*, no pasa nada; se queda trabado esperando por una respuesta del servidor que nunca va a llegar, así que es momento de comenzar a ver eso.
+
+<br />
+
+# Entendiendo la conexión
+Esta vez estamos trabajando con un juego que usa una conexión por sockets **TCP** pura con un **protocolo propio** por encima, en lugar de simplemente usar **HTTP**. Solo eso ya lo hace mucho más complejo, ya que ahora también tenemos que descubrir e implementar como funciona este protocolo personalizado, el cual vamos a examinar en detalle a continuación.
+
+Además del servidor en el puerto `61400` mencionado anteriormente, que cumple la función de comprobar la conexión inicial, también tenemos el servidor principal del juego corriendo en el puerto `2000`, por lo que tenemos que crear ambos dos. El primero no necesita ninguna lógica, solo existir, pero el segundo es el importante, ya que es donde va a ir toda la lógica principal del servidor:
+
+<br />
+
+<Collapsible>
+
+```javascript
+import net from 'net';
+import { serverConnection } from './server/connection.js';
+
+(() => {
+  // Inicializar conexiones.
+  net.createServer().listen(61400);
+  net.createServer().on('connection', serverConnection).listen(2000);
+})();
+```
+
+</Collapsible>
+
+Este código corresponde a la implementación de **Node.js**; detalles sobre esto más adelante.\
+`serverConnection` controla las conexiones y la lógica del servidor principal.
+
+<br />
+
+Podés ver el código del servidor en [GitHub](https://github.com/Hipnosis183/THA-Server) si querés seguirlo mejor durante el resto del artículo.
+
+<br />
+
+Generalmente, el mejor punto de partida es comenzar a capturar el tráfico de red del juego y ver que es lo que el cliente le manda al servidor. Sin embargo, en este caso no es posible, dado que el cliente espera una respuesta inmediatamente después de la conexión inicial, como si fuera un paquete de confirmación además de realizar la conexión correctamente. Por lo tanto, la única opción que queda es analizar el código, lo que, si bien no es necesariamente más difícil, seguro lleva mucho más tiempo. Para ahorrarnos un poco de éste, vayamos directo al grano y veamos como es la estructura final de los paquetes:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/05.png" class="border-image" />
+
+La estructura del protocolo (arriba) y la lista de comandos completa (abajo).
+
+<br />
+
+No te preocupés por los comandos todavía, ya los vamos a ver en detalle más adelante, por ahora concentrémonos en el protocolo.
+
+Primero, esta estructura se divide a través de dos paquetes secuenciales en lugar de solo uno. El primero incluye los **números mágicos** y la **longitud del paquete**, mientras que el segundo contiene todo lo demás, es decir, los **comandos** y los propios **datos**. Por último y no menos importante está la **suma de verificación**, la cual es de hecho inútil ya que no importa su valor, solo que estén presentes esos dos bytes al final.
+
+A su vez, los comandos se dividen en dos grupos, un **comando principal** (`Command 1`) y un **subcomando** (`Command 2`), donde se ejecutará una acción diferente dependiendo de la combinación de ambos. El primero agrupa estas acciones por funcionalidad, mientras que el segundo define la acción en específico a ejecutar.
+
+Es importante remarcar lo estricta que es esta estructura de dos paquetes, ya que el cliente llama la función `recv` de **Winsock** dos veces dentro del bucle que recibe los datos del socket. Esto quiere decir que recién una vez recibido y verificado el primer paquete se leerá el contenido del segundo. Esto genera posibles problemas de sincronización donde, si enviamos ambos paquetes juntos, el primer `recv` también podría llegar a leer el búfer de datos del segundo paquete, provocando efectos no deseados, como un softlock o directamente colgando el programa. Es crucial tener esto en mente a la hora de implementarlo.
+
+Y hablando de esto, veamos la función `packetSend` y el primer comando de respuesta, `0000 04`:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// Administrar conexiones al servidor.
+export const serverConnection = (socket) => {
+  // Conexión exitosa.
+  x000004(socket);
+}
+
+// 0x0000 04: Conexión inicial al servidor.
+export const x000004 = (socket, data) => {
+  // Enviar paquete.
+  packetSend(socket, 0x0000, 0x04);
+}
+
+// Enviar paquete formateado a una sola conexión.
+export const packetSend = (socket, code1, code2, data) => {
+  // Formatear parámetros.
+  const _data = data ? data : Buffer.alloc(0);
+  const _code1 = Buffer.alloc(2);
+  _code1.writeUInt16BE(code1);
+  const _code2 = Buffer.alloc(1);
+  _code2.writeUInt8(code2);
+  const _length = Buffer.alloc(2);
+  _length.writeUInt16LE(_data.length + 2);
+  // Formatear segundo paquete.
+  const length2 = Buffer.alloc(2);
+  length2.writeUInt16LE(10 + _data.length);
+  const packet2 = Buffer.alloc(length2.readUInt16LE());
+  packet2.set(_code1);
+  packet2.set(_length, 4);
+  packet2.set(_code2, 6);
+  packet2.set(_data, 10);
+  // Formatear primer paquete.
+  const length1 = length2;
+  const packet1 = Buffer.from([0x01, 0x32, 0x45, 0x76, 0x00, 0x00, 0x00, 0x00]);
+  packet1.set(length1, 4);
+  // Enviar paquete.
+  socket.write(packet1);
+  packetSleep(10);
+  socket.write(packet2);
+}
+```
+
+</Collapsible>
+
+`packetSleep` bloquea el hilo principal de **Node.js** por un tiempo dado, actuando básicamente como un `Sleep`.\
+Si bien no es lo ideal, es la única forma de solucionar el problema de sincronización en esta implementación.
+
+<br />
+
+El comando `0000 04` es el único que tiene dos propósitos, pero acá solo confirma la conexión al servidor, permitiéndonos así proceder a la pantalla de ingreso:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/06.png" />
+
+El botón `CREATE ID` en realidad es para actualizar el `Hexa ID`, o nombre de usuario.
+
+<br />
+
+Al presionar el botón `JOIN`, se envía el primer paquete del lado del cliente con el comando `0000 04`, similar al que enviamos nosotros anteriormente desde el servidor, solo que esta vez recibiéndolo. De hecho, si bien no es siempre la regla, va a ser recurrente ver que el cliente espere en respuesta un paquete con el mismo comando que envió.
+
+Para manejar los paquetes entrantes, vamos a hacer unas modificaciones a la función `serverConnection`:
+
+<br />
+
+<Collapsible>
+
+```javascript
+export const serverConnection = (socket) => {
+  // Conexión exitosa.
+  x000004(socket);
+  // Administrar datos recibidos/enviados de la conexión.
+  socket.on('data', async (data) => {
+    // Obtener comando del paquete.
+    const command = packetCommand(data);
+    // Switch de comandos.
+    switch (command.readUInt32BE()) {
+      case 0x000004: {
+        x000002(socket, data); break;
+      }
+      default: {
+        // Reflejar paquetes no identificados.
+        socket.write(data); break;
+      }
+    }
+  });
+}
+
+// Obtener comando del paquete.
+const packetCommand = (data) => {
+  return Buffer.from([0x00, data[8], data[9], data[14]]);
+}
+```
+
+</Collapsible>
+
+`packetCommand` extrae el comando completo del búfer del paquete.\
+Soporte para comandos nuevos se añadirán al switch de comandos.
+
+<br />
+
+El paquete entrante contiene las credenciales del usuario, es decir, **nombre** y **contraseña** (y algo más), aunque por ahora no nos interesa, solo queremos proceder a la siguiente pantalla. Enviando un paquete de respuesta con el comando `0000 02` y un montón de bytes nulos nos permite pasar la pantalla de ingreso a lo que sería la sala de espera:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/07.png" />
+
+Se ve un poco... vacía, pero por ahora no importa.
+
+<br />
+
+Claramente faltan algunas cosas, pero igualmente es progreso. A estas alturas ya me pica la curiosidad, por lo que estoy muy tentado de apretar ese botón `CREATE` gigante y ver que pasa:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/08.png" />
+
+El botón `CREATE` dispara el paquete `0007 01`, que indica el comienzo de una partida.\
+La opción `default` en `serverConnection` refleja el paquete recibido, lo que es suficiente para que avance el cliente.
+
+<br />
+
+Lo que se puede apreciar en la imagen es la **sala de práctica**, a la cual entré por accidente. De hecho, podríamos decir que todo el progreso hecho hasta ahora fue bastante de casualidad, así que tal vez sea buen momento para dar unos pasos atrás y ver bien que está pasando.
+
+<br />
+
+# Investigando canales, salas, y usuarios
+Volvamos a la sala de espera. Después de estudiar las pocas imágenes de este juego disponibles en línea (principalmente sacadas del difunto [sitio](http://twinhexa.x2game.com/inter.html) oficial), y razonando con un poco de *sentido común*, podemos concluír que nos están faltando tres elementos principales: el listado de **canales**, el listado de **salas**, y el listado de **usuarios** respectivamente.
+
+Después de analizar el código del cliente por más de una puta semana (ya vas a entender por qué el enojo), finalmente descubrí que comandos se utilizan para estas listas y como se supone que funcionan, así que dejame explicártelo. De momento, estos comandos se enviarán desde el servidor después de enviar la respuesta de ingreso.
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/09.png" />
+
+No se vé tan vacío ahora... aunque con valores de prueba de momento.
+
+<br />
+
+Primero está el comando `0006 02` que controla el listado de **canales**. Cada canal está compuesto por tres propiedades: `ID`, `Nombre`, y `Modo`. Los primeros dos se explican por sí solos, pero el último determina el comportamiento del canal dependiendo de su valor: `0x00` para un canal de **práctica** y `0x01` para un canal **normal**. Esta propiedad también explica como ingresé al modo de práctica antes al presionar el botón `CREATE`, ya que envié el comando `0000 02` lleno de bytes nulos (es decir, muchos `0x00`s); supongo que uno de ellos indica el estado del canal al cual ingresa el usuario de forma predeterminada.
+
+Además, como se puede apreciar en la imagen, resulta que el listado de canales funcionaba de forma diferente en versiones anteriores del juego comparado con la que tenemos disponible. Antes los canales se podían crear dinámicamente desde el servidor, pero luego se cambio a un listado predefinido de canales que no se puede modificar. Los primeros dos en la lista son los únicos canales de **práctica** disponibles, los siguientes dos son canales para **principiantes** (aunque tienen el mismo trato que canales los **normales**), y el resto solo son canales **normales** genéricos, sumando un total de `22` canales disponibles. Además, debo decir que la temática floral de los canales le da un buen toque.
+
+En cuanto a la implementación del código, la respuesta es bastante simple, con un **código de resultado** que indica si añadir o quitar canales del listado (para los canales la eliminación no tiene uso, por lo que siempre lo fuerzo a `0x00`), la **cantidad** de canales, y finalmente los **datos** de los canales de forma serializada, incluyendo el `ID` y `Nombre` (`Modo` no es necesario).
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0006 02: Listado de canales.
+export const x000602 = (socket, data) => {
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+    channelsList: Buffer.alloc(880),
+  };
+  // Añadir todos los canales a la lista.
+  const channels = serverInfo.serverChannels;
+  for (let i = 0; i < channels.length; i++) {
+    response.channelsList.set(channels[i].channelId, (40 * i));
+    response.channelsList.set(channels[i].channelName, (40 * i) + 4);
+  }
+  // Enviar paquete.
+  const packet = Buffer.alloc(900);
+  packet.set(response.resultCode, 4);
+  packet.writeUInt32LE(channels.length, 16);
+  packet.set(response.channelsList, 20);
+  packetSend(socket, 0x0006, 0x02, packet);
+}
+```
+
+</Collapsible>
+
+`serverChannels` contiene la lista predefinida de canales.
+
+<br />
+
+Después tenemos los comandos `0005 01` y `0005 02` para manejar las listas de **usuarios** y **salas** respectivamente. En la práctica, son extremadamente similares al listado de canales, pero esta vez el **código de resultado** juega un papel más importante:
+
+<br />
+
+- `0x00` añade los usuarios/salas incluídas al listado.
+- `0x01` elimina los usuarios/salas incluídas del listado.
+- `0x02` actualiza los usuarios/salas incluídas en el listado.
+
+<br />
+
+Al principio pensé que las listas se enviaban en su totalidad, pero la forma en la que realmente funcionan tiene mucho más sentido, ya que permite actualizar los datos de forma más óptima.
+
+Los usuarios tienen las propiedades `ID`, `X2Game ID`, `Hexa ID`, `Rango`, `Sala`, y `Estado`. Si, leíste bien, hay tres valores de ID diferentes: `ID` es un valor numérico interno asignado por el servidor para identificar un usuario conectado, `X2Game ID` es el ID de usuario real, específicamente el ID del servicio **X2Game**, y `Hexa ID`, el ID visible o **nombre de usuario**. Y para los valores de la sala, `Sala` es el ID de la sala en la cual se encuentra el usuario (si es que está en alguna), y `Estado` indica si el usuario se encuentra en una sala o no; la visibilidad de las listas de usuarios y salas cambiará dependiendo de estos valores. Voy a expandir en la propiedad `Rango` y las **clasificaciones de usuario** más adelante.
+
+Las salas tienen las propiedades `ID`, `Nombre`, `Usuarios`, y `Estado`. La propiedad `Usuarios` indica cuantos usuarios hay conectados en la sala: `0x00` es ninguno, `0x01` es un usuario (cambia la sala a `OPEN`) y `0x02` es dos usuarios (cambia la sala a `FULL`). La propiedad `State` indica si los usuarios en la sala están esperando o si ya se encuentran en una partida (cambia la sala a `PLAY`).
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0000 02: Creación/inicio de usuario.
+export const x000002 = (socket, data) => {
+  // Administrar inicio de sesión.
+  ...
+  // Cargar canales, salas y usuarios.
+  x000602(socket);
+  x000501(socket);
+  x000502(socket);
+}
+```
+
+</Collapsible>
+
+Como mencioné previamente, no se mantendrá así por mucho más tiempo.
+
+<br />
+
+Como dije antes, la implementación es casi idéntica a la listas de canales, por lo que no tiene mucho sentido mostrarla; solo mencionar que en lugar de tener una lista **fija** ahora pasamos a tener listas **dinámicas** tanto para usuarios como salas. Estas listas se definen a nivel de canal, es decir que cada canal tiene su propia lista de usuarios y salas. No te preocupes por el código, ya que por ahora solo tiene fines demostrativos; voy a desarrollar sobre las implementaciones en detalle más adelante.
+
+Ahora que ya terminamos con los listados de canales, salas y usuarios, veamos como **conseguir jugar al juego**.
+
+<br />
+
+# Salas, conexiones, y partidas en línea
+Por ahora solo vimos las salas de **práctica** en acción, pero también mencioné la existencia de salas **normales**, las cuales van a permitir que dos usuarios se conecten entre sí, preparen y jueguen una partida.
+
+Todo comienza luego del ingreso del usuario (comando `0000 02`), cuando se cargan los datos iniciales del canal. Por defecto, envío los datos del primer canal en la lista, el canal de **Práctica 1**, que tiene un valor `Modo` de `0x00`. Sin embargo, es posible cambiar de canal haciendo doble clic en uno de la lista. Esto dispara el comando `0002 02`:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0002 02: Conectar a un canal.
+export const x000202 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    channelId: packetParse(data, 4, 4),
+  };
+  // Conectar usuario al canal.
+  serverInfo.userConnect(socket, request);
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+    channelMode: socket.userdata.channel.channelMode,
+    channelId: socket.userdata.channel.channelId,
+    channelName: socket.userdata.channel.channelName,
+  };
+  response.resultCode.writeUInt32LE(1);
+  // Enviar paquete.
+  const packet = Buffer.alloc(25);
+  packet.set(response.resultCode);
+  packet.set(response.channelMode, 4);
+  packet.set(response.channelId, 8);
+  packet.set(response.channelName, 12);
+  packetSend(socket, 0x0002, 0x02, packet);
+}
+
+// Obtener datos del paquete.
+export const packetParse = (data, offset, length) => {
+  return data.subarray((offset + 22), (offset + 22 + length));
+}
+```
+
+</Collapsible>
+
+`packetParse` extrae datos del búfer de respuesta recibido.\
+`socket.userdata` persiste los datos del canal, sala y usuario en la misma conexión para mayor conveniencia.
+
+<br />
+
+Los datos enviados al cliente son responsables de actualizar los datos del canal actual, además de disparar los comandos `0005 01` y `0005 02` para actualizar las listas de salas y usuarios. Cuando la propiedad `Modo` tiene como valor `0x01`, el botón `CREATE` enviará el comando `0002 01` y procederá a la pantalla de **sala de espera**:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0002 01: Crear sala.
+export const x000201 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    roomName: packetParse(data, 9, 19),
+  };
+  // Añadir sala al canal.
+  serverInfo.roomAdd(socket, request);
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+    roomId: socket.userdata.room.roomId,
+  };
+  response.resultCode.writeUInt32LE(1);
+  // Enviar paquete.
+  const packet = Buffer.alloc(16);
+  packet.set(response.resultCode);
+  packet.set(response.roomId, 12);
+  packetSend(socket, 0x0002, 0x01, packet);
+}
+```
+
+</Collapsible>
+
+`roomAdd` también guarda la dirección IP del usuario, que se utilizará más adelante para conectarse con otros usuarios.
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/10.png" />
+
+Al principio estás solo, pero cualquiera puede unirse y compartir tu soledad.
+
+<br />
+
+Esto también actualizará los listados de salas y usuarios para todos los demás, añadiendo la sala nueva a la lista y actualizando el `Estado` del usuario para reflejar estos cambios. Con la nueva sala en la lista, alguien puede **unirse** haciéndole doble clic, disparando así el comando `0002 03`:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0002 03: Conectar a una sala.
+export const x000203 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    roomId: packetParse(data, 8, 4),
+  };
+  // Conectar usuario a la sala.
+  socket.userdata.channel.roomConnect(socket, request);
+  // Preparar respuesta.
+  const userdata = socket.userdata.room.roomSockets(socket)[0].userdata;
+  const response = {
+    resultCode: Buffer.alloc(4),
+    userRank: userdata.user.userRank,
+    userX2gameId: userdata.user.userX2gameId,
+    userHexaId: userdata.user.userHexaId,
+    roomName: userdata.room.roomName,
+    roomIp: userdata.room.roomIp,
+  };
+  response.resultCode.writeUInt32LE(1);
+  // Enviar paquete.
+  const packet = Buffer.alloc(96);
+  packet.set(response.resultCode);
+  packet.set(response.userRank, 16);
+  packet.set(response.roomName, 20);
+  packet.set(response.userX2gameId, 48);
+  packet.set(response.userHexaId, 61);
+  packet.set(response.roomIp, 80);
+  packetSend(socket, 0x0002, 0x03, packet);
+}
+```
+
+</Collapsible>
+
+`roomConnect` añade el usuario invitado a la sala y le notifica al usuario anfitrión a través del comando `0004 01`.\
+La respuesta contiene los datos del usuario anfitrión, incluída la dirección IP guardada anteriormente (`roomIp`).
+
+<br />
+
+Acá pasan varias cosas en simultáneo: la notificación al usuario de que alguien ingresó a la sala, con el comando `0004 01`, y la conexión **P2P** entre ambos usuarios:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0004 01: Usuario ingresó/salió de la sala.
+export const x000401 = (socket, data) => {
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+    userId: socket.userdata.user.userId,
+    userRank: socket.userdata.user.userRank,
+    userX2gameId: socket.userdata.user.userX2gameId,
+    userHexaId: socket.userdata.user.userHexaId,
+  };
+  response.resultCode.writeUInt32LE(data.resultCode);
+  // Enviar paquete.
+  const _socket = socket.userdata.room.roomSockets(socket)[0];
+  const packet = Buffer.alloc(58);
+  packet.set(response.resultCode, 4);
+  packet.set(response.userId, 12);
+  packet.set(response.userRank, 28);
+  packet.set(response.userX2gameId, 32);
+  packet.set(response.userHexaId, 45);
+  packetSend(_socket, 0x0004, 0x01, packet);
+}
+```
+
+</Collapsible>
+
+`roomSockets` obtiene las referencias de los sockets en una sala. El primer elemento corresponde al usuario anfitrión.\
+`resultCode` indica si un usuario ingresó (`0x00`) o salió (`0x01`) de una sala.
+
+<br />
+
+La parte de **P2P** es bastante interesante. Recordemos que estamos en el año 2000, antes de que se estandaricen los **firewalls**, y se pueden establecer conexiones directas sin mucho problema. Pero en el año de nuestro señor 2025, eso ya no está permitido; por lo menos por el router, ya que hay que abrir manualmente un puerto para permitir una conexión a través del mismo. Aplicaciones relativamente modernas usarían algo como servidores de **retransmisión** o asignaciones **UPnP** para sobrepasar estas medidas de seguridad, pero no **TwinHexa**, requiriendo la apertura manual del puerto `41850` para permitir conexiones **P2P** entrantes. Algunos juegos que soportan **P2P** suelen tener como respaldo el modelo de retransmisión en caso de que el firewall no permita una conexión directa, pero este no es el caso.
+
+En caso de que la conexión no pueda realizarse, el usuario invitado se mantiene en sala de espera, y sí, algunas cosas **se van a romper** y no hay nada que yo pueda hacer, así que solo abrí el puto port. Ahora, asumiendo que el temita este del firewall ya está resuelto, el usuario invitado se conectará exitosamente a la sala desde el lado del servidor, y además establecerá la conexión directa con el usuario anfitrión. Esta conexión directa tomará control de la mayoría de las cosas de acá en adelante, como el **chat**, **opciones**, los botones `READY`/`START`, y por supuesto, la partida en sí.
+
+Los únicos comandos que quedan ahora son `0007 01` y `0007 02`, para indicar que la partida ha iniciado/finalizado, respectivamente:
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0007 01: Iniciar partida.
+export const x000701 = (socket, data) => {
+  // Actualizar estado de la sala.
+  socket.userdata.room.roomStart(socket);
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+  };
+  response.resultCode.writeUInt32LE(1);
+  // Enviar paquete.
+  const sockets = socket.userdata.room.roomSockets();
+  const packet = Buffer.alloc(4);
+  packet.set(response.resultCode);
+  packetBroadcast(sockets, 0x0007, 0x01, packet);
+}
+```
+
+</Collapsible>
+
+`packetBroadcast` es básicamente lo mismo que `packetSend`, pero para responder a múltiples conexiones.\
+El comando `0007 02` es casi igual a `0007 01` por ahora; voy a explicarlo en un rato.
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/11.png" />
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/12.png" />
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/13.png" />
+
+Dos usuarios (yo y... mí mismo) conectados entre sí disputando una partida.
+
+<br />
+
+Después de que termina la partida, se dispara el comando `0007 02` y ambos usuarios regresan a la sala de espera.
+
+Es importante mencionar un aspecto de la conexión **P2P**. El servidor guarda la dirección IP **remota** del usuario anfitrión, la cual puede encontrarse en un rango diferente dependiendo de como el cliente se conecte al servidor. Bajo operación normal del servidor, un cliente se conecta por fuera de la red local, por lo que sería identificado por su dirección IP pública. En cambio, si el usuario se conecta desde dentro de la red local, se identificará con su dirección IP privada. Esto puede crear un escenario en el cual si mezclamos conexiones públicas y privadas, los usuarios no puedan conectarse correctamente. Por ejemplo, si un usuario conectado localmente crea una sala, la dirección IP de la misma va a ser de caracter privado, por lo que si algún usuario conectado a través de internet intenta unirse a esta sala no podrá hacerlo, ya que intentará conectarse a un dispositivo dentro de su propia red local. La manera de evitar tal escenario es conectándose al servidor a través de una dirección IP pública independientemente si el servidor está corriendo de forma local o no.
+
+Y con esto terminamos de cubrir la funcionalidad escencial del servidor, por lo que es hora de adentrarnos en, las no menos importantes, funcionalidades secundarias.
+
+<br />
+
+# Sistema de clasificaciones de usuario
+Como mencioné anteriormente, ahora voy a explicar las **clasificaciones de usuario** y el sistema de **puntos**/**rangos**. Aunque, sabés que, mejor dejo que el [sitio web](http://twinhexa.x2game.com/jem.html) original lo explique por mí:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/14.png" class="border-image" />
+
+Los rangos de usuario (abajo a la izquierda), y las clasificaciones de usuario (derecha).
+
+<br />
+
+Si bien esto es más o menos todo lo que necesitás saber, no es del todo correcto, ya que esta información pertenece a una versión antigua del juego y algunas cosas cambiaron con el paso del tiempo. Específicamente, se redujo la cantidad de rangos de usuario, las partidas en los canales de práctica ya no otorgan puntos, y lo más importante, el cálculo de las clasificaciones es completamente diferente:
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/15.png" class="border-image" />
+
+Se simplifico bastante.
+
+<br />
+
+Aún así sigue sin ser del todo correcto, ya que hay más de `5` rangos, `9` para ser más específicos, o `8` sin contar el rango de **operador**. Entonces, ¿cuál sistema usamos? Decidí ir por el que describe el sitio web, pero solo que adaptando los porcentajes a los `8` rangos disponibles. Pero ahora tenemos otro problema: ¿qué pasa si no hay suficientes usuarios para cubrir los porcentajes? Durante mis pruebas, pude determinar que este sistema de cálculo de rangos necesita un mínimo de `16` usuarios registrados para funcionar correctamente, un escenario poco probable en servidores alojados localmente. Entonces encontré una solución: un sistema de cálculo alternativo, que repartirá los rangos basándose en un sistema de puntuaciones fijas, eliminando así la dependencia sobre la cantidad total de usuarios.
+
+<br />
+
+<Collapsible>
+
+```javascript
+// Actualizar rangos de las clasificaciones de usuario.
+export const userRanking = () => {
+  // Obtener listado de usuarios ordenados por puntuación.
+  UserModel.find({ userRank: { $ne: Buffer.from([8, 0, 0, 0]) } }).sort({ userScore: 1 }).then((users) => {
+    if (!users || !users.length) { return; }
+    // Definir método de cálculo de rangos.
+    const rankMode = options.rankMode || (users.length > 16 ? 2 : 1);
+    switch (rankMode) {
+      case 1: {
+        // Calcular rangos.
+        // > 1er Grado - 5000
+        // > 2do Grado - 2000
+        // > 3er Grado - 1000
+        // > 4to Grado - 500
+        // > 5to Grado - 200
+        // > 6to Grado - 100
+        // > 7to Grado - 50
+        // > 8to Grado - 0
+        const scores = [50, 100, 200, 500, 1000, 2000, 5000, Infinity];
+        for (let i = 0; i < users.length; i++) {
+          for (let k = 0; k < scores.length; k++) {
+            if (users[i].userScore < scores[k]) {
+              users[i].userRank.writeUInt32LE(k);
+              break;
+            }
+          }
+        }
+        break;
+      }
+      case 2: {
+        // Calcular rangos.
+        // > 1er Grado - 5%
+        // > 2do Grado - 5%
+        // > 3er Grado - 5%
+        // > 4to Grado - 10%
+        // > 5to Grado - 15%
+        // > 6to Grado - 20%
+        // > 7to Grado - 20%
+        // > 8to Grado - 20%
+        const ratios = [5, 5, 5, 10, 15, 20, 20, 20].map((el, i, v) => v[i] += v[i - 1] ? v[i - 1] : 0);
+        for (let i = 0; i < users.length; i++) {
+          const userRatio = i * 100 / users.length;
+          for (let k = 0; k < ratios.length; k++) {
+            if (userRatio < ratios[k]) {
+              users[i].userRank.writeUInt32LE(k);
+              break;
+            }
+          }
+        }
+        break;
+      }
+    }
+    // Guardar clasificaciones de usuarios.
+    UserModel.bulkSave(users);
+  });
+}
+```
+
+</Collapsible>
+
+`UserModel` es un esquema de **MongoDB**, `find` excluye a los usuarios operadores y `rankMode` define el sistema a utilizar.\
+Para mayor fidelidad al servicio original, esta función se ejecutará todos los días a las `05:00 AM`.
+
+<br />
+
+Bien, con eso cubrimos el cálculo de rangos, pero ¿cómo es el tema con las puntuaciones? Cuando finaliza una partida, se envía el comando `0007 02` al servidor con los resultados, especificando un código por usuario, cubriendo todos los resultados posibles:
+
+<br />
+
+- `0x00`: Desconexión (Pierde)
+- `0x01`: Desconexión (Gana)
+- `0x05`: Pierde (0-2)
+- `0x06`: Pierde (1-2)
+- `0x07`: Gana (2-0)
+- `0x08`: Gana (2-1)
+
+<br />
+
+Basándonos en este valor, podemos calcular cuantos puntos el usuario va a ganar/perder. Sobre cuántos puntos, no tengo idea, así que solo voy a sumar/restar `1` punto por juego.
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0007 02: Terminar partida.
+export const x000702 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    userHost: packetParse(data, 20, 13),
+    userGuest: packetParse(data, 52, 13),
+    userResults: packetParse(data, 40, 4),
+  };
+  // Procesar partida normal.
+  if (socket.userdata.channel.channelMode.readUInt8()) {
+    // Calcular puntos a sumar/restar.
+    let results = 1;
+    let points = 0;
+    switch (request.userResults.readUInt8()) {
+      case 0: { results = 0; }
+      case 1: { points = 1; break; }
+      case 5: { results = 0; }
+      case 7: { points = 2; break; }
+      case 6: { results = 0; }
+      case 8: { points = 1; break; }
+    }
+    // Actualizar puntuaciones de usuarios.
+    UserModel.findOne({ $or: [{ userX2gameId: request.userHost }, { userHexaId: request.userHost }] }).then((user) => {
+      user.userScore = Math.max(0, user.userScore + (results ? points : -points));
+      user.save();
+    });
+    UserModel.findOne({ $or: [{ userX2gameId: request.userGuest }, { userHexaId: request.userGuest }] }).then((user) => {
+      user.userScore = Math.max(0, user.userScore + (!results ? points : -points));
+      user.save();
+    });
+  }
+  // Actualizar estado de la sala.
+  socket.userdata.room.roomEnd(socket);
+  // Enviar paquete.
+  ...
+}
+```
+
+</Collapsible>
+
+`userScore` se guarda como `number` en vez de `Buffer`, y solo se utiliza internamente para calcular el `userRank`.
+
+<br />
+
+El sitio web también menciona la obtención de puntos al jugar una partida en el canal de práctica, pero como mencioné anteriormente, esto se eliminó en versiones posteriores. Sobre el por qué, creo saber la respuesta: las partidas de práctica funcionan completamente **fuera de línea**, lo que significa que los usuarios podrían hacer trampa si así lo quisieran. De hecho, eso es exactamente lo que yo hice durante mis pruebas para completar los niveles inmediatamente (`0x531B0` controla la puntuación) y simplemente funciona, así que probablemente se convirtió en un problema y los desarrolladores directamente lo quitaron. Es una pena, ya que sin esto no es posible progresar a través del sistema de rangos en forma solitaria, pero bueno, es lo que hay.
+
+<br />
+
+# El tablero de anuncios
+La pantalla de **noticias**/**anuncios** es bastante interesante. Se dispara al enviar el comando `0200 00` en la sala de espera, idealmente después del ingreso del usuario. Al cerrar el anuncio, adiviná qué, se disparan los comandos `0006 02`, `0005 01` y `0005 02`. Resulta que éste es el flujo de acciones correcto: primero se muestra el anuncio, y después se cargan las listas de canales, salas, y usuarios. Me dí cuenta de esto bastante tarde, ya que a estas alturas ya había descubierto por mi propia cuenta como funcionaba todo. De haberlo sabido antes me hubiera ahorrado mucho tiempo, pero bueno, que se le va a hacer.
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0000 02: Ingreso/creación de usuario.
+export const x000002 = (socket, data) => {
+  // Administrar inicio de sesión.
+  ...
+  // Cargar mensaje de anuncio.
+  x020000(socket);
+}
+```
+
+</Collapsible>
+
+Versión actualizada de la función `x000002`.
+
+<br />
+
+Sobre el contenido del anuncio en sí, el mensaje no es devuelto por el servidor, sino que se lee desde el archivo `twinhexa%d.not`, siendo `%d` un número entre `0` y `100`. El cliente lee los archivos en orden descendiente, es decir, desde el más reciente al más antiguo, permitiendo así actualizar el mensaje a través de este método. Por defecto, el cliente lee el archivo `twinhexa16.not` ya incluído entre los archivos instalados, pero en caso de haber uno con un número mayor (por ejemplo, `twinhexa17.not`), va a leer ese primero. De esta manera, sería posible para los desarrolladores actualizar este mensaje añadiendo un nuevo archivo de forma incremental a través del programa actualizador. Una solución muy elegante, ¿no te parece?
+
+Los archivos `twinhexa%d.not` usan la misma codificación que el archivo de lista de servidores (`twinhexa00.dat`), y el mensaje incluído por defecto contiene una introducción al juego, específicamente explicando los canales de práctica y para principiantes, además de la creación de salas. Al igual que antes, podemos sobrescribir este mensaje codificando uno propio en un nuevo archivo `.not`.
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/16.png" />
+
+El mensaje de anuncio predeterminado.
+
+<br />
+
+# Chateo
+El chat opera sobre el grupo de comandos `0201` con los siguientes subcomandos:
+
+<br />
+
+- `00` para mensaje directo/privado.
+- `01` para mensaje de sala.
+- `02` para mensaje de canal.
+- `03` para mensaje de operador.
+
+<br />
+
+Si bien es bastante sencillo, hay algunos detalles a tener en cuenta:
+
+<br />
+
+- Para enviar un mensaje privado, se requiere de una sintaxis especial: `/usuario texto` (por ejemplo, `/Hipnosis Hola mundo!`).
+- El subcomando `01` nunca se disapara, ya que los mensajes dentro de las salas son manejados exclusivamente por la conexión **P2P**, por lo que, o nunca se usó, o se manejaba desde el servidor en versiones anteriores y se cambió con el tiempo.
+- El subcomando `03` solo pinta el texto de color cian. Si bien no dice mucho al principio, resulta que el código para este subcomando también se llama dentro del subcomando `02` si el `ID` del usuario que envió el mensaje es igual a `THmaster`, determinando así que esta decoración de texto es de uso exclusivo para usuarios operadores.
+
+<br />
+
+Como dato de color, solo para ese usuario, el aspecto del rango y nombre del mismo también cambia en todos lados al ícono del pingüino y color cian respectivamente. Por lo que si bien es posible asignar el rango operador manualmente a cualquier usuario, solo aquel llamado `THmaster` es el **verdadero** operador.
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0201 02: Mensaje de canal.
+// 0x0201 03: Mensaje de operador.
+export const x020102 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    channelMode: packetParse(data, 0, 4),
+    userHexaId: packetParse(data, 4, 13),
+    messageLength: packetParse(data, 40, 4),
+    messageText: undefined,
+  };
+  request.messageText = packetParse(data, 44, request.messageLength.readUInt8());
+  // Preparar respuesta.
+  const response = {
+    command: socket.userdata.user.userRank.readUInt8() == 8 ? 0x03 : 0x02,
+    channelMode: request.channelMode,
+    userHexaId: request.userHexaId,
+    messageLength: request.messageLength,
+    messageText: request.messageText,
+  };
+  // Enviar paquete.
+  const sockets = socket.userdata.channel.channelSockets(socket).concat(socket);
+  const packet = Buffer.alloc(50 + request.messageLength.readUInt8());
+  packet.set(response.channelMode);
+  packet.set(response.userHexaId, 8);
+  packet.set(response.messageLength, 44);
+  packet.set(response.messageText, 48);
+  packetBroadcast(sockets, 0x0201, response.command, packet);
+}
+```
+
+</Collapsible>
+
+Retransmitiendo el mensaje enviado a todos los que estén conectados al mismo canal.\
+Los usuarios operadores se identifican a través de la propiedad `userRank`.
+
+<br />
+
+Complementario al grupo `0201`, tenemos al grupo de comandos `0003`. El comando `0003 00` sirve para buscar usuarios en el servidor y ver si están conectados o no, y en caso de ser así, en qué canal se encuentran. Se dispara al ingresar `/w` seguido por el nombre del usuario a buscar (por ejemplo, `/w Hipnosis`). Es un poco gracioso ya que descubrí esto por total accidente, ya que uno de mis usuarios de prueba se llamaba `w` (por estar cerca al tabulador, ya que hacía el proceso de ingreso mucho más rápido), así que haciendo pruebas para el comando `0201 00` sin querer forcé el disparo de `0003 00`.
+
+<br />
+
+<Collapsible>
+
+```javascript
+// 0x0003 00: Usuario encontrado.
+export const x000300 = (socket, data) => {
+  // Procesar datos recibidos.
+  const request = {
+    channelMode: packetParse(data, 0, 4),
+    userHexaId: packetParse(data, 4, 13),
+  };
+  // Buscar al usuario en el servidor.
+  const user = serverInfo.userFind(request);
+  // Preparar respuesta.
+  const response = {
+    resultCode: Buffer.alloc(4),
+    userHexaId: Buffer.alloc(13),
+    channelId: Buffer.alloc(4),
+  };
+  if (user) {
+    response.resultCode.writeUInt32LE(1);
+    response.userHexaId.set(user.socket.userdata.user.userHexaId);
+    response.channelId.set(user.socket.userdata.channel.channelId);
+  }
+  // Enviar paquete.
+  const packet = Buffer.alloc(96);
+  packet.set(response.resultCode);
+  packet.set(response.userHexaId, 25);
+  packet.set(response.channelId, 40);
+  packetSend(socket, 0x0003, 0x00, packet);
+}
+
+// 0x0003 FF: Usuario no encontrado.
+export const x0003FF = (socket, data) => {
+  // Enviar paquete.
+  packetSend(socket, 0x0003, 0xFF);
+}
+```
+
+</Collapsible>
+
+`x0003FF` también se usa en `x020100` cuando no se encuentra un usuario al enviar un mensaje privado.
+
+<br />
+
+# Implementaciones del servidor
+Como pudiste ver durante todo el artículo, estuve usando código **JavaScript** para demostrar la implementación de las funcionalidades del servidor. Todo ese código corresponde a la versión de **Node.js**, lo cual implica la existencia de otra, así que dejame explayarme.
+
+Primero tenemos el **servidor general**, que utiliza **Node.js** como motor y **MongoDB** para la base de datos. Esta versión proporciona un enfoque de servidor web más tradicional, ofreciendo una alternativa mas robusta, escalable y estable, siendo más adecuada para manejar una gran cantidad de conexiones y cantidad de datos. Esta versión solo permite alojar el servidor, no ofrece funcionalidad adicional. Ya que es la versión que vimos en mayor detalle hasta ahora, no hay mucho más que explicar.
+
+Y después está la otra versión de la cual no he hablado aún, el **servidor embebido**, el cual está escrito desde cero en **C**, apuntando a mayor rendimiento, portabilidad y tamaño reducido, proporcionado principalmente para jugar de forma local y en línea, aunque también puede usarse para alojar servidores a gran escala. Las únicas dependencias son [**LMDB**](http://www.lmdb.tech/doc/index.html) para la base de datos y [**MinHook**](https://github.com/TsudaKageyu/minhook) para parchear el programa.
+
+Esta versión permite alojar un servidor, conectarse a un servidor, o ambos a la vez. Además funciona como un cargador que se encarga de realizar todas las modificaciones necesarias para que el programa funcione correctamente con nuestro servidor. Es básicamente el paquete completo, proporcionando la experiencia más transparente posible, ejecutando el servidor de fondo y cerrándolo una vez que se termina el proceso del juego.
+
+Sobre la implementación del código en sí, es relevante mencionar que tanto la versión de **Node.js** y **C** tienen una estructura y lógica de código casi idéntica. De hecho, fue sorpresivamente natural hacerlas así, ya que los `Buffers` de **Node** funcionan igual que la asignación de memoria en **C**, y del lado de la estructura del código, bueno, solo es cuestión de organizarlo apropiadamente. La mayor diferencia probablemente es que la versión de **Node** es orientada a objetos, mientras que la de **C** es funcional; fuera de eso, no hay mucho más.
+
+Ahora me quiero enfocar en algunos aspectos importantes de la versión de **C**, en particular, que el desarrollo del servidor también incluyó la creación de varias librerías:
+
+<br />
+
+- `libsocket`: Librería de sockets.
+- `libthread`: Librería de hilos de trabajo.
+- `libvector`: Librería de vectores dinámicos.
+- `libdb`: Librería de bases de datos.
+- `libini`: Librería de manejo de archivos INI.
+
+<br />
+
+El desarrollo de estas librerías incrementó ampliamente el alcance y duración del proyecto, pero a cambio, también mejoró la calidad del código sustancialmente, permitiéndome diseñar APIs simples de la forma que yo quiero sin ninguna limitación, manteniendo control total. Por ejemplo, en el pasado he usado [**Mongoose**](https://mongoose.ws/) para implementar el servidor, pero me dí cuenta que simplemente usa **Winsock** por dentro, y ya que estoy desarrollando exclusivamente para **Windows**, solo termina inflando el proyecto con cosas que no necesito.
+
+<br />
+
+<Collapsible>
+
+```c
+struct ls_manager;
+struct ls_connection;
+struct ls_listener;
+
+typedef void(*ls_handler) (struct ls_connection* connection, ls_event event, void* data, int size, void* userdata);
+
+// Inicializar administrador de conexiones.
+void ls_init(struct ls_manager* manager);
+
+// Crear listener para la conexión.
+struct ls_listener* ls_listen(struct ls_manager* manager, const char* port, ls_handler handler);
+
+// Procesar eventos de la conexión.
+void ls_poll(struct ls_manager* manager, int interval);
+
+// Enviar datos al cliente.
+int ls_send(struct ls_connection* connection, const void* data, int size);
+
+// Imprimir búfer de datos formateado como texto hexadecimal.
+void ls_print(const void* data, int size);
+
+// Cerrar administrador de conexiones.
+void ls_close(struct ls_manager* manager);
+```
+
+</Collapsible>
+
+API simplificada para `libsocket`.
+
+<br />
+
+Si bien la mayoría de las librerías se explican por sí solas, tal vez te preguntes que es un **hilo de trabajo**, así que vamos a dedicarle un rato. Un hilo de trabajo es un hilo separado que ejecuta código en paralelo dentro de un mismo proceso, permitiendo liberar la carga de tareas computacionalmente intensivas, manteniendo así al hilo principal responsivo. En nuestro caso esto es fundamental, ya que el hilo principal se va a dedicar al manejo de conexiones, mientras que el hilo de trabajo va a manejar toda la lógica del servidor. De esta manera evitamos bloquear la función de sondeo del servidor y recibir los paquetes tan pronto como lleguen, apilando **tareas** en el hilo de trabajo para que este las ejecute cuando esté listo. Usar este modelo es crucial ya que, como mencioné anteriormente, la función `recv` lee todo lo que haya en el búfer de datos de la conexión, por lo que si no lo leemos a tiempo, es posible que varios paquetes se junten y lean como uno solo, lo que rompería mas o menos todo.
+
+<br />
+
+<Collapsible>
+
+```c
+struct lt_task;
+struct lt_queue;
+struct lt_thread;
+
+// Crear hilo de trabajo y cola de tareas.
+void lt_init(struct lt_thread* thread);
+
+// Añadir tarea a la cola del hilo de trabajo.
+void lt_insert(struct lt_thread* thread, void(*function) (void*), void* data);
+
+// Cerrar hilo de trabajo.
+void lt_close(struct lt_thread* thread);
+```
+
+</Collapsible>
+
+API simplificada para `libthread`.
+
+<br />
+
+<Collapsible>
+
+```c
+static struct ls_manager server;
+static struct lt_thread thread;
+
+// Función de sondeo del servidor en el hilo principal.
+static void serverPoll(struct ls_connection* connection, ls_event event, void* data, int size, void* userdata) {
+  // Preparar datos de conexión.
+  struct ls_handler* handle = (struct ls_handler*) malloc(sizeof(struct ls_handler));
+  handle->connection = connection;
+  handle->event = event;
+  memcpy(handle->data, data, size);
+  handle->size = size;
+  handle->userdata = userdata;
+  // Crear y enviar tarea al hilo de trabajo.
+  lt_insert(&thread, (void*) serverConnection, handle);
+}
+
+int main() {
+  // Inicializar hilo de trabajo.
+  lt_init(&thread);
+  // Inicializar conexiones.
+  ls_init(&server);
+  ls_listen(&server, "61400", NULL);
+  ls_listen(&server, "2000", serverPoll);
+  // Comenzar sondeo del servidor.
+  for (;;) { ls_poll(&server, 200); }
+  // Cerrar conexiones.
+  ls_close(&server);
+  // Cerrar hilo de trabajo.
+  lt_close(&thread);
+  return 0;
+}
+```
+
+</Collapsible>
+
+`libsocket` y `libthread` juntas en acción. `serverConnection` ahora se ejecuta en el hilo de trabajo.
+
+<br />
+
+Ahora, que hay de **Node**? Si bien tiene el concepto de hilos de trabajo, no funcionan como lo esperarías: cada hilo crea una nueva instancia de **V8** aislada, lo cual por desgracia hace imposible compartir memoria entre los hilos (a pesar de que se encuentran dentro del mismo proceso). Y si bien es posible transferir el controlador del socket entre ellos, hay un problema: necesito acceder al socket en ambos hilos simultáneamente, en el principal para esperar datos entrantes en la conexión, y en el de trabajo para realizar toda la lógica del servidor, específicamente el acceso a los datos del usuario persistidos en el socket y el envío de paquetes al cliente. Hacer que los hilos de trabajo funcionen con estas limitaciones requeriría de una rescritura completa del servidor, lo que por supuesto no pienso hacer. Aún así, el diseño asincrónico de **Node** de alguna manera hace que funcione dentro de todo bien sin tener que implementar hilos de trabajo, y durante mis pruebas hasta ahora no me ha dado problemas, por lo que voy a asumir que va a estar bien dejándolo así.
+
+Y con eso ya abarcamos todo lo relacionado con el servidor, ahora veamos como funciona todo junto.
+
+<br />
+
+# El programa cargador e inyección de librerías
+El servidor embebido también integra un cargador que se encarga de inicializar el servidor y crear el proceso del juego, además de algunos parches necesarios para que todo funcione. Este programa cargador también inyecta una librería propia que intercepta algunos servicios del sistema para permitir el uso de configuraciones definidas por el usuario.
+
+<br />
+
+<Collapsible>
+
+```c
+static STARTUPINFO startupInfo;
+static PROCESS_INFORMATION processInfo;
+static HANDLE processHandle;
+static DWORD processCode;
+
+// Inyectar librería propia.
+static void loaderHook(HANDLE handle, char* filepath) {
+  int size = strlen(filepath) + 1;
+  LPVOID* buffer = VirtualAllocEx(handle, NULL, size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+  WriteProcessMemory(handle, buffer, filepath, size, NULL);
+  CreateRemoteThread(handle, NULL, 0, (LPTHREAD_START_ROUTINE) (LoadLibrary), buffer, 0, NULL);
+}
+
+// Parchear dirección de memoria.
+static void loaderPatch(HANDLE handle, int offset, char value) {
+  DWORD accessProtect;
+  VirtualProtectEx(handle, (LPVOID) offset, sizeof(char), PAGE_READWRITE, &accessProtect);
+  WriteProcessMemory(handle, (LPVOID) offset, &value, sizeof(value), NULL);
+  VirtualProtectEx(handle, (LPVOID) offset, sizeof(char), accessProtect, NULL);
+}
+
+// Inicializar cargador del proceso del juego.
+void loaderInit() {
+  // Cerrar ventana de consola.
+  ShowWindow(GetConsoleWindow(), SW_HIDE);
+  // Crear proceso.
+  ZeroMemory(&startupInfo, sizeof(startupInfo));
+  ZeroMemory(&processInfo, sizeof(processInfo));
+  startupInfo.cb = sizeof(startupInfo);
+  CreateProcess("tha.dat", NULL, NULL, NULL, FALSE, CREATE_SUSPENDED, NULL, NULL, &startupInfo, &processInfo);
+  Sleep(500);
+  // Inyectar librería propia.
+  loaderHook(processInfo.hProcess, "server.dll");
+  Sleep(500);
+  // Resumir proceso.
+  ResumeThread(processInfo.hThread);
+  Sleep(500);
+  HANDLE processHandle = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION, FALSE, processInfo.dwProcessId);
+  // Aplicar parches.
+  loaderPatch(processHandle, 0x41F19E, 0xEB); // Arreglo para eliminación en listas de usuarios.
+  loaderPatch(processHandle, 0x41F97F, 0xEB); // Arreglo para eliminación en listas de salas.
+}
+
+// Cerrar cargador del proceso del juego.
+void loaderClose() {
+  CloseHandle(processHandle);
+  CloseHandle(processInfo.hProcess);
+  CloseHandle(processInfo.hThread);
+}
+```
+
+</Collapsible>
+
+`loaderInit` se llama una vez que se inicia el servidor, y `loaderClose` cuando se termina el proceso del juego.\
+Las funciones `Sleep` son para asegurar que el proceso fue creado correctamente.
+
+<br />
+
+Para hacerla corta, el cargador crea un proceso para `tha.dat` (el ejecutable principal del cliente) en un estado de suspenso, se procede a inyectar nuestra librería propia `server.dll`, y finalmente se resume la ejecución del proceso. También hay que explicar un poco sobre esas funciones `loaderPatch`.
+
+Mientras desarrollaba el servidor me encontré con un problema: la eliminación de salas no funcionaba correctamente. Por alguna razón, cuando una sala que no es la última en la lista se elimina, todos los `ID` de las salas se cambian en el cliente. Por lo que si un usuario se intenta conectar a una sala después de recibir un paquete de eliminación de sala (`0005 02 01`) se va a enviar el `ID` incorrecto, lo que puede resultar en una de dos cosas: conectar un usuario a la sala equivocada, o intentar conectarlo a una sala que no existe. Además, por algún motivo esto solo sucede cuando hay `4` o menos salas (es decir, una sola página). Por supuesto, esto rompe la lista de salas completamente, así que tenemos que solucionarlo de alguna manera.
+
+Después de investigarlo durante horas, y te pido que me creas en ésta ya que no me quiero extender mucho, llegué a la conclusión de que es un problema del lado del cliente y no hay nada que yo pueda hacer desde el servidor para solucionarlo. Bueno, excepto una sola cosa: parchear el juego. Ya se que no es lo ideal, pero no encuentro otra manera sin volverme loco. Pero no te preocupes, lo probé extensivamente y puedo asegurar que no se rompe nada y efectivamente soluciona el problema. Además, esta lógica también se encuentra presente para la lista de usuarios, y si bien no encontré problemas con ésta, le voy a aplicar el mismo parche por las dudas. Sobre por qué el juego se comporta de esta manera en este escenario tan específico, no tengo idea, pero supongo que alguna lógica debe tener.
+
+<br />
+
+Y despues tenemos al inyector en sí, que hace lo siguiente:
+
+<br />
+
+- Carga un listado de servidores personalizado definido en la configuración, interceptando el archivo `twinhexa00.dat`.
+- Opcionalmente, permite cargar un mensaje de anuncio personalizado, interceptando los archivos `twinhexa%d.not`.
+- Controla toda la encriptación/desencriptación internamente.
+
+<br />
+
+Todo esto es configurable dentro del archivo `server.ini`, además de otras opciones que modifican el comportamiento del servidor; y hablando de éste, una de estas opciones es bastante importante: `ServerMode`. El concepto de **modos de servidor** es algo sobre lo que ya hablé en el artículo de [**Jewelry Master**](/blog/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/), aunque para esta ocasión fue simplificado y mejorado:
+
+<br />
+
+- Modo `0` - Servidor + Cliente: Ejecuta el servidor e inicia el cliente.
+- Modo `1` - Servidor: Ejecuta el servidor sin iniciar el cliente.
+- Modo `2` - Cliente: Deshabilita la emulación del servidor e inicia el cliente.
+
+<br />
+
+<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/17.png" />
+
+Un servidor corriendo en modo `2` (izquierda) conectado a un servidor corriendo en modo `1` (derecha) en una conexión LAN.
+
+<br />
+
+# Problemas de compatibilidad
+Antes de terminar, tenemos que hablar sobre algo que es bastante importante y no he mencionado aún: los varios problemas técnicos del cliente:
+
+<br />
+
+- Errores de pantalla al iniciar: Solucionados utilizando un wrapper de video.
+- Texto ilegible y fuente incorrecta: Necesita localización y fuente (como **Gulim**) coreanas.
+- Parones al finalizar una pista de audio: Un problema que casi rompe el juego, éste se congela por algunos segundos cuando una pista de audio termina de reproducirse. Esto es particularmente problemático ya que solo congela la pantalla, pero la lógica interna del juego sigue corriendo. Cuando pasa en los menús no es mucha molestia, pero durante una partida ya es otra cosa. Probablemente tenga que ver con la forma en la que versiones modernas de **Windows** controlan **MIDI**, sin embargo solucionar este problema está por fuera del alcance de este proyecto.
+- Cuelgues aleatorios: A veces al cliente le pinta colgarse de la nada.
+
+<br />
+
+También hay algunos aspectos de compatibilidad a mencionar sobre el servidor y cargador en sí.
+
+Primero tenemos los requerimientos mínimos del sistema: ya que es un juego hecho para funcionar sobre **Windows 98**, naturalmente quería que el servidor también funcione en él, pero por desgracia no es posible, ya que no proporciona las APIs requeridas para inyectar funciones del sistema. Esto más tarde cambió con el lanzamiento de **Windows XP** (basado en el más reciente kernel **NT**) y la introducción de la librería **Detours**. Aún así, es técnicamente posible parchear los archivos manualmente, remplazando la funcionalidad del cargador/inyector.
+
+Por último está la creación de los hilos de trabajo: en mi implementación de `libthread` hago uso de **Condition Variables** para sincronizar los hilos, pero estos solo están disponibles desde **Windows Vista** en adelante. Como aún quiero soportar **Windows XP**, añadí un método alternativo que utiliza **Event Objects**, que si bien tienen peor rendimiento y puede generar problemas de concurrencia, al menos funciona. Esto va a requerir de dos versiones diferentes, pero asegura la compatibilidad con sistemas más antiguos.
+
+<br />
+
+# Palabras de cierre
+Bueno, eso tardó una cantidad asquerosa de tiempo, pero finalmente terminé. Este fácilmente fue mi proyecto más largo hasta ahora, unos 3-4 meses de trabajo lento pero seguro. Pero mirando el lado positivo, la mayor parte de lo hecho va a ser de gran utilidad para proyectos futuros, y también deberían ser más veloces y menos problemáticos considerando que ya tengo una forma de trabajo establecida para este tipo de cosas.
+
+En cuanto al juego en sí, debo decir que aprendí a apreciarlo más con el tiempo, aunque sigo sin ser entusiasta del género (al menos tiene buena música). Por cierto, casi me olvido, acá esta el cliente del juego en [archive.org](https://archive.org/details/twinhexa-arcade) y el servidor en [GitHub](https://github.com/Hipnosis183/THA-Server); no vas a llegar muy lejos sin ellos. Además grabé un video mostrando al servidor en acción; podés verlo en [**YouTube**](https://www.youtube.com/watch?v=YxhM2SqsiZU).
+
+En cuanto a lo que sigue, ***descanso***, *mucho descanso*. Después de eso, estoy pensando en actualizar el servidor de **Jewelry Master** para que este a la altura de los nuevos estándares, y continuar trabajando en los [asuntos pendientes](https://www.youtube.com/watch?v=dKa7DvTEwqI); con suerte puedo terminarlo tarde o temprano.
+
+Y ahora hablando sobre el futuro del futuro, tengo varios proyectos sobre la mesa, aunque también quiero tomarme un tiempo fuera de la programación y enfocarme en otras cosas, pero bueno, veamos que me depara el destino...
