@@ -1,0 +1,30 @@
+---
+date: 2025-09-12
+code: tha-server
+title: THA-Server
+tags: ['C', 'NodeJS', 'MongoDB']
+link: https://github.com/Hipnosis183/THA-Server
+theme: false
+type: other
+images: 0
+---
+
+**THA-Server** es un emulador de servidor para **TwinHexa Arcade**, un juego de puzzle arcade en línea desarrollado por **CCR** en 2000; el servicio original terminó en 2002. Esta reimplementación del servidor permite acceder al juego nuevamente, buscando replicar con precisión y fidelidad la manera en la que el servidor original hubiese funcionado.
+
+<br />
+
+Hay dos implementaciones diferentes disponibles:
+
+<br />
+
+## Servidor Embebido
+La versión **embebida** es proporcionada principalmente para jugar de forma local y en línea, aunque también puede usarse para alojar servidores a gran escala. El servidor se escribió desde cero en **C**, apuntando a mayor rendimiento, portabilidad y tamaño reducido. Las únicas dependencias son **LMDB** para la base de datos y **MinHook** para parchear el programa.
+
+Esta versión permite alojar un servidor, conectarse a un servidor, o ambos a la vez. Además funciona como un cargador que se encarga de realizar todas las modificaciones necesarias para que el programa funcione correctamente con nuestro servidor.
+
+<br />
+
+## Servidor General
+La versión **general** proporciona un enfoque de servidor web más tradicional, ofreciendo una alternativa mas robusta, escalable y estable, siendo más adecuada para manejar una gran cantidad de conexiones y cantidad de datos. El servidor utiliza **Node.js** como motor y **MongoDB** para la base de datos.
+
+Esta versión solo aloja el servidor. Para poder iniciar el cliente, se necesita el servidor embebido en modo cliente, ya que éste también funciona como cargador/parcheador.
