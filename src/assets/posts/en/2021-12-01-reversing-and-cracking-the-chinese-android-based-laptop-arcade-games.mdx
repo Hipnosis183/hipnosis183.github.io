@@ -61,10 +61,12 @@ One more thing to point out before starting. I just care about making the games 
 <br />
 
 # Decompiling the application
+<div class="message-text warning">
 **Update 2023:** Some of the information below is not exactly accurate, and the tools described are certainly not the best. Since the writing of this post I've learned a lot more about Android development and Unity reverse engineering, so I feel like these mistakes should be addressed. I don't want to modify what I originally wrote, so I'll quickly make some sort of *errata* here (*skip if you don't care*):
 
 - Apps are not necessarily written entiretly in **Java**, but instead it can be used to interface between the native app code and the system functions. So in this case, the games are programmed in **Unity**, which includes methods to interface with the Java code, which manages all the registration checks against other system processes.
 - I strongly discourage the use of **APK-Multi-Tool** and any similar tools. I personally moved over using **Apktool** directly, as well as manually handling keys and signing. It's not as complicated as I made it seem in the article. This is not the place, but I might talk about this in more detail in the future.
+</div>
 
 <br />
 

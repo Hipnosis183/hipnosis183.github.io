@@ -77,6 +77,39 @@
   color: var(--color-grey);
   text-align: center;
 }
+.message-text {
+  background-color: rgba(236, 240, 244, 0.15);
+  border-radius: 5px;
+  padding: 12px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.message-text > *:last-child {
+  padding-bottom: 0;
+}
+.message-text.error {
+  background-color: rgba(255, 60, 0, 0.3);
+}
+.dark .message-text.error {
+  background-color: rgba(255, 60, 0, 0.1);
+}
+.message-text.info {
+  background-color: rgba(0, 150, 255, 0.3);
+}
+.dark .message-text.info {
+  background-color: rgba(0, 150, 255, 0.1);
+}
+.message-text.success {
+  background-color: rgba(0, 255, 60, 0.3);
+}
+.dark .message-text.success {
+  background-color: rgba(0, 255, 60, 0.1);
+}
+.message-text.warning {
+  background-color: rgba(255, 150, 0, 0.3);
+}
+.dark .message-text.warning {
+  background-color: rgba(255, 150, 0, 0.1);
+}
 
 /* General styling. */
 body, h1, h2, h3, h4, h5, h6,
