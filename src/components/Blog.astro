@@ -11,58 +11,43 @@ const languages = await getCollection('i18n');
 const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage posts ordering and grouping.
-const posts = [];
-const postsList = Astro.currentLocale == 'en' ? await getCollection('posts_en') : await getCollection('posts_es');
-for (let post of postsList.sort((a, b) => { return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf() })) {
-  const i = posts.findIndex((v) => v.year == new Date(post.data.date).getFullYear());
-  if (i >= 0) { posts[i].posts.push(post); }
-  else { posts.push({ year: new Date(post.data.date).getFullYear(), posts: [post] }); }
-}
+const collection = Astro.currentLocale == 'en' ? await getCollection('posts_en') : await getCollection('posts_es');
+const posts = collection.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 ---
 
 <!-- Blog posts list. -->
 <div class="blog-container">
-  { posts.map(($posts) => (
-    <div>
-      { /* Blog posts group header. */ }
-      <div class="blog-header">
-        <p>{ $posts.year }</p>
-        <p>{ $posts.posts.length + ' ' + ($posts.posts.length == 1 ? language.data.BLOG.POST : language.data.BLOG.POSTS) }</p>
-      </div>
-      { /* Blog posts group contents. */ }
-      { $posts.posts.map((post) => (
-        <li class="blog-body">
-          <a href={ `${locale}blog/${post.data.code}/` }>
-            { /* Blog post image. */ }
-            <div class="blog-image">
-              <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${post.data.thumb}')`, backgroundPosition: post.data.position || 'center' }} />
-            </div>
-            { /* Blog post title. */ }
-            <div class="blog-title">
-              <h1>{ post.data.title }</h1>
-              <p>{ post.data.description }</p>
-            </div>
-          </a>
-        </li>
-      )) }
-    </div>
-  )) }
+  <!-- Blog posts group header. -->
+  <div class="blog-header">
+    <p>{ language.data.BLOG.POSTS }</p>
+  </div>
+  <!-- Blog posts group contents. -->
+  <div class="blog-body">
+    { posts.map((post) => (
+      <a href={ `${locale}blog/${post.data.code}/` }>
+        <!-- Blog post image. -->
+        <div class="blog-image">
+          <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('${post.data.thumb}')`, backgroundPosition: post.data.position || 'center' }} />
+        </div>
+        <!-- Blog post title. -->
+        <div class="blog-title">
+          <h1>{ post.data.title }</h1>
+          <p>{ post.data.description }</p>
+        </div>
+      </a>
+    )) }
+  </div>
 </div>
 
 <style>
 /* Blog posts list. */
 .blog-container {
-  list-style: none;
+  display: grid;
+  grid-gap: 16px;
   margin-left: auto;
   margin-right: auto;
   max-width: 1000px;
   width: 100%;
-}
-.blog-container > *:first-child {
-  margin-top: -8px;
-}
-.blog-container > *:not(:first-child) {
-  margin-top: 16px;
 }
 
 /* Blog posts group header. */
@@ -77,13 +62,17 @@ for (let post of postsList.sort((a, b) => { return new Date(b.data.date).valueOf
   text-align: right;
   transition: border-color 0.2s;
 }
+.blog-header:first-child {
+  margin-top: -8px;
+}
 .blog-header > p:first-child {
   font-weight: 800;
 }
 
 /* Blog posts group contents. */
 .blog-body {
-  padding-top: 16px;
+  display: grid;
+  grid-gap: 20px;
 }
 .blog-body > a {
   align-items: center;

@@ -12,13 +12,16 @@ const languages = await getCollection('i18n');
 const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage portfolio entries ordering and grouping.
+const collection = Astro.currentLocale == 'en' ? await getCollection('portfolio_en') : await getCollection('portfolio_es');
 const entries = [];
-const entriesList = Astro.currentLocale == 'en' ? await getCollection('portfolio_en') : await getCollection('portfolio_es');
-for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf() })) {
+for (let entry of collection.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())) {
   const { Content } = await render(entry);
   const i = entries.findIndex((v) => v.type == entry.data.type);
-  if (i >= 0) { entries[i].entries.push({ ...entry, Content }); }
-  else { entries.push({ type: entry.data.type, entries: [{ ...entry, Content }] }); }
+  if (i >= 0) {
+    entries[i].entries.push({ ...entry, Content });
+  } else {
+    entries.push({ type: entry.data.type, entries: [{ ...entry, Content }] });
+  }
 }
 ---
 
@@ -41,14 +44,14 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
     <div id={ $entries.type } class="portfolio-entries active">
       { $entries.entries.map((entry) => (
         <div>
-          { /* Portfolio entries list. */ }
+          <!-- Portfolio entries list. -->
           <div class="portfolio-list">
             <img id={ entry.data.code } src={ `/images/portfolio/${entry.data.code}/logo${entry.data.theme ? '-lite' : ''}.svg` } class="dark" />
             <img id={ entry.data.code } src={ `/images/portfolio/${entry.data.code}/logo${entry.data.theme ? '-dark' : ''}.svg` } class="light" />
           </div>
-          { /* Portfolio entries contents. */ }
+          <!-- Portfolio entries contents. -->
           <div id={ entry.data.code } class="portfolio-contents">
-            { /* Portfolio entry header. */ }
+            <!-- Portfolio entry header. -->
             <div class="portfolio-header">
               <span class="portfolio-tags">
                 { entry.data.tags.map((tag) => (
@@ -56,7 +59,7 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
                 )) }
               </span>
             </div>
-            { /* Portfolio entry link. */ }
+            <!-- Portfolio entry link. -->
             <div class="portfolio-link">
               { entry.data.development && <span>
                 <p>{ language.data.PORTFOLIO.DEVELOPMENT }</p>
@@ -66,13 +69,13 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
                 <div class="portfolio-github" />
               </a> }
             </div>
-            { /* Portfolio entry body. */ }
+            <!-- Portfolio entry body. -->
             <Collapsible label={ language.data.PORTFOLIO.DESCRIPTION } style="margin-top:8px;">
               <div class="portfolio-body">
                 <entry.Content />
               </div>
             </Collapsible>
-            { /* Portfolio entry images. */ }
+            <!-- Portfolio entry images. -->
             { entry.data.images > 0 &&
               <Collapsible label={ language.data.PORTFOLIO.IMAGES } style="margin-top:8px;">
                 <div class="portfolio-images">

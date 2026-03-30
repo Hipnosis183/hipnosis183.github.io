@@ -53,16 +53,16 @@ const entryDate = (v) => {
   <!-- Design entries list. -->
   { deviations.map((deviation, i) => (
     <div class="design-contents">
-      { /* Design entry contents. */ }
+      <!-- Design entry contents. -->
       <p class="design-title">{ deviation.title }</p>
       <p class="design-date">
         <span>{ language.data.PORTFOLIO.PUBLISHED } • </span>
         <time>{ entryDate(deviation.date) }</time>
       </p>
-      { /* Design entry image. */ }
+      <!-- Design entry image. -->
       <div class="design-image">
         <img src={ deviation.thumb } data-id="design" data-index={ i } data-image={ deviation.image } />
-      { /* Design entry button. */ }
+        <!-- Design entry button. -->
         <a target="_blank" rel="noopener noreferrer" href={ deviation.link }>
           <div class="design-deviantart" />
         </a>

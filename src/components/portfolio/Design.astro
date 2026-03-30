@@ -56,14 +56,14 @@ const entryDate = (v) => {
       <div class="design-list">
         <div>
           <div class="design-overlay" />
-          { /* Design entry contents. */ }
+          <!-- Design entry contents. -->
           <div class="design-contents">
             <p class="design-date">
               <span>{ language.data.PORTFOLIO.PUBLISHED } • </span>
               <time>{ entryDate(deviation.date) }</time>
             </p>
             <p class="design-title">{ deviation.title }</p>
-            { /* Design entry buttons. */ }
+            <!-- Design entry buttons. -->
             <div class="design-buttons">
               <a target="_blank" rel="noopener noreferrer" href={ deviation.link }>
                 <div class="design-deviantart" />
@@ -72,7 +72,7 @@ const entryDate = (v) => {
             </div>
           </div>
         </div>
-        { /* Design entry image. */ }
+        <!-- Design entry image. -->
         <img src={ deviation.thumb } />
       </div>
     )) }

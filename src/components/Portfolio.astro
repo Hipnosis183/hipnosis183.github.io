@@ -12,13 +12,16 @@ const languages = await getCollection('i18n');
 const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
 // Manage portfolio entries ordering and grouping.
+const collection = Astro.currentLocale == 'en' ? await getCollection('portfolio_en') : await getCollection('portfolio_es');
 const entries = [];
-const entriesList = Astro.currentLocale == 'en' ? await getCollection('portfolio_en') : await getCollection('portfolio_es');
-for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf() })) {
+for (let entry of collection.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())) {
   const { Content } = await render(entry);
   const i = entries.findIndex((v) => v.type == entry.data.type);
-  if (i >= 0) { entries[i].entries.push({ ...entry, Content }); }
-  else { entries.push({ type: entry.data.type, entries: [{ ...entry, Content }] }); }
+  if (i >= 0) {
+    entries[i].entries.push({ ...entry, Content });
+  } else {
+    entries.push({ type: entry.data.type, entries: [{ ...entry, Content }] });
+  }
 }
 ---
 
@@ -42,7 +45,7 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
   <!-- Portfolio entries. -->
   { entries.map(($entries) => (
     <div id={ $entries.type } class="portfolio-entries">
-      { /* Portfolio entries list. */ }
+      <!-- Portfolio entries list. -->
       <div class="portfolio-list">
         { $entries.entries.map((entry) => (
           <img id={ entry.data.code } src={ `/images/portfolio/${entry.data.code}/logo${entry.data.theme ? '-lite' : ''}.svg` } class="dark" />
@@ -51,9 +54,9 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
       </div>
       { $entries.entries.map((entry) => (
         <div style="display:contents;">
-          { /* Portfolio entries contents. */ }
+          <!-- Portfolio entries contents. -->
           <div id={ entry.data.code } class="portfolio-contents">
-            { /* Portfolio entry header. */ }
+            <!-- Portfolio entry header. -->
             <div class="portfolio-header">
               <div class="portfolio-name">{ entry.data.title }</div>
               <span class="portfolio-tags">
@@ -62,14 +65,14 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
                 )) }
               </span>
             </div>
-            { /* Portfolio entry body. */ }
+            <!-- Portfolio entry body. -->
             <div class="portfolio-body">
               <entry.Content />
             </div>
           </div>
-          { /* Portfolio entries sidebar. */ }
+          <!-- Portfolio entries sidebar. -->
           <div id={ entry.data.code } class="portfolio-sidebar">
-            { /* Portfolio entry link. */ }
+            <!-- Portfolio entry link. -->
             <div class="portfolio-link">
               { entry.data.development && <span>
                 <p>{ language.data.PORTFOLIO.DEVELOPMENT }</p>
@@ -79,7 +82,7 @@ for (let entry of entriesList.sort((a, b) => { return new Date(b.data.date).valu
                 <div class="portfolio-github" />
               </a> }
             </div>
-            { /* Portfolio entry images. */ }
+            <!-- Portfolio entry images. -->
             { entry.data.images > 0 &&
               <div class="portfolio-images">
                 { [...Array(entry.data.images)].map((v, i) =>
