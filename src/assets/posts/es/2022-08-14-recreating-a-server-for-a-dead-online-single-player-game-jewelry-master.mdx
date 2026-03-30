@@ -229,6 +229,20 @@ Parece que el juego intenta usar la página HTML 'no encontrada' que Express.js 
 
 Esto me llevó un par de horas para entenderlo, pero así es como funciona el formato de de las puntuaciones: cada objeto de puntuaciones es una cadena de texto de 10 líneas, y un grupo de ellas se delimitan con un caracter de punto (`.`). Las primeras dos líneas indican el **índice de tabla** y el **id de la puntuación**, y los siguientes son (en orden) el `id` (de usuario), `score`, un **valor sin usar**, `level`, `class`, `time`, `jewel` y finalmente una **bandera de resaltado**. Los primeros dos valores solo son útiles para las puntuaciones globales, ya que el primero se usa para indicar la posición inicial de la puntuación del usuario en las puntuaciones globales (y para obtener el índice de `Mi Récord`), y el segundo es un valor (asignado por el servidor) para identificar y pedir una repetición con `GetReplay`. El valor de `class` (de vuelta, asumiendo que es el título de jugador) puede ser `101`, `102`, `201`, `202`, `301`, `302` y `303`, y la bandera de resaltado colorea las puntuaciones de amarillo, aunque no sé bajo qué condiciones una puntuación debería ser marcada con ésta (nuevamente, voy a asumir que su uso intencionado es el de marcar la puntuación más alta del usuario en una tabla).
 
+<br />
+
+<div class="message-text warning">
+**Actualización 2026:** Despúes de revisitar este proyecto y haber lanzado una nueva versión del servidor, hay algunas cosas que explique incorrectamente y me gustaría aclarar:
+
+- El **id de la puntuación** es solo el **id del usuario**, y cuando éste es el mismo que el del usuario actual, colorea la puntuación de verde. Como vas a ver más adelante, se me pasó por alto ya que quise soportar múltiples puntuaciones por usuario, lo cual no sería posible normalmente a menos que le asigne un valor de id único.
+- La propiedad `date` no está sin usar como supuse, sino que es el valor en la posición donde dije que estaba `jewel` (de hecho, parece que no se usa en ninguna parte del cliente); probablemente se me pasó ya que, por más estúpido que suene, nunca presioné la tecla `Ctrl` en la pantalla de puntuaciones.
+- La propiedad `class` no es el **título** del jugador, aunque su uso sigue siendo un misterio, más que seguro que es algo que quedó del desarrollo o versiones anteriores.
+- La propiedad `title` propiamente dicha tiene los valores que mencione anteriormente, solo que no son por puntuación/jugador, sino que se asignan dinámicamente en el servidor a las primeras 15 puntuaciones de cada modo en las puntuaciones globales, o por lo menos eso es lo que pude averiguar después de investigarlo un poco más.
+- La bandera de resaltado amarillo es solo para las puntuaciones personales, ya que las globales tienen el resaltado verde automático mencionado anteriormente.
+</div>
+
+<br />
+
 La mejor parte es que cada objeto de puntuaciones tiene que tener *exactamente* 10 líneas, una más o una menos y el cliente se cuelga. Casualmente sucede que la respuesta por defecto de Express.js también tiene 10 líneas, funcionando perfectamente como un objeto de puntuaciones válido. Esto fue la clave para entender por qué el programa se colgaba cuando cambiaba la respuesta, y eventualmente me ayudó a comprender el formato. La implementación completa:
 
 <br />

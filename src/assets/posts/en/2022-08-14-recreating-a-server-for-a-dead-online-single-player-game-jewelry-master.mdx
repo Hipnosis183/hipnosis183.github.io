@@ -229,6 +229,20 @@ It seems like the game is trying to parse the 'not found' HTML page that Express
 
 This took me a couple of hours to figure out, but here's a breakdown of how the rankings formatting and parsing work: each ranking object is a 10 lines long string, and in a group they're delimited by a dot (`.`) character. The first two lines correspond to the rankings **table index** and **ranking id**, and next are (in order) the `id` (user), `score`, an **unused value**, `level`, `class`, `time`, `jewel` and finally a **highlight flag**. The first two values are only useful for the global rankings, since the first one is used to set the initial position of the user highscore when loading the global rankings (and to get the `My Record` index), and the second is an identifier value (given by the server) to retrieve the replay file with `GetReplay`. The `class` value (again, assuming is the score title) can be `101`, `102`, `201`, `202`, `301`, `302` and `303`, and the highlight flag makes the score's color yellow, although I don't know under what conditions a score should be flagged with it (once again, I'll assume its intended use is to mark the user's highest score in a table).
 
+<br />
+
+<div class="message-text warning">
+**Update 2026:** After revisiting this project and having released an updated version of the server, there's some stuff that I got wrong and would like to correct:
+
+- The **ranking id** is just the **user id**, and when it matches the current user it turns the score color into green. As you will see later, I failed to see this because I wanted to support multiple replays per user, which normally wouldn't be possible, unless I made each score have its own unique id value.
+- The `date` property is not unused as I speculated, it's actually the value at the position I said `jewel` was (in fact, this value seems to not be used whatsoever on the client); I probably missed it since, as stupid as it sounds, I never pressed the `Ctrl` key in the ranking screen.
+- The `class` property is not the player **title**, but its use is still a mystery, most likely a leftover from development or prior versions of the game.
+- The actual `title` has the values that I mentioned above, but those are set by the server and are not per score/player, but instead they are assigned dynamically to the first 15 scores of each global ranking mode, or at least that's what I could find out after some extra research.
+- The yellow highlight flag is just for the personal scores, as the global scores have the automatic green highlight mentioned above (double checked by looking at old gameplay footage).
+</div>
+
+<br />
+
 The funny part is that each ranking object has to be *exactly* 10 lines long, one more or one less and the client will crash. It just so happens that the Express.js default response is also 10 lines long, therefore working perfectly fine as a valid ranking object. This was the key to understand why the program was crashing on me whenever I changed the response, and eventually helped me to figure out the format. The complete implementation:
 
 <br />
