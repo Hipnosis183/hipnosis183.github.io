@@ -1,10 +1,11 @@
 ---
 language: es
 date: 2020-12-28
-code: an-overlook-on-jvs-io-emulation-and-implementation
-title: Explorando la emulación de E/S de JVS y su implementación
+code: jvs-emulation
+title: Emulación de JVS
+subtitle: Explorando la emulación de E/S de JVS y su implementación.
 description: Cómo conseguimos correr software arcade basado en PC en casa, y expandiendo sobre lo ya existente.
-thumb: /images/posts/an-overlook-on-jvs-io-emulation-and-implementation/thumb.jpg
+thumb: /images/posts/jvs-emulation/thumb.jpg
 readtime: 18
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -37,7 +38,7 @@ Algunas máquinas antiguas han implementado protecciones bastante complejas, inc
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/00.png" class="border-image" />
+<img src="/images/posts/jvs-emulation/00.png" class="border-image" />
 
 Imagen de disco duro clonado de **Chaos Breaker**.
 
@@ -47,7 +48,7 @@ La primera tiene una instalación de **Windows XP Embedded**, un **cargador/lanz
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/01.png" class="border-image" />
+<img src="/images/posts/jvs-emulation/01.png" class="border-image" />
 
 La raíz de la partición `C:`, el contenido de la carpeta `TypeXsys` y al final la imagen de disco encriptada dentro de la carpeta `data` con los datos del juego. Además, `yes.txt`.
 
@@ -57,7 +58,7 @@ El cargador se encarga de hacer chequeos de hardware (dongle, disco duro, partic
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/02.png" />
+<img src="/images/posts/jvs-emulation/02.png" />
 
 Pantalla de error de E/S en **Trouble Witches** y **GigaWing Generations**, respectivammente.
 
@@ -67,7 +68,7 @@ También está la segunda partición, que almacena toda la configuración y dato
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/03.png" class="border-image" />
+<img src="/images/posts/jvs-emulation/03.png" class="border-image" />
 
 Una partición solo para esto.
 
@@ -98,7 +99,7 @@ Cargando el DLL en [**Ghidra**](https://www.ghidra-sre.org/), podemos ver todas 
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/04.png" />
+<img src="/images/posts/jvs-emulation/04.png" />
 
 <br />
 
@@ -111,7 +112,7 @@ La placa JVS tiene la funcionalidad de E/S en una placa separada, la cual tiene 
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/05.png" class="border-image" />
+<img src="/images/posts/jvs-emulation/05.png" class="border-image" />
 
 Esquema de la Type X, la placa de JVS principal y la placa JVS de E/S conectada a la placa de E/S secundaria.
 
@@ -121,7 +122,7 @@ El software lee los datos de los controles del dispositivo en el puerto COM2. Lo
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/06.png" class="border-image" />
+<img src="/images/posts/jvs-emulation/06.png" class="border-image" />
 
 Estructura de un paquete del protocolo JVS.
 
@@ -131,7 +132,7 @@ En pocas palabras, el `Sync Code` determina el inicio de un paquete JVS válido,
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/07.png" />
+<img src="/images/posts/jvs-emulation/07.png" />
 
 Bytes de datos del comando `SWIMP` para controles normales (también los hay para paneles de mahjong y palancas dobles)
 
@@ -589,7 +590,7 @@ En lugar de actualizar la UI vieja, decidí desarrollar una nueva desde cero con
 
 <br />
 
-<img src="/images/posts/an-overlook-on-jvs-io-emulation-and-implementation/08.png" />
+<img src="/images/posts/jvs-emulation/08.png" />
 
 También puse a trabajar un poco el aspecto de diseñador gráfico con nuevos logos e iconos.
 

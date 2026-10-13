@@ -1,10 +1,11 @@
 ---
 language: es
 date: 2025-09-12
-code: reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade
-title: Reviviendo un clásico videojuego en línea coreano - TwinHexa Arcade
-description: Bueno... tal vez no sea un clásico, pero es ciertamente interesante.
-thumb: /images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/thumb.jpg
+code: twinhexa-arcade
+title: TwinHexa Arcade
+subtitle: Reviviendo un "clásico" videojuego en línea coreano.
+description: Una copia de Columns hecha por los desarrolladores de la legendaria serie Fortress.
+thumb: /images/posts/twinhexa-arcade/thumb.jpg
 readtime: 33
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -31,7 +32,7 @@ Pero antes de **TwinHexa Arcade** vino el **TwinHexa** original, lanzado en 1997
 
 **TwinHexa Arcade** es también uno de los primeros títulos lanzados por **CCR** con un equipo de desarrollo como la gente, **MARS**, ofreciendo música y gráficos originales y de alta calidad, comparado con desarrollos anteriores. Si bien este juego no estuvo ni cerca a la popularidad de **Fortress 2**, se mantuvo bastante bien por su cuenta, generando incluso varios grupos y foros de jugadores dedicados.
 
-Ahora, después de toda esa pared de información tal vez te preguntarás: ¿por qué elegir **TwinHexa** sobre **Fortress**? Y de hecho la respuesta es exactamente la misma que tuve para [**Jewelry Master**](/es/blog/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/): es un juego más sencillo con funcionalidad reducida. O al menos eso pensé, ya como verás a continuación, este proyecto terminó siendo mucho más complejo de lo que había anticipado inicialmente, prácticamente en todos los aspectos.
+Ahora, después de toda esa pared de información tal vez te preguntarás: ¿por qué elegir **TwinHexa** sobre **Fortress**? Y de hecho la respuesta es exactamente la misma que tuve para [**Jewelry Master**](/es/blog/jewelry-master/): es un juego más sencillo con funcionalidad reducida. O al menos eso pensé, ya como verás a continuación, este proyecto terminó siendo mucho más complejo de lo que había anticipado inicialmente, prácticamente en todos los aspectos.
 
 Antes de continuar, un pequeño aviso: en realidad comencé este proyecto por allá en 2023, trabajándolo solo por un par de días hasta que resumí el desarrollo hace unos meses, así que hay un hueco de dos años en el medio. Consecuentemente, si bien intenté escribir algo coherente, es posible que me haya perdido algún que otro detalle, así que me disculpo por adelantado si algo no 'conecta' correctamente o tiene sentido del todo. Dicho esto, arranquemos.
 
@@ -42,7 +43,7 @@ Después de la instalación, podemos explorar los archivos y encontrar lo que pa
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/00.png" />
+<img src="/images/posts/twinhexa-arcade/00.png" />
 
 Se queda trabado acá, aparentemente tratando de conectarse a algún lado.
 
@@ -52,7 +53,7 @@ En caso de que tu coreano este un poco oxidado, te comento que el título de la 
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/01.png" class="border-image" />
+<img src="/images/posts/twinhexa-arcade/01.png" class="border-image" />
 
 El clásico ejecutable escondido.
 
@@ -62,7 +63,7 @@ Si renombramos este archivo a `tha.exe` y lo ejecutamos aparece la siguiente ven
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/02.png" />
+<img src="/images/posts/twinhexa-arcade/02.png" />
 
 <br />
 
@@ -75,7 +76,7 @@ Lo que podemos ver acá es el listado de servidores, y por supuesto, ninguno de 
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/03.png" class="border-image" />
+<img src="/images/posts/twinhexa-arcade/03.png" class="border-image" />
 
 Lista de servidores codificada original (arriba), y el resultado descodificado (abajo).
 
@@ -85,7 +86,7 @@ Con esta información, podemos crear nuestra propia lista de servidores y apunta
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/04.png" />
+<img src="/images/posts/twinhexa-arcade/04.png" />
 
 Éxito.
 
@@ -130,7 +131,7 @@ Generalmente, el mejor punto de partida es comenzar a capturar el tráfico de re
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/05.png" class="border-image" />
+<img src="/images/posts/twinhexa-arcade/05.png" class="border-image" />
 
 La estructura del protocolo (arriba) y la lista de comandos completa (abajo).
 
@@ -203,7 +204,7 @@ El comando `0000 04` es el único que tiene dos propósitos, pero acá solo conf
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/06.png" />
+<img src="/images/posts/twinhexa-arcade/06.png" />
 
 El botón `CREATE ID` en realidad es para actualizar el `Hexa ID`, o nombre de usuario.
 
@@ -255,7 +256,7 @@ El paquete entrante contiene las credenciales del usuario, es decir, **nombre** 
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/07.png" />
+<img src="/images/posts/twinhexa-arcade/07.png" />
 
 Se ve un poco... vacía, pero por ahora no importa.
 
@@ -265,7 +266,7 @@ Claramente faltan algunas cosas, pero igualmente es progreso. A estas alturas ya
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/08.png" />
+<img src="/images/posts/twinhexa-arcade/08.png" />
 
 El botón `CREATE` dispara el paquete `0007 01`, que indica el comienzo de una partida.\
 La opción `default` en `serverConnection` refleja el paquete recibido, lo que es suficiente para que avance el cliente.
@@ -283,7 +284,7 @@ Después de analizar el código del cliente por más de una puta semana (ya vas 
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/09.png" />
+<img src="/images/posts/twinhexa-arcade/09.png" />
 
 No se vé tan vacío ahora... aunque con valores de prueba de momento.
 
@@ -455,7 +456,7 @@ export const x000201 = (socket, data) => {
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/10.png" />
+<img src="/images/posts/twinhexa-arcade/10.png" />
 
 Al principio estás solo, pero cualquiera puede unirse y compartir tu soledad.
 
@@ -578,15 +579,15 @@ El comando `0007 02` es casi igual a `0007 01` por ahora; voy a explicarlo en un
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/11.png" />
+<img src="/images/posts/twinhexa-arcade/11.png" />
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/12.png" />
+<img src="/images/posts/twinhexa-arcade/12.png" />
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/13.png" />
+<img src="/images/posts/twinhexa-arcade/13.png" />
 
 Dos usuarios (yo y... mí mismo) conectados entre sí disputando una partida.
 
@@ -605,7 +606,7 @@ Como mencioné anteriormente, ahora voy a explicar las **clasificaciones de usua
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/14.png" class="border-image" />
+<img src="/images/posts/twinhexa-arcade/14.png" class="border-image" />
 
 Los rangos de usuario (abajo a la izquierda), y las clasificaciones de usuario (derecha).
 
@@ -615,7 +616,7 @@ Si bien esto es más o menos todo lo que necesitás saber, no es del todo correc
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/15.png" class="border-image" />
+<img src="/images/posts/twinhexa-arcade/15.png" class="border-image" />
 
 Se simplifico bastante.
 
@@ -790,7 +791,7 @@ Los archivos `twinhexa%d.not` usan la misma codificación que el archivo de list
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/16.png" />
+<img src="/images/posts/twinhexa-arcade/16.png" />
 
 El mensaje de anuncio predeterminado.
 
@@ -1130,7 +1131,7 @@ Y despues tenemos al inyector en sí, que hace lo siguiente:
 
 <br />
 
-Todo esto es configurable dentro del archivo `server.ini`, además de otras opciones que modifican el comportamiento del servidor; y hablando de éste, una de estas opciones es bastante importante: `ServerMode`. El concepto de **modos de servidor** es algo sobre lo que ya hablé en el artículo de [**Jewelry Master**](/blog/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/), aunque para esta ocasión fue simplificado y mejorado:
+Todo esto es configurable dentro del archivo `server.ini`, además de otras opciones que modifican el comportamiento del servidor; y hablando de éste, una de estas opciones es bastante importante: `ServerMode`. El concepto de **modos de servidor** es algo sobre lo que ya hablé en el artículo de [**Jewelry Master**](/blog/jewelry-master/), aunque para esta ocasión fue simplificado y mejorado:
 
 <br />
 
@@ -1140,7 +1141,7 @@ Todo esto es configurable dentro del archivo `server.ini`, además de otras opci
 
 <br />
 
-<img src="/images/posts/reviving-a-classic-korean-online-puzzle-videogame-twinhexa-arcade/17.png" />
+<img src="/images/posts/twinhexa-arcade/17.png" />
 
 Un servidor corriendo en modo `2` (izquierda) conectado a un servidor corriendo en modo `1` (derecha) en una conexión LAN.
 

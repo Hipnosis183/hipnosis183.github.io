@@ -1,10 +1,11 @@
 ---
 language: es
 date: 2020-05-30
-code: bringing-back-to-modern-life-tonic-trouble
-title: Regresando a la vida moderna – Tonic Trouble
+code: tonic-trouble
+title: Tonic Trouble
+subtitle: Regresando un antiguo videojuego a la vida moderna.
 description: Desarrollar una solución para darle vida nuevamente a un viejo título en tiempos modernos.
-thumb: /images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
+thumb: /images/posts/tonic-trouble/thumb.jpg
 readtime: 16
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -33,7 +34,7 @@ La versión Review English es bastante peculiar, ya que a diferencia de las otra
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/00.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/00.png" class="border-image" />
 
 Como se ve (izquierda) y como se debería ver una sección normal (derecha).
 
@@ -43,7 +44,7 @@ Ahora que sabemos esto, vamos a desempaquetarlo:
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/01.png" />
+<img src="/images/posts/tonic-trouble/01.png" />
 
 Carajo.
 
@@ -81,7 +82,7 @@ Ahora empezamos directamente analizando el ejecutable con Ghidra. Estamos intent
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/02.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/02.png" class="border-image" />
 
 <br />
 
@@ -95,7 +96,7 @@ Con esta información, ahora vamos a hacer el mismo proceso con estos dos ejecut
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/03.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/03.png" class="border-image" />
 
 ¿Podés encontrar la diferencia?
 
@@ -105,7 +106,7 @@ Hablando en serio, es literalmente el mismo código. Ahora cuando buscamos la di
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/04.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/04.png" class="border-image" />
 
 Unos buenos `NOPs`.
 
@@ -117,7 +118,7 @@ Bien, ahora vamos a probar *algo estúpido* (estoy empezando a ver un patrón). 
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/05.png" />
+<img src="/images/posts/tonic-trouble/05.png" />
 
 ¡Sorpresa!
 
@@ -146,7 +147,7 @@ Este proceso es muy sencillo, solamente encontramos las direcciones de estos val
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/06.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/06.png" class="border-image" />
 
 <br />
 
@@ -362,7 +363,7 @@ Al final, la aplicación quedo así:
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/07.png" />
+<img src="/images/posts/tonic-trouble/07.png" />
 
 <br />
 
@@ -558,7 +559,7 @@ Y ahora, esta vez enserio, ya terminamos con todo. Todas las funcionalidades fue
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/08.png" />
+<img src="/images/posts/tonic-trouble/08.png" />
 
 <br />
 

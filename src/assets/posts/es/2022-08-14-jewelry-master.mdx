@@ -1,10 +1,11 @@
 ---
 language: es
 date: 2022-08-14
-code: recreating-a-server-for-a-dead-online-single-player-game-jewelry-master
-title: Recreando un servidor para un videojuego en línea ya muerto - Jewelry Master
-description: Salvemos estos títulos en línea viejos y abandonados del olvido.
-thumb: /images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/thumb.jpg
+code: jewelry-master
+title: Jewelry Master
+subtitle: Recreando un servidor para un videojuego en línea ya extinto.
+description: Salvemos estos viejos títulos en línea abandonados del olvido.
+thumb: /images/posts/jewelry-master/thumb.jpg
 readtime: 19
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -12,7 +13,7 @@ import Collapsible from '@/components/ui/Collapsible.astro';
 # Introducción a los videojuegos en línea
 Todos hemos experimentado juegos en línea alguna vez, incluso sin siquiera notarlo. Ya sea un **MMO**, un modo multijugador, o simplemente el requerimiento de una conexión a un servidor, desde finales de los 90 los juego en línea se encuentran por todos lados y en formas diferentes, y con la inclusión de las plataformas móviles sobre la ya masiva base de usuarios de PC existente, solo continuaron creciendo cada vez más a través de los años.
 
-Los juegos en línea unificaron a los videojuegos con las tecnologías web, encontrando así un mejor uso para éstas más que visitar sitios web y enviar correo. Éstos también ofrecen una experiencia que de otra manera no sería posible, tanto para usuarios como desarrolladores. Pero semejantes oportunidades también vienen con un precio: es *necesaria* una conexión a un servidor para poder jugar. Ésta es la mayor desventaja de los juegos en línea, ya que como su nombre indica, es necesario tener una conexión a internet, y al mismo tiempo, tiene que existir un servidor del otro lado. Podemos manejar la primera parte fácilmente, pero no tenemos ningún control sobre la segunda. Esto se volvió un problema en los últimos años, ya que esta comunicación entre servidor-cliente se ha implementado también como una forma de protección (**DRM**) ante la piratería de software, pero en contraparte hace que el programa sea completamente dependiente en este servidor web, haciendo de éste totalmente inútil sin una conexión a internet (ya hablé sobre el tema en el [artículo anterior](/es/blog/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/), pero pensé que valía la pena mencionarlo).
+Los juegos en línea unificaron a los videojuegos con las tecnologías web, encontrando así un mejor uso para éstas más que visitar sitios web y enviar correo. Éstos también ofrecen una experiencia que de otra manera no sería posible, tanto para usuarios como desarrolladores. Pero semejantes oportunidades también vienen con un precio: es *necesaria* una conexión a un servidor para poder jugar. Ésta es la mayor desventaja de los juegos en línea, ya que como su nombre indica, es necesario tener una conexión a internet, y al mismo tiempo, tiene que existir un servidor del otro lado. Podemos manejar la primera parte fácilmente, pero no tenemos ningún control sobre la segunda. Esto se volvió un problema en los últimos años, ya que esta comunicación entre servidor-cliente se ha implementado también como una forma de protección (**DRM**) ante la piratería de software, pero en contraparte hace que el programa sea completamente dependiente en este servidor web, haciendo de éste totalmente inútil sin una conexión a internet (ya hablé sobre el tema en el [artículo anterior](/es/blog/the-laptop-arcade/), pero pensé que valía la pena mencionarlo).
 
 Pero conforme pasa el tiempo, dejamos de lado todas las risas y los buenos momentos y empezamos a ver la cruda realidad: **nada dura para siempre**. Ese título que tanto amas y que jugaste durante años va a desaparecer en algún momento, y todo lo que va a quedar son los recuerdos y *los amigos que hicimos en el camino*. Pero pará, no todo está perdido, solo es cuestión de que aparezca alguien con el tiempo, conocimiento y ganas para solucionar este problema.
 
@@ -45,7 +46,7 @@ Cuando abrimos el programa somos llevados al menú principal, donde podemos inic
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/00.png" />
+<img src="/images/posts/jewelry-master/00.png" />
 
 Claramente el servidor está muerto, así que no hay nada a lo que conectarse.
 
@@ -55,7 +56,7 @@ Ahora que ya conocemos la situación actual, veamos la comunicación con el serv
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/01.png" class="border-image" />
+<img src="/images/posts/jewelry-master/01.png" class="border-image" />
 
 Isolado el tráfico generado por el juego.
 
@@ -114,7 +115,7 @@ Esto nos debería permitir pasarnos el error de DNS y finalmente poder ver que e
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/02.png" />
+<img src="/images/posts/jewelry-master/02.png" />
 
 Bueno, eso fue fácil.
 
@@ -129,7 +130,7 @@ Si analizamos los resultados de Wireshark podemos ver múltiples peticiones al s
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/03.png" class="border-image" />
+<img src="/images/posts/jewelry-master/03.png" class="border-image" />
 
 Como podemos ver por los parámetros de consulta, el cliente no encripta la información que envía, facilitando bastante nuestro trabajo.
 
@@ -173,7 +174,7 @@ app.get('/JM_test/service/GetMessage', (req, res) => {
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/04.png" />
+<img src="/images/posts/jewelry-master/04.png" />
 
 Me siento muy afligido por haber desperdiciado esta oportunidad **perfecta** para escribir alguna frase graciosa en lugar de un simple `¡Hola Mundo!`, pero soy una persona adulta y debo comportarme como tal.
 
@@ -221,7 +222,7 @@ Las puntuaciones se clasifican en dos grupos principales: **puntuaciones persona
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/05.png" />
+<img src="/images/posts/jewelry-master/05.png" />
 
 Parece que el juego intenta usar la página HTML 'no encontrada' que Express.js envía automáticamente.
 
@@ -302,7 +303,7 @@ Pero para poder ver las puntuaciones, primero tenemos que ser capaces de guardar
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/06.png" />
+<img src="/images/posts/jewelry-master/06.png" />
 
 Debo decir que son muy buenas puntuaciones para solo una sesión de pruebas.
 
@@ -342,7 +343,7 @@ De las mil maneras que hay para inyectar DLLs y hacer hooks de funciones del sis
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/07.png" />
+<img src="/images/posts/jewelry-master/07.png" />
 
 <br />
 
@@ -412,7 +413,7 @@ Ahora que tanto el servidor como el hooking de librerías están completos, habl
 
 <br />
 
-<img src="/images/posts/recreating-a-server-for-a-dead-online-single-player-game-jewelry-master/08.png" />
+<img src="/images/posts/jewelry-master/08.png" />
 
 Un servidor funcionando en el modo en línea (`1`) conectado a otro en modo de hospedaje (`2`) en una conexión LAN.
 

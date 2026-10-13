@@ -9,7 +9,7 @@ a {
 }
 body {
   color: rgb(20, 40, 100);
-  font-family: "Poppins";
+  font-family: 'Poppins';
 }
 ul {
   list-style-type: disc;

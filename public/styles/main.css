@@ -1,5 +1,9 @@
 /* Define fonts. */
 @font-face {
+  font-family: 'Poppins';
+  src: url(/fonts/Poppins.ttf);
+}
+@font-face {
   font-family: 'Inter';
   src: url(/fonts/Inter.ttf);
 }
@@ -144,6 +148,9 @@ body {
 }
 body.dark {
   color-scheme: dark;
+}
+h1 {
+  font-family: 'Poppins';
 }
 ol > li {
   counter-increment: list;

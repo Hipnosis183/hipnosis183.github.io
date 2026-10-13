@@ -20,7 +20,7 @@ const posts = await getCollection('posts_en');
 const post = posts.filter((v) => v.data.code == Astro.params.slug)[0].data;
 ---
 
-<AppComponent title={ post.title } description={ post.description } image={ post.thumb }>
+<AppComponent title={ post.title + ' - ' + post.subtitle } description={ post.description } image={ post.thumb }>
   <PostComponent />
   <FooterComponent />
 </AppComponent>

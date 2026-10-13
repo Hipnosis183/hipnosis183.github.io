@@ -33,7 +33,7 @@ const postReadtime = (v) => {
     <!-- Post title. -->
     <div class="post-title">
       <h1>{ post.data.title }</h1>
-      <p>{ post.data.description }</p>
+      <p>{ post.data.subtitle }</p>
       <p>
         <time>{ postDate(post.data.date) }</time>
         <span>{ postReadtime(post.data.readtime) }</span>
@@ -96,11 +96,9 @@ const postReadtime = (v) => {
   line-height: 1.2;
   margin-bottom: 10px;
 }
-.post-title > p {
-  font-size: 16px;
-}
 .post-title > p:last-child {
   color: var(--color-grey);
+  font-size: 16px;
 }
 
 /* Post body. */

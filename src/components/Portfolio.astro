@@ -58,7 +58,7 @@ for (let entry of collection.sort((a, b) => new Date(b.data.date).valueOf() - ne
           <div id={ entry.data.code } class="portfolio-contents">
             <!-- Portfolio entry header. -->
             <div class="portfolio-header">
-              <div class="portfolio-name">{ entry.data.title }</div>
+              <h1 class="portfolio-name">{ entry.data.title }</h1>
               <span class="portfolio-tags">
                 { entry.data.tags.map((tag) => (
                   <code>{ tag }</code>

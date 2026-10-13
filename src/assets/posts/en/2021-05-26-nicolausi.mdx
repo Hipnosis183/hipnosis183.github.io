@@ -1,10 +1,11 @@
 ---
 language: en
 date: 2021-05-26
-code: the-art-of-cracks-and-keygens-nicolausi
-title: The art of cracks and keygens – Nicolausi
+code: nicolausi
+title: Nicolausi
+subtitle: The art of cracks and keygens.
 description: Have you ever wondered how these things worked? Well, finding it out can be very fascinating.
-thumb: /images/posts/the-art-of-cracks-and-keygens-nicolausi/thumb.jpg
+thumb: /images/posts/nicolausi/thumb.jpg
 readtime: 15
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -46,7 +47,7 @@ Now, the initial plan is quite simple: crack the Windows version, and then see i
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/00.png" />
+<img src="/images/posts/nicolausi/00.png" />
 
 On the left the DOS version, and on the right the Windows version. As far as I can tell, the only change is the increase in resolution.
 
@@ -57,7 +58,7 @@ Whenever you get past the third level, the game will pop-up a registration scree
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/01.png" />
+<img src="/images/posts/nicolausi/01.png" />
 
 Despite the website saying the contrary, the Windows version is only available in German. Name entry on the left, code entry on the right.
 
@@ -67,7 +68,7 @@ Let’s load this bad boy on [**Ghidra**](https://www.ghidra-sre.org/). At this 
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/02.png" class="border-image" />
+<img src="/images/posts/nicolausi/02.png" class="border-image" />
 
 `CHECKID` and `WRONGID` seem suspicious. There’s also `PASSWORD` and `LICENSE`, but the first is related to the level password system, and the latter with the reading/writing of the license file.
 
@@ -77,7 +78,7 @@ This specific block looks rather interesting, and those conditions may lead to s
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/03.png" />
+<img src="/images/posts/nicolausi/03.png" />
 
 Hey, that’s me!
 
@@ -91,9 +92,9 @@ When checking the value of the memory address `0x44A294` in my previous test, it
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/04.png" class="border-image" />
+<img src="/images/posts/nicolausi/04.png" class="border-image" />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/05.png" />
+<img src="/images/posts/nicolausi/05.png" />
 
 If we transform `0x138D5` from hex to decimal, we get our 'random' number, `80085`.
 
@@ -107,7 +108,7 @@ So now it’s just a matter of changing those jump instructions and we’re good
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/06.png" />
+<img src="/images/posts/nicolausi/06.png" />
 
 The fifth level, because I refuse to play this thing anymore.
 
@@ -142,7 +143,7 @@ Since we’re talking about it, here’s a fun fact about the name entry in-game
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/07.png" />
+<img src="/images/posts/nicolausi/07.png" />
 
 I couldn’t read it in german anyways.
 
@@ -302,7 +303,7 @@ The developers, **TOM Productions**, have a couple more games out there, and one
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/08.png" />
+<img src="/images/posts/nicolausi/08.png" />
 
 PC-Bakterien has `20` levels instead of Nicolausi’s `10`. Behold level 20. Of course I’m not a masochist to play all the levels, but rather exploited the save file. Said exploit consisted of `0x00`ing `80` bytes, and it even gave me very high scores. This works on Nicolausi as well (`40` bytes instead). And as a fun side note, **yes**, PC-Bakterien has the exact same crashing and text box sizing issues as Nicolausi.
 
@@ -340,7 +341,7 @@ So as expected, TOM Productions finally pulled the plug to their proprietary sto
 
 <br />
 
-<img src="/images/posts/the-art-of-cracks-and-keygens-nicolausi/09.png" />
+<img src="/images/posts/nicolausi/09.png" />
 
 The keygen itself. Notice the lack of flashy, over the top visuals. I know I promised it, but sadly don't have the time and will to add those. On the bright side, it looks like one of a kind keygen for sure.
 

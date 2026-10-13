@@ -1,10 +1,11 @@
 ---
 language: en
 date: 2020-05-30
-code: bringing-back-to-modern-life-tonic-trouble
-title: Bringing back to modern life – Tonic Trouble
+code: tonic-trouble
+title: Tonic Trouble
+subtitle: Bringing back an old game to modern life.
 description: Develop a solution to breathe new life to an old title in modern times.
-thumb: /images/posts/bringing-back-to-modern-life-tonic-trouble/thumb.jpg
+thumb: /images/posts/tonic-trouble/thumb.jpg
 readtime: 16
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -33,7 +34,7 @@ So, the Review English version is very particular, since unlike the others, for 
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/00.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/00.png" class="border-image" />
 
 How it looks (left), and how a normal section should look (right).
 
@@ -43,7 +44,7 @@ Ok, so now that we know this, let’s try to unpack it:
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/01.png" />
+<img src="/images/posts/tonic-trouble/01.png" />
 
 Fuck.
 
@@ -81,7 +82,7 @@ With that, we start right away analyzing the executable with Ghidra. We’re try
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/02.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/02.png" class="border-image" />
 
 <br />
 
@@ -95,7 +96,7 @@ With this information, now we are going to do the exact same process with these 
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/03.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/03.png" class="border-image" />
 
 Can you spot the difference?
 
@@ -105,7 +106,7 @@ Jokes aside, is literally the same code. Now, when we search it in the patched e
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/04.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/04.png" class="border-image" />
 
 Nice `NOPs`.
 
@@ -117,7 +118,7 @@ Okay, let’s try *something stupid* (I'm starting to see a pattern over here). 
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/05.png" />
+<img src="/images/posts/tonic-trouble/05.png" />
 
 Surprise!
 
@@ -146,7 +147,7 @@ This process is very easy, we just find the offsets for those formatted values a
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/06.png" class="border-image" />
+<img src="/images/posts/tonic-trouble/06.png" class="border-image" />
 
 <br />
 
@@ -362,7 +363,7 @@ At the end, the application ended up like this:
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/07.png" />
+<img src="/images/posts/tonic-trouble/07.png" />
 
 <br />
 
@@ -558,7 +559,7 @@ And now, this time for real, we're pretty much done. Every feature has been test
 
 <br />
 
-<img src="/images/posts/bringing-back-to-modern-life-tonic-trouble/08.png" />
+<img src="/images/posts/tonic-trouble/08.png" />
 
 <br />
 

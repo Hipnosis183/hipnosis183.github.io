@@ -1,10 +1,11 @@
 ---
 language: es
 date: 2021-12-01
-code: reversing-and-cracking-the-chinese-android-based-laptop-arcade-games
-title: Analizando y crackeando el dispositivo chino basado en Android, el Laptop Arcade Player
+code: the-laptop-arcade
+title: El Laptop Arcade
+subtitle: Analizando y crackeando software de este dispositivo chino basado en Android.
 description: Algún día China va a dominar el mundo.
-thumb: /images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/thumb.jpg
+thumb: /images/posts/the-laptop-arcade/thumb.jpg
 readtime: 13
 ---
 import Collapsible from '@/components/ui/Collapsible.astro';
@@ -31,7 +32,7 @@ A fines de noviembre del 2021, se me dió a conocer que cierta gente había enco
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/00.png" class="border-image" />
+<img src="/images/posts/the-laptop-arcade/00.png" class="border-image" />
 
 El Laptop Arcade Player y sus especificaciones.
 
@@ -48,7 +49,7 @@ Ahora que tengo los archivos en mi posesión, ya puedo empezar a probarlos. Al i
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/01.png" />
+<img src="/images/posts/the-laptop-arcade/01.png" />
 
 Traducción: **🍋 LEMON ON**. Registro no está instalado, por favor intente de nuevo después de instalar.
 
@@ -80,7 +81,7 @@ Ahora adentrándonos en la descompilación en sí, después de ejecutar el scrip
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/02.png" />
+<img src="/images/posts/the-laptop-arcade/02.png" />
 
 '¡Que demonios! Toma una decisión y hazlo. No cometemos errores, solo tenemos accidentes felices'.
 
@@ -90,7 +91,7 @@ Asusta, ¿verdad? Pero no te dejes confundir con todas esas opciones, ya que par
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/03.png" class="border-image" />
+<img src="/images/posts/the-laptop-arcade/03.png" class="border-image" />
 
 Normalmente usaríamos solo la carpeta `smali`, pero en algunas de estas aplicaciones también hay que modificar el archivo `AndroidManifest.xml`, debido a algunos problemas de compatibilidad con Apktool durante la compilación.
 
@@ -101,7 +102,7 @@ Ahora que tenemos el `APK` descompilado, ya podemos analizar el código Smali en
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/04.png" class="border-image" />
+<img src="/images/posts/the-laptop-arcade/04.png" class="border-image" />
 
 Estructura de directorios del código de la aplicación.
 
@@ -155,7 +156,7 @@ En este momento solamente estamos probando varias cosas, por lo que voy a elimin
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/05.png" />
+<img src="/images/posts/the-laptop-arcade/05.png" />
 
 <br />
 
@@ -203,7 +204,7 @@ Este bloque de código está efectivamente creando una nueva instancia de la cla
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/06.png" />
+<img src="/images/posts/the-laptop-arcade/06.png" />
 
 Funciona exactamente igual.
 
@@ -233,7 +234,7 @@ El otro videojuego de peleas, **Fighting Master Ultimate**, brilla por lo malo q
 
 <br />
 
-<img src="/images/posts/reversing-and-cracking-the-chinese-android-based-laptop-arcade-games/07.png" />
+<img src="/images/posts/the-laptop-arcade/07.png" />
 
 `H A C K E R`
 

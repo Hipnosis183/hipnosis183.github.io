@@ -31,16 +31,16 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
         <a id="home-youtube" target="_blank" rel="noopener noreferrer"
           href="https://youtube.com/@RenzoPigliacampo" />
       </div>
-      <p>{ language.data.SITE.AUTHOR }</p>
+      <h1>{ language.data.SITE.AUTHOR }</h1>
       <p>{ language.data.SITE.OCCUPATION }</p>
     </div>
     <!-- Home page sections. -->
     <div id="design" class="home-section">
-      <p>{ language.data.HOME.DESIGN.TITLE }</p>
+      <h1>{ language.data.HOME.DESIGN.TITLE }</h1>
       <p>{ language.data.HOME.DESIGN.TEXT }</p>
     </div>
     <div id="coding" class="home-section">
-      <p>{ language.data.HOME.CODING.TITLE }</p>
+      <h1>{ language.data.HOME.CODING.TITLE }</h1>
       <p>{ language.data.HOME.CODING.TEXT }</p>
     </div>
   </div>
@@ -92,11 +92,11 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
   position: absolute;
   width: 100%;
 }
-.home-author > p:not(:last-child) {
+.home-author > h1 {
   font-size: 3.6vw;
   font-weight: 900;
 }
-.home-author > p:last-child {
+.home-author > p {
   font-size: 1.8vw;
   font-weight: 200;
 }
@@ -134,7 +134,7 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
   text-align: center;
   z-index: 1;
 }
-.home-section > p:first-child {
+.home-section > h1 {
   border-bottom: solid 1px var(--color-grey);
   display: flex;
   font-size: 3.6vw;
@@ -145,7 +145,7 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
   white-space: nowrap;
   width: 80%;
 }
-.home-section > p:last-child {
+.home-section > p {
   font-size: 1.8vw;
   font-weight: 200;
   width: 30vw;
@@ -181,16 +181,16 @@ const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 #author.home-author {
   animation: 2s fade;
 }
-#coding.home-section > p:first-child {
+#coding.home-section > h1 {
   animation: 1s fade, 1s slide-left;
 }
-#coding.home-section > p:last-child {
+#coding.home-section > p {
   animation: 2s fade, 1.4s slide-left;
 }
-#design.home-section > p:first-child {
+#design.home-section > h1 {
   animation: 1s fade, 1s slide-right;
 }
-#design.home-section > p:last-child {
+#design.home-section > p {
   animation: 2s fade, 1.4s slide-right;
 }
 @keyframes fade {
