@@ -6,35 +6,8 @@ import { getCollection } from 'astro:content';
 const languages = await getCollection('i18n');
 const language = languages.filter((v) => v.data.LANG == Astro.currentLocale)[0];
 
-// Define portfolio design variables.
-const api = 'https://backend.deviantart.com/rss.xml?q=gallery%3Ahipnosis183%2F67799208&offset=';
-const deviations = [], $deviations = [], offset = 60;
-let cursor = 0, response = [];
-
-// Manage request to DeviantArt RSS API.
-import { XMLParser } from 'fast-xml-parser';
-do {
-  const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
-  const parsed = parser.parse(await (await fetch(api + cursor)).text());
-  // Store local request response.
-  response = parsed.rss.channel.item;
-  // Store global request response.
-  for (let deviation of response) { $deviations.push(deviation); }
-  // Update request offset cursor.
-  cursor += offset;
-  // Repeat request if there are more items available.
-} while (response.length >= offset);
-// Create the deviation objects.
-for (let deviation of $deviations) {
-  // Add deviation object to list.
-  deviations.push({
-    title: deviation['title'],
-    link: deviation['link'],
-    date: deviation['pubDate'],
-    image: deviation['media:content']['url'],
-    thumb: deviation['media:thumbnail'][1]['url'],
-  });
-}
+// Import portfolio design deviations list.
+import deviations from '$/deviantart.json';
 
 // Manage entry date formatting.
 const entryDate = (v) => {
