@@ -1,5 +1,6 @@
 import { defineConfig, passthroughImageService } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import { satteri } from '@astrojs/markdown-satteri';
 
 export default defineConfig({
   site: 'https://hipnosis183.github.io',
@@ -8,7 +9,7 @@ export default defineConfig({
   },
   integrations: [mdx()],
   markdown: {
-    smartypants: false,
+    processor: satteri({ features: { smartPunctuation: false } }),
     syntaxHighlight: 'prism',
   },
   i18n: {

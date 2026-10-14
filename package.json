@@ -8,11 +8,9 @@
     "preview": "astro preview --host"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.1.0",
-    "astro": "^5.4.1",
-    "fast-xml-parser": "^5.0.8",
-    "marked": "^15.0.7",
-    "marked-highlight": "^2.2.1",
-    "prismjs": "^1.29.0"
+    "@astrojs/markdown-satteri": "^0.4.3",
+    "@astrojs/mdx": "^8.0.3",
+    "astro": "^7.3.8",
+    "fast-xml-parser": "^5.11.2"
   }
 }

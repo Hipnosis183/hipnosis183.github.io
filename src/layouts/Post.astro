@@ -73,8 +73,8 @@ const postReadtime = (v) => {
   border-radius: 8px 8px 0 0;
   bottom: 0;
   left: 0;
-  mask-image: linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) -100%, rgba(0, 0, 0, 0) 100%);
   outline: 1px solid var(--color-post-border);
   overflow: hidden;
   position: absolute;
@@ -99,6 +99,7 @@ const postReadtime = (v) => {
 .post-title > p:last-child {
   color: var(--color-grey);
   font-size: 16px;
+  margin-top: 4px;
 }
 
 /* Post body. */
@@ -155,7 +156,8 @@ const postReadtime = (v) => {
   .post-title > h1 {
     font-size: 25px;
   }
-  .post-title > p {
+  .post-title > p,
+  .post-title > p:last-child {
     font-size: 14px;
   }
   :global(.post-body h1) {
